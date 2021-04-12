@@ -39,6 +39,7 @@
 
 	<modules>
 		<module>bali-ui-i18n</module>
+		<module>bali-ui-menu</module>
 	</modules>
 
 	<dependencyManagement>
