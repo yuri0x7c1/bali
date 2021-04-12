@@ -37,6 +37,10 @@
 		<evo.inflector.version>1.2.2</evo.inflector.version>
 	</properties>
 
+	<modules>
+		<module>bali-ui-i18n</module>
+	</modules>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
