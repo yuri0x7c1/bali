@@ -13,29 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar.annotation;
+package com.github.yuri0x7c1.bali.ui.menu.annotation;
 
-import com.vaadin.icons.VaadinIcons;
-import org.vaadin.spring.sidebar.VaadinFontIconProvider;
+import org.springframework.context.annotation.Import;
 
+import com.github.yuri0x7c1.bali.ui.menu.config.MenuConfiguration;
+
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation is placed next to {@link org.vaadin.spring.sidebar.annotation.SideBarItem}, instructing the side bar
- * to use a {@link org.vaadin.teemu.VaadinIcons Vaadin Font Icon} for the item.
+ * Add this annotation to your application configuration to enable the {@link org.vaadin.spring.sidebar.components.AccordionSideBar}
+ * component. After that, just inject the side bar into your UIs. The side bar uses {@link org.vaadin.spring.i18n.I18N}, so remember
+ * {@link org.vaadin.spring.i18n.annotation.EnableI18N enable} it as well, unless you are using auto configuration.
  *
  * @author Petter Holmström (petter@vaadin.com)
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SideBarItemIcon(VaadinFontIconProvider.class)
-public @interface VaadinFontIcon {
-
-    /**
-     * The item icon.
-     */
-    VaadinIcons value();
+@Documented
+@Import(MenuConfiguration.class)
+public @interface EnableMenu {
 }

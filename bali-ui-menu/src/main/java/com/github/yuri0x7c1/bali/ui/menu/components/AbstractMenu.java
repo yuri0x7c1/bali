@@ -13,37 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar.components;
-
-import com.vaadin.ui.Component;
-import com.vaadin.ui.ComponentContainer;
-import com.vaadin.ui.CustomComponent;
-import org.vaadin.spring.sidebar.SideBarItemDescriptor;
-import org.vaadin.spring.sidebar.SideBarSectionDescriptor;
-import org.vaadin.spring.sidebar.SideBarUtils;
+package com.github.yuri0x7c1.bali.ui.menu.components;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.github.yuri0x7c1.bali.ui.menu.MenuItemDescriptor;
+import com.github.yuri0x7c1.bali.ui.menu.MenuSectionDescriptor;
+import com.github.yuri0x7c1.bali.ui.menu.MenuUtils;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasComponents;
+
 /**
- * Base class for visual side bar components. The side bar has access to an instance of {@link org.vaadin.spring.sidebar.SideBarUtils}
+ * Base class for visual side bar components. The side bar has access to an instance of {@link com.github.yuri0x7c1.bali.ui.menu.MenuUtils}
  * that will provide information about the sections and items to show.
  *
  * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
  */
-public abstract class AbstractSideBar<CR extends ComponentContainer> extends CustomComponent {
+public abstract class AbstractMenu<CR extends HasComponents> extends Component {
 
-    private final SideBarUtils sideBarUtils;
+    private final MenuUtils menuUtils;
     private SectionComponentFactory<CR> sectionComponentFactory;
     private ItemComponentFactory itemComponentFactory;
     private ItemFilter itemFilter;
 
     /**
-     * Protected constructor. The instance of {@link org.vaadin.spring.sidebar.SideBarUtils} should come from the Spring application context.
+     * Protected constructor. The instance of {@link com.github.yuri0x7c1.bali.ui.menu.MenuUtils} should come from the Spring application context.
      */
-    protected AbstractSideBar(SideBarUtils sideBarUtils) {
-        this.sideBarUtils = sideBarUtils;
+    protected AbstractMenu(MenuUtils sideBarUtils) {
+        this.menuUtils = sideBarUtils;
     }
 
     /**
@@ -53,40 +53,16 @@ public abstract class AbstractSideBar<CR extends ComponentContainer> extends Cus
     protected abstract CR createCompositionRoot();
 
     /**
-     * {@inheritDoc}
-     * <p>
-     * When the side bar is not attached to a UI, this method will always return {@code null}.
-     * </p>
-     *
-     * @see #createCompositionRoot()
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    protected CR getCompositionRoot() {
-        return (CR) super.getCompositionRoot();
-    }
-
-    @Override
-    public void attach() {
-        super.attach();
-        CR compositionRoot = createCompositionRoot();
-        setCompositionRoot(compositionRoot);
-        for (SideBarSectionDescriptor section : sideBarUtils.getSideBarSections(getUI().getClass())) {
-            createSection(compositionRoot, section, sideBarUtils.getSideBarItems(section));
-        }
-    }
-
-    /**
-     * Creates the default {@link org.vaadin.spring.sidebar.components.AbstractSideBar.SectionComponentFactory} to use.
+     * Creates the default {@link com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu.SectionComponentFactory} to use.
      * This method must never return {@code null}.
      */
     protected abstract SectionComponentFactory<CR> createDefaultSectionComponentFactory();
 
     /**
-     * Returns the current {@link org.vaadin.spring.sidebar.components.AbstractSideBar.SectionComponentFactory}. If no
+     * Returns the current {@link com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu.SectionComponentFactory}. If no
      * factory has been set, a default factory is created.
      *
-     * @see #setSectionComponentFactory(org.vaadin.spring.sidebar.components.AbstractSideBar.SectionComponentFactory)
+     * @see #setSectionComponentFactory(com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu.SectionComponentFactory)
      * @see #createDefaultSectionComponentFactory()
      */
     protected SectionComponentFactory<CR> getSectionComponentFactory() {
@@ -98,23 +74,23 @@ public abstract class AbstractSideBar<CR extends ComponentContainer> extends Cus
     }
 
     /**
-     * Sets the {@link org.vaadin.spring.sidebar.components.AbstractSideBar.SectionComponentFactory} to use.
+     * Sets the {@link com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu.SectionComponentFactory} to use.
      */
     protected void setSectionComponentFactory(SectionComponentFactory<CR> sectionComponentFactory) {
         this.sectionComponentFactory = sectionComponentFactory;
     }
 
     /**
-     * Creates the default {@link org.vaadin.spring.sidebar.components.AbstractSideBar.ItemComponentFactory} to use.
+     * Creates the default {@link com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu.ItemComponentFactory} to use.
      * This method must never return {@code null}.
      */
     protected abstract ItemComponentFactory createDefaultItemComponentFactory();
 
     /**
-     * Returns the current {@link org.vaadin.spring.sidebar.components.AbstractSideBar.ItemComponentFactory}. If no
+     * Returns the current {@link com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu.ItemComponentFactory}. If no
      * factory has been set, a default factory is created.
      *
-     * @see #setItemComponentFactory(org.vaadin.spring.sidebar.components.AbstractSideBar.ItemComponentFactory)
+     * @see #setItemComponentFactory(com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu.ItemComponentFactory)
      * @see #createDefaultItemComponentFactory()
      */
     protected ItemComponentFactory getItemComponentFactory() {
@@ -125,21 +101,21 @@ public abstract class AbstractSideBar<CR extends ComponentContainer> extends Cus
     }
 
     /**
-     * Sets the {@link org.vaadin.spring.sidebar.components.AbstractSideBar.ItemComponentFactory} to use.
+     * Sets the {@link com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu.ItemComponentFactory} to use.
      */
     protected void setItemComponentFactory(ItemComponentFactory itemComponentFactory) {
         this.itemComponentFactory = itemComponentFactory;
     }
 
-    private void createSection(CR compositionRoot, SideBarSectionDescriptor section, Collection<SideBarItemDescriptor> items) {
+    private void createSection(CR compositionRoot, MenuSectionDescriptor section, Collection<MenuItemDescriptor> items) {
         if (items.isEmpty()) {
             return;
         }
         if (itemFilter == null) {
             getSectionComponentFactory().createSection(compositionRoot, section, items);
         } else {
-            List<SideBarItemDescriptor> passedItems = new ArrayList<SideBarItemDescriptor>();
-            for (SideBarItemDescriptor candidate : items) {
+            List<MenuItemDescriptor> passedItems = new ArrayList<MenuItemDescriptor>();
+            for (MenuItemDescriptor candidate : items) {
                 if (itemFilter.passesFilter(candidate)) {
                     passedItems.add(candidate);
                 }
@@ -168,19 +144,13 @@ public abstract class AbstractSideBar<CR extends ComponentContainer> extends Cus
         return itemFilter;
     }
 
-    @Override
-    public void detach() {
-        setCompositionRoot(null);
-        super.detach();
-    }
-
     /**
      * Interface defining a factory for creating components that correspond to sections in a side bar.
      */
-    public interface SectionComponentFactory<CR extends ComponentContainer> {
+    public interface SectionComponentFactory<CR extends HasComponents> {
         /**
          * Sets the {@code ItemComponentFactory} to use when creating the items of the section. This method
-         * is always called before the first invocation of {@link #createSection(com.vaadin.ui.ComponentContainer, org.vaadin.spring.sidebar.SideBarSectionDescriptor, java.util.Collection)}.
+         * is always called before the first invocation of {@link #createSection(com.vaadin.ui.ComponentContainer, com.github.yuri0x7c1.bali.ui.menu.MenuSectionDescriptor, java.util.Collection)}.
          *
          * @param itemComponentFactory the item component factory, must not be {@code null}.
          */
@@ -193,25 +163,25 @@ public abstract class AbstractSideBar<CR extends ComponentContainer> extends Cus
          * @param descriptor      the descriptor of the side bar section, must not be {@code null}.
          * @param itemDescriptors the descriptors of the items to be added to the section, must not be {@code null} nor empty.
          */
-        void createSection(CR compositionRoot, SideBarSectionDescriptor descriptor, Collection<SideBarItemDescriptor> itemDescriptors);
+        void createSection(CR compositionRoot, MenuSectionDescriptor descriptor, Collection<MenuItemDescriptor> itemDescriptors);
     }
 
     /**
      * Interface defining a factory for creating components that correspond to items in a side bar section. When
-     * the item is clicked by the user, {@link org.vaadin.spring.sidebar.SideBarItemDescriptor#itemInvoked(com.vaadin.ui.UI)}
+     * the item is clicked by the user, {@link com.github.yuri0x7c1.bali.ui.menu.MenuItemDescriptor#itemInvoked(com.vaadin.ui.UI)}
      * must be called.
      */
     public interface ItemComponentFactory {
 
         /**
          * Creates a component to be added to a side bar section by a {@link AccordionSideBar.SectionComponentFactory}.
-         * Remember to call {@link org.vaadin.spring.sidebar.SideBarItemDescriptor#itemInvoked(com.vaadin.ui.UI)} when the item
+         * Remember to call {@link com.github.yuri0x7c1.bali.ui.menu.MenuItemDescriptor#itemInvoked(com.vaadin.ui.UI)} when the item
          * is clicked by the user.
          *
          * @param descriptor the descriptor of the side bar item, must not be {@code null}.
          * @return a component, never {@code null}.
          */
-        Component createItemComponent(SideBarItemDescriptor descriptor);
+        Component createItemComponent(MenuItemDescriptor descriptor);
     }
 
     /**
@@ -226,7 +196,7 @@ public abstract class AbstractSideBar<CR extends ComponentContainer> extends Cus
          * @param descriptor the descriptor of the side bar item, must not be {@code null}.
          * @return true if the item passes the filter, false if it does not.
          */
-        boolean passesFilter(SideBarItemDescriptor descriptor);
+        boolean passesFilter(MenuItemDescriptor descriptor);
 
     }
 }

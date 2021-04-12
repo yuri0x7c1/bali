@@ -13,41 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar.security;
+package com.github.yuri0x7c1.bali.ui.menu.security;
 
-import org.springframework.security.access.annotation.Secured;
-import org.vaadin.spring.security.VaadinSecurity;
-import org.vaadin.spring.sidebar.SideBarItemDescriptor;
-import org.vaadin.spring.sidebar.components.AbstractSideBar;
+import com.github.yuri0x7c1.bali.ui.menu.MenuItemDescriptor;
+import com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu;
 
 /**
- * This is an {@link org.vaadin.spring.sidebar.components.AbstractSideBar.ItemFilter ItemFilter} that uses
+ * This is an {@link com.github.yuri0x7c1.bali.ui.menu.components.AbstractMenu.ItemFilter ItemFilter} that uses
  * {@link org.vaadin.spring.security.VaadinSecurity} to filter out items with the {@link org.springframework.security.access.annotation.Secured} annotation
  * based on the current user's authorities. If a user has any of the authorities/roles listed in the annotation, the item passes the filter. Items without
  * the annotation also pass the filter.
  *
  * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
  * @see org.vaadin.spring.security.VaadinSecurity#hasAnyAuthority(String...)
  */
-public class VaadinSecurityItemFilter implements AbstractSideBar.ItemFilter {
+public class VaadinSecurityItemFilter implements AbstractMenu.ItemFilter {
 
-    private final VaadinSecurity vaadinSecurity;
+    // private final VaadinSecurity vaadinSecurity;
 
-    /**
-     * Creates a new instance of {@code VaadinSecurityItemFilter}.
-     *
-     * @param vaadinSecurity an instance of {@link org.vaadin.spring.security.VaadinSecurity}.
-     */
-    public VaadinSecurityItemFilter(VaadinSecurity vaadinSecurity) {
-        this.vaadinSecurity = vaadinSecurity;
-    }
 
     @Override
-    public boolean passesFilter(SideBarItemDescriptor descriptor) {
+    public boolean passesFilter(MenuItemDescriptor descriptor) {
+    	/*
         Secured secured = descriptor.findAnnotationOnBean(Secured.class);
         if (secured != null) {
             return vaadinSecurity.hasAnyAuthority(secured.value());
         }
+        */
         return true;
     }
 }

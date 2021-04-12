@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar;
-
-import com.vaadin.ui.UI;
-
-import org.vaadin.spring.i18n.I18N;
-import org.vaadin.spring.sidebar.annotation.SideBarSection;
+package com.github.yuri0x7c1.bali.ui.menu;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.github.yuri0x7c1.bali.ui.menu.annotation.MenuSection;
+import com.vaadin.flow.component.UI;
+
 /**
- * This is a class that describes a side bar section that has been declared using a {@link org.vaadin.spring.sidebar.annotation.SideBarSection} annotation.
+ * This is a class that describes a side bar section that has been declared using a {@link com.github.yuri0x7c1.bali.ui.menu.annotation.MenuSection} annotation.
  *
  * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
  */
-public class SideBarSectionDescriptor implements Comparable<SideBarSectionDescriptor> {
+public class MenuSectionDescriptor implements Comparable<MenuSectionDescriptor> {
 
-    private final SideBarSection section;
+    private final MenuSection section;
     private final I18N i18n;
     private final Set<Class<? extends UI>> availableUIClasses;
 
@@ -41,14 +41,14 @@ public class SideBarSectionDescriptor implements Comparable<SideBarSectionDescri
      * @param section the annotation, must not be {@code null}.
      * @param i18n    the {@link org.vaadin.spring.i18n.I18N} instance to use when looking up localized captions, must not be {@code null}.
      */
-    public SideBarSectionDescriptor(SideBarSection section, I18N i18n) {
+    public MenuSectionDescriptor(MenuSection section, I18N i18n) {
         this.section = section;
         this.i18n = i18n;
         availableUIClasses = new HashSet<Class<? extends UI>>(Arrays.asList(section.ui()));
     }
 
     /**
-     * Returns the caption of this side bar section. If the caption was specified using {@link org.vaadin.spring.sidebar.annotation.SideBarSection#captionCode()},
+     * Returns the caption of this side bar section. If the caption was specified using {@link com.github.yuri0x7c1.bali.ui.menu.annotation.MenuSection#captionCode()},
      * this method will fetch the string from {@link org.vaadin.spring.i18n.I18N}.
      *
      * @return a string, never {@code null}.
@@ -88,7 +88,7 @@ public class SideBarSectionDescriptor implements Comparable<SideBarSectionDescri
     }
 
     @Override
-    public int compareTo(SideBarSectionDescriptor o) {
+    public int compareTo(MenuSectionDescriptor o) {
         return getOrder() - o.getOrder();
     }
 }

@@ -13,27 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar.annotation;
-
-import com.vaadin.ui.UI;
+package com.github.yuri0x7c1.bali.ui.menu.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.vaadin.flow.component.UI;
+
 /**
  * This annotation is used to declare a {@link org.vaadin.spring.sidebar.components.AccordionSideBar} section that can contain items.
  * It has to be placed on a Spring-managed bean in order to get detected, but the bean can be an empty singleton without methods.
  *
  * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
  * @see org.vaadin.spring.sidebar.components.AccordionSideBar
- * @see org.vaadin.spring.sidebar.annotation.SideBarItem
- * @see org.vaadin.spring.sidebar.annotation.SideBarSections
+ * @see com.github.yuri0x7c1.bali.ui.menu.annotation.MenuItem
+ * @see com.github.yuri0x7c1.bali.ui.menu.annotation.MenuSections
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SideBarSection {
+public @interface MenuSection {
 
     /**
      * The ID of the side bar section. Must be unique within the application.

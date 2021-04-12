@@ -13,32 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar;
-
-import com.vaadin.navigator.View;
-import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.UI;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.vaadin.spring.i18n.I18N;
-import org.vaadin.spring.sidebar.annotation.SideBarItem;
-import org.vaadin.spring.sidebar.annotation.SideBarSection;
-import org.vaadin.spring.sidebar.annotation.SideBarSections;
+package com.github.yuri0x7c1.bali.ui.menu;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.github.yuri0x7c1.bali.ui.menu.annotation.MenuItem;
+import com.github.yuri0x7c1.bali.ui.menu.annotation.MenuSection;
+import com.github.yuri0x7c1.bali.ui.menu.annotation.MenuSections;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.router.Route;
+
 /**
  * Utility methods for working with side bars. This class is a Spring managed bean and is mainly
  * intended for internal use.
  *
  * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
  */
-public class SideBarUtils {
+public class MenuUtils {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -46,11 +47,11 @@ public class SideBarUtils {
 
     private final I18N i18n;
 
-    private final List<SideBarSectionDescriptor> sections = new ArrayList<SideBarSectionDescriptor>();
+    private final List<MenuSectionDescriptor> sections = new ArrayList<MenuSectionDescriptor>();
 
-    private final List<SideBarItemDescriptor> items = new ArrayList<SideBarItemDescriptor>();
+    private final List<MenuItemDescriptor> items = new ArrayList<MenuItemDescriptor>();
 
-    public SideBarUtils(ApplicationContext applicationContext, I18N i18n) {
+    public MenuUtils(ApplicationContext applicationContext, I18N i18n) {
         this.applicationContext = applicationContext;
         this.i18n = i18n;
         scanForSections();
@@ -61,37 +62,37 @@ public class SideBarUtils {
 
     private void scanForSections() {
         logger.debug("Scanning for side bar sections");
-        String[] beanNames = applicationContext.getBeanNamesForAnnotation(SideBarSection.class);
+        String[] beanNames = applicationContext.getBeanNamesForAnnotation(MenuSection.class);
         for (String beanName : beanNames) {
             logger.debug("Bean [{}] declares a side bar section", beanName);
-            addSectionDescriptors(applicationContext.findAnnotationOnBean(beanName, SideBarSection.class));
+            addSectionDescriptors(applicationContext.findAnnotationOnBean(beanName, MenuSection.class));
         }
-        beanNames = applicationContext.getBeanNamesForAnnotation(SideBarSections.class);
+        beanNames = applicationContext.getBeanNamesForAnnotation(MenuSections.class);
         for (String beanName : beanNames) {
             logger.debug("Bean [{}] declares multiple side bar sections", beanName);
-            addSectionDescriptors(applicationContext.findAnnotationOnBean(beanName, SideBarSections.class).value());
+            addSectionDescriptors(applicationContext.findAnnotationOnBean(beanName, MenuSections.class).value());
         }
     }
 
-    private void addSectionDescriptors(SideBarSection... sections) {
-        for (SideBarSection section : sections) {
+    private void addSectionDescriptors(MenuSection... sections) {
+        for (MenuSection section : sections) {
             logger.debug("Adding side bar section [{}]", section.id());
-            this.sections.add(new SideBarSectionDescriptor(section, i18n));
+            this.sections.add(new MenuSectionDescriptor(section, i18n));
         }
     }
 
     private void scanForItems() {
         logger.debug("Scanning for side bar items");
-        String[] beanNames = applicationContext.getBeanNamesForAnnotation(SideBarItem.class);
+        String[] beanNames = applicationContext.getBeanNamesForAnnotation(MenuItem.class);
         for (String beanName : beanNames) {
             logger.debug("Bean [{}] declares a side bar item", beanName);
             Class<?> beanType = applicationContext.getType(beanName);
             if (Runnable.class.isAssignableFrom(beanType)) {
                 logger.debug("Adding side bar item for action [{}]", beanType);
-                this.items.add(new SideBarItemDescriptor.ActionItemDescriptor(beanName, applicationContext));
-            } else if (View.class.isAssignableFrom(beanType) && beanType.isAnnotationPresent(SpringView.class)) {
+                this.items.add(new MenuItemDescriptor.ActionItemDescriptor(beanName, applicationContext));
+            } else if (Component.class.isAssignableFrom(beanType) && beanType.isAnnotationPresent(Route.class)) {
                 logger.debug("Adding side bar item for view [{}]", beanType);
-                this.items.add(new SideBarItemDescriptor.ViewItemDescriptor(beanName, applicationContext));
+                this.items.add(new MenuItemDescriptor.ViewItemDescriptor(beanName, applicationContext));
             }
         }
     }
@@ -101,11 +102,11 @@ public class SideBarUtils {
      *
      * @param uiClass the UI class, must not be {@code null}.
      * @return a collection of side bar section descriptors, never {@code null}.
-     * @see SideBarSection#ui()
+     * @see MenuSection#ui()
      */
-    public Collection<SideBarSectionDescriptor> getSideBarSections(Class<? extends UI> uiClass) {
-        List<SideBarSectionDescriptor> supportedSections = new ArrayList<SideBarSectionDescriptor>();
-        for (SideBarSectionDescriptor section : sections) {
+    public Collection<MenuSectionDescriptor> getSideBarSections(Class<? extends UI> uiClass) {
+        List<MenuSectionDescriptor> supportedSections = new ArrayList<MenuSectionDescriptor>();
+        for (MenuSectionDescriptor section : sections) {
             if (section.isAvailableFor(uiClass)) {
                 supportedSections.add(section);
             }
@@ -119,9 +120,9 @@ public class SideBarUtils {
      * @param descriptor descriptor the side bar section descriptor, must not be {@code null}.
      * @return a collection of side bar item descriptors, never {@code null}.
      */
-    public Collection<SideBarItemDescriptor> getSideBarItems(SideBarSectionDescriptor descriptor) {
-        List<SideBarItemDescriptor> supportedItems = new ArrayList<SideBarItemDescriptor>();
-        for (SideBarItemDescriptor item : items) {
+    public Collection<MenuItemDescriptor> getSideBarItems(MenuSectionDescriptor descriptor) {
+        List<MenuItemDescriptor> supportedItems = new ArrayList<MenuItemDescriptor>();
+        for (MenuItemDescriptor item : items) {
             if (item.isMemberOfSection(descriptor)) {
                 supportedItems.add(item);
             }

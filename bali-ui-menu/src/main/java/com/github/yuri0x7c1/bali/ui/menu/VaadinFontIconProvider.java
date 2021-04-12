@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar.annotation;
+package com.github.yuri0x7c1.bali.ui.menu;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.github.yuri0x7c1.bali.ui.menu.annotation.VaadinFontIcon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 
 /**
- * This annotation is used to declare multiple {@link org.vaadin.spring.sidebar.annotation.SideBarSection}s on the same
- * bean. Please refer to the JavaDocs for {@link org.vaadin.spring.sidebar.annotation.SideBarSection} for more information.
+ * Icon provider for {@link com.github.yuri0x7c1.bali.ui.menu.annotation.VaadinFontIcon}.
  *
  * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface SideBarSections {
+public class VaadinFontIconProvider implements MenuItemIconProvider<VaadinFontIcon> {
 
-    SideBarSection[] value();
+    @Override
+    public VaadinIcon getIcon(VaadinFontIcon annotation) {
+        return annotation.value();
+    }
 }

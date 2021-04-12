@@ -13,38 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar;
-
-import com.vaadin.server.Resource;
-import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.UI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.vaadin.spring.i18n.I18N;
-import org.vaadin.spring.sidebar.annotation.SideBarItem;
-import org.vaadin.spring.sidebar.annotation.SideBarItemIcon;
+package com.github.yuri0x7c1.bali.ui.menu;
 
 import java.lang.annotation.Annotation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.github.yuri0x7c1.bali.ui.menu.annotation.MenuItem;
+import com.github.yuri0x7c1.bali.ui.menu.annotation.MenuItemIcon;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.router.Route;
+
 /**
- * This is a class that describes a side bar item that has been declared using a {@link org.vaadin.spring.sidebar.annotation.SideBarItem} annotation.
+ * This is a class that describes a side bar item that has been declared using a {@link com.github.yuri0x7c1.bali.ui.menu.annotation.MenuItem} annotation.
  *
  * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
  */
-public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDescriptor> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SideBarItemDescriptor.class);
+public abstract class MenuItemDescriptor implements Comparable<MenuItemDescriptor> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuItemDescriptor.class);
     public static final String ITEM_ID_PREFIX = "sidebaritem_";
 
-	private final SideBarItem item;
+	private final MenuItem item;
     private final I18N i18n;
     private final ApplicationContext applicationContext;
     private final String beanName;
     private final Annotation iconAnnotation;
-    private final SideBarItemIconProvider<Annotation> iconProvider;
+    private final MenuItemIconProvider<Annotation> iconProvider;
 
-    protected SideBarItemDescriptor(String beanName, ApplicationContext applicationContext) {
-        this.item = applicationContext.findAnnotationOnBean(beanName, SideBarItem.class);
+    protected MenuItemDescriptor(String beanName, ApplicationContext applicationContext) {
+        this.item = applicationContext.findAnnotationOnBean(beanName, MenuItem.class);
         LOGGER.debug("Item annotation of bean [{}] is [{}]", beanName, item);
         this.i18n = applicationContext.getBean(I18N.class);
         this.applicationContext = applicationContext;
@@ -72,7 +74,7 @@ public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDes
             Annotation[] annotations = type.getDeclaredAnnotations();
             for (Annotation annotation : annotations) {
                 LOGGER.trace("Checking annotation [{}] for icon annotations", annotation);
-                if (annotation.annotationType().isAnnotationPresent(SideBarItemIcon.class)) {
+                if (annotation.annotationType().isAnnotationPresent(MenuItemIcon.class)) {
                     LOGGER.trace("Found icon annotation on [{}]", annotation);
                     return annotation;
                 }
@@ -84,9 +86,9 @@ public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDes
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private SideBarItemIconProvider<Annotation> findIconProvider() {
+    private MenuItemIconProvider<Annotation> findIconProvider() {
         if (iconAnnotation != null) {
-            final Class<? extends SideBarItemIconProvider> iconProviderClass = iconAnnotation.annotationType().getAnnotation(SideBarItemIcon.class).value();
+            final Class<? extends MenuItemIconProvider> iconProviderClass = iconAnnotation.annotationType().getAnnotation(MenuItemIcon.class).value();
             return applicationContext.getBean(iconProviderClass);
         } else {
             return null;
@@ -112,7 +114,7 @@ public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDes
     }
 
     /**
-     * Returns the caption of this side bar item. If the caption was specified using {@link org.vaadin.spring.sidebar.annotation.SideBarItem#captionCode()},
+     * Returns the caption of this side bar item. If the caption was specified using {@link com.github.yuri0x7c1.bali.ui.menu.annotation.MenuItem#captionCode()},
      * this method will fetch the string from {@link org.vaadin.spring.i18n.I18N}.
      *
      * @return a string, never {@code null}.
@@ -130,7 +132,7 @@ public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDes
      *
      * @return an icon resource, or {@code null} if the item has no icon.
      */
-    public Resource getIcon() {
+    public VaadinIcon getIcon() {
         if (iconProvider != null) {
             return iconProvider.getIcon(iconAnnotation);
         } else {
@@ -160,12 +162,12 @@ public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDes
      * @param section the side bar section, must not be {@code null}.
      * @return true if the item is a member, false otherwise.
      */
-    public boolean isMemberOfSection(SideBarSectionDescriptor section) {
+    public boolean isMemberOfSection(MenuSectionDescriptor section) {
         return item.sectionId().equals(section.getId());
     }
 
     @Override
-    public int compareTo(SideBarItemDescriptor o) {
+    public int compareTo(MenuItemDescriptor o) {
         return getOrder() - o.getOrder();
     }
 
@@ -179,7 +181,7 @@ public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDes
     /**
      * Side bar item descriptor for action items. When invoked, the descriptor will execute the operation.
      */
-    public static class ActionItemDescriptor extends SideBarItemDescriptor {
+    public static class ActionItemDescriptor extends MenuItemDescriptor {
 
         /**
          * You should never need to create instances of this class directly.
@@ -202,9 +204,9 @@ public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDes
      * Side bar item descriptor for view items. When invoked, the descriptor will navigate to the
      * view.
      */
-    public static class ViewItemDescriptor extends SideBarItemDescriptor {
+    public static class ViewItemDescriptor extends MenuItemDescriptor {
 
-        private final SpringView vaadinView;
+        private final Route vaadinView;
 
         /**
          * You should never need to create instances of this class directly.
@@ -214,7 +216,7 @@ public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDes
          */
         public ViewItemDescriptor(String beanName, ApplicationContext applicationContext) {
             super(beanName, applicationContext);
-            this.vaadinView = applicationContext.findAnnotationOnBean(beanName, SpringView.class);
+            this.vaadinView = applicationContext.findAnnotationOnBean(beanName, Route.class);
         }
 
         /**
@@ -223,12 +225,12 @@ public abstract class SideBarItemDescriptor implements Comparable<SideBarItemDes
          * @return a string, never {@code null}.
          */
         public String getViewName() {
-            return vaadinView.name();
+            return vaadinView.value();
         }
 
         @Override
         public void itemInvoked(UI ui) {
-            ui.getNavigator().navigateTo(vaadinView.name());
+            // ui.getNavigator().navigateTo(vaadinView.name());
         }
     }
 }

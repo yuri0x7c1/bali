@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar.annotation;
+package com.github.yuri0x7c1.bali.ui.menu.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.vaadin.spring.sidebar.SideBarItemIconProvider;
+import com.github.yuri0x7c1.bali.ui.menu.MenuItemIconProvider;
 
 /**
- * Meta annotation designed to be placed on icon annotations that are used to specify an icon of a {@link org.vaadin.spring.sidebar.annotation.SideBarItem}.
+ * Meta annotation designed to be placed on icon annotations that are used to specify an icon of a {@link com.github.yuri0x7c1.bali.ui.menu.annotation.MenuItem}.
  *
  * @author Petter Holmström (petter@vaadin.com)
  * @see org.vaadin.spring.sidebar.annotation.FontAwesomeIcon
@@ -32,14 +32,14 @@ import org.vaadin.spring.sidebar.SideBarItemIconProvider;
  */
 @Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SideBarItemIcon {
+public @interface MenuItemIcon {
 
     /**
-     * The class of the {@link org.vaadin.spring.sidebar.SideBarItemIconProvider} that knows how to provide
+     * The class of the {@link com.github.yuri0x7c1.bali.ui.menu.MenuItemIconProvider} that knows how to provide
      * the actual icon {@link com.vaadin.server.Resource}s. An instance of this class will be looked up from the
      * Spring application context, so make sure your icon provider is Spring managed.
      */
     @SuppressWarnings("rawtypes")
-    Class<? extends SideBarItemIconProvider> value();
+    Class<? extends MenuItemIconProvider> value();
 
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar.annotation;
+package com.github.yuri0x7c1.bali.ui.menu.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -31,19 +31,19 @@ import java.lang.annotation.Target;
  *
  * @author Petter Holmström (petter@vaadin.com)
  * @see org.vaadin.spring.sidebar.components.AccordionSideBar
- * @see org.vaadin.spring.sidebar.annotation.SideBarSection
+ * @see com.github.yuri0x7c1.bali.ui.menu.annotation.MenuSection
  * @see org.vaadin.spring.sidebar.annotation.FontAwesomeIcon
  * @see org.vaadin.spring.sidebar.annotation.ThemeIcon
  * @see org.vaadin.spring.sidebar.annotation.LocalizedThemeIcon
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SideBarItem {
+public @interface MenuItem {
 
     /**
      * The ID of the side bar section that this item belongs to.
      *
-     * @see SideBarSection#id()
+     * @see MenuSection#id()
      */
     String sectionId();
 

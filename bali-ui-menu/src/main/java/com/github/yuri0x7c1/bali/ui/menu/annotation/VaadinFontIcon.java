@@ -13,29 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.spring.sidebar.annotation;
+package com.github.yuri0x7c1.bali.ui.menu.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.vaadin.spring.sidebar.LocalizedThemeIconProvider;
+import com.github.yuri0x7c1.bali.ui.menu.VaadinFontIconProvider;
+import com.vaadin.flow.component.icon.VaadinIcon;
 
 /**
- * This annotation is placed next to {@link SideBarItem}, instructing the side bar
- * to use a {@link com.vaadin.server.ThemeResource} icon for the item, but to look up the actual
- * resource ID from an {@link org.vaadin.spring.i18n.I18N}.
+ * This annotation is placed next to {@link com.github.yuri0x7c1.bali.ui.menu.annotation.MenuItem}, instructing the side bar
+ * to use a {@link org.vaadin.teemu.VaadinIcons Vaadin Font Icon} for the item.
  *
  * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SideBarItemIcon(LocalizedThemeIconProvider.class)
-public @interface LocalizedThemeIcon {
+@MenuItemIcon(VaadinFontIconProvider.class)
+public @interface VaadinFontIcon {
 
     /**
-     * The key to use when looking up the real resource ID from an {@link org.vaadin.spring.i18n.I18N}.
+     * The item icon.
      */
-    String value();
+    VaadinIcon value();
 }
