@@ -41,6 +41,7 @@
 		<module>bali-ui-i18n</module>
 		<module>bali-ui-menu</module>
 		<module>bali-demo-app</module>
+		<module>bali-ui</module>
 	</modules>
 
 	<dependencyManagement>
@@ -134,6 +135,12 @@
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
 				<version>${javax.validation.api.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.vaadin</groupId>
+				<artifactId>flow-viritin</artifactId>
+				<version>0.4.0</version>
 			</dependency>
 
 		</dependencies>

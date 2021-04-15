@@ -1,6 +1,6 @@
-package com.github.yuri0x7c1.bali.demo.views.helloworld;
+package com.github.yuri0x7c1.bali.demo.ui.view.helloworld;
 
-import com.github.yuri0x7c1.bali.demo.views.main.MainView;
+import com.github.yuri0x7c1.bali.demo.ui.view.main.MainView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;

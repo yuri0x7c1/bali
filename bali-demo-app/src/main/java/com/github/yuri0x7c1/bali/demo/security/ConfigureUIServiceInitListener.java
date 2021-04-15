@@ -1,6 +1,6 @@
 package com.github.yuri0x7c1.bali.demo.security;
 
-import com.github.yuri0x7c1.bali.demo.views.login.LoginView;
+import com.github.yuri0x7c1.bali.demo.ui.view.login.LoginView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.server.ServiceInitEvent;

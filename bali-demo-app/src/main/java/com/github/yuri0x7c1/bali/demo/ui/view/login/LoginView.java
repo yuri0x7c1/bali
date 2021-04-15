@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.demo.views.login;
+package com.github.yuri0x7c1.bali.demo.ui.view.login;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;

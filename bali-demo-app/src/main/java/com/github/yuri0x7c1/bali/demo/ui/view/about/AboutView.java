@@ -1,6 +1,6 @@
-package com.github.yuri0x7c1.bali.demo.views.about;
+package com.github.yuri0x7c1.bali.demo.ui.view.about;
 
-import com.github.yuri0x7c1.bali.demo.views.main.MainView;
+import com.github.yuri0x7c1.bali.demo.ui.view.main.MainView;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
