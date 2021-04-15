@@ -66,7 +66,8 @@ public class FooListView extends Div {
 			if (CollectionUtils.isNotEmpty(selected)) {
 				if (selected.size() == 1) {
 					editButton.getUI().ifPresent(ui ->
-						ui.navigate("foo/create/" + selected.iterator().next().getId().toString()));
+						ui.navigate("foo/edit/" + selected.iterator().next().getId().toString())
+					);
 				}
 			}
 		});
