@@ -1,5 +1,7 @@
 package com.github.yuri0x7c1.bali.demo;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,22 +13,18 @@ import com.github.yuri0x7c1.bali.demo.domain.Bar;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.BarService;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.flow.component.page.AppShellConfigurator;
-import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 
 import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
+import lombok.extern.slf4j.Slf4j;
 
-/**
- * The entry point of the Spring Boot application.
- *
- * Use the * and some desktop browsers.
- *
- */
-@SpringBootApplication
+
+@Slf4j
+@SpringBootApplication(scanBasePackages={"com.github.yuri0x7c1.bali"})
 @Theme(value = "balidemoapp")
-@PWA(name = "Bali Demo App", shortName = "Bali Demo App", offlineResources = {"images/logo.png"})
 public class BaliDemoApp extends SpringBootServletInitializer implements CommandLineRunner, AppShellConfigurator {
 
     public static void main(String[] args) {
@@ -38,6 +36,9 @@ public class BaliDemoApp extends SpringBootServletInitializer implements Command
 
 	@Autowired
 	BarService barService;
+
+	@Autowired
+	I18N i18n;
 
 	public void createDummyData() {
 		if (fooService.count() == 0L) {
@@ -62,7 +63,9 @@ public class BaliDemoApp extends SpringBootServletInitializer implements Command
 
 	@Override
 	public void run(String... args) throws Exception {
-		createDummyData();
+		// createDummyData();
+
+		log.info("!!! i18n test: {}", i18n.get("Create"), Locale.ENGLISH);
 	}
 
 }
