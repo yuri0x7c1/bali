@@ -127,24 +127,6 @@ public class I18N implements I18NProvider {
     }
 
     /**
-     * Tries to resolve the specified message for the given locale.
-     *
-     * @param code the code to lookup up, such as 'calculator.noRateSet', never {@code null}.
-     * @param locale The Locale for which it is tried to look up the code. Must not be null
-     * @param arguments Array of arguments that will be filled in for params within the message (params look like "{0}",
-     *        "{1,date}", "{2,time}"), or {@code null} if none.
-     * @throws IllegalArgumentException if the given Locale is null
-     * @return the resolved message, or the message code prepended with an exclamation mark if the lookup fails.
-     * @see org.springframework.context.ApplicationContext#getMessage(String, Object[], java.util.Locale)
-     * @see java.util.Locale
-     * @deprecated Use {@link #get(String, Locale, Object...)} instead.
-     */
-    @Deprecated
-    public String getWithLocale(String code, Locale locale, Object... arguments) {
-        return get(code, locale, arguments);
-    }
-
-    /**
      * Tries to resolve the specified message for the current locale.
      *
      * @param code the code to lookup up, such as 'calculator.noRateSet', never {@code null}.
