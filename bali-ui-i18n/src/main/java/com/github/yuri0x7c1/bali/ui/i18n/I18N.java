@@ -15,6 +15,8 @@
  */
 package com.github.yuri0x7c1.bali.ui.i18n;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -24,6 +26,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.NoSuchMessageException;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.i18n.I18NProvider;
 
 /**
  * Helper class for resolving messages in a Vaadin UI. This is effectively a wrapper around
@@ -49,8 +52,9 @@ import com.vaadin.flow.component.UI;
  * that contains all the messages to resolve.
  *
  * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
  */
-public class I18N {
+public class I18N implements I18NProvider {
 
     private final ApplicationContext applicationContext;
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -208,4 +212,15 @@ public class I18N {
         }
         return locale;
     }
+
+	@Override
+	public List<Locale> getProvidedLocales() {
+		// TODO return list of locales
+		return Arrays.asList(Locale.getDefault());
+	}
+
+	@Override
+	public String getTranslation(String key, Locale locale, Object... params) {
+		return get(key, locale, params);
+	}
 }
