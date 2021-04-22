@@ -19,14 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.NoSuchMessageException;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.i18n.I18NProvider;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Helper class for resolving messages in a Vaadin UI. This is effectively a wrapper around
@@ -54,10 +54,10 @@ import com.vaadin.flow.i18n.I18NProvider;
  * @author Petter Holmström (petter@vaadin.com)
  * @author yuri0x7c1
  */
+@Slf4j
 public class I18N implements I18NProvider {
 
     private final ApplicationContext applicationContext;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
     private boolean revertToDefaultBundle = true;
 
     /**
@@ -97,7 +97,7 @@ public class I18N implements I18NProvider {
         try {
             return getMessage(code, null, arguments);
         } catch (NoSuchMessageException ex) {
-            logger.warn("Tried to retrieve message with code [{}] that does not exist", code);
+            log.warn("Tried to retrieve message with code [{}] that does not exist", code);
             return "!" + code;
         }
     }
@@ -121,7 +121,7 @@ public class I18N implements I18NProvider {
         try {
             return getMessage(code, locale, arguments);
         } catch (NoSuchMessageException ex) {
-            logger.warn("Tried to retrieve message with code [{}] that does not exist", code);
+            log.warn("Tried to retrieve message with code [{}] that does not exist", code);
             return "!" + code;
         }
     }
