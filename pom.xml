@@ -32,7 +32,7 @@
 		<hibernate.jpa.api.version>1.0.2.Final</hibernate.jpa.api.version>
 		<javax.validation.api.version>2.0.1.Final</javax.validation.api.version>
 
-		<vaadin.version>19.0.4</vaadin.version>
+		<vaadin.version>19.0.5</vaadin.version>
 
 		<evo.inflector.version>1.2.2</evo.inflector.version>
 	</properties>
