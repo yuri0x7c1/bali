@@ -7,15 +7,20 @@ import org.vaadin.firitin.components.textfield.VTextField;
 import org.vaadin.firitin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.validator.BeanValidator;
 import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal = true)
+@UIScope
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class FooForm extends AbstractForm<Foo> {
@@ -47,7 +52,7 @@ public class FooForm extends AbstractForm<Foo> {
     BarMultiPicker linkedBars;
     */
 
-	public FooForm(/* I18N i18n, UIEventBus eventBus, BarSelect bar, BarMultiPicker linkedBars */) {
+	public FooForm(I18N i18n /* UIEventBus eventBus, BarSelect bar, BarMultiPicker linkedBars */) {
 		super(Foo.class);
 		/*
 		this.i18n = i18n;
@@ -57,7 +62,7 @@ public class FooForm extends AbstractForm<Foo> {
 		*/
 
 		// initialize stringValue
-		stringValue = new VTextField("String Value");
+		stringValue = new VTextField(i18n.get("Foo.stringValue"));
 
 		/*
 		// initialize longValue

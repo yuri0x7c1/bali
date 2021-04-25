@@ -20,7 +20,6 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 
@@ -87,6 +86,7 @@ public class FooListView extends Div {
 	}
 
 	protected void list() {
+		/*
 		fooGrid.setItems(
 			query -> {
 				String property = DEFAULT_ORDER_PROPERTY;
@@ -108,6 +108,7 @@ public class FooListView extends Div {
 			query -> Long.valueOf(fooService.count()).intValue()
 
 		);
+		*/
 	}
 
 }
