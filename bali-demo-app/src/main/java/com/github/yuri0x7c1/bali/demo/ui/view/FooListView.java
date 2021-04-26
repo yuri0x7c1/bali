@@ -53,7 +53,7 @@ public class FooListView extends Div {
 	public void init() {
 		add(new H3("Foos"));
 
-		// create button
+		// create button00
 		createButton = new VButton("Create", e -> {
 			createButton.getUI().ifPresent(ui -> ui.navigate("foo/create"));
 		});
@@ -86,7 +86,6 @@ public class FooListView extends Div {
 	}
 
 	protected void list() {
-		/*
 		fooGrid.setItems(
 			query -> {
 				String property = DEFAULT_ORDER_PROPERTY;
@@ -108,7 +107,6 @@ public class FooListView extends Div {
 			query -> Long.valueOf(fooService.count()).intValue()
 
 		);
-		*/
 	}
 
 }
