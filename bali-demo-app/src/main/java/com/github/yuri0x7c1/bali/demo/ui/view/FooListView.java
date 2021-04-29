@@ -5,19 +5,16 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.firitin.components.button.DeleteButton;
 import org.vaadin.firitin.components.button.VButton;
-import org.vaadin.firitin.components.grid.VGrid;
 
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
+import com.github.yuri0x7c1.bali.demo.ui.datagrid.FooDataGrid;
 import com.github.yuri0x7c1.bali.demo.ui.view.main.MainView;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
@@ -39,7 +36,7 @@ public class FooListView extends Div {
 
 	final FooService fooService;
 
-	VGrid<Foo> fooGrid;
+	final FooDataGrid fooGrid;
 
 	VButton createButton;
 
@@ -72,41 +69,6 @@ public class FooListView extends Div {
 		});
 		add(editButton);
 
-		// entity grid
-		fooGrid = new VGrid<>(Foo.class);
-
-		// entity grid default columns
-		fooGrid.withProperties("id", "stringValue", "longValue", "doubleValue", "booleanValue", "date", "instant",
-				"localDateTime", "zonedDateTime", "localDate", "bar");
-
-		// list entities
-		list();
-
 		add(fooGrid);
 	}
-
-	protected void list() {
-		fooGrid.setItems(
-			query -> {
-				String property = DEFAULT_ORDER_PROPERTY;
-				Direction direction = DEFAULT_ORDER_DIRECTION;
-				if (CollectionUtils.isNotEmpty(query.getSortOrders())) {
-					property = query.getSortOrders().get(0).getSorted();
-					direction = SortDirection.ASCENDING.equals(query.getSortOrders().get(0).getDirection()) ? Direction.ASC : Direction.DESC;
-				}
-
-				Page<Foo> foos = fooService.findAll(PageRequest.of(
-					query.getOffset() / query.getLimit(),
-					query.getLimit(),
-					direction,
-					property
-				));
-
-				return foos.stream().map(foo -> fooService.init(foo));
-			},
-			query -> Long.valueOf(fooService.count()).intValue()
-
-		);
-	}
-
 }
