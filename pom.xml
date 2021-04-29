@@ -42,6 +42,7 @@
 		<module>bali-ui-menu</module>
 		<module>bali-demo-app</module>
 		<module>bali-ui</module>
+		<module>bali-data</module>
 	</modules>
 
 	<dependencyManagement>
