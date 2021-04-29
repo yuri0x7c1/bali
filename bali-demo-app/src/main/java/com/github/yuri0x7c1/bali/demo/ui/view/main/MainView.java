@@ -3,6 +3,7 @@ package com.github.yuri0x7c1.bali.demo.ui.view.main;
 import java.util.Optional;
 
 import com.github.yuri0x7c1.bali.demo.ui.view.FooListView;
+import com.github.yuri0x7c1.bali.demo.ui.view.HomeView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -75,6 +76,7 @@ public class MainView extends AppLayout {
 
     private Component[] createMenuItems() {
         return new Tab[]{
+        	createTab("Home", HomeView.class),
         	createTab("Foos", FooListView.class)
         };
     }
