@@ -90,7 +90,6 @@ public class FooDataGrid extends VDiv {
 
 		// entity grid
 		grid = new VGrid<>(Foo.class);
-			// .withStyleName("common-table");
 
 		// entity grid default columns
 		clearColumns();
@@ -150,12 +149,13 @@ public class FooDataGrid extends VDiv {
 	}
 
 	public FooDataGrid withColumn(String propertyName, String caption) {
-		grid.addColumn(propertyName); //.withCaption(caption);
+		grid.addColumn(propertyName).setHeader(caption);
+
 		return this;
 	}
 
 	public FooDataGrid withColumn(ValueProvider<Foo, String> valueProvider, String caption) {
-		grid.addColumn(valueProvider); //.setCaption(caption);
+		grid.addColumn(valueProvider).setHeader(caption);
 		return this;
 	}
 

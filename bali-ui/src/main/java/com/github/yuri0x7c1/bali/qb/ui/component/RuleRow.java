@@ -100,7 +100,7 @@ public class RuleRow extends VHorizontalLayout {
 			if (valueField != null) {
 				valueLayout.remove(valueField);
 			}
-			valueField = new VTextField().withThemeVariants(TextFieldVariant.LUMO_SMALL);
+			valueField = new VTextField();
 			valueLayout.add(valueField);
 		}
 	}
