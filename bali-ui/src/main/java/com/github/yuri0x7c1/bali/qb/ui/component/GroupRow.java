@@ -7,6 +7,7 @@ import org.vaadin.firitin.components.button.VButton;
 import org.vaadin.firitin.components.orderedlayout.VVerticalLayout;
 
 import com.github.yuri0x7c1.bali.data.qb.model.QbCondition;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -58,25 +59,20 @@ public class GroupRow extends VVerticalLayout {
 			level = parentGroup.getLevel() + 1;
 		}
 
-		// addStyleName(LumoTheme.LAYOUT_WELL);
 		conditions = new RadioButtonGroup<>();
-		// conditions.addStyleName(ValoTheme.OPTIONGROUP_HORIZONTAL);
-		// conditions.addStyleName(ValoTheme.OPTIONGROUP_SMALL);
 		conditions.setItems(QbCondition.AND, QbCondition.OR);
 		conditions.setValue(QbCondition.AND);
 
 		addRuleButton = new VButton("Add Rule", VaadinIcon.PLUS.create(), event -> addRule());
-		//	.withStyleName(ValoTheme.BUTTON_PRIMARY, ValoTheme.BUTTON_SMALL);
 
 		addGroupButton = new VButton("Add Group", VaadinIcon.PLUS.create(), event -> addGroup());
-		//	.withStyleName(ValoTheme.BUTTON_PRIMARY, ValoTheme.BUTTON_SMALL);
 
 		deleteButton = new VButton("Delete", VaadinIcon.CLOSE.create(), event ->  {
 			if (parentGroup != null) {
 				parentGroup.deleteGroup(this);
 			}
-		});
-		// .withStyleName(ValoTheme.BUTTON_DANGER, ValoTheme.BUTTON_SMALL);
+		})
+		.withThemeVariants(ButtonVariant.LUMO_ERROR);
 
 		HorizontalLayout buttonLayout = new HorizontalLayout();
 		buttonLayout.add(conditions);
@@ -84,8 +80,8 @@ public class GroupRow extends VVerticalLayout {
 		buttonLayout.add(addGroupButton);
 		if (level == 0) {
 			searchButton =  new VButton("Search")
-				.withIcon(VaadinIcon.SEARCH.create());
-				//.withStyleName(ValoTheme.BUTTON_PRIMARY, ValoTheme.BUTTON_SMALL);
+				.withIcon(VaadinIcon.SEARCH.create())
+				.withThemeVariants(ButtonVariant.LUMO_PRIMARY);
 			buttonLayout.add(searchButton);
 		}
 		else if (level > 0) {
@@ -125,7 +121,7 @@ public class GroupRow extends VVerticalLayout {
 	public GroupRow addGroup() {
 		GroupRow groupRow = new GroupRow(qb, this);
 		groups.add(groupRow);
-		remove(groupRow);
+		add(groupRow);
 		return groupRow;
 	}
 

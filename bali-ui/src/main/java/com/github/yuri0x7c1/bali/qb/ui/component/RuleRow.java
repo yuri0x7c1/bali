@@ -9,8 +9,10 @@ import com.github.yuri0x7c1.bali.data.qb.model.QbField;
 import com.github.yuri0x7c1.bali.data.qb.model.QbOperator;
 import com.github.yuri0x7c1.bali.data.qb.model.QbType;
 import com.vaadin.flow.component.AbstractField;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.textfield.TextFieldVariant;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -55,7 +57,6 @@ public class RuleRow extends VHorizontalLayout {
 		this.parentGroup = parentGroup;
 
 		operatorSelect = new ComboBox<>();
-		// operatorSelect.addStyleName(ValoTheme.COMBOBOX_SMALL);
 
 		fieldSelect = new ComboBox<>();
 		// fieldSelect.addStyleName(ValoTheme.COMBOBOX_SMALL);
@@ -70,8 +71,8 @@ public class RuleRow extends VHorizontalLayout {
 
 		valueLayout = new VDiv();
 
-		deleteButton = new VButton("Delete", VaadinIcon.CLOSE.create(),  event -> parentGroup.deleteRule(this));
-		// 	.withStyleName(ValoTheme.BUTTON_DANGER, ValoTheme.BUTTON_SMALL);
+		deleteButton = new VButton("Delete", VaadinIcon.CLOSE.create(),  event -> parentGroup.deleteRule(this))
+			.withThemeVariants(ButtonVariant.LUMO_ERROR);
 
 
 		add(fieldSelect);
@@ -99,7 +100,7 @@ public class RuleRow extends VHorizontalLayout {
 			if (valueField != null) {
 				valueLayout.remove(valueField);
 			}
-			valueField = new VTextField(); //.withStyleName(ValoTheme.TEXTFIELD_SMALL);
+			valueField = new VTextField().withThemeVariants(TextFieldVariant.LUMO_SMALL);
 			valueLayout.add(valueField);
 		}
 	}
