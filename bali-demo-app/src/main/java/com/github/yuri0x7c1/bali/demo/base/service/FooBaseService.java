@@ -1,10 +1,5 @@
 package com.github.yuri0x7c1.bali.demo.base.service;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +15,18 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.yuri0x7c1.bali.demo.base.repository.FooBaseRepository;
-import com.github.yuri0x7c1.bali.demo.domain.Bar;
-import com.github.yuri0x7c1.bali.demo.domain.Foo;
-
 import lombok.extern.slf4j.Slf4j;
+import com.github.yuri0x7c1.bali.demo.base.repository.FooBaseRepository;
+import com.github.yuri0x7c1.bali.demo.specification.FooSpecification;
+import com.github.yuri0x7c1.bali.data.qb.model.QbModel;
+
+import com.github.yuri0x7c1.bali.demo.domain.Foo;
+import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.LocalDate;
+import com.github.yuri0x7c1.bali.demo.domain.Bar;
 
 /**
  * Foo Base Service
@@ -141,7 +143,6 @@ public class FooBaseService {
 		return foo;
 	}
 
-	/*
 	@Transactional(readOnly=true)
 	public Page<Foo> search(QbModel criteria, Pageable pageable) {
 		log.trace("Request to search a page of Foos with criteria: {}", criteria);
@@ -159,7 +160,6 @@ public class FooBaseService {
 		}
 		return fooBaseRepository.count();
 	}
-	*/
 
 	/* Finder methods for entity fields */
 	/* stringValue */

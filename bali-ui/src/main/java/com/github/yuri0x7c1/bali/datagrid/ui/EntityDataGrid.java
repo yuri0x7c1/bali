@@ -41,7 +41,7 @@ public abstract class EntityDataGrid<T> extends VDiv {
     }
 
     public interface SearchCountProvider<T> extends Serializable {
-        Integer searchCount(QbModel criteria);
+        Long searchCount(QbModel criteria);
     }
 
 	final Class<T> entityType;
@@ -118,7 +118,7 @@ public abstract class EntityDataGrid<T> extends VDiv {
 				);
 
 			},
-			query -> getSearchCountProvider().searchCount(qbModel)
+			query -> getSearchCountProvider().searchCount(qbModel).intValue()
 		);
 	}
 

@@ -15,10 +15,12 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.yuri0x7c1.bali.demo.base.repository.BarBaseRepository;
-import com.github.yuri0x7c1.bali.demo.domain.Bar;
-
 import lombok.extern.slf4j.Slf4j;
+import com.github.yuri0x7c1.bali.demo.base.repository.BarBaseRepository;
+import com.github.yuri0x7c1.bali.demo.specification.BarSpecification;
+import com.github.yuri0x7c1.bali.data.qb.model.QbModel;
+
+import com.github.yuri0x7c1.bali.demo.domain.Bar;
 
 /**
  * Bar Base Service
@@ -134,7 +136,6 @@ public class BarBaseService {
 		return bar;
 	}
 
-	/*
 	@Transactional(readOnly=true)
 	public Page<Bar> search(QbModel criteria, Pageable pageable) {
 		log.trace("Request to search a page of Bars with criteria: {}", criteria);
@@ -152,7 +153,6 @@ public class BarBaseService {
 		}
 		return barBaseRepository.count();
 	}
-	*/
 
 	/* Finder methods for entity fields */
 	/* value */
