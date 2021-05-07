@@ -6,7 +6,7 @@ import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.demo.ui.form.FooForm;
 import com.github.yuri0x7c1.bali.demo.ui.view.main.MainView;
-import com.github.yuri0x7c1.bali.ui.NavigationUtil;
+import com.github.yuri0x7c1.bali.util.ui.NavigationUtil;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;

@@ -23,6 +23,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.github.yuri0x7c1.bali</groupId>
+			<artifactId>bali-ui-i18n</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.vaadin</groupId>
 			<artifactId>flow-viritin</artifactId>
 		</dependency>
