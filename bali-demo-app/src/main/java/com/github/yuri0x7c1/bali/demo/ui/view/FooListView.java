@@ -13,8 +13,8 @@ import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.demo.ui.datagrid.FooDataGrid;
 import com.github.yuri0x7c1.bali.demo.ui.view.main.MainView;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H3;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
@@ -29,10 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 @SpringComponent
 @Route(value = "foo/list", layout = MainView.class)
 @PageTitle("Foos")
-public class FooListView extends Div {
+public class FooListView extends CommonView {
 	public static final String DEFAULT_ORDER_PROPERTY = "id";
 
 	public static final Direction DEFAULT_ORDER_DIRECTION = Direction.ASC;
+
+	final I18N i18n;
 
 	final FooService fooService;
 
@@ -48,13 +50,13 @@ public class FooListView extends Div {
 
 	@PostConstruct
 	public void init() {
-		add(new H3("Foos"));
+		setHeaderText(i18n.get("Foo.Foos"));
 
-		// create button00
+		// create button
 		createButton = new VButton("Create", e -> {
 			createButton.getUI().ifPresent(ui -> ui.navigate("foo/create"));
 		});
-		add(createButton);
+
 
 		// edit button
 		editButton = new VButton("Edit", e -> {
@@ -67,7 +69,22 @@ public class FooListView extends Div {
 				}
 			}
 		});
-		add(editButton);
+
+		// delete button
+		deleteButton = new DeleteButton()
+			.withText("Delete")
+			.withConfirmHandler(() -> {
+				Set<Foo> selected = fooGrid.getSelectedItems();
+				if (CollectionUtils.isNotEmpty(selected)) {
+					if (selected.size() == 1) {
+						fooService.delete(selected.iterator().next());
+					}
+				}
+			});
+
+		addHeaderComponent(createButton);
+		addHeaderComponent(editButton);
+		addHeaderComponent(deleteButton);
 
 		add(fooGrid);
 	}
