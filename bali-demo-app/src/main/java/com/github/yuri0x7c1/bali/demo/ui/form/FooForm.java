@@ -7,6 +7,7 @@ import org.vaadin.firitin.components.textfield.VTextField;
 import org.vaadin.firitin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
+import com.github.yuri0x7c1.bali.demo.ui.picker.BarMultiPicker;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -27,7 +28,7 @@ public class FooForm extends AbstractForm<Foo> {
 
 	private static final long serialVersionUID = 1L;
 
-	// private I18N i18n;
+	private I18N i18n;
 
 	// private UIEventBus eventBus;
 
@@ -48,18 +49,17 @@ public class FooForm extends AbstractForm<Foo> {
     DateField localDate;
 
     BarSelect bar;
-
-    BarMultiPicker linkedBars;
     */
 
-	public FooForm(I18N i18n /* UIEventBus eventBus, BarSelect bar, BarMultiPicker linkedBars */) {
+    BarMultiPicker linkedBars;
+
+	public FooForm(I18N i18n, /* UIEventBus eventBus, BarSelect bar,*/ BarMultiPicker linkedBars) {
 		super(Foo.class);
-		/*
+
 		this.i18n = i18n;
-		this.eventBus = eventBus;
-		this.bar = bar;
+//		this.eventBus = eventBus;
+//		this.bar = bar;
 		this.linkedBars = linkedBars;
-		*/
 
 		// initialize stringValue
 		stringValue = new VTextField(i18n.get("Foo.stringValue"));
@@ -91,10 +91,10 @@ public class FooForm extends AbstractForm<Foo> {
 
 		// initialize bar
 		bar.withCaption(i18n.get("Foo.bar"));
+		*/
 
 		// initialize linkedBars
 		linkedBars.withCaption(i18n.get("Foo.linkedBars"));
-		*/
 
 	}
 
@@ -155,6 +155,7 @@ public class FooForm extends AbstractForm<Foo> {
 		VVerticalLayout layout = new VVerticalLayout();
 
 		layout.withComponent(stringValue);
+		layout.withComponent(linkedBars);
 		/*
 		responsiveLayout.addRow().addColumn().withComponent(longValue);
 		responsiveLayout.addRow().addColumn().withComponent(doubleValue);
