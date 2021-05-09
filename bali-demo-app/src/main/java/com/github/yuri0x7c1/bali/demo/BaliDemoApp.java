@@ -57,6 +57,8 @@ public class BaliDemoApp extends SpringBootServletInitializer implements Command
 
 	@Override
 	public void run(String... args) throws Exception {
-		createDummyData();
+		if (fooService.count() == 0 || barService.count() == 0) {
+			createDummyData();
+		}
 	}
 }
