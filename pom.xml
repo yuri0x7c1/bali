@@ -43,6 +43,7 @@
 		<module>bali-demo-app</module>
 		<module>bali-ui</module>
 		<module>bali-data</module>
+		<module>bali-eventbus</module>
 	</modules>
 
 	<dependencyManagement>
