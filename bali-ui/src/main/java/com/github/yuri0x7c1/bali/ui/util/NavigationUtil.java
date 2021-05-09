@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.util.ui;
+package com.github.yuri0x7c1.bali.ui.util;
 
 import com.vaadin.flow.component.UI;
 

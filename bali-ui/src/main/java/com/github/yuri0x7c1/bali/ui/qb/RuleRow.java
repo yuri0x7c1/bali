@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.qb.ui.component;
+package com.github.yuri0x7c1.bali.ui.qb;
 
 import org.vaadin.firitin.components.button.VButton;
 import org.vaadin.firitin.components.html.VDiv;

@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.qb.ui.component;
+package com.github.yuri0x7c1.bali.ui.qb;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.vaadin.firitin.components.orderedlayout.VVerticalLayout;

@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.datagrid.ui;
+package com.github.yuri0x7c1.bali.ui.datagrid;
 
 import java.io.Serializable;
 import java.util.Optional;
@@ -13,7 +13,7 @@ import org.vaadin.firitin.components.html.VDiv;
 
 import com.github.yuri0x7c1.bali.data.qb.config.QbConfig;
 import com.github.yuri0x7c1.bali.data.qb.model.QbModel;
-import com.github.yuri0x7c1.bali.qb.ui.component.QueryBuilder;
+import com.github.yuri0x7c1.bali.ui.qb.QueryBuilder;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.grid.GridSelectionModel;
