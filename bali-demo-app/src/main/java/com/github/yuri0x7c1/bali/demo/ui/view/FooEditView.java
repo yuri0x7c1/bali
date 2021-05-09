@@ -7,7 +7,7 @@ import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.demo.ui.form.FooForm;
 import com.github.yuri0x7c1.bali.demo.ui.view.main.MainView;
 import com.github.yuri0x7c1.bali.ui.util.NavigationUtil;
-import com.vaadin.flow.component.html.Div;
+import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
@@ -27,13 +27,15 @@ import lombok.extern.slf4j.Slf4j;
 @SpringComponent
 @Route(value = "foo/edit", layout = MainView.class)
 @PageTitle("Edit Foo")
-public class FooEditView extends Div implements HasUrlParameter<Integer> {
+public class FooEditView extends CommonView implements HasUrlParameter<Integer> {
 	final FooService fooService;
 
 	final FooForm fooForm;
 
 	@PostConstruct
 	private void init() {
+		setHeaderText("Foo.edit");
+
 		// form saved handler
 		fooForm.setSavedHandler(foo -> {
 			fooService.save(foo);
