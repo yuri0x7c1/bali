@@ -6,15 +6,17 @@ import org.vaadin.firitin.components.orderedlayout.VVerticalLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.H3;
 
+/**
+ * The Class CommonView.
+ *
+ * @author yuri0x7c1
+ */
 public abstract class CommonView extends VVerticalLayout {
 	private VHorizontalLayout headerLayout;
 	private H3 headerLabel;
 	private VHorizontalLayout headerComponentLayout;
 
 	public CommonView() {
-		// setMargin(new MarginInfo(false, false, false, false));
-		// setStyleName("common-view");
-
 		headerLabel = new H3();
 
 		headerComponentLayout = new VHorizontalLayout();
@@ -23,11 +25,8 @@ public abstract class CommonView extends VVerticalLayout {
 			headerLabel,
 			headerComponentLayout
 		)
-		.withFullWidth();
-			// .withAlign(headerLabel, Alignment.MIDDLE_LEFT)
-			// .withAlign(headerComponentLayout, Alignment.MIDDLE_RIGHT)
-
-			//.withStyleName("page-header");
+		.withFullWidth()
+		.withAlignItems(Alignment.END);
 
 		add(headerLayout);
 	}

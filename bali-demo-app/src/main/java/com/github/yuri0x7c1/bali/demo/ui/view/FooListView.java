@@ -5,7 +5,6 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.firitin.components.button.DeleteButton;
 import org.vaadin.firitin.components.button.VButton;
 
@@ -30,10 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 @Route(value = "foo/list", layout = MainView.class)
 @PageTitle("Foos")
 public class FooListView extends CommonView {
-	public static final String DEFAULT_ORDER_PROPERTY = "id";
-
-	public static final Direction DEFAULT_ORDER_DIRECTION = Direction.ASC;
-
 	final I18N i18n;
 
 	final FooService fooService;
