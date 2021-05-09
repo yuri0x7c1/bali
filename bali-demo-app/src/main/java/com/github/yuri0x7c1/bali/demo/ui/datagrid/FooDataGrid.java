@@ -27,10 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class FooDataGrid extends EntityDataGrid<Foo> {
 
-	public static final String DEFAULT_ORDER_PROPERTY = "id";
-
-	public static final Direction DEFAULT_ORDER_DIRECTION = Direction.ASC;
-
 	final I18N i18n;
 
 	final FooService fooService;
@@ -58,7 +54,7 @@ public class FooDataGrid extends EntityDataGrid<Foo> {
 			i18n.get("Foo.linkedBars")
 		);
 
-        // query builder
+        // query builder confi
 		setQbConfig(new QbConfig.Builder()
 			.addField(new QbField("id", QbType.INTEGER, i18n.get("Foo.id")))
 			.addField(new QbField("stringValue", QbType.STRING, i18n.get("Foo.stringValue")))
@@ -73,11 +69,10 @@ public class FooDataGrid extends EntityDataGrid<Foo> {
 			.build()
 		);
 
-		setDefaultOrderProperty(DEFAULT_ORDER_PROPERTY);
-		setDefaultOrderDirection(DEFAULT_ORDER_DIRECTION);
+		setDefaultOrderProperty("id");
+		setDefaultOrderDirection(Direction.ASC);
 
 		setSearchProvider((criteria, pageRequest) -> fooService.search(criteria, pageRequest).stream());
 		setSearchCountProvider(criteria -> fooService.searchCount(criteria));
 	}
-
 }
