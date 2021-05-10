@@ -108,7 +108,7 @@ public class BarMultiPicker extends AbstractField<BarMultiPicker, List<Bar>> {
 						List<Bar> newValue = new ArrayList<>();
 						newValue.addAll(getValue());
 						newValue.remove(selected.iterator().next());
-						setValue(Collections.unmodifiableList(newValue));
+						setPresentationValue(Collections.unmodifiableList(newValue));
 					}
 				}
 			});
@@ -117,7 +117,7 @@ public class BarMultiPicker extends AbstractField<BarMultiPicker, List<Bar>> {
 		confirmButton = new VButton("Confirm")
 			.withClickListener(e -> {window.close();
 				if (!grid.getSelectedItems().isEmpty()) {
-					setValue(Collections.unmodifiableList(new ArrayList<>(grid.getSelectedItems())));
+					setPresentationValue(Collections.unmodifiableList(new ArrayList<>(grid.getSelectedItems())));
 				}
 			});
 			//.withStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -146,7 +146,7 @@ public class BarMultiPicker extends AbstractField<BarMultiPicker, List<Bar>> {
 
 	@Override
 	protected void setPresentationValue(List<Bar> newPresentationValue) {
-		setValue(newPresentationValue);
+		setModelValue(newPresentationValue, false);
 		valueGrid.setItems(newPresentationValue);
 	}
 

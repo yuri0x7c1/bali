@@ -141,12 +141,12 @@ public class FooForm extends AbstractForm<Foo> {
     	getBinder().forField(bar)
 			.withValidator(new BeanValidator(Foo.class, "bar"))
 			.bind(Foo::getBar, Foo::setBar);
+		*/
 
 		// bind linkedBars
     	getBinder().forField(linkedBars)
 			.withValidator(new BeanValidator(Foo.class, "linkedBars"))
 			.bind(Foo::getLinkedBars, Foo::setLinkedBars);
-		*/
 
 	}
 
