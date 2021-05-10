@@ -94,7 +94,7 @@ public class FooForm extends AbstractForm<Foo> {
 		*/
 
 		// initialize linkedBars
-		linkedBars.withCaption(i18n.get("Foo.linkedBars"));
+		// linkedBars.setLabel(i18n.get("Foo.linkedBars"));
 
 	}
 
