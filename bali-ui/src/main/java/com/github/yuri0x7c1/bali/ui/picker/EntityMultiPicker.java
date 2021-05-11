@@ -23,7 +23,6 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.function.ValueProvider;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 /**
@@ -35,16 +34,17 @@ import lombok.experimental.FieldDefaults;
  */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public abstract class EntityMultiPicker<T> extends AbstractField<EntityMultiPicker<T>, List<T>> {
+	Class<T> entityType;
+
 	I18N i18n;
 
-	@Getter
 	EntityDataGrid<T> dataGrid;
-
-	VButton selectButton;
 
 	VGrid<T> valueGrid;
 
-	VDialog window;
+	VDialog dialog;
+
+	VButton selectButton;
 
 	DeleteButton deleteButton;
 
@@ -54,17 +54,18 @@ public abstract class EntityMultiPicker<T> extends AbstractField<EntityMultiPick
 
 	public EntityMultiPicker(Class<T> entityType, I18N i18n, EntityDataGrid<T> dataGrid) {
 		super(Collections.unmodifiableList(Collections.emptyList()));
+		this.entityType = entityType;
 		this.i18n = i18n;
 		this.dataGrid = dataGrid;
 
 		// addStyleName(BaliStyle.MULTI_PICKER);
 
 		// window
-		window = new VDialog();
+		dialog = new VDialog();
         // window.setCaption("Bar.select");
-        window.setModal(true);
-        window.setWidth("80%");
-        window.setHeight("80%");
+        dialog.setModal(true);
+        dialog.setWidth("80%");
+        dialog.setHeight("80%");
 
   		// grid
 		dataGrid.setSelectionMode(SelectionMode.MULTI);
@@ -81,7 +82,7 @@ public abstract class EntityMultiPicker<T> extends AbstractField<EntityMultiPick
 			) */
 			.withClickListener(e -> {
 				dataGrid.setSelectedItems(Collections.unmodifiableSet(new HashSet<T>(getValue())));
-				window.open();
+				dialog.open();
 			});
 
 		// delete button
@@ -110,8 +111,7 @@ public abstract class EntityMultiPicker<T> extends AbstractField<EntityMultiPick
 
 		// confirm button
 		confirmButton = new VButton("Confirm")
-			.withClickListener(e -> {
-				window.close();
+			.withClickListener(e -> {dialog.close();
 				if (!dataGrid.getSelectedItems().isEmpty()) {
 					setPresentationValue(Collections.unmodifiableList(new ArrayList<T>(dataGrid.getSelectedItems())));
 				}
@@ -121,12 +121,12 @@ public abstract class EntityMultiPicker<T> extends AbstractField<EntityMultiPick
 		// cancel button
 		cancelButton = new VButton("Cancel")
 			.withClickListener(e -> {
-				window.close();
+				dialog.close();
 			});
 			// .withStyleName(ValoTheme.BUTTON_DANGER);
 
-		// set window content
-		window.add(new VVerticalLayout(
+		// set dialog content
+		dialog.add(new VVerticalLayout(
         	dataGrid,
         	new VHorizontalLayout(confirmButton, cancelButton))
         );
