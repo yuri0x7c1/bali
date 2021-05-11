@@ -8,6 +8,7 @@ import org.vaadin.firitin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.ui.picker.BarMultiPicker;
+import com.github.yuri0x7c1.bali.demo.ui.picker.BarPicker;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -34,31 +35,28 @@ public class FooForm extends AbstractForm<Foo> {
 
     VTextField stringValue;
 
-    /*
-
-    VLongField longValue;
-
-    DoubleField doubleValue;
-
-    BooleanField booleanValue;
-
-    DateTimeField date;
-
-    DateTimeField localDateTime;
-
-    DateField localDate;
-
-    BarSelect bar;
-    */
+//    VLongField longValue;
+//
+//    DoubleField doubleValue;
+//
+//    BooleanField booleanValue;
+//
+//    DateTimeField date;
+//
+//    DateTimeField localDateTime;
+//
+//    DateField localDate;
+//
+    BarPicker bar;
 
     BarMultiPicker linkedBars;
 
-	public FooForm(I18N i18n, /* UIEventBus eventBus, BarSelect bar,*/ BarMultiPicker linkedBars) {
+	public FooForm(I18N i18n, BarPicker bar, BarMultiPicker linkedBars) {
 		super(Foo.class);
 
 		this.i18n = i18n;
 //		this.eventBus = eventBus;
-//		this.bar = bar;
+		this.bar = bar;
 		this.linkedBars = linkedBars;
 
 		// initialize stringValue
@@ -136,12 +134,12 @@ public class FooForm extends AbstractForm<Foo> {
     	getBinder().forField(localDate)
 			.withValidator(new BeanValidator(Foo.class, "localDate"))
 			.bind(Foo::getLocalDate, Foo::setLocalDate);
+		*/
 
 		// bind bar
     	getBinder().forField(bar)
 			.withValidator(new BeanValidator(Foo.class, "bar"))
 			.bind(Foo::getBar, Foo::setBar);
-		*/
 
 		// bind linkedBars
     	getBinder().forField(linkedBars)
@@ -155,6 +153,7 @@ public class FooForm extends AbstractForm<Foo> {
 		VVerticalLayout layout = new VVerticalLayout();
 
 		layout.withComponent(stringValue);
+		layout.withComponent(bar);
 		layout.withComponent(linkedBars);
 		/*
 		responsiveLayout.addRow().addColumn().withComponent(longValue);
