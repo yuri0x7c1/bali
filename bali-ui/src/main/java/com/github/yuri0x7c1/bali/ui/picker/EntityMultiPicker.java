@@ -20,12 +20,18 @@ import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.function.ValueProvider;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
+/**
+ * The Class EntityMultiPicker.
+ *
+ * @param <T> entity type
+ *
+ * @author yuri0x7c1
+ */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public abstract class EntityMultiPicker<T> extends AbstractField<EntityMultiPicker<T>, List<T>> {
 	I18N i18n;
@@ -72,7 +78,7 @@ public abstract class EntityMultiPicker<T> extends AbstractField<EntityMultiPick
 				BaliStyle.MULTI_EDITOR_ACTION_BUTTON
 			) */
 			.withClickListener(e -> {
-				dataGrid.setSelectedItems(new HashSet<T>(((ListDataProvider<T>)valueGrid.getDataProvider()).getItems()));
+				dataGrid.setSelectedItems(Collections.unmodifiableSet(new HashSet<T>(getValue())));
 				window.open();
 			});
 

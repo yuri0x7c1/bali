@@ -149,6 +149,7 @@ public abstract class EntityDataGrid<T> extends VDiv {
 	}
 
 	public void setSelectedItems(Set<T> items) {
+		grid.deselectAll();
 		for (T item : items) {
 			grid.select(item);
 		}
