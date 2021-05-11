@@ -23,6 +23,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.function.ValueProvider;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 /**
@@ -36,6 +37,7 @@ import lombok.experimental.FieldDefaults;
 public abstract class EntityMultiPicker<T> extends AbstractField<EntityMultiPicker<T>, List<T>> {
 	I18N i18n;
 
+	@Getter
 	EntityDataGrid<T> dataGrid;
 
 	VButton selectButton;
@@ -108,7 +110,8 @@ public abstract class EntityMultiPicker<T> extends AbstractField<EntityMultiPick
 
 		// confirm button
 		confirmButton = new VButton("Confirm")
-			.withClickListener(e -> {window.close();
+			.withClickListener(e -> {
+				window.close();
 				if (!dataGrid.getSelectedItems().isEmpty()) {
 					setPresentationValue(Collections.unmodifiableList(new ArrayList<T>(dataGrid.getSelectedItems())));
 				}

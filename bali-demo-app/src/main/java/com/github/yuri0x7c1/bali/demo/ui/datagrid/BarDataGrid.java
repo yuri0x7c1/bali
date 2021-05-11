@@ -19,15 +19,15 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@FieldDefaults(level=AccessLevel.PRIVATE)
+@FieldDefaults(level=AccessLevel.PRIVATE, makeFinal = true)
 @UIScope
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class BarDataGrid extends EntityDataGrid<Bar> {
 
-	final I18N i18n;
+	I18N i18n;
 
-	final BarService barService;
+	BarService barService;
 
 	public BarDataGrid(I18N i18n, BarService barService) {
 		super(Bar.class);
@@ -39,7 +39,7 @@ public class BarDataGrid extends EntityDataGrid<Bar> {
 		addColumn("id", i18n.get("Bar.id"));
 		addColumn("value", i18n.get("Bar.value"));
 
-        // query builder confi
+        // query builder config
 		setQbConfig(new QbConfig.Builder()
 			.addField(new QbField("id", QbType.INTEGER, i18n.get("Bar.id")))
 			.addField(new QbField("value", QbType.STRING, i18n.get("Bar.value")))
