@@ -28,9 +28,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 
 /**
- * The Class EntityMultiPicker.
+ * Entity multi editor
  *
- * @param <T> entity type
+ * @param <T> entitytype
  *
  * @author yuri0x7c1
  */
