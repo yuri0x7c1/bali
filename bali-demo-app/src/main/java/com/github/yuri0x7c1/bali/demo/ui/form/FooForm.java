@@ -7,6 +7,7 @@ import org.vaadin.firitin.components.textfield.VTextField;
 import org.vaadin.firitin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
+import com.github.yuri0x7c1.bali.demo.ui.editor.BarMultiEditor;
 import com.github.yuri0x7c1.bali.demo.ui.picker.BarMultiPicker;
 import com.github.yuri0x7c1.bali.demo.ui.picker.BarPicker;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
@@ -51,13 +52,16 @@ public class FooForm extends AbstractForm<Foo> {
 
     BarMultiPicker linkedBars;
 
-	public FooForm(I18N i18n, BarPicker bar, BarMultiPicker linkedBars) {
+    BarMultiEditor nestedBars;
+
+	public FooForm(I18N i18n, BarPicker bar, BarMultiPicker linkedBars, BarMultiEditor nestedBars) {
 		super(Foo.class);
 
 		this.i18n = i18n;
 //		this.eventBus = eventBus;
 		this.bar = bar;
 		this.linkedBars = linkedBars;
+		this.nestedBars = nestedBars;
 
 		// initialize stringValue
 		stringValue = new VTextField(i18n.get("Foo.stringValue"));
@@ -146,6 +150,11 @@ public class FooForm extends AbstractForm<Foo> {
 			.withValidator(new BeanValidator(Foo.class, "linkedBars"))
 			.bind(Foo::getLinkedBars, Foo::setLinkedBars);
 
+		// bind linkedBars
+    	getBinder().forField(nestedBars)
+			.withValidator(new BeanValidator(Foo.class, Foo.Fields.nestedBars))
+			.bind(Foo::getNestedBars, Foo::setNestedBars);
+
 	}
 
 	@Override
@@ -155,6 +164,7 @@ public class FooForm extends AbstractForm<Foo> {
 		layout.withComponent(stringValue);
 		layout.withComponent(bar);
 		layout.withComponent(linkedBars);
+		layout.withComponent(nestedBars);
 		/*
 		responsiveLayout.addRow().addColumn().withComponent(longValue);
 		responsiveLayout.addRow().addColumn().withComponent(doubleValue);

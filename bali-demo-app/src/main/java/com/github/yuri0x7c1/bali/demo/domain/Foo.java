@@ -15,7 +15,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -58,7 +62,6 @@ public class Foo {
 	@Setter
 	Date date;
 
-
 	@Getter
 	@Setter
 	Instant instant;
@@ -84,4 +87,10 @@ public class Foo {
 	@Setter
 	@ManyToMany(fetch=FetchType.EAGER)
 	List<Bar> linkedBars = new ArrayList<>();
+
+	@Getter
+	@Setter
+	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	List<Bar> nestedBars = new ArrayList<>();
 }
