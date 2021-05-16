@@ -25,8 +25,8 @@ import com.vaadin.flow.router.RouterLink;
  */
 public abstract class CommonMainView extends AppLayout {
 
-    private final Tabs menu;
-    private H1 viewTitle;
+	protected final Tabs menu;
+	protected H1 viewTitle;
 
     public CommonMainView() {
         setPrimarySection(Section.DRAWER);
@@ -35,7 +35,7 @@ public abstract class CommonMainView extends AppLayout {
         addToDrawer(createDrawerContent(menu));
     }
 
-    private Component createHeaderContent() {
+    protected Component createHeaderContent() {
         HorizontalLayout layout = new HorizontalLayout();
         layout.setId("header");
         layout.getThemeList().set("dark", true);
@@ -49,7 +49,7 @@ public abstract class CommonMainView extends AppLayout {
         return layout;
     }
 
-    private Component createDrawerContent(Tabs menu) {
+    protected Component createDrawerContent(Tabs menu) {
         VerticalLayout layout = new VerticalLayout();
         layout.setSizeFull();
         layout.setPadding(false);
@@ -65,7 +65,7 @@ public abstract class CommonMainView extends AppLayout {
         return layout;
     }
 
-    private Tabs createMenu() {
+    protected Tabs createMenu() {
         final Tabs tabs = new Tabs();
         tabs.setOrientation(Tabs.Orientation.VERTICAL);
         tabs.addThemeVariants(TabsVariant.LUMO_MINIMAL);
@@ -76,7 +76,7 @@ public abstract class CommonMainView extends AppLayout {
 
     protected abstract Tab[] createMenuItems();
 
-    private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
+    protected static Tab createTab(String text, Class<? extends Component> navigationTarget) {
         final Tab tab = new Tab();
         tab.add(new RouterLink(text, navigationTarget));
         ComponentUtil.setData(tab, Class.class, navigationTarget);
@@ -90,12 +90,12 @@ public abstract class CommonMainView extends AppLayout {
         viewTitle.setText(getCurrentPageTitle());
     }
 
-    private Optional<Tab> getTabForComponent(Component component) {
+    protected Optional<Tab> getTabForComponent(Component component) {
         return menu.getChildren().filter(tab -> ComponentUtil.getData(tab, Class.class).equals(component.getClass()))
                 .findFirst().map(Tab.class::cast);
     }
 
-    private String getCurrentPageTitle() {
+    protected String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
