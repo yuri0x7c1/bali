@@ -38,12 +38,10 @@
 	</properties>
 
 	<modules>
-		<module>bali-ui-i18n</module>
-		<module>bali-ui-menu</module>
-		<module>bali-demo-app</module>
-		<module>bali-ui</module>
 		<module>bali-data</module>
-		<module>bali-eventbus</module>
+		<module>bali-ui</module>
+		<module>bali-ui-i18n</module>
+		<module>bali-demo-app</module>
 	</modules>
 
 	<dependencyManagement>
