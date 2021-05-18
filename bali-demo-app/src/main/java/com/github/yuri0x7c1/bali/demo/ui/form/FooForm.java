@@ -1,8 +1,14 @@
 package com.github.yuri0x7c1.bali.demo.ui.form;
 
+import java.time.ZoneId;
+
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.vaadin.firitin.components.datepicker.VDatePicker;
+import org.vaadin.firitin.components.datetimepicker.VDateTimePicker;
 import org.vaadin.firitin.components.orderedlayout.VVerticalLayout;
+import org.vaadin.firitin.components.textfield.VBigDecimalField;
+import org.vaadin.firitin.components.textfield.VNumberField;
 import org.vaadin.firitin.components.textfield.VTextField;
 import org.vaadin.firitin.form.AbstractForm;
 
@@ -10,18 +16,20 @@ import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.ui.editor.BarMultiEditor;
 import com.github.yuri0x7c1.bali.demo.ui.picker.BarMultiPicker;
 import com.github.yuri0x7c1.bali.demo.ui.picker.BarPicker;
+import com.github.yuri0x7c1.bali.ui.data.converter.BigDecimalToLongConverter;
+import com.github.yuri0x7c1.bali.ui.field.BooleanField;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.data.converter.LocalDateTimeToDateConverter;
 import com.vaadin.flow.data.validator.BeanValidator;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal = true)
 @UIScope
 @SpringComponent
@@ -32,22 +40,20 @@ public class FooForm extends AbstractForm<Foo> {
 
 	private I18N i18n;
 
-	// private UIEventBus eventBus;
-
     VTextField stringValue;
 
-//    VLongField longValue;
-//
-//    DoubleField doubleValue;
-//
-//    BooleanField booleanValue;
-//
-//    DateTimeField date;
-//
-//    DateTimeField localDateTime;
-//
-//    DateField localDate;
-//
+    VBigDecimalField longValue;
+
+    VNumberField doubleValue;
+
+    BooleanField booleanValue;
+
+    VDateTimePicker date;
+
+    VDateTimePicker localDateTime;
+
+    VDatePicker localDate;
+
     BarPicker bar;
 
     BarMultiPicker linkedBars;
@@ -56,47 +62,41 @@ public class FooForm extends AbstractForm<Foo> {
 
 	public FooForm(I18N i18n, BarPicker bar, BarMultiPicker linkedBars, BarMultiEditor nestedBars) {
 		super(Foo.class);
-
 		this.i18n = i18n;
-//		this.eventBus = eventBus;
 		this.bar = bar;
 		this.linkedBars = linkedBars;
 		this.nestedBars = nestedBars;
 
 		// initialize stringValue
-		stringValue = new VTextField(i18n.get("Foo.stringValue"));
+		stringValue = new VTextField(i18n.get("Foo.stringValue")).withFullWidth();
 
-		/*
 		// initialize longValue
-		longValue = new LongField(i18n.get("Foo.longValue"));
-		longValue.addStyleNames(BaliStyle.FORM_FIELD);
+		longValue = new VBigDecimalField(i18n.get("Foo.longValue")).withFullWidth();
 
 		// initialize doubleValue
-		doubleValue = new DoubleField(i18n.get("Foo.doubleValue"));
-		doubleValue.addStyleNames(BaliStyle.FORM_FIELD);
+		doubleValue = new VNumberField(i18n.get("Foo.doubleValue")).withFullWidth();
 
 		// initialize booleanValue
 		booleanValue = new BooleanField(i18n.get("Foo.booleanValue"));
-		booleanValue.addStyleNames(BaliStyle.FORM_FIELD);
+		booleanValue.setWidthFull();
 
 		// initialize date
-		date = new DateTimeField(i18n.get("Foo.date"));
-		date.addStyleNames(BaliStyle.FORM_FIELD);
+		date = new VDateTimePicker(i18n.get("Foo.date")).withFullWidth();
 
 		// initialize localDateTime
-		localDateTime = new DateTimeField(i18n.get("Foo.localDateTime"));
-		localDateTime.addStyleNames(BaliStyle.FORM_FIELD);
+		localDateTime = new VDateTimePicker(i18n.get("Foo.localDateTime")).withFullWidth();
 
 		// initialize localDate
-		localDate = new DateField(i18n.get("Foo.localDate"));
-		localDate.addStyleNames(BaliStyle.FORM_FIELD);
+		localDate = new VDatePicker(i18n.get("Foo.localDate")).withFullWidth();
 
 		// initialize bar
-		bar.withCaption(i18n.get("Foo.bar"));
-		*/
+		// bar.withCaption(i18n.get("Foo.bar"));
 
 		// initialize linkedBars
-		// linkedBars.setLabel(i18n.get("Foo.linkedBars"));
+		// linkedBars.withCaption(i18n.get("Foo.linkedBars"));
+
+		// initialize nestedBars
+		// nestedBars.withCaption(i18n.get("Foo.nestedBars"));
 
 	}
 
@@ -107,9 +107,9 @@ public class FooForm extends AbstractForm<Foo> {
 			.withValidator(new BeanValidator(Foo.class, "stringValue"))
 			.bind(Foo::getStringValue, Foo::setStringValue);
 
-    	/*
 		// bind longValue
     	getBinder().forField(longValue)
+			.withConverter(new BigDecimalToLongConverter())
 			.withValidator(new BeanValidator(Foo.class, "longValue"))
 			.bind(Foo::getLongValue, Foo::setLongValue);
 
@@ -138,7 +138,6 @@ public class FooForm extends AbstractForm<Foo> {
     	getBinder().forField(localDate)
 			.withValidator(new BeanValidator(Foo.class, "localDate"))
 			.bind(Foo::getLocalDate, Foo::setLocalDate);
-		*/
 
 		// bind bar
     	getBinder().forField(bar)
@@ -150,9 +149,9 @@ public class FooForm extends AbstractForm<Foo> {
 			.withValidator(new BeanValidator(Foo.class, "linkedBars"))
 			.bind(Foo::getLinkedBars, Foo::setLinkedBars);
 
-		// bind linkedBars
+		// bind nestedBars
     	getBinder().forField(nestedBars)
-			.withValidator(new BeanValidator(Foo.class, Foo.Fields.nestedBars))
+			.withValidator(new BeanValidator(Foo.class, "nestedBars"))
 			.bind(Foo::getNestedBars, Foo::setNestedBars);
 
 	}
@@ -162,19 +161,15 @@ public class FooForm extends AbstractForm<Foo> {
 		VVerticalLayout layout = new VVerticalLayout();
 
 		layout.withComponent(stringValue);
+		layout.withComponent(longValue);
+		layout.withComponent(doubleValue);
+		layout.withComponent(booleanValue);
+		layout.withComponent(date);
+		layout.withComponent(localDateTime);
+		layout.withComponent(localDate);
 		layout.withComponent(bar);
 		layout.withComponent(linkedBars);
 		layout.withComponent(nestedBars);
-		/*
-		responsiveLayout.addRow().addColumn().withComponent(longValue);
-		responsiveLayout.addRow().addColumn().withComponent(doubleValue);
-		responsiveLayout.addRow().addColumn().withComponent(booleanValue);
-		responsiveLayout.addRow().addColumn().withComponent(date);
-		responsiveLayout.addRow().addColumn().withComponent(localDateTime);
-		responsiveLayout.addRow().addColumn().withComponent(localDate);
-		responsiveLayout.addRow().addColumn().withComponent(bar);
-		responsiveLayout.addRow().addColumn().withComponent(linkedBars);
-		*/
 
 		HorizontalLayout toolbar = getToolbar();
 		layout.withComponent(toolbar);

@@ -7,7 +7,7 @@ import com.vaadin.flow.data.binder.ValueContext;
 import com.vaadin.flow.data.converter.Converter;
 
 /**
- * BigDecimal to Long Converter
+ * BigDecimal to Long converter
  *
  * @author yuri0x7c1
  */
