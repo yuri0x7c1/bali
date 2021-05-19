@@ -42,7 +42,8 @@
     "lit-element": "2.5.1",
     "@polymer/iron-form": "3.0.1",
     "@vaadin/router": "1.7.2",
-    "lit-html": "1.4.1"
+    "lit-html": "1.4.1",
+    "construct-style-sheets-polyfill": "2.4.16"
   },
   "devDependencies": {
     "@types/validator": "13.1.0",
@@ -111,7 +112,8 @@
       "@vaadin/vaadin-upload": "5.0.0",
       "lit-element": "2.5.1",
       "@polymer/iron-form": "3.0.1",
-      "lit-html": "1.4.1"
+      "lit-html": "1.4.1",
+      "construct-style-sheets-polyfill": "2.4.16"
     },
     "devDependencies": {
       "@types/validator": "13.1.0",
