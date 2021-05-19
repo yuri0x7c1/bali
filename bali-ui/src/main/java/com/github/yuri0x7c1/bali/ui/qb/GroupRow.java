@@ -18,6 +18,8 @@ import lombok.experimental.FieldDefaults;
 
 /**
  * The Class GroupRow.
+ *
+ * @author yuri0x7c1
  */
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class GroupRow extends VVerticalLayout {
