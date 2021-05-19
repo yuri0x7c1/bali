@@ -12,7 +12,6 @@ import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.textfield.TextFieldVariant;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -25,25 +24,18 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class RuleRow extends VHorizontalLayout {
 
-	/** The qb. */
 	QueryBuilder qb;
 
-	/** The parent group. */
 	GroupRow parentGroup;
 
-	/** The field select. */
 	ComboBox<QbField> fieldSelect;
 
-	/** The operator select. */
 	ComboBox<QbOperator> operatorSelect;
 
-	/** The value layout. */
 	VDiv valueLayout;
 
-	/** The value field. */
 	AbstractField valueField;
 
-	/** The delete button. */
 	VButton deleteButton;
 
 	/**
