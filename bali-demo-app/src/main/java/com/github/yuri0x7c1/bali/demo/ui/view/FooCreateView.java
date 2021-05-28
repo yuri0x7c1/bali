@@ -11,6 +11,7 @@ import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
+@UIScope
 @SpringComponent
 @Route(value = "foo/create", layout = MainView.class)
 @PageTitle("Create Foo")

@@ -2,6 +2,7 @@ package com.github.yuri0x7c1.bali.demo.ui.view.main;
 
 import java.util.Optional;
 
+import com.github.yuri0x7c1.bali.demo.ui.view.CalendarView;
 import com.github.yuri0x7c1.bali.demo.ui.view.FooListView;
 import com.github.yuri0x7c1.bali.demo.ui.view.HomeView;
 import com.vaadin.flow.component.Component;
@@ -19,10 +20,14 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
 
 /**
  * The main view is a top-level placeholder for other views.
  */
+@UIScope
+@SpringComponent
 public class MainView extends AppLayout {
 
     private final Tabs menu;
@@ -77,7 +82,9 @@ public class MainView extends AppLayout {
     private Component[] createMenuItems() {
         return new Tab[]{
         	createTab("Home", HomeView.class),
-        	createTab("Foos", FooListView.class)
+        	createTab("Calendar", CalendarView.class),
+        	createTab("Foos", FooListView.class),
+
         };
     }
 
