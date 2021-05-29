@@ -164,10 +164,6 @@ public abstract class EntityMultiEditor<T> extends AbstractField<EntityMultiEdit
 		valueGrid.setItems(newPresentationValue);
 	}
 
-	public void setCreateEntitySupplier(Supplier<T> createSupplier) {
-
-	}
-
 	public void clearColumns() {
 		valueGrid.setColumns(new String[]{});
 	}
