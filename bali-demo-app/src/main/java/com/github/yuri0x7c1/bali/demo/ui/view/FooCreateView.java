@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.demo.ui.form.FooForm;
-import com.github.yuri0x7c1.bali.demo.ui.view.main.MainView;
+import com.github.yuri0x7c1.bali.demo.ui.layout.ApplicationLayout;
 import com.github.yuri0x7c1.bali.ui.util.NavigationUtil;
 import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.flow.router.Route;
@@ -22,15 +22,18 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal = true)
 @UIScope
 @SpringComponent
-@Route(value = "foo/create", layout = MainView.class)
+@Route(value = FooCreateView.ROUTE, layout = ApplicationLayout.class)
 public class FooCreateView extends CommonView {
+	public static final String ROUTE = "foo/create";
+	public static final String TITLE_CODE = "Foo.create";
+
 	FooService fooService;
 
 	FooForm fooForm;
 
 	@PostConstruct
 	private void init() {
-		setHeaderText("Foo.create");
+		setHeaderText(TITLE_CODE);
 
 		// form saved handler
 		fooForm.setSavedHandler(foo -> {

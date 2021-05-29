@@ -1,10 +1,8 @@
-package com.github.yuri0x7c1.bali.demo.ui.view.main;
+package com.github.yuri0x7c1.bali.ui.layout;
 
 import java.util.Optional;
 
-import com.github.yuri0x7c1.bali.demo.ui.view.CalendarView;
-import com.github.yuri0x7c1.bali.demo.ui.view.FooListView;
-import com.github.yuri0x7c1.bali.demo.ui.view.HomeView;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -20,27 +18,32 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.spring.annotation.SpringComponent;
-import com.vaadin.flow.spring.annotation.UIScope;
+
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 
 /**
- * The main view is a top-level placeholder for other views.
+ * Common App Layout
+ *
+ * @author yuri0x7c1
  */
-@UIScope
-@SpringComponent
-public class MainView extends AppLayout {
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public abstract class CommonAppLayout extends AppLayout {
 
-    private final Tabs menu;
-    private H1 viewTitle;
+	final I18N i18n;
+	final Tabs menu;
+	H1 viewTitle;
 
-    public MainView() {
+    public CommonAppLayout(I18N i18n) {
+    	this.i18n = i18n;
+
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
         menu = createMenu();
         addToDrawer(createDrawerContent(menu));
     }
 
-    private Component createHeaderContent() {
+    protected Component createHeaderContent() {
         HorizontalLayout layout = new HorizontalLayout();
         layout.setId("header");
         layout.getThemeList().set("dark", true);
@@ -54,7 +57,7 @@ public class MainView extends AppLayout {
         return layout;
     }
 
-    private Component createDrawerContent(Tabs menu) {
+    protected Component createDrawerContent(Tabs menu) {
         VerticalLayout layout = new VerticalLayout();
         layout.setSizeFull();
         layout.setPadding(false);
@@ -64,13 +67,13 @@ public class MainView extends AppLayout {
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setId("logo");
         logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-        logoLayout.add(new Image("images/logo.png", "Bali Demo App logo"));
-        logoLayout.add(new H1("Bali Demo App"));
+        logoLayout.add(new Image("images/logo.png", "Application logo"));
+        logoLayout.add(new H1(i18n.get("Application.name")));
         layout.add(logoLayout, menu);
         return layout;
     }
 
-    private Tabs createMenu() {
+    protected Tabs createMenu() {
         final Tabs tabs = new Tabs();
         tabs.setOrientation(Tabs.Orientation.VERTICAL);
         tabs.addThemeVariants(TabsVariant.LUMO_MINIMAL);
@@ -79,16 +82,9 @@ public class MainView extends AppLayout {
         return tabs;
     }
 
-    private Component[] createMenuItems() {
-        return new Tab[]{
-        	createTab("Home", HomeView.class),
-        	createTab("Calendar", CalendarView.class),
-        	createTab("Foos", FooListView.class),
+    protected abstract Tab[] createMenuItems();
 
-        };
-    }
-
-    private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
+    protected static Tab createTab(String text, Class<? extends Component> navigationTarget) {
         final Tab tab = new Tab();
         tab.add(new RouterLink(text, navigationTarget));
         ComponentUtil.setData(tab, Class.class, navigationTarget);
@@ -102,12 +98,12 @@ public class MainView extends AppLayout {
         viewTitle.setText(getCurrentPageTitle());
     }
 
-    private Optional<Tab> getTabForComponent(Component component) {
+    protected Optional<Tab> getTabForComponent(Component component) {
         return menu.getChildren().filter(tab -> ComponentUtil.getData(tab, Class.class).equals(component.getClass()))
                 .findFirst().map(Tab.class::cast);
     }
 
-    private String getCurrentPageTitle() {
+    protected String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }

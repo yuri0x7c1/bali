@@ -1,6 +1,6 @@
 package com.github.yuri0x7c1.bali.demo.ui.view;
 
-import com.github.yuri0x7c1.bali.demo.ui.view.main.MainView;
+import com.github.yuri0x7c1.bali.demo.ui.layout.ApplicationLayout;
 import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -12,8 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @UIScope
 @SpringComponent
-@Route(value = "", layout = MainView.class)
+@Route(value = "", layout = ApplicationLayout.class)
 public class HomeView extends CommonView {
+	public static final String TITLE_CODE = "Home";
+
 	public HomeView() {
 		setHeaderText("Home");
 	}

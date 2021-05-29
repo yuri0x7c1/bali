@@ -6,7 +6,7 @@ import org.vaadin.stefan.fullcalendar.Entry;
 import org.vaadin.stefan.fullcalendar.FullCalendar;
 import org.vaadin.stefan.fullcalendar.FullCalendarBuilder;
 
-import com.github.yuri0x7c1.bali.demo.ui.view.main.MainView;
+import com.github.yuri0x7c1.bali.demo.ui.layout.ApplicationLayout;
 import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.PreserveOnRefresh;
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @UIScope
 @SpringComponent
-@Route(value = "calendar", layout = MainView.class)
+@Route(value = "calendar", layout = ApplicationLayout.class)
 public class CalendarView extends CommonView {
 	public CalendarView() {
 		setHeaderText("Calendar");
