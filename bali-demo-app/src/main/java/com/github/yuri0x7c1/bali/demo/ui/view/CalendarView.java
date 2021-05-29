@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @UIScope
 @SpringComponent
 @Route(value = "calendar", layout = MainView.class)
-@PageTitle("Calendar")
 public class CalendarView extends CommonView {
 	public CalendarView() {
 		setHeaderText("Calendar");

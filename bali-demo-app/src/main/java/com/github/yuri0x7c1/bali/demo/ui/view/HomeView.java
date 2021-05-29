@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @UIScope
 @SpringComponent
 @Route(value = "", layout = MainView.class)
-@PageTitle("Home")
 public class HomeView extends CommonView {
 	public HomeView() {
 		setHeaderText("Home");
