@@ -10,7 +10,6 @@ import com.github.yuri0x7c1.bali.ui.util.NavigationUtil;
 import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -22,15 +21,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-@FieldDefaults(level=AccessLevel.PRIVATE)
+@FieldDefaults(level=AccessLevel.PRIVATE, makeFinal = true)
 @UIScope
 @SpringComponent
 @Route(value = "foo/edit", layout = MainView.class)
-@PageTitle("Edit Foo")
 public class FooEditView extends CommonView implements HasUrlParameter<Integer> {
-	final FooService fooService;
+	FooService fooService;
 
-	final FooForm fooForm;
+	FooForm fooForm;
 
 	@PostConstruct
 	private void init() {
@@ -55,14 +53,14 @@ public class FooEditView extends CommonView implements HasUrlParameter<Integer> 
 	public void setParameter(BeforeEvent event, Integer parameter) {
 		// validate params
 		if (parameter == null) {
-			log.error("Parameter is empty");
+			log.error("Parameter is empty!");
 			NavigationUtil.back();
 		}
 
 		// find entity
 		Foo foo = fooService.findById(parameter).orElse(null);
 		if (foo == null) {
-			log.error("Entity not found");
+			log.error("Entity not found!");
 			NavigationUtil.back();
 		}
 

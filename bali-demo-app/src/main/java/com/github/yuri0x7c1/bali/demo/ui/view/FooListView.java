@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @UIScope
 @SpringComponent
 @Route(value = "foo/list", layout = MainView.class)
-@PageTitle("Foos")
 public class FooListView extends EntityListView<Foo> {
 	final FooService fooService;
 
@@ -38,7 +37,7 @@ public class FooListView extends EntityListView<Foo> {
 			getUI().ifPresent(ui -> ui.navigate("foo/edit/" + foo.getId().toString()));
 		});
 
-		// delete button
+		// delete handler
 		setDeleteHandler(foo -> {
 			fooService.delete(foo);
 		});
