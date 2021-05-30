@@ -6,6 +6,7 @@ import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.demo.ui.form.FooForm;
 import com.github.yuri0x7c1.bali.demo.ui.layout.ApplicationLayout;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.github.yuri0x7c1.bali.ui.util.NavigationUtil;
 import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.flow.router.BeforeEvent;
@@ -24,15 +25,20 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal = true)
 @UIScope
 @SpringComponent
-@Route(value = "foo/edit", layout = ApplicationLayout.class)
+@Route(value = FooEditView.ROUTE, layout = ApplicationLayout.class)
 public class FooEditView extends CommonView implements HasUrlParameter<Integer> {
+	public static final String ROUTE = "foo/edit";
+	public static final String TITLE_CODE = "Foo.edit";
+
+	I18N i18n;
+
 	FooService fooService;
 
 	FooForm fooForm;
 
 	@PostConstruct
 	private void init() {
-		setHeaderText("Foo.edit");
+		setHeaderText(i18n.get(TITLE_CODE));
 
 		// form saved handler
 		fooForm.setSavedHandler(foo -> {

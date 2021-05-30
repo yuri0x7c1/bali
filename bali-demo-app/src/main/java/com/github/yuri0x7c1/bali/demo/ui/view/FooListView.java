@@ -7,7 +7,6 @@ import com.github.yuri0x7c1.bali.demo.ui.layout.ApplicationLayout;
 import com.github.yuri0x7c1.bali.ui.datagrid.EntityDataGrid;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.github.yuri0x7c1.bali.ui.view.EntityListView;
-import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -17,24 +16,27 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @UIScope
 @SpringComponent
-@Route(value = "foo/list", layout = ApplicationLayout.class)
+@Route(value = FooListView.ROUTE, layout = ApplicationLayout.class)
 public class FooListView extends EntityListView<Foo> {
+	public static final String ROUTE = "foo/list";
+	public static final String TITLE_CODE = "Foo.Foos";
+
 	final FooService fooService;
 
 	public FooListView(EntityDataGrid<Foo> entityDataGrid, I18N i18n, FooDataGrid fooGrid, FooService fooService) {
 		super(Foo.class, i18n, entityDataGrid);
 		this.fooService = fooService;
 
-		setHeaderText(i18n.get("Foo.Foos"));
+		setHeaderText(i18n.get(TITLE_CODE));
 
 		// create handler
 		setCreateHandler(() -> {
-			getUI().ifPresent(ui -> ui.navigate("foo/create"));
+			getUI().ifPresent(ui -> ui.navigate(FooCreateView.class));
 		});
 
 		// edit handler
 		setEditHandler(foo -> {
-			getUI().ifPresent(ui -> ui.navigate("foo/edit/" + foo.getId().toString()));
+			getUI().ifPresent(ui -> ui.navigate(FooEditView.class, foo.getId()));
 		});
 
 		// delete handler
