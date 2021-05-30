@@ -4,7 +4,7 @@ import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.demo.ui.datagrid.FooDataGrid;
 import com.github.yuri0x7c1.bali.demo.ui.layout.ApplicationLayout;
-import com.github.yuri0x7c1.bali.ui.datagrid.EntityDataGrid;
+
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.github.yuri0x7c1.bali.ui.view.EntityListView;
 import com.vaadin.flow.router.Route;
@@ -23,23 +23,20 @@ public class FooListView extends EntityListView<Foo> {
 
 	final FooService fooService;
 
-	public FooListView(EntityDataGrid<Foo> entityDataGrid, I18N i18n, FooDataGrid fooGrid, FooService fooService) {
-		super(Foo.class, i18n, entityDataGrid);
+	public FooListView(I18N i18n, FooDataGrid fooDataGrid, FooService fooService) {
+		super(Foo.class, i18n, fooDataGrid);
 		this.fooService = fooService;
 
 		setHeaderText(i18n.get(TITLE_CODE));
 
-		// create handler
 		setCreateHandler(() -> {
 			getUI().ifPresent(ui -> ui.navigate(FooCreateView.class));
 		});
 
-		// edit handler
 		setEditHandler(foo -> {
 			getUI().ifPresent(ui -> ui.navigate(FooEditView.class, foo.getId()));
 		});
 
-		// delete handler
 		setDeleteHandler(foo -> {
 			fooService.delete(foo);
 		});
