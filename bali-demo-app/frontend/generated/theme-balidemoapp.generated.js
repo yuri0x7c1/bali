@@ -1,6 +1,7 @@
 import 'construct-style-sheets-polyfill';
 import { DomModule } from "@polymer/polymer/lib/elements/dom-module";
 import { stylesFromTemplate } from "@polymer/polymer/lib/utils/style-gather";
+import "@polymer/polymer/lib/elements/custom-style.js";
 
 const createLinkReferences = (css, target) => {
   // Unresolved urls are written as '@import url(text);' to the css
