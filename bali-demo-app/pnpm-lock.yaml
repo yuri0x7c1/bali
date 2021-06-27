@@ -6,7 +6,6 @@ dependencies:
   '@fullcalendar/moment': 4.4.2_6977c5fe757f9ef1b43b59751cf232e2
   '@fullcalendar/moment-timezone': 4.4.2_bc19664dfcf89a788dc49d528de5b2d4
   '@fullcalendar/timegrid': 4.4.2_@fullcalendar+core@4.4.2
-  '@polymer/iron-form': 3.0.1
   '@polymer/iron-icon': 3.0.1
   '@polymer/iron-list': 3.1.0
   '@polymer/polymer': 3.2.0
@@ -1133,12 +1132,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-lnrjKq3ysbBPT/74l0Fj0U9H9C35Tpw2C/tpJ8a+5g8Y3YJs1WSZYnEl1yOkw6sEyaxOq/1DkzH0+60gGu5/PQ==
-  /@polymer/iron-ajax/3.0.1:
-    dependencies:
-      '@polymer/polymer': 3.2.0
-    dev: false
-    resolution:
-      integrity: sha512-7+TPEAfWsRdhj1Y8UeF1759ktpVu+c3sG16rJiUC3wF9+woQ9xI1zUm2d59i7Yc3aDEJrR/Q8Y262KlOvyGVNg==
   /@polymer/iron-fit-behavior/3.0.2:
     dependencies:
       '@polymer/polymer': 3.2.0
@@ -1151,13 +1144,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-7gB869czArF+HZcPTVSgvA7tXYFze9EKckvM95NB7SqYF+NnsQyhoXgKnpFwGyo95lUjUW9TFDLUwDXnCYFtkw==
-  /@polymer/iron-form/3.0.1:
-    dependencies:
-      '@polymer/iron-ajax': 3.0.1
-      '@polymer/polymer': 3.2.0
-    dev: false
-    resolution:
-      integrity: sha512-JwSQXHjYALsytCeBkXlY8aRwqgZuYIqzOk3iHuugb1RXOdZ7MZHyJhMDVBbscHjxqPKu/KaVzAjrcfwNNafzEA==
   /@polymer/iron-icon/3.0.1:
     dependencies:
       '@polymer/iron-flex-layout': 3.0.1
@@ -8079,7 +8065,6 @@ specifiers:
   '@fullcalendar/moment': 4.4.2
   '@fullcalendar/moment-timezone': 4.4.2
   '@fullcalendar/timegrid': 4.4.2
-  '@polymer/iron-form': 3.0.1
   '@polymer/iron-icon': 3.0.1
   '@polymer/iron-list': 3.1.0
   '@polymer/polymer': 3.2.0

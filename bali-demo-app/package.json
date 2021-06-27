@@ -7,7 +7,6 @@
     "@fullcalendar/moment": "4.4.2",
     "@fullcalendar/moment-timezone": "4.4.2",
     "@fullcalendar/timegrid": "4.4.2",
-    "@polymer/iron-form": "3.0.1",
     "@polymer/iron-icon": "3.0.1",
     "@polymer/iron-list": "3.1.0",
     "@polymer/polymer": "3.2.0",
@@ -94,7 +93,6 @@
       "@fullcalendar/moment": "4.4.2",
       "@fullcalendar/moment-timezone": "4.4.2",
       "@fullcalendar/timegrid": "4.4.2",
-      "@polymer/iron-form": "3.0.1",
       "@polymer/iron-icon": "3.0.1",
       "@polymer/iron-list": "3.1.0",
       "@polymer/polymer": "3.2.0",
@@ -163,6 +161,6 @@
       "workbox-precaching": "6.1.0",
       "workbox-webpack-plugin": "6.1.0"
     },
-    "hash": "5da8c2328c8c5e4a3bd0887df64e41a2b62e4560da006b0e42c5d865bba22f6d"
+    "hash": "aead4a4d4cd83854e238c23a30a60a9e8a9a6273ec092e15594ee1cc5c38add2"
   }
 }
