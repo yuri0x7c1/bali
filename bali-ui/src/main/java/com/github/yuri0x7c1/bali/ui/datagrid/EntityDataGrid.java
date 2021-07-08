@@ -44,6 +44,10 @@ public abstract class EntityDataGrid<T> extends VDiv {
         Long searchCount(QbModel criteria);
     }
 
+    public interface EntityProcessor<T> extends Serializable {
+    	T process(T entity);
+    }
+
 	final Class<T> entityType;
 
 	@Getter
@@ -53,6 +57,10 @@ public abstract class EntityDataGrid<T> extends VDiv {
 	@Getter
 	@Setter
 	SearchCountProvider<T> searchCountProvider;
+
+	@Getter
+	@Setter
+	EntityProcessor<T> entityProcessor;
 
 	@Getter
 	@Setter
@@ -107,7 +115,7 @@ public abstract class EntityDataGrid<T> extends VDiv {
 					direction = SortDirection.ASCENDING.equals(query.getSortOrders().get(0).getDirection()) ? Direction.ASC : Direction.DESC;
 				}
 
-				return getSearchProvider().search(
+				Stream<T> entities = getSearchProvider().search(
 					qbModel,
 					PageRequest.of(
 						query.getOffset() / query.getLimit(),
@@ -116,6 +124,12 @@ public abstract class EntityDataGrid<T> extends VDiv {
 						property
 					)
 				);
+
+				if (entityProcessor != null) {
+					entities = entities.map(e -> entityProcessor.process(e));
+				}
+
+				return entities;
 
 			},
 			query -> getSearchCountProvider().searchCount(qbModel).intValue()
