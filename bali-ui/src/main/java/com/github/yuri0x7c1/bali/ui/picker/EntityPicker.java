@@ -10,7 +10,7 @@ import org.vaadin.firitin.components.orderedlayout.VVerticalLayout;
 
 import com.github.yuri0x7c1.bali.ui.datagrid.EntityDataGrid;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
-import com.vaadin.flow.component.AbstractField;
+import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.icon.VaadinIcon;
 
@@ -25,7 +25,7 @@ import lombok.experimental.FieldDefaults;
  * @author yuri0x7c1
  */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public abstract class EntityPicker<T> extends AbstractField<EntityPicker<T>, T> {
+public abstract class EntityPicker<T> extends CustomField<T> {
 	Class<T> entityType;
 
 	I18N i18n;
@@ -122,6 +122,11 @@ public abstract class EntityPicker<T> extends AbstractField<EntityPicker<T>, T> 
 			).getElement()
 		);
 	}
+
+    @Override
+    protected T generateModelValue() {
+        return getValue();
+    }
 
 	@Override
 	protected void setPresentationValue(T newPresentationValue) {

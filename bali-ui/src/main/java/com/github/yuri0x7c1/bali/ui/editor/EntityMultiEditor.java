@@ -17,7 +17,7 @@ import org.vaadin.firitin.components.orderedlayout.VVerticalLayout;
 import org.vaadin.firitin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
-import com.vaadin.flow.component.AbstractField;
+import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.function.ValueProvider;
 
@@ -35,7 +35,7 @@ import lombok.experimental.NonFinal;
  * @author yuri0x7c1
  */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public abstract class EntityMultiEditor<T> extends AbstractField<EntityMultiEditor<T>, List<T>> {
+public abstract class EntityMultiEditor<T> extends CustomField<List<T>> {
 
 	Class<T> entityType;
 
@@ -157,6 +157,11 @@ public abstract class EntityMultiEditor<T> extends AbstractField<EntityMultiEdit
 			).getElement()
 		);
 	}
+
+    @Override
+    protected List<T> generateModelValue() {
+        return getValue();
+    }
 
 	@Override
 	protected void setPresentationValue(List<T> newPresentationValue) {

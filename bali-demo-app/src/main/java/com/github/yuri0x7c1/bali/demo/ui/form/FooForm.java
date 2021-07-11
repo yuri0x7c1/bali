@@ -90,13 +90,16 @@ public class FooForm extends AbstractForm<Foo> {
 		localDate = new VDatePicker(i18n.get("Foo.localDate")).withFullWidth();
 
 		// initialize bar
-		// bar.withCaption(i18n.get("Foo.bar"));
+		bar.setLabel(i18n.get("Foo.bar"));
+		bar.setWidthFull();
 
 		// initialize linkedBars
-		// linkedBars.withCaption(i18n.get("Foo.linkedBars"));
+		linkedBars.setLabel(i18n.get("Foo.linkedBars"));
+		linkedBars.setWidthFull();
 
 		// initialize nestedBars
-		// nestedBars.withCaption(i18n.get("Foo.nestedBars"));
+		nestedBars.setLabel(i18n.get("Foo.nestedBars"));
+		nestedBars.setWidthFull();
 
 	}
 
