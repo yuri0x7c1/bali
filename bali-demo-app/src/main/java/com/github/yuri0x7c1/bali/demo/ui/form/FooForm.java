@@ -13,7 +13,6 @@ import org.vaadin.firitin.components.textfield.VTextField;
 import org.vaadin.firitin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
-import com.github.yuri0x7c1.bali.demo.ui.editor.BarMultiEditor;
 import com.github.yuri0x7c1.bali.demo.ui.picker.BarMultiPicker;
 import com.github.yuri0x7c1.bali.demo.ui.picker.BarPicker;
 import com.github.yuri0x7c1.bali.ui.data.converter.BigDecimalToLongConverter;
@@ -38,7 +37,7 @@ public class FooForm extends AbstractForm<Foo> {
 
 	private static final long serialVersionUID = 1L;
 
-	private I18N i18n;
+	I18N i18n;
 
     VTextField stringValue;
 
@@ -58,9 +57,9 @@ public class FooForm extends AbstractForm<Foo> {
 
     BarMultiPicker linkedBars;
 
-    BarMultiEditor nestedBars;
+    BarMultiPicker nestedBars;
 
-	public FooForm(I18N i18n, BarPicker bar, BarMultiPicker linkedBars, BarMultiEditor nestedBars) {
+	public FooForm(I18N i18n, BarPicker bar, BarMultiPicker linkedBars, BarMultiPicker nestedBars) {
 		super(Foo.class);
 		this.i18n = i18n;
 		this.bar = bar;
@@ -68,26 +67,32 @@ public class FooForm extends AbstractForm<Foo> {
 		this.nestedBars = nestedBars;
 
 		// initialize stringValue
-		stringValue = new VTextField(i18n.get("Foo.stringValue")).withFullWidth();
+		stringValue = new VTextField(i18n.get("Foo.stringValue"));
+		stringValue.setWidthFull();
 
 		// initialize longValue
-		longValue = new VBigDecimalField(i18n.get("Foo.longValue")).withFullWidth();
+		longValue = new VBigDecimalField(i18n.get("Foo.longValue"));
+		longValue.setWidthFull();
 
 		// initialize doubleValue
-		doubleValue = new VNumberField(i18n.get("Foo.doubleValue")).withFullWidth();
+		doubleValue = new VNumberField(i18n.get("Foo.doubleValue"));
+		doubleValue.setWidthFull();
 
 		// initialize booleanValue
 		booleanValue = new BooleanField(i18n.get("Foo.booleanValue"));
 		booleanValue.setWidthFull();
 
 		// initialize date
-		date = new VDateTimePicker(i18n.get("Foo.date")).withFullWidth();
+		date = new VDateTimePicker(i18n.get("Foo.date"));
+		date.setWidthFull();
 
 		// initialize localDateTime
-		localDateTime = new VDateTimePicker(i18n.get("Foo.localDateTime")).withFullWidth();
+		localDateTime = new VDateTimePicker(i18n.get("Foo.localDateTime"));
+		localDateTime.setWidthFull();
 
 		// initialize localDate
-		localDate = new VDatePicker(i18n.get("Foo.localDate")).withFullWidth();
+		localDate = new VDatePicker(i18n.get("Foo.localDate"));
+		localDate.setWidthFull();
 
 		// initialize bar
 		bar.setLabel(i18n.get("Foo.bar"));
