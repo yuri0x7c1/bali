@@ -72,6 +72,7 @@ public abstract class EntityListView<T> extends CommonView {
 
 		// delete button
 		deleteButton = new DeleteButton(i18n.get("Delete"), "", event -> delete());
+		deleteButton.setVisible(false);
 
 		addHeaderComponent(createButton);
 		addHeaderComponent(showButton);

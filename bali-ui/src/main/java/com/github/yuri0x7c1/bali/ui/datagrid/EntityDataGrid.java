@@ -17,6 +17,7 @@ import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.shared.Registration;
 import com.vaadin.shared.ui.MarginInfo;
+import com.vaadin.ui.Grid.Column;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.components.grid.GridSelectionModel;
 import com.vaadin.ui.components.grid.ItemClickListener;
@@ -145,6 +146,11 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public void addColumn(String propertyName, String caption) {
 		grid.addColumn(propertyName).setCaption(caption);
+	}
+
+	public void addColumn(String columnId, String caption, ValueProvider<T, String> valueProvider) {
+		Column<T, String> c = grid.addColumn(valueProvider).setCaption(caption);
+		c.setId(columnId);
 	}
 
 	public void addColumn(ValueProvider<T, String> valueProvider, String caption) {
