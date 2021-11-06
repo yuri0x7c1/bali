@@ -12,6 +12,7 @@ import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.layouts.MCssLayout;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
+import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import com.github.yuri0x7c1.bali.data.search.model.SearchField;
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
@@ -67,6 +68,7 @@ public class CommonSearchForm extends Card {
 		this.i18n = i18n;
 
 		setHeaderText(i18n.get("Search"));
+		setHeaderMargin(true);
 		setWidthFull();
 
 		searchButton = new MButton(i18n.get("Search"), e -> {
@@ -80,6 +82,7 @@ public class CommonSearchForm extends Card {
 		fieldSelect = new ComboBox<>();
 		fieldSelect.setWidth(FIELD_SELECT_WIDTH, Unit.PIXELS);
 		fieldSelect.setItemCaptionGenerator(fc -> fc.getComponentLabel());
+
 		addButton = new MButton(i18n.get("Search.addField"), event -> {
 			SearchFieldComponentDescriptor d = fieldSelect.getValue();
 			if (d != null) {
@@ -90,7 +93,7 @@ public class CommonSearchForm extends Card {
 		.withStyleName(ValoTheme.BUTTON_PRIMARY);
 
 		addHeaderComponent(new MHorizontalLayout(fieldSelect, addButton));
-		setContent(new MHorizontalLayout(fieldLayout, searchButton));
+		setContent(new MVerticalLayout(fieldLayout, searchButton));
 
 	}
 

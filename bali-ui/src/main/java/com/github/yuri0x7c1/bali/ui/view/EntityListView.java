@@ -81,11 +81,11 @@ public abstract class EntityListView<T> extends CommonView {
 		add(entityDataGrid);
 	}
 
-	private void create() {
+	protected void create() {
 		createHandler.ifPresent(h -> h.run());
 	}
 
-	private void show() {
+	protected void show() {
 		showHandler.ifPresent(h ->
 			entityDataGrid.getFirstSelectedItem().ifPresent(
 				item -> h.accept(item)
@@ -93,7 +93,7 @@ public abstract class EntityListView<T> extends CommonView {
 		);
 	}
 
-	private void edit() {
+	protected void edit() {
 		editHandler.ifPresent(h ->
 			entityDataGrid.getFirstSelectedItem().ifPresent(
 				item -> h.accept(item)
@@ -101,7 +101,7 @@ public abstract class EntityListView<T> extends CommonView {
 		);
 	}
 
-	private void delete() {
+	protected void delete() {
 		deleteHandler.ifPresent(h ->
 			entityDataGrid.getFirstSelectedItem().ifPresent(
 				item -> h.accept(item)

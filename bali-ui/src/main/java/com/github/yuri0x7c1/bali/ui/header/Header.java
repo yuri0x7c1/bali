@@ -21,6 +21,8 @@ public class Header extends MHorizontalLayout {
 
 	public Header() {
 		setWidthFull();
+		setMargin(true);
+		setSpacing(true);
 		label = new MLabel();
 		componentContainer = new MHorizontalLayout();
 
@@ -36,6 +38,7 @@ public class Header extends MHorizontalLayout {
 	}
 
 	public void setTextSize(HeaderTextSize size) {
+		label.addStyleName(size.name().toLowerCase());
 	}
 
 	public void addHeaderComponent(Component c) {

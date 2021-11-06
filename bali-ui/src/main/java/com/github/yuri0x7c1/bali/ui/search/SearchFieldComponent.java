@@ -4,9 +4,9 @@ import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
+import org.vaadin.viritin.layouts.MPanel;
 
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
-import com.github.yuri0x7c1.bali.ui.card.Card;
 import com.vaadin.data.HasValue;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Component;
@@ -22,7 +22,7 @@ import lombok.experimental.FieldDefaults;
  *
  */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class SearchFieldComponent extends Card {
+public class SearchFieldComponent extends MPanel {
     I18N i18n;
 
     @Getter
@@ -48,10 +48,11 @@ public class SearchFieldComponent extends Card {
 		this.optionSelect.setValue(operator);
 		this.valueComponent = valueComponent;
 		this.closeButton = new MButton(VaadinIcons.CLOSE)
-				.withStyleName(ValoTheme.BUTTON_PRIMARY, ValoTheme.BUTTON_DANGER);
+				.withStyleName(ValoTheme.BUTTON_DANGER);
 
 		layout.add(nameLabel, optionSelect, valueComponent, closeButton);
 
+		setWidthUndefined();
 		setContent(layout);
 	}
 

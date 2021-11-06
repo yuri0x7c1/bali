@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.grid.MGrid;
-import org.vaadin.viritin.layouts.MPanel;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import com.github.yuri0x7c1.bali.data.search.model.SearchModel;
@@ -17,6 +16,7 @@ import com.github.yuri0x7c1.bali.ui.pagination.PaginationResource;
 import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.shared.Registration;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.components.grid.GridSelectionModel;
 import com.vaadin.ui.components.grid.ItemClickListener;
@@ -98,6 +98,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		this.searchCountProvider = searchCountProvider;
 
 		setSizeFull();
+		setMargin(new MarginInfo(false, true, false, true));
 
 		// search form
 		searchForm.setSearchHandler(() -> search());
@@ -115,19 +116,20 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		pagination.addPageChangeListener(event -> {
 			page = event.page() - 1;
 			pageSize = event.limit();
-
+			grid.setHeightByRows(pageSize);
 			search();
 		});
 
 		// entity grid
 		grid = new MGrid<T>(entityType);
+		grid.setWidthFull();
 		grid.setHeightByRows(pageSize);
 
 		// list entities
 		search();
 
 		// add components
-		add(searchForm, new MPanel(grid).withFullWidth(), pagination);
+		add(searchForm, grid, pagination);
 	}
 
 	protected void search() {

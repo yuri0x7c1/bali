@@ -1053,7 +1053,7 @@
  */
 
 .v-vaadin-version:after {
-	content: "8.12.4";
+	content: "8.11.3";
 }
 
 .v-widget {
@@ -4868,7 +4868,7 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8.25px;
 }
 
-.mytheme .v-grid-editor-cells  > div :not(.v-assistive-device-only-label).v-widget > input[type="checkbox"] {
+.mytheme .v-grid-editor-cells  > div input[type="checkbox"] {
 	margin-left: 16.5px;
 }
 
@@ -5116,15 +5116,15 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8px;
 }
 
-.mytheme .v-grid-editor-cells > div .v-checkbox.v-widget {
+.mytheme .v-grid-editor-cells > div .v-checkbox {
 	margin: 0 8px 0 16.5px;
 }
 
-.mytheme .v-grid-editor-cells > div .v-checkbox.v-widget  > input[type="checkbox"] {
+.mytheme .v-grid-editor-cells > div .v-checkbox  > input[type="checkbox"] {
 	margin-left: 0;
 }
 
-.mytheme .v-grid-editor-cells > div .v-checkbox.v-widget  > label {
+.mytheme .v-grid-editor-cells > div .v-checkbox  > label {
 	white-space: nowrap;
 }
 
@@ -9635,7 +9635,7 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8.25px;
 }
 
-.mytheme .v-tree8-editor-cells  > div :not(.v-assistive-device-only-label).v-widget > input[type="checkbox"] {
+.mytheme .v-tree8-editor-cells  > div input[type="checkbox"] {
 	margin-left: 16.5px;
 }
 
@@ -9883,15 +9883,15 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8px;
 }
 
-.mytheme .v-tree8-editor-cells > div .v-checkbox.v-widget {
+.mytheme .v-tree8-editor-cells > div .v-checkbox {
 	margin: 0 8px 0 16.5px;
 }
 
-.mytheme .v-tree8-editor-cells > div .v-checkbox.v-widget  > input[type="checkbox"] {
+.mytheme .v-tree8-editor-cells > div .v-checkbox  > input[type="checkbox"] {
 	margin-left: 0;
 }
 
-.mytheme .v-tree8-editor-cells > div .v-checkbox.v-widget  > label {
+.mytheme .v-tree8-editor-cells > div .v-checkbox  > label {
 	white-space: nowrap;
 }
 
@@ -10781,7 +10781,7 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8.25px;
 }
 
-.mytheme .v-treegrid-editor-cells  > div :not(.v-assistive-device-only-label).v-widget > input[type="checkbox"] {
+.mytheme .v-treegrid-editor-cells  > div input[type="checkbox"] {
 	margin-left: 16.5px;
 }
 
@@ -11029,15 +11029,15 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8px;
 }
 
-.mytheme .v-treegrid-editor-cells > div .v-checkbox.v-widget {
+.mytheme .v-treegrid-editor-cells > div .v-checkbox {
 	margin: 0 8px 0 16.5px;
 }
 
-.mytheme .v-treegrid-editor-cells > div .v-checkbox.v-widget  > input[type="checkbox"] {
+.mytheme .v-treegrid-editor-cells > div .v-checkbox  > input[type="checkbox"] {
 	margin-left: 0;
 }
 
-.mytheme .v-treegrid-editor-cells > div .v-checkbox.v-widget  > label {
+.mytheme .v-treegrid-editor-cells > div .v-checkbox  > label {
 	white-space: nowrap;
 }
 

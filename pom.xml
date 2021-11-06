@@ -144,6 +144,12 @@
 				<version>${responsive.layout.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.vaadin.addons</groupId>
+				<artifactId>hybridmenu</artifactId>
+				<version>3.0.13</version>
+			</dependency>
+
 			<!-- vaadin4spring -->
 			<dependency>
 				<groupId>org.vaadin.spring.extensions</groupId>
