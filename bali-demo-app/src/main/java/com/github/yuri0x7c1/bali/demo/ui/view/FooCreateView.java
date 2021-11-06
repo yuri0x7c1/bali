@@ -11,7 +11,7 @@ import org.vaadin.viritin.button.MButton;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 // import EventQualifiedName;
 import com.github.yuri0x7c1.bali.demo.ui.form.FooForm;
-import com.github.yuri0x7c1.bali.ui.util.NavigationUtil;
+import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 
@@ -56,7 +56,7 @@ public class FooCreateView extends CommonView implements View {
 			new MButton(
 				VaadinIcons.ARROW_LEFT,
 				i18n.get("Back"),
-				(ClickListener) event -> NavigationUtil.back()
+				(ClickListener) event -> UiUtil.back()
 			).withStyleName(ValoTheme.BUTTON_PRIMARY)
 		);
 
@@ -65,12 +65,12 @@ public class FooCreateView extends CommonView implements View {
 			// eventBus.publish(fooForm, new EventName(foo));
 
 			fooService.save(foo);
-			NavigationUtil.back();
+			UiUtil.back();
 		});
 
 		// form reset handler
 		fooForm.setResetHandler(foo -> {
-			NavigationUtil.back();
+			UiUtil.back();
 		});
 
 		// add form

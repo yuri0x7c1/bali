@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 // import EventQualifiedName;
 import com.github.yuri0x7c1.bali.demo.ui.form.FooForm;
-import com.github.yuri0x7c1.bali.ui.util.NavigationUtil;
+import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 
@@ -66,7 +66,7 @@ public class FooEditView extends CommonView implements View {
 			new MButton(
 				VaadinIcons.ARROW_LEFT,
 				i18n.get("Back"),
-				(ClickListener) event -> NavigationUtil.back()
+				(ClickListener) event -> UiUtil.back()
 			).withStyleName(ValoTheme.BUTTON_PRIMARY)
 		);
 
@@ -75,12 +75,12 @@ public class FooEditView extends CommonView implements View {
 			// eventBus.publish(fooForm, new EventName(foo));
 
 			fooService.save(foo);
-			NavigationUtil.back();
+			UiUtil.back();
 		});
 
 		// form reset handler
 		fooForm.setResetHandler(foo -> {
-			NavigationUtil.back();
+			UiUtil.back();
 		});
 
 		// add form
@@ -92,7 +92,7 @@ public class FooEditView extends CommonView implements View {
 		// validate params
 		if (event.getParameters() == null || event.getParameters().isEmpty()) {
 			log.error("Parameters is empty");
-			NavigationUtil.back();
+			UiUtil.back();
 		}
 
 		try {
@@ -100,7 +100,7 @@ public class FooEditView extends CommonView implements View {
 			Foo foo = fooService.findById(mapper.readValue(event.getParameters(), java.lang.Integer.class)).get();
 			if (foo == null) {
 				log.error("Entity not found");
-				NavigationUtil.back();
+				UiUtil.back();
 			}
 
 			// initialize entity
