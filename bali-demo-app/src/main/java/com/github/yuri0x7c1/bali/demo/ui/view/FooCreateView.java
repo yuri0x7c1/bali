@@ -8,11 +8,11 @@ import org.vaadin.spring.events.EventBus.UIEventBus;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.MButton;
 
-import com.github.yuri0x7c1.bali.common.ui.util.NavigationUtil;
-import com.github.yuri0x7c1.bali.common.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 // import EventQualifiedName;
 import com.github.yuri0x7c1.bali.demo.ui.form.FooForm;
+import com.github.yuri0x7c1.bali.ui.util.NavigationUtil;
+import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 
 import com.vaadin.icons.VaadinIcons;

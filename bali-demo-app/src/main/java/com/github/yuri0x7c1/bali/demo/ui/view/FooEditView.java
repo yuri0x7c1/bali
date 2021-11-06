@@ -13,11 +13,11 @@ import org.vaadin.viritin.button.MButton;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.yuri0x7c1.bali.common.ui.util.NavigationUtil;
-import com.github.yuri0x7c1.bali.common.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 // import EventQualifiedName;
 import com.github.yuri0x7c1.bali.demo.ui.form.FooForm;
+import com.github.yuri0x7c1.bali.ui.util.NavigationUtil;
+import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 
 import com.vaadin.icons.VaadinIcons;

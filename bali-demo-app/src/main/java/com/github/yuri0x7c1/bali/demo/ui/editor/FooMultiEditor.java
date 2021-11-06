@@ -19,11 +19,11 @@ import org.vaadin.viritin.layouts.MCssLayout;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
-import com.github.yuri0x7c1.bali.common.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.demo.ui.form.FooForm;
 import com.github.yuri0x7c1.bali.security.util.SecurityUtil;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;

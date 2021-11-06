@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.common.ui.sidebar;
+package com.github.yuri0x7c1.bali.ui.sidebar;
 
 import org.springframework.stereotype.Component;
 import org.vaadin.spring.sidebar.annotation.SideBarSection;

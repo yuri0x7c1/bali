@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.common.ui.util;
+package com.github.yuri0x7c1.bali.ui.util;
 
 import com.vaadin.ui.JavaScript;
 

@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.common.ui.security;
+package com.github.yuri0x7c1.bali.ui.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.vaadin.spring.i18n.I18N;

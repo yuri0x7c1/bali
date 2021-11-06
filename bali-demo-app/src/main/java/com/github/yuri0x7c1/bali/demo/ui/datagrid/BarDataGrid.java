@@ -19,11 +19,11 @@ import org.vaadin.viritin.layouts.MCssLayout;
 
 import com.github.yuri0x7c1.bali.demo.domain.Bar;
 import com.github.yuri0x7c1.bali.demo.service.BarService;
+import com.github.yuri0x7c1.bali.ui.qb.component.QueryBuilder;
 import com.github.yuri0x7c1.bali.data.qb.config.QbConfig;
 import com.github.yuri0x7c1.bali.data.qb.model.QbField;
 import com.github.yuri0x7c1.bali.data.qb.model.QbModel;
 import com.github.yuri0x7c1.bali.data.qb.model.QbType;
-import com.github.yuri0x7c1.bali.qb.ui.component.QueryBuilder;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.shared.Registration;
 import com.vaadin.shared.data.sort.SortDirection;

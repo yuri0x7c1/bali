@@ -3,8 +3,8 @@ package com.github.yuri0x7c1.bali.demo.ui;
 import org.vaadin.spring.security.VaadinSecurity;
 import org.vaadin.spring.sidebar.components.ValoSideBar;
 
-import com.github.yuri0x7c1.bali.common.ui.CommonSecuredUI;
-import com.github.yuri0x7c1.bali.common.ui.menu.TopBar;
+import com.github.yuri0x7c1.bali.ui.CommonSecuredUI;
+import com.github.yuri0x7c1.bali.ui.menu.TopBar;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.spring.annotation.SpringUI;

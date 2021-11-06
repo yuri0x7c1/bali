@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.common.ui.style;
+package com.github.yuri0x7c1.bali.ui.style;
 
 import lombok.RequiredArgsConstructor;
 

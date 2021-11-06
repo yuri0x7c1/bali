@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.common.ui.menu;
+package com.github.yuri0x7c1.bali.ui.menu;
 
 import javax.annotation.PostConstruct;
 
@@ -7,7 +7,7 @@ import org.vaadin.spring.sidebar.components.ValoSideBar;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
 
-import com.github.yuri0x7c1.bali.common.ui.style.BaliStyle;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;

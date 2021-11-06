@@ -5,8 +5,8 @@ import javax.annotation.PostConstruct;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
 import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 
-import com.github.yuri0x7c1.bali.common.ui.sidebar.Sections;
-import com.github.yuri0x7c1.bali.common.ui.view.CommonView;
+import com.github.yuri0x7c1.bali.ui.sidebar.Sections;
+import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.spring.annotation.SpringView;

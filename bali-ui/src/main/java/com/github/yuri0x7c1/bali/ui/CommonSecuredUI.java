@@ -1,9 +1,9 @@
-package com.github.yuri0x7c1.bali.common.ui;
+package com.github.yuri0x7c1.bali.ui;
 
 import org.vaadin.spring.security.VaadinSecurity;
 import org.vaadin.spring.sidebar.components.ValoSideBar;
 
-import com.github.yuri0x7c1.bali.common.ui.menu.TopBar;
+import com.github.yuri0x7c1.bali.ui.menu.TopBar;
 import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.spring.navigator.SpringViewProvider;
 

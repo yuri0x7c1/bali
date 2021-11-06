@@ -1,11 +1,11 @@
-package com.github.yuri0x7c1.bali.common.ui;
+package com.github.yuri0x7c1.bali.ui;
 
 import org.vaadin.spring.sidebar.components.ValoSideBar;
 
-import com.github.yuri0x7c1.bali.common.ui.menu.TopBar;
-import com.github.yuri0x7c1.bali.common.ui.style.BaliStyle;
-import com.github.yuri0x7c1.bali.common.ui.view.AccessDeniedView;
-import com.github.yuri0x7c1.bali.common.ui.view.ErrorView;
+import com.github.yuri0x7c1.bali.ui.menu.TopBar;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
+import com.github.yuri0x7c1.bali.ui.view.AccessDeniedView;
+import com.github.yuri0x7c1.bali.ui.view.ErrorView;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.navigator.SpringNavigator;

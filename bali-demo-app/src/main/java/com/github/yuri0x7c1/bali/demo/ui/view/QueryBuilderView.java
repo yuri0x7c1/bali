@@ -5,12 +5,12 @@ import org.vaadin.spring.sidebar.annotation.SideBarItem;
 import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 import org.vaadin.viritin.button.MButton;
 
-import com.github.yuri0x7c1.bali.common.ui.sidebar.Sections;
-import com.github.yuri0x7c1.bali.common.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.data.qb.config.QbConfig;
 import com.github.yuri0x7c1.bali.data.qb.model.QbField;
 import com.github.yuri0x7c1.bali.data.qb.model.QbType;
-import com.github.yuri0x7c1.bali.qb.ui.component.QueryBuilder;
+import com.github.yuri0x7c1.bali.ui.qb.component.QueryBuilder;
+import com.github.yuri0x7c1.bali.ui.sidebar.Sections;
+import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.spring.annotation.SpringView;

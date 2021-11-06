@@ -13,13 +13,12 @@ import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 import org.vaadin.viritin.button.ConfirmButton;
 import org.vaadin.viritin.button.MButton;
 
-import com.github.yuri0x7c1.bali.common.ui.sidebar.Sections;
-import com.github.yuri0x7c1.bali.common.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.demo.ui.datagrid.FooDataGrid;
 import com.github.yuri0x7c1.bali.security.util.SecurityUtil;
-
+import com.github.yuri0x7c1.bali.ui.sidebar.Sections;
+import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.icons.VaadinIcons;

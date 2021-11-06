@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.qb.ui.component;
+package com.github.yuri0x7c1.bali.ui.qb.component;
 
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.fields.MTextField;

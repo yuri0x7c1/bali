@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.common.ui.view;
+package com.github.yuri0x7c1.bali.ui.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;

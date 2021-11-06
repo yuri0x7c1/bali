@@ -12,16 +12,17 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 
-import com.github.yuri0x7c1.bali.common.ui.field.LongField;
 import org.vaadin.viritin.fields.MTextField;
 import com.github.yuri0x7c1.bali.demo.ui.select.BarSelect;
+import com.github.yuri0x7c1.bali.ui.field.BooleanField;
+import com.github.yuri0x7c1.bali.ui.field.LongField;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.ui.DateTimeField;
 import com.vaadin.ui.DateField;
 import com.vaadin.data.converter.LocalDateTimeToDateConverter;
-import com.github.yuri0x7c1.bali.common.ui.field.BooleanField;
 import com.github.yuri0x7c1.bali.demo.ui.picker.BarMultiPicker;
 import com.vaadin.data.validator.BeanValidator;
-import com.github.yuri0x7c1.bali.common.ui.style.BaliStyle;
+
 import org.vaadin.viritin.fields.DoubleField;
 import java.time.ZoneId;
 

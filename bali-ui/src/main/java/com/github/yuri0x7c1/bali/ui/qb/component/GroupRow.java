@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.qb.ui.component;
+package com.github.yuri0x7c1.bali.ui.qb.component;
 
 import java.util.LinkedList;
 import java.util.List;

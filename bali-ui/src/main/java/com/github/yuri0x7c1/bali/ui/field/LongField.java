@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.common.ui.field;
+package com.github.yuri0x7c1.bali.ui.field;
 
 import org.apache.commons.lang3.StringUtils;
 import org.vaadin.viritin.fields.AbstractNumberField;
