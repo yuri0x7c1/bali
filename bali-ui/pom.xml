@@ -42,11 +42,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>hybridmenu</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>com.jarektoro</groupId>
 			<artifactId>responsive-layout</artifactId>
 		</dependency>
