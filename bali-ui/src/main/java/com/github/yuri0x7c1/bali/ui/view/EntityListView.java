@@ -1,13 +1,10 @@
 package com.github.yuri0x7c1.bali.ui.view;
 
-import java.util.Optional;
-import java.util.function.Consumer;
-
 import org.vaadin.spring.i18n.I18N;
-import org.vaadin.viritin.button.DeleteButton;
 import org.vaadin.viritin.button.MButton;
 
 import com.github.yuri0x7c1.bali.ui.datagrid.EntityDataGrid;
+import com.github.yuri0x7c1.bali.ui.handler.CreateHandler;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -33,27 +30,9 @@ public abstract class EntityListView<T> extends CommonView {
 
 	MButton createButton;
 
-	MButton showButton;
-
-	MButton editButton;
-
-	DeleteButton deleteButton;
-
 	@Getter
 	@NonFinal
-	Optional<Runnable> createHandler = Optional.empty();
-
-	@Getter
-	@NonFinal
-	Optional<Consumer<T>> showHandler= Optional.empty();
-
-	@Getter
-	@NonFinal
-	Optional<Consumer<T>> editHandler= Optional.empty();
-
-	@Getter
-	@NonFinal
-	Optional<Consumer<T>> deleteHandler= Optional.empty();
+	CreateHandler<T> createHandler;
 
 	public EntityListView(Class<T> entityType, I18N i18n, EntityDataGrid<T> entityDataGrid) {
 		super();
@@ -62,71 +41,15 @@ public abstract class EntityListView<T> extends CommonView {
 		this.entityDataGrid = entityDataGrid;
 
 		// create button
-		createButton = new MButton(i18n.get("Create"), e -> create()).withVisible(false);
-
-		// show button
-		showButton = new MButton(i18n.get("Show"), e -> show()).withVisible(false);
-
-		// edit button
-		editButton = new MButton(i18n.get("Edit"), e -> edit()).withVisible(false);
-
-		// delete button
-		deleteButton = new DeleteButton(i18n.get("Delete"), "", event -> delete());
-		deleteButton.setVisible(false);
-
+		createButton = new MButton(i18n.get("Create")).withVisible(false);
 		addHeaderComponent(createButton);
-		addHeaderComponent(showButton);
-		addHeaderComponent(editButton);
-		addHeaderComponent(deleteButton);
 
 		add(entityDataGrid);
 	}
 
-	protected void create() {
-		createHandler.ifPresent(h -> h.run());
-	}
-
-	protected void show() {
-		showHandler.ifPresent(h ->
-			entityDataGrid.getFirstSelectedItem().ifPresent(
-				item -> h.accept(item)
-			)
-		);
-	}
-
-	protected void edit() {
-		editHandler.ifPresent(h ->
-			entityDataGrid.getFirstSelectedItem().ifPresent(
-				item -> h.accept(item)
-			)
-		);
-	}
-
-	protected void delete() {
-		deleteHandler.ifPresent(h ->
-			entityDataGrid.getFirstSelectedItem().ifPresent(
-				item -> h.accept(item)
-			)
-		);
-	}
-
-	public void setCreateHandler(Runnable createHandler) {
-		this.createHandler = Optional.of(createHandler);
+	public void setCreateHandler(CreateHandler createHandler) {
+		this.createHandler = createHandler;
+		createButton.addClickListener(event -> createHandler.onCreate());
 		createButton.setVisible(true);
-	}
-
-	public void setShowHandler(Consumer<T> showHandler) {
-		this.showHandler = Optional.of(showHandler);
-		showButton.setVisible(true);
-	}
-
-	public void setEditHandler(Consumer<T> editHandler) {
-		this.editHandler = Optional.of(editHandler);
-		editButton.setVisible(true);
-	}
-
-	public void setDeleteHandler(Consumer<T> deleteHandler) {
-		this.deleteHandler = Optional.of(deleteHandler);
-		deleteButton.setVisible(true);
 	}
 }

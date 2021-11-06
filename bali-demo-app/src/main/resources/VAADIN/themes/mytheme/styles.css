@@ -316,16 +316,6 @@
  */
 
 @font-face {
-	font-family: "Vaadin-Icons";
-	src: url(../valo/fonts/vaadin-icons/Vaadin-Icons.eot);
-	src: url(../valo/fonts/vaadin-icons/Vaadin-Icons.eot?#iefix) format("embedded-opentype"), url(../valo/fonts/vaadin-icons/Vaadin-Icons.woff) format("woff"), url(../valo/fonts/vaadin-icons/Vaadin-Icons.ttf) format("truetype"), url(../valo/fonts/vaadin-icons/Vaadin-Icons.svg#icomoon) format("svg");
-}
-
-.Vaadin-Icons {
-	font-family: "Vaadin-Icons";
-}
-
-@font-face {
 	font-family: ThemeIcons;
 	font-weight: normal;
 	font-style: normal;
@@ -341,6 +331,16 @@
 	-moz-osx-font-smoothing: grayscale;
 	display: inline-block;
 	text-align: center;
+}
+
+@font-face {
+	font-family: "Vaadin-Icons";
+	src: url(../valo/fonts/vaadin-icons/Vaadin-Icons.eot);
+	src: url(../valo/fonts/vaadin-icons/Vaadin-Icons.eot?#iefix) format("embedded-opentype"), url(../valo/fonts/vaadin-icons/Vaadin-Icons.woff) format("woff"), url(../valo/fonts/vaadin-icons/Vaadin-Icons.ttf) format("truetype"), url(../valo/fonts/vaadin-icons/Vaadin-Icons.svg#icomoon) format("svg");
+}
+
+.Vaadin-Icons {
+	font-family: "Vaadin-Icons";
 }
 
 @font-face {
@@ -1053,7 +1053,7 @@
  */
 
 .v-vaadin-version:after {
-	content: "8.11.3";
+	content: "8.14.2";
 }
 
 .v-widget {
@@ -4868,7 +4868,7 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8.25px;
 }
 
-.mytheme .v-grid-editor-cells  > div input[type="checkbox"] {
+.mytheme .v-grid-editor-cells  > div :not(.v-assistive-device-only-label).v-widget > input[type="checkbox"] {
 	margin-left: 16.5px;
 }
 
@@ -5116,15 +5116,15 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8px;
 }
 
-.mytheme .v-grid-editor-cells > div .v-checkbox {
+.mytheme .v-grid-editor-cells > div .v-checkbox.v-widget {
 	margin: 0 8px 0 16.5px;
 }
 
-.mytheme .v-grid-editor-cells > div .v-checkbox  > input[type="checkbox"] {
+.mytheme .v-grid-editor-cells > div .v-checkbox.v-widget  > input[type="checkbox"] {
 	margin-left: 0;
 }
 
-.mytheme .v-grid-editor-cells > div .v-checkbox  > label {
+.mytheme .v-grid-editor-cells > div .v-checkbox.v-widget  > label {
 	white-space: nowrap;
 }
 
@@ -9635,7 +9635,7 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8.25px;
 }
 
-.mytheme .v-tree8-editor-cells  > div input[type="checkbox"] {
+.mytheme .v-tree8-editor-cells  > div :not(.v-assistive-device-only-label).v-widget > input[type="checkbox"] {
 	margin-left: 16.5px;
 }
 
@@ -9883,15 +9883,15 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8px;
 }
 
-.mytheme .v-tree8-editor-cells > div .v-checkbox {
+.mytheme .v-tree8-editor-cells > div .v-checkbox.v-widget {
 	margin: 0 8px 0 16.5px;
 }
 
-.mytheme .v-tree8-editor-cells > div .v-checkbox  > input[type="checkbox"] {
+.mytheme .v-tree8-editor-cells > div .v-checkbox.v-widget  > input[type="checkbox"] {
 	margin-left: 0;
 }
 
-.mytheme .v-tree8-editor-cells > div .v-checkbox  > label {
+.mytheme .v-tree8-editor-cells > div .v-checkbox.v-widget  > label {
 	white-space: nowrap;
 }
 
@@ -10781,7 +10781,7 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8.25px;
 }
 
-.mytheme .v-treegrid-editor-cells  > div input[type="checkbox"] {
+.mytheme .v-treegrid-editor-cells  > div :not(.v-assistive-device-only-label).v-widget > input[type="checkbox"] {
 	margin-left: 16.5px;
 }
 
@@ -11029,15 +11029,15 @@ div.v-layout.v-horizontal.v-widget {
 	padding-right: 8px;
 }
 
-.mytheme .v-treegrid-editor-cells > div .v-checkbox {
+.mytheme .v-treegrid-editor-cells > div .v-checkbox.v-widget {
 	margin: 0 8px 0 16.5px;
 }
 
-.mytheme .v-treegrid-editor-cells > div .v-checkbox  > input[type="checkbox"] {
+.mytheme .v-treegrid-editor-cells > div .v-checkbox.v-widget  > input[type="checkbox"] {
 	margin-left: 0;
 }
 
-.mytheme .v-treegrid-editor-cells > div .v-checkbox  > label {
+.mytheme .v-treegrid-editor-cells > div .v-checkbox.v-widget  > label {
 	white-space: nowrap;
 }
 
@@ -11450,7 +11450,7 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .v-table-cell-content {
 	border-left: 1px solid #d4d4d4;
 	overflow: hidden;
-	height: 32px;
+	height: 33px;
 	vertical-align: middle;
 }
 
@@ -11499,9 +11499,11 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .v-table-table td {
 	border-top: 1px solid #d4d4d4;
+	box-sizing: border-box;
 }
 
 .mytheme .v-table-table tr:first-child > td {
+	height: 32px;
 	border-top: none;
 }
 
@@ -11771,7 +11773,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .v-table-row-drag-bottom td.v-table-cell-content {
 	border-bottom: 2px solid #197de1;
-	height: 30px;
+	height: 31px;
 }
 
 .mytheme .v-table-row-drag-bottom .v-table-cell-wrapper {
@@ -11780,7 +11782,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .v-table-row-drag-top td.v-table-cell-content {
 	border-top: 2px solid #197de1;
-	height: 31px;
+	height: 32px;
 }
 
 .mytheme .v-table-row-drag-top .v-table-cell-wrapper {
@@ -11806,7 +11808,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-table-no-horizontal-lines .v-table-row-drag-top .v-table-cell-content, .mytheme .v-table-no-horizontal-lines .v-table-row-drag-bottom .v-table-cell-content {
-	height: 31px;
+	height: 32px;
 }
 
 .mytheme .v-table-no-header .v-table-header-wrap {

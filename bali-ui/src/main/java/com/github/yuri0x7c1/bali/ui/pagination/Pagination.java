@@ -7,6 +7,7 @@ import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
 
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.data.HasValue;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
@@ -56,19 +57,18 @@ public class Pagination extends HorizontalLayout {
         setWidth("100%");
         setSpacing(true);
 
-		firstButton = new MButton(i18n.get("Pagination.first"))
-			.withIcon(VaadinIcons.ANGLE_DOUBLE_LEFT)
-			.withStyleName(ValoTheme.BUTTON_PRIMARY, ValoTheme.BUTTON_SMALL);
-		previousButton = new MButton(i18n.get("Pagination.prev"))
-			.withIcon(VaadinIcons.ANGLE_LEFT)
-			.withStyleName(ValoTheme.BUTTON_PRIMARY, ValoTheme.BUTTON_SMALL);
-		nextButton = new MButton(i18n.get("Pagination.next"))
-			.withIcon(VaadinIcons.ANGLE_RIGHT)
-			.withStyleName(ValoTheme.BUTTON_PRIMARY, ValoTheme.BUTTON_SMALL);
-		lastButton = new MButton(i18n.get("Pagination.last"))
-			.withIcon(VaadinIcons.ANGLE_DOUBLE_RIGHT)
-			.withStyleName(ValoTheme.BUTTON_PRIMARY)
-			.withStyleName(ValoTheme.BUTTON_PRIMARY, ValoTheme.BUTTON_SMALL);
+		firstButton = new MButton(VaadinIcons.ANGLE_DOUBLE_LEFT)
+			.withDescription(i18n.get("Pagination.first"))
+			.withStyleName(BaliStyle.BUTTON_PRIMARY_FIX, ValoTheme.BUTTON_PRIMARY);
+		previousButton = new MButton(VaadinIcons.ANGLE_LEFT)
+			.withDescription(i18n.get("Pagination.prev"))
+			.withStyleName(BaliStyle.BUTTON_PRIMARY_FIX, ValoTheme.BUTTON_PRIMARY);
+		nextButton = new MButton(VaadinIcons.ANGLE_RIGHT)
+			.withDescription(i18n.get("Pagination.next"))
+			.withStyleName(BaliStyle.BUTTON_PRIMARY_FIX, ValoTheme.BUTTON_PRIMARY);
+		lastButton = new MButton(VaadinIcons.ANGLE_DOUBLE_RIGHT)
+			.withDescription(i18n.get("Pagination.last"))
+			.withStyleName(BaliStyle.BUTTON_PRIMARY_FIX, ValoTheme.BUTTON_PRIMARY);
 
         init(paginationResource);
     }
