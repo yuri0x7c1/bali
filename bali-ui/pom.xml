@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.yuri0x7c1.bali</groupId>
+		<artifactId>bali</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>bali-ui</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vaadin.spring.extensions</groupId>
+			<artifactId>vaadin-spring-ext-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vaadin.spring.addons</groupId>
+			<artifactId>vaadin-spring-addon-eventbus</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vaadin.spring.addons</groupId>
+			<artifactId>vaadin-spring-addon-sidebar</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vaadin</groupId>
+			<artifactId>viritin</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.el</groupId>
+					<artifactId>javax.el-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jarektoro</groupId>
+			<artifactId>responsive-layout</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.yuri0x7c1.bali</groupId>
+			<artifactId>bali-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.yuri0x7c1.bali</groupId>
+			<artifactId>bali-data</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+	</dependencies>
+</project>

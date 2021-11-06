@@ -1,0 +1,97 @@
+/* view container */
+.bali-view-container {
+	overflow: auto;
+
+	// padding-left: 12px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+/* form */
+.bali-form {
+	width: 100%;
+	padding: 8px;
+
+	.bali-form-field {
+		width: 100%! important;
+
+		.v-caption {
+			margin-top: 14px;
+		}
+
+		.v-captiontext {
+			font-weight: bold;
+		}
+	}
+
+	.bali-entity-picker {
+		width: 100%;
+
+		.v-textfield {
+			width: 80%;
+		}
+
+		.v-button {
+			width: 20%;
+		}
+	}
+
+	.bali-form-toolbar {
+		padding-top: 20px;
+	}
+}
+
+/* topbar */
+.bali-topbar {
+	width: 100%;
+	background-color: #404040;
+
+	.collapse-button {
+		display: inline-block;
+
+		.v-icon {
+			color: white;
+		}
+	}
+
+	.logout-button {
+		display: inline-block;
+		float: right;
+
+		.v-icon {
+			color: white;
+		}
+	}
+
+	.user-label {
+		width: auto !important;
+		display: inline-block;
+		float: right;
+		color: white;
+		margin-top: 6px;
+	}
+}
+/* Other */
+.bali-overflow-auto {
+	overflow: auto;
+}
+
+/* Extra Small */
+@media(min-width:480px){
+}
+
+/* Small */
+@media(min-width:768px){
+		}
+
+/* Medium */
+@media(min-width:992px){
+}
+
+/* Large */
+@media(min-width:1200px){
+}
+
+/* Extra large  */
+@media (min-width: 1600px) {
+}

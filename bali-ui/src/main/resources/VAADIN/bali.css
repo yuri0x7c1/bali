@@ -1,0 +1,70 @@
+/* view container */
+.bali-view-container {
+  overflow: auto;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+/* form */
+.bali-form {
+  width: 100%;
+  padding: 8px;
+}
+.bali-form .bali-form-field {
+  width: 100% !important;
+}
+.bali-form .bali-form-field .v-caption {
+  margin-top: 14px;
+}
+.bali-form .bali-form-field .v-captiontext {
+  font-weight: bold;
+}
+.bali-form .bali-entity-picker {
+  width: 100%;
+}
+.bali-form .bali-entity-picker .v-textfield {
+  width: 80%;
+}
+.bali-form .bali-entity-picker .v-button {
+  width: 20%;
+}
+.bali-form .bali-form-toolbar {
+  padding-top: 20px;
+}
+
+/* topbar */
+.bali-topbar {
+  width: 100%;
+  background-color: #404040;
+}
+.bali-topbar .collapse-button {
+  display: inline-block;
+}
+.bali-topbar .collapse-button .v-icon {
+  color: white;
+}
+.bali-topbar .logout-button {
+  display: inline-block;
+  float: right;
+}
+.bali-topbar .logout-button .v-icon {
+  color: white;
+}
+.bali-topbar .user-label {
+  width: auto !important;
+  display: inline-block;
+  float: right;
+  color: white;
+  margin-top: 6px;
+}
+
+/* Other */
+.bali-overflow-auto {
+  overflow: auto;
+}
+
+/* Extra Small */
+/* Small */
+/* Medium */
+/* Large */
+/* Extra large  */

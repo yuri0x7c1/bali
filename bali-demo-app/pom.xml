@@ -1,0 +1,136 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.yuri0x7c1.bali</groupId>
+		<artifactId>bali</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>bali-demo-app</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vaadin.spring.extensions</groupId>
+			<artifactId>vaadin-spring-ext-boot</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.yuri0x7c1.bali</groupId>
+			<artifactId>bali-ui</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.yuri0x7c1.bali</groupId>
+			<artifactId>bali-data</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.yuri0x7c1.bali</groupId>
+			<artifactId>bali-security</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.yuri0x7c1.bali</groupId>
+			<artifactId>bali-security-ext</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client-compiler</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.codearte.jfairy</groupId>
+			<artifactId>jfairy</artifactId>
+			<version>0.5.9</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.version}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<!-- framework sources -->
+								<source>src/generated/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-maven-plugin</artifactId>
+				<version>${vaadin.version}</version>
+
+				<executions>
+					<execution>
+						<goals>
+							<!-- <goal>clean</goal> -->
+							<!-- <goal>resources</goal> -->
+							<goal>update-theme</goal>
+							<goal>update-widgetset</goal>
+							<goal>compile</goal>
+							<goal>compile-theme</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+					<webappDirectory>${basedir}/target/classes/VAADIN/widgetsets</webappDirectory>
+					<draftCompile>false</draftCompile>
+					<compileReport>false</compileReport>
+					<style>OBF</style>
+					<strict>true</strict>
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+</project>

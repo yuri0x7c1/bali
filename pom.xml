@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.github.yuri0x7c1.bali</groupId>
+	<artifactId>bali</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>BALI</name>
+	<description>Business Application LIbrary</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<lombok.version>1.18.22</lombok.version>
+
+		<spring.boot.version>2.1.12.RELEASE</spring.boot.version>
+		<commons.collections4.version>4.4</commons.collections4.version>
+		<commons.io.version>2.6</commons.io.version>
+		<commons.lang3.version>3.8.1</commons.lang3.version>
+		<commons.text.version>1.8</commons.text.version>
+		<commons.codec.version>1.12</commons.codec.version>
+		<guava.version>28.1-jre</guava.version>
+		<modelmapper.version>2.3.0</modelmapper.version>
+		<freemarker.java8.version>2.0.0</freemarker.java8.version>
+
+		<hibernate.jpa.api.version>1.0.2.Final</hibernate.jpa.api.version>
+		<javax.validation.api.version>2.0.1.Final</javax.validation.api.version>
+
+		<vaadin.version>8.11.3</vaadin.version>
+		<vaadin4spring.version>2.0.0.RELEASE</vaadin4spring.version>
+		<viritin.version>2.11</viritin.version>
+		<responsive.layout.version>2.1.1</responsive.layout.version>
+
+		<evo.inflector.version>1.2.2</evo.inflector.version>
+	</properties>
+
+	<modules>
+		<module>bali-util</module>
+		<module>bali-core</module>
+		<module>bali-data</module>
+		<module>bali-ui</module>
+		<module>bali-security</module>
+		<module>bali-security-ext</module>
+		<module>bali-demo-app</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-bom</artifactId>
+				<version>${vaadin.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- Common Dependencies -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons.lang3.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-text</artifactId>
+				<version>${commons.text.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${commons.collections4.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${commons.codec.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.atteo</groupId>
+				<artifactId>evo-inflector</artifactId>
+				<version>${evo.inflector.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.modelmapper</groupId>
+				<artifactId>modelmapper</artifactId>
+				<version>${modelmapper.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>no.api.freemarker</groupId>
+				<artifactId>freemarker-java8</artifactId>
+				<version>${freemarker.java8.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.vaadin</groupId>
+				<artifactId>viritin</artifactId>
+				<version>${viritin.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.jarektoro</groupId>
+				<artifactId>responsive-layout</artifactId>
+				<version>${responsive.layout.version}</version>
+			</dependency>
+
+			<!-- vaadin4spring -->
+			<dependency>
+				<groupId>org.vaadin.spring.extensions</groupId>
+				<artifactId>vaadin-spring-ext-boot</artifactId>
+				<version>${vaadin4spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.vaadin.spring.extensions</groupId>
+				<artifactId>vaadin-spring-ext-core</artifactId>
+				<version>${vaadin4spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.vaadin.spring.extensions</groupId>
+				<artifactId>vaadin-spring-ext-test</artifactId>
+				<version>${vaadin4spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.vaadin.spring.extensions</groupId>
+				<artifactId>vaadin-spring-ext-security</artifactId>
+				<version>${vaadin4spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.vaadin.spring.addons</groupId>
+				<artifactId>vaadin-spring-addon-eventbus</artifactId>
+				<version>${vaadin4spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.vaadin.spring.addons</groupId>
+				<artifactId>vaadin-spring-addon-sidebar</artifactId>
+				<version>${vaadin4spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.vaadin.spring.addons</groupId>
+				<artifactId>vaadin-spring-addon-i18n</artifactId>
+				<version>${vaadin4spring.version}</version>
+			</dependency>
+
+			<!-- JPA api -->
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.1-api</artifactId>
+				<version>${hibernate.jpa.api.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${javax.validation.api.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>vaadin-addons</id>
+			<url>https://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+	</repositories>
+</project>
