@@ -28,6 +28,6 @@ public abstract class CommonView extends MVerticalLayout {
 	}
 
 	public void addHeaderComponent(Component c) {
-		header.addComponent(c);
+		header.addHeaderComponent(c);
 	}
 }

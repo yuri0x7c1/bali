@@ -38,7 +38,7 @@ public class Header extends MHorizontalLayout {
 	public void setTextSize(HeaderTextSize size) {
 	}
 
-	public void addComponent(Component c) {
+	public void addHeaderComponent(Component c) {
 		componentContainer.add(c);
 	}
 }

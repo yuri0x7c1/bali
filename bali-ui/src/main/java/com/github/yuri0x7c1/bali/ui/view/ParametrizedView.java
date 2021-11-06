@@ -51,5 +51,5 @@ public  abstract class ParametrizedView<P> extends CommonView implements View {
 		action();
 	}
 
-	public void action() {}
+	public abstract void action();
 }
