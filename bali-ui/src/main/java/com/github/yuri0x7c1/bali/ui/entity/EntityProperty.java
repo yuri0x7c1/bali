@@ -1,4 +1,4 @@
-package com.github.yuri0x7c1.bali.data.entity;
+package com.github.yuri0x7c1.bali.ui.entity;
 
 import java.util.function.Function;
 

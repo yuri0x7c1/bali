@@ -1,5 +1,6 @@
 package com.github.yuri0x7c1.bali.ui.detail;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import org.vaadin.viritin.label.MLabel;
 import org.vaadin.viritin.layouts.MPanel;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
-import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
+import com.github.yuri0x7c1.bali.ui.entity.EntityProperty;
 import com.vaadin.shared.ui.ContentMode;
 
 import lombok.AccessLevel;
@@ -27,19 +28,22 @@ public class EntityDetail<T> extends MPanel {
 
 	final Class<T> entityType;
 
-	final List<EntityProperty<T>> properties;
+	final List<EntityProperty<T>> properties = new ArrayList<>();
 
 	T entity;
 
 	MVerticalLayout content = new MVerticalLayout();
 
-	public EntityDetail(Class<T> entityType, List<EntityProperty<T>> properties) {
+	public EntityDetail(Class<T> entityType) {
 		super();
 		this.entityType = entityType;
-		this.properties = properties;
 
 		setWidthFull();
 		setContent(content);
+	}
+
+	public void addProperty(EntityProperty<T> property) {
+		properties.add(property);
 	}
 
 	public void setEntity(T entity) {
