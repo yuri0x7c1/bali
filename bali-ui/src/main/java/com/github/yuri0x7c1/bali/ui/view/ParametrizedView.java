@@ -1,13 +1,19 @@
 package com.github.yuri0x7c1.bali.ui.view;
 
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.UI;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,33 +29,48 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public  abstract class ParametrizedView<P> extends CommonView implements View {
-	final Class<P> paramsType;
+	private static final ObjectMapper MAPPER = new ObjectMapper();
+	static {
+		MAPPER.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+		MAPPER.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
+		MAPPER.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+		MAPPER.registerModule(new JavaTimeModule());
+		MAPPER.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		MAPPER.disable(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS);
+	}
 
-	@Getter
-	final ObjectMapper mapper;
+	final Class<P> paramsType;
 
 	@Getter
 	P params;
 
-	public ParametrizedView(Class<P> paramsType, ObjectMapper mapper) {
+	public ParametrizedView(Class<P> paramsType) {
 		super();
 		this.paramsType = paramsType;
-		this.mapper = mapper;
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
 		try {
 			if (StringUtils.isNotBlank(event.getParameters())) {
-				this.params = mapper.readValue(URLDecoder.decode(event.getParameters(), StandardCharsets.UTF_8.name()),
+				this.params = MAPPER.readValue(URLDecoder.decode(event.getParameters(), StandardCharsets.UTF_8.name()),
 						paramsType);
 			}
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
 		}
-		action();
+		onEnter();
 	}
 
-	public abstract void action();
+	public abstract void onEnter();
+
+	public static void navigateTo(String viewName, Object params) {
+		try {
+			UI.getCurrent().getNavigator().navigateTo(viewName + "/" +
+					URLEncoder.encode(MAPPER.writeValueAsString(params), StandardCharsets.UTF_8.name()));
+		} catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+		}
+	}
 }

@@ -10,6 +10,11 @@ import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.JavaScript;
 
+/**
+ *
+ * @author yuri0x7c1
+ *
+ */
 public class UiUtil {
 	/*
 	 * Navigate back
