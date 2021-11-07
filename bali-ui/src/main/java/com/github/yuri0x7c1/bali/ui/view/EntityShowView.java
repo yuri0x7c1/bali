@@ -33,26 +33,21 @@ public class EntityShowView<T, P> extends ParametrizedView<P> {
 
 	I18N i18n;
 
-	EntityProjection<T> entityProjection;
-
 	EntityProvider<T, P> entityProvider;
 
 	EntityDetail<T> entityDetail;
 
-	public EntityShowView(Class<T> entityType, Class<P> paramsType, I18N i18n, EntityProjection<T> entityProjection,
-			EntityDetail<T> entityDetail, EntityProvider<T, P> entityProvider) {
+	public EntityShowView(Class<T> entityType, Class<P> paramsType, I18N i18n, EntityDetail<T> entityDetail,
+			EntityProvider<T, P> entityProvider) {
 		super(paramsType);
 		this.entityType = entityType;
 		this.i18n = i18n;
-		this.entityProjection = entityProjection;
 		this.entityDetail = entityDetail;
 		this.entityProvider = entityProvider;
 
 		setHeaderText(this.getClass().getSimpleName());
 		addHeaderComponent(new MButton(VaadinIcons.ARROW_LEFT, i18n.get("Back"), (ClickListener) event -> UiUtil.back())
 				.withStyleName(ValoTheme.BUTTON_PRIMARY));
-
-		entityDetail.addProperties(entityProjection.getProperties());
 
 		addComponent(entityDetail);
 	}

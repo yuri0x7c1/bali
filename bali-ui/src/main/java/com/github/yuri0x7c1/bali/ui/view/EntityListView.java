@@ -26,7 +26,7 @@ public abstract class EntityListView<T> extends CommonView {
 	I18N i18n;
 
 	@Getter
-	EntityDataGrid<T> entityDataGrid;
+	EntityDataGrid<T> dataGrid;
 
 	MButton createButton;
 
@@ -34,17 +34,17 @@ public abstract class EntityListView<T> extends CommonView {
 	@NonFinal
 	CreateHandler<T> createHandler;
 
-	public EntityListView(Class<T> entityType, I18N i18n, EntityDataGrid<T> entityDataGrid) {
+	public EntityListView(Class<T> entityType, I18N i18n, EntityDataGrid<T> dataGrid) {
 		super();
 		this.entityType = entityType;
 		this.i18n = i18n;
-		this.entityDataGrid = entityDataGrid;
+		this.dataGrid = dataGrid;
 
 		// create button
 		createButton = new MButton(i18n.get("Create")).withVisible(false);
 		addHeaderComponent(createButton);
 
-		add(entityDataGrid);
+		add(dataGrid);
 	}
 
 	public void setCreateHandler(CreateHandler createHandler) {

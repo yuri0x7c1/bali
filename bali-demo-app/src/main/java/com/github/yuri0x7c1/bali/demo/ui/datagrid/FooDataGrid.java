@@ -7,9 +7,9 @@ import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.fields.IntegerField;
 
+import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
 import com.github.yuri0x7c1.bali.data.search.util.SearchUtil;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
-import com.github.yuri0x7c1.bali.demo.projection.FooProjection;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.ui.datagrid.EntityDataGrid;
 import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm;
@@ -27,11 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class FooDataGrid extends EntityDataGrid<Foo> {
 
-	FooProjection fooProjection;
-
 	FooService fooService;
 
-	public FooDataGrid(I18N i18n, CommonSearchForm searchForm, FooProjection fooProjection, FooService fooService) {
+	public FooDataGrid(I18N i18n, CommonSearchForm searchForm, FooService fooService) {
 		super(
 			Foo.class,
 			i18n,
@@ -51,7 +49,6 @@ public class FooDataGrid extends EntityDataGrid<Foo> {
 				SearchUtil.buildSpecification(Foo.class, searchModel)
 			)
 		);
-		this.fooProjection = fooProjection;
 		this.fooService = fooService;
 
 		// search fields
@@ -60,7 +57,7 @@ public class FooDataGrid extends EntityDataGrid<Foo> {
 
 		// grid columns
 		clearColumns();
-		addProperties(fooProjection.getProperties());
+		addProperty(new EntityProperty<>("id", i18n.get("Foo.id")));
 		sort();
 	}
 }

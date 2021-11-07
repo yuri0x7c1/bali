@@ -2,6 +2,7 @@ package com.github.yuri0x7c1.bali.ui.datagrid;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -295,5 +296,9 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public Registration addItemClickListener(ItemClickListener<? super T> listener) {
 		return grid.addItemClickListener(listener);
+	}
+
+	public List<EntityProperty<T>> getProperties() {
+		return Collections.unmodifiableList(properties);
 	}
 }
