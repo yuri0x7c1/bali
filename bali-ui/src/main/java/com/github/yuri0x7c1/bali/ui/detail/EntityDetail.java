@@ -9,7 +9,7 @@ import org.vaadin.viritin.label.MLabel;
 import org.vaadin.viritin.layouts.MPanel;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
-import com.github.yuri0x7c1.bali.ui.entity.EntityProperty;
+import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
 import com.vaadin.shared.ui.ContentMode;
 
 import lombok.AccessLevel;

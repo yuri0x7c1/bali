@@ -1,6 +1,8 @@
 package com.github.yuri0x7c1.bali.ui.datagrid;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,6 +15,7 @@ import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MPanel;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
+import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
 import com.github.yuri0x7c1.bali.data.search.model.SearchModel;
 import com.github.yuri0x7c1.bali.ui.handler.DeleteHandler;
 import com.github.yuri0x7c1.bali.ui.handler.EditHandler;
@@ -22,7 +25,6 @@ import com.github.yuri0x7c1.bali.ui.pagination.PaginationResource;
 import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
-import com.vaadin.data.ValueProvider;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.Registration;
 import com.vaadin.ui.Grid.Column;
@@ -82,7 +84,9 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	final CommonSearchForm searchForm;
 
-	MGrid<T> grid;
+	final MGrid<T> grid;
+
+	final Pagination pagination;
 
 	Column<T, MHorizontalLayout> actionsColumn;
 
@@ -108,7 +112,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	@Setter
 	Direction orderDirection;
 
-	Pagination pagination;
+	final List<EntityProperty<T>> properties = new ArrayList<>();
 
 	public EntityDataGrid(Class<T> entityType, I18N i18n, CommonSearchForm searchForm, String defaultOrderProperty, Direction defaultOrderDirection,
 			SearchProvider<T> searchProvider, SearchCountProvider<T> searchCountProvider) {
@@ -129,6 +133,18 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		// search form
 		searchForm.setSearchHandler(() -> refresh());
 
+		// entity grid
+		grid = new MGrid<T>(entityType);
+		grid.setSelectionMode(SelectionMode.NONE);
+		grid.setWidthFull();
+		grid.setHeightByRows(pageSize);
+
+		grid.addSortListener(event -> {
+			orderDirection = UiUtil.getGridOrderDirection(grid, defaultOrderDirection);
+			orderProperty = UiUtil.getGridOrderProperty(grid, defaultOrderProperty);
+			refresh();
+		});
+
 		// pagination
 		pagination = new Pagination(
 			i18n,
@@ -143,18 +159,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 			page = event.page() - 1;
 			pageSize = event.limit();
 			grid.setHeightByRows(pageSize);
-			refresh();
-		});
-
-		// entity grid
-		grid = new MGrid<T>(entityType);
-		grid.setSelectionMode(SelectionMode.NONE);
-		grid.setWidthFull();
-		grid.setHeightByRows(pageSize);
-
-		grid.addSortListener(event -> {
-			orderDirection = UiUtil.getGridOrderDirection(grid, defaultOrderDirection);
-			orderProperty = UiUtil.getGridOrderProperty(grid, defaultOrderProperty);
 			refresh();
 		});
 
@@ -245,21 +249,15 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		grid.setColumns(new String[]{});
 	}
 
-	public void addColumn(String propertyName, String caption) {
-		grid.addColumn(propertyName).setCaption(caption);
-	}
-
-	public void addColumn(String propertyName, String caption, boolean sortable) {
-		grid.addColumn(propertyName).setCaption(caption).setSortable(sortable);
-
-	}
-
-	public void addColumn(String columnId, String caption, ValueProvider<T, String> valueProvider) {
-		grid.addColumn(valueProvider).setCaption(caption).setId(columnId);
-	}
-
-	public void addColumn(String columnId, String caption, boolean sortable, ValueProvider<T, String> valueProvider) {
-		grid.addColumn(valueProvider).setCaption(caption).setSortable(sortable).setId(columnId);
+	public void addProperty(EntityProperty<T> property) {
+		properties.add(property);
+		if (property.getValueProvider() == null) {
+			grid.addColumn(property.getName()).setCaption(property.getCaption()).setSortable(property.isSortable());
+		}
+		else {
+			grid.addColumn(e -> property.getValueProvider().apply(e)).setId(property.getName())
+					.setCaption(property.getCaption()).setSortable(property.isSortable());
+		}
 	}
 
 	public Set<T> getSelectedItems() {
