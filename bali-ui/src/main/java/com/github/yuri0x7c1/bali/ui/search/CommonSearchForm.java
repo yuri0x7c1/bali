@@ -81,7 +81,7 @@ public class CommonSearchForm extends Card {
 
 		fieldSelect = new ComboBox<>();
 		fieldSelect.setWidth(FIELD_SELECT_WIDTH, Unit.PIXELS);
-		fieldSelect.setItemCaptionGenerator(fc -> fc.getComponentLabel());
+		fieldSelect.setItemCaptionGenerator(fc -> fc.getFieldCaption());
 
 		addButton = new MButton(i18n.get("Search.addField"), event -> {
 			SearchFieldComponentDescriptor d = fieldSelect.getValue();
@@ -126,7 +126,7 @@ public class CommonSearchForm extends Card {
 		}
 
 		SearchFieldComponent fieldComponent = new SearchFieldComponent(i18n, descriptor.getFieldName(),
-				descriptor.getComponentLabel(), option, component);
+				descriptor.getFieldCaption(), option, component);
 		if (value != null) {
 			fieldComponent.setValue(value);
 		}

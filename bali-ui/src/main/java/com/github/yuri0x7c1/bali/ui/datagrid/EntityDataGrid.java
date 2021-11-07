@@ -260,6 +260,12 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		}
 	}
 
+	public void addProperties(List<EntityProperty<T>> properties) {
+		for (EntityProperty<T> p : properties) {
+			addProperty(p);
+		}
+	}
+
 	public Set<T> getSelectedItems() {
 		return grid.getSelectedItems();
 	}

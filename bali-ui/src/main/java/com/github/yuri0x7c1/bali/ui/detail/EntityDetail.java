@@ -46,14 +46,25 @@ public class EntityDetail<T> extends MPanel {
 		properties.add(property);
 	}
 
+	public void addProperties(List<EntityProperty<T>> properties) {
+		this.properties.addAll(properties);
+	}
+
 	public void setEntity(T entity) {
 		Objects.requireNonNull(entity);
 		this.entity = entity;
 		content.removeAllComponents();
 		for(EntityProperty<T> p : properties) {
 			try {
+				String propertyValue = "";
+				if (p.getValueProvider() == null) {
+					propertyValue = BeanUtils.getProperty(entity, p.getName());
+				}
+				else {
+					propertyValue = p.getValueProvider().apply(entity);
+				}
 				MLabel rowLabel = new MLabel(
-					"<b>" + p.getCaption() + "</b>: " + BeanUtils.getProperty(entity, p.getName())
+					"<b>" + p.getCaption() + "</b>: " + propertyValue
 				).withContentMode(ContentMode.HTML);
 				content.addComponent(rowLabel);
 			}

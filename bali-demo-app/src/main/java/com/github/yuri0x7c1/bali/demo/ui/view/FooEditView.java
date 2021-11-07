@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FooEditView extends CommonView implements View {
 	private static final long serialVersionUID = 1L;
 
-	public static final String NAME = "foo-edit";
+	public static final String NAME = "foo/edit";
 	public static final String CAPTION_CODE = "Foo.edit";
 
 	private I18N i18n;

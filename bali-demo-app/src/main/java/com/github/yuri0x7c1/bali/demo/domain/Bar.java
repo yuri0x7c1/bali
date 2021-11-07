@@ -4,15 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode(of="id", callSuper=false)
+@FieldNameConstants
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @Entity
 public class Bar {
 	@Getter

@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FooCreateView extends CommonView implements View {
 	private static final long serialVersionUID = 1L;
 
-	public static final String NAME = "foo-create";
+	public static final String NAME = "foo/create";
 	public static final String CAPTION_CODE = "Foo.create";
 
 	private I18N i18n;

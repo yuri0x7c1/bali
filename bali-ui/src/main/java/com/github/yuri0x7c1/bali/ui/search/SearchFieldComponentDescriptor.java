@@ -20,16 +20,16 @@ import lombok.experimental.FieldDefaults;
 public class SearchFieldComponentDescriptor implements Comparable<SearchFieldComponentDescriptor> {
 	String fieldName;
 
+	String fieldCaption;
+
 	Class<?> fieldType;
 
 	Class<? extends Component> componentClass;
 
 	SearchFieldComponentLifecycle componentLifecycle;
 
-	String componentLabel;
-
 	@Override
 	public int compareTo(SearchFieldComponentDescriptor o) {
-		return StringUtils.compare(o.getComponentLabel(), o.getComponentLabel());
+		return StringUtils.compare(o.getFieldCaption(), o.getFieldCaption());
 	}
 }

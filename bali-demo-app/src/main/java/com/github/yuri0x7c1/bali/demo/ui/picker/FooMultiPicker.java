@@ -183,12 +183,12 @@ public class FooMultiPicker extends CustomField<List<Foo>>{
 	}
 
 	public FooMultiPicker withDataGridColumn(String propertyName, String caption) {
-		grid.withColumn(propertyName, caption);
+		// grid.withColumn(propertyName, caption);
 		return this;
 	}
 
 	public FooMultiPicker withDataGridColumn(ValueProvider<Foo, String> valueProvider, String caption) {
-		grid.withColumn(valueProvider, caption);
+		// grid.withColumn(valueProvider, caption);
 		return this;
 	}
 

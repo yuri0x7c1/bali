@@ -183,12 +183,12 @@ public class BarMultiPicker extends CustomField<List<Bar>>{
 	}
 
 	public BarMultiPicker withDataGridColumn(String propertyName, String caption) {
-		grid.withColumn(propertyName, caption);
+		// grid.withColumn(propertyName, caption);
 		return this;
 	}
 
 	public BarMultiPicker withDataGridColumn(ValueProvider<Bar, String> valueProvider, String caption) {
-		grid.withColumn(valueProvider, caption);
+		// grid.withColumn(valueProvider, caption);
 		return this;
 	}
 

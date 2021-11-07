@@ -26,9 +26,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 
 @FieldNameConstants
-@FieldDefaults(level=AccessLevel.PRIVATE)
-@ToString(of="id")
-@EqualsAndHashCode(of="id", callSuper=false)
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @Entity
 public class Foo {
 
