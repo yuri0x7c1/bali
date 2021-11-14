@@ -178,7 +178,7 @@ public class BarMultiPicker extends CustomField<List<Bar>>{
 	}
 
 	public BarMultiPicker clearDataGridColumns() {
-		grid.clearColumns();
+		// grid.clearColumns();
 		return this;
 	}
 

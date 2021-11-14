@@ -17,6 +17,7 @@ import org.vaadin.viritin.layouts.MPanel;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
+import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.data.search.model.SearchModel;
 import com.github.yuri0x7c1.bali.ui.handler.DeleteHandler;
 import com.github.yuri0x7c1.bali.ui.handler.EditHandler;
@@ -30,6 +31,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.Registration;
 import com.vaadin.ui.Grid.Column;
 import com.vaadin.ui.Grid.SelectionMode;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.components.grid.GridSelectionModel;
 import com.vaadin.ui.components.grid.ItemClickListener;
 import com.vaadin.ui.themes.ValoTheme;
@@ -68,10 +70,12 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	final I18N i18n;
 
 	@Getter
-	final SearchProvider<T> searchProvider;
+	@Setter
+	SearchProvider<T> searchProvider = (page, pageSize, orderProperty, orderDirection, searchModel) -> Page.empty();
 
 	@Getter
-	final SearchCountProvider<T> searchCountProvider;
+	@Setter
+	SearchCountProvider<T> searchCountProvider = (searchModel) -> 0L;
 
 	ShowHandler<T> showHandler;
 
@@ -115,15 +119,12 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	final List<EntityProperty<T>> properties = new ArrayList<>();
 
-	public EntityDataGrid(Class<T> entityType, I18N i18n, CommonSearchForm searchForm, String defaultOrderProperty, Direction defaultOrderDirection,
-			SearchProvider<T> searchProvider, SearchCountProvider<T> searchCountProvider) {
+	public EntityDataGrid(Class<T> entityType, I18N i18n, CommonSearchForm searchForm, String defaultOrderProperty, Direction defaultOrderDirection) {
 		this.entityType = entityType;
 		this.i18n = i18n;
 		this.searchForm = searchForm;
 		this.defaultOrderProperty = defaultOrderProperty;
 		this.defaultOrderDirection = defaultOrderDirection;
-		this.searchProvider = searchProvider;
-		this.searchCountProvider = searchCountProvider;
 
 		this.orderProperty = defaultOrderProperty;
 		this.orderDirection = defaultOrderDirection;
@@ -136,6 +137,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 		// entity grid
 		grid = new MGrid<T>(entityType);
+		grid.removeAllColumns();
 		grid.setSelectionMode(SelectionMode.NONE);
 		grid.setWidthFull();
 		grid.setHeightByRows(pageSize);
@@ -145,6 +147,10 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 			orderProperty = UiUtil.getGridOrderProperty(grid, defaultOrderProperty);
 			refresh();
 		});
+
+		UI.getCurrent().getPage().addBrowserWindowResizeListener(event -> {
+           grid.recalculateColumnWidths();
+        });
 
 		// pagination
 		pagination = new Pagination(
@@ -162,9 +168,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 			grid.setHeightByRows(pageSize);
 			refresh();
 		});
-
-		// refresh grid
-		refresh();
 
 		// add components
 		add(searchForm, grid, new MPanel().withFullWidth()
@@ -235,36 +238,44 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		refreshActionsColumn();
 	}
 
-	protected void refresh() {
+	public void refresh() {
 		Page<T> entityPage = searchProvider.search(page, pageSize, orderProperty, orderDirection,
 				searchForm.getModel());
 		pagination.setTotalCount(entityPage.getTotalElements());
 		grid.setItems(entityPage.getContent());
 	}
 
-	protected void sort() {
+	public void refreshColumns() {
+		grid.removeAllColumns();
+		for (EntityProperty<T> property : properties) {
+			if (property.getValueProvider() == null) {
+				grid.addColumn(property.getName()).setCaption(property.getCaption()).setSortable(property.isSortable());
+			}
+			else {
+				grid.addColumn(e -> property.getValueProvider().apply(e)).setId(property.getName())
+						.setCaption(property.getCaption()).setSortable(property.isSortable());
+			}
+		}
+		refreshActionsColumn();
 		grid.sort(orderProperty, UiUtil.convertDirection(orderDirection));
-	}
-
-	public void clearColumns() {
-		grid.setColumns(new String[]{});
 	}
 
 	public void addProperty(EntityProperty<T> property) {
 		properties.add(property);
-		if (property.getValueProvider() == null) {
-			grid.addColumn(property.getName()).setCaption(property.getCaption()).setSortable(property.isSortable());
-		}
-		else {
-			grid.addColumn(e -> property.getValueProvider().apply(e)).setId(property.getName())
-					.setCaption(property.getCaption()).setSortable(property.isSortable());
-		}
 	}
 
 	public void addProperties(List<EntityProperty<T>> properties) {
 		for (EntityProperty<T> p : properties) {
 			addProperty(p);
 		}
+	}
+
+	public List<EntityProperty<T>> getProperties() {
+		return Collections.unmodifiableList(properties);
+	}
+
+	public void addSearchField(String fieldName, SearchFieldOperator operator, Object value) {
+		searchForm.createFieldComponent(fieldName, operator, value);
 	}
 
 	public Set<T> getSelectedItems() {
@@ -296,9 +307,5 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public Registration addItemClickListener(ItemClickListener<? super T> listener) {
 		return grid.addItemClickListener(listener);
-	}
-
-	public List<EntityProperty<T>> getProperties() {
-		return Collections.unmodifiableList(properties);
 	}
 }

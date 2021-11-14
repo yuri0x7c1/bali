@@ -178,7 +178,7 @@ public class FooMultiPicker extends CustomField<List<Foo>>{
 	}
 
 	public FooMultiPicker clearDataGridColumns() {
-		grid.clearColumns();
+		// grid.clearColumns();
 		return this;
 	}
 

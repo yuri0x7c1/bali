@@ -1,46 +1,35 @@
 package com.github.yuri0x7c1.bali.ui.field;
 
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.vaadin.spring.i18n.I18N;
 
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.ComboBox;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
-@FieldDefaults(level=AccessLevel.PRIVATE)
+/**
+ *
+ * @author yuri0x7c1
+ *
+ */
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@SpringComponent
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class BooleanField extends ComboBox<Boolean> {
-	String caption;
-	
-	String trueCaption;
-	
-	String falseCaption;
-	
-	public BooleanField(String caption, String trueCaption, String falseCaption) {
-		super();
-		this.caption = caption;
-		this.trueCaption = trueCaption;
-		this.falseCaption = falseCaption;
-		
-		setCaption(caption);
+	I18N i18n;
+
+	public BooleanField(I18N i18n) {
+		this.i18n = i18n;
+
 		setItems(new Boolean[] {Boolean.TRUE, Boolean.FALSE});
 		setItemCaptionGenerator(item -> {
-			if (Boolean.TRUE.equals(item)) {
-				if (StringUtils.isNotBlank(trueCaption)) {
-					return trueCaption;
-				}
-				return Boolean.TRUE.toString();
-			}
-			else if (Boolean.FALSE.equals(item)) {
-				if (StringUtils.isNotBlank(falseCaption)) {
-					return falseCaption;
-				}
-				return Boolean.FALSE.toString();
+			if (item != null) {
+				return i18n.get(String.valueOf(item));
 			}
 			return "";
 		});
-	}
-	
-	public BooleanField (String caption) {
-		this(caption, null, null);
 	}
 }

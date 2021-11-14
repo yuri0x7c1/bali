@@ -47,7 +47,7 @@ public abstract class EntityListView<T> extends CommonView {
 		add(dataGrid);
 	}
 
-	public void setCreateHandler(CreateHandler createHandler) {
+	public void setCreateHandler(CreateHandler<T> createHandler) {
 		this.createHandler = createHandler;
 		createButton.addClickListener(event -> createHandler.onCreate());
 		createButton.setVisible(true);

@@ -1,30 +1,29 @@
 package com.github.yuri0x7c1.bali.demo.ui.form;
 
+import java.time.ZoneId;
+
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.vaadin.spring.events.EventBus.UIEventBus;
 import org.vaadin.spring.i18n.I18N;
+import org.vaadin.viritin.fields.DoubleField;
+import org.vaadin.viritin.fields.MTextField;
 import org.vaadin.viritin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
-import com.jarektoro.responsivelayout.ResponsiveLayout;
-import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalLayout;
-
-import org.vaadin.viritin.fields.MTextField;
+import com.github.yuri0x7c1.bali.demo.ui.picker.BarMultiPicker;
 import com.github.yuri0x7c1.bali.demo.ui.select.BarSelect;
 import com.github.yuri0x7c1.bali.ui.field.BooleanField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
-import com.vaadin.ui.DateTimeField;
-import com.vaadin.ui.DateField;
+import com.jarektoro.responsivelayout.ResponsiveLayout;
 import com.vaadin.data.converter.LocalDateTimeToDateConverter;
-import com.github.yuri0x7c1.bali.demo.ui.picker.BarMultiPicker;
 import com.vaadin.data.validator.BeanValidator;
-
-import org.vaadin.viritin.fields.DoubleField;
-import java.time.ZoneId;
+import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.DateField;
+import com.vaadin.ui.DateTimeField;
+import com.vaadin.ui.HorizontalLayout;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -78,7 +77,8 @@ public class FooForm extends AbstractForm<Foo> {
 		doubleValue.addStyleNames(BaliStyle.FORM_FIELD);
 
 		// initialize booleanValue
-		booleanValue = new BooleanField(i18n.get("Foo.booleanValue"));
+		booleanValue = new BooleanField(i18n);
+		booleanValue.setCaption(i18n.get("Foo.booleanValue"));
 		booleanValue.addStyleNames(BaliStyle.FORM_FIELD);
 
 		// initialize date

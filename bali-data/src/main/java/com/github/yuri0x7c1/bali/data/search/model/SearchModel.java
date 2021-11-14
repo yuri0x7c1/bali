@@ -16,4 +16,14 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SearchModel {
 	List<SearchField> fields = new ArrayList<>();
+
+	public void removeFieldsByName(String name) {
+		List<SearchField> newFields = new ArrayList<>();
+		for (SearchField f : fields) {
+			if (!name.equals(f.getName())) {
+				newFields.add(f);
+			}
+		}
+		fields = newFields;
+	}
 }

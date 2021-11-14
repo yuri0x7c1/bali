@@ -30,34 +30,31 @@ public class FooDataGrid extends EntityDataGrid<Foo> {
 	FooService fooService;
 
 	public FooDataGrid(I18N i18n, CommonSearchForm searchForm, FooService fooService) {
-		super(
-			Foo.class,
-			i18n,
-			searchForm,
-			Foo.Fields.id,
-			Direction.ASC,
-			(page, pageSize, orderProperty, orderDirection, searchModel) -> fooService.findAll(
-				SearchUtil.buildSpecification(Foo.class, searchModel),
-				PageRequest.of(
-					page,
-					pageSize,
-					orderDirection,
-					orderProperty
-				)
-			),
-			searchModel -> fooService.count(
-				SearchUtil.buildSpecification(Foo.class, searchModel)
+		super(Foo.class, i18n, searchForm, Foo.Fields.id, Direction.ASC);
+		this.fooService = fooService;
+
+		// search provider
+		searchProvider = (page, pageSize, orderProperty, orderDirection, searchModel) -> fooService.findAll(
+			SearchUtil.buildSpecification(Foo.class, searchModel),
+			PageRequest.of(
+				page,
+				pageSize,
+				orderDirection,
+				orderProperty
 			)
 		);
-		this.fooService = fooService;
+
+		// search count provider
+		searchCountProvider = searchModel -> fooService.count(
+			SearchUtil.buildSpecification(Foo.class, searchModel)
+		);
 
 		// search fields
 		searchForm.registerFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Foo.id"), Integer.class, IntegerField.class,
 				SearchFieldComponentLifecycle.NON_MANAGED));
 
 		// grid columns
-		clearColumns();
 		addProperty(new EntityProperty<>("id", i18n.get("Foo.id")));
-		sort();
+		refreshColumns();
 	}
 }

@@ -31,26 +31,22 @@ public class BarDataGrid extends EntityDataGrid<Bar> {
 	BarService barService;
 
 	public BarDataGrid(I18N i18n, CommonSearchForm searchForm, BarService barService) {
-		super(
-			Bar.class,
-			i18n,
-			searchForm,
-			Bar.Fields.id,
-			Direction.ASC,
-			(page, pageSize, orderProperty, orderDirection, searchModel) -> barService.findAll(
-				SearchUtil.buildSpecification(Bar.class, searchModel),
-				PageRequest.of(
-					page,
-					pageSize,
-					orderDirection,
-					orderProperty
-				)
-			),
-			searchModel -> barService.count(
-				SearchUtil.buildSpecification(Bar.class, searchModel)
+		super(Bar.class, i18n, searchForm, Bar.Fields.id, Direction.ASC);
+		this.barService = barService;
+
+		searchProvider = (page, pageSize, orderProperty, orderDirection, searchModel) -> barService.findAll(
+			SearchUtil.buildSpecification(Bar.class, searchModel),
+			PageRequest.of(
+				page,
+				pageSize,
+				orderDirection,
+				orderProperty
 			)
 		);
-		this.barService = barService;
+
+		searchCountProvider = searchModel -> barService.count(
+			SearchUtil.buildSpecification(Bar.class, searchModel)
+		);
 
 		// search fields
 		searchForm.registerFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Bar.id"), Integer.class,
@@ -59,9 +55,8 @@ public class BarDataGrid extends EntityDataGrid<Bar> {
 				MTextField.class, SearchFieldComponentLifecycle.NON_MANAGED));
 
 		// grid columns
-		clearColumns();
 		addProperty(new EntityProperty<>("id", i18n.get("Bar.id")));
 		addProperty(new EntityProperty<>("value", i18n.get("Bar.value")));
-		sort();
+		refreshColumns();
 	}
 }
