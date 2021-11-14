@@ -20,14 +20,6 @@
 		</license>
 	</licenses>
 
-	<distributionManagement>
-		<repository>
-			<id>github</id>
-			<name>GitHub yuri0x7c1 Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/yuri0x7c1</url>
-		</repository>
-	</distributionManagement>
-
 	<scm>
 		<url>https://github.com/yuri0x7c1/bali</url>
 	</scm>
