@@ -5,7 +5,6 @@ import java.io.Serializable;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.MButton;
 
-import com.github.yuri0x7c1.bali.data.entity.EntityProjection;
 import com.github.yuri0x7c1.bali.ui.detail.EntityDetail;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.icons.VaadinIcons;
