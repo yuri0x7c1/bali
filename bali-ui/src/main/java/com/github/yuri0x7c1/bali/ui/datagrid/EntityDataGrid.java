@@ -10,6 +10,7 @@ import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.spring.i18n.I18N;
+import org.vaadin.viritin.button.ConfirmButton;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.grid.MGrid;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
@@ -51,6 +52,8 @@ import lombok.experimental.FieldDefaults;
  */
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class EntityDataGrid<T> extends MVerticalLayout {
+
+	private static final int ACTION_BUTTON_WIDTH = 43;
 
 	public static final String ACTIONS_COLUMN_ID = "_actions";
 
@@ -180,6 +183,12 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		);
 	}
 
+	private int calculateActionsColumnWidth() {
+		return 32 + (showHandler != null ? ACTION_BUTTON_WIDTH : 0)
+				 + (editHandler != null ? ACTION_BUTTON_WIDTH : 0)
+				 + (deleteHandler != null ? ACTION_BUTTON_WIDTH : 0);
+	}
+
 	private void refreshActionsColumn() {
         if (showHandler != null || editHandler != null || deleteHandler != null) {
         	if (grid.getColumn(ACTIONS_COLUMN_ID) != null) {
@@ -208,8 +217,9 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         			l.add(edit);
         		}
         		if (deleteHandler != null) {
-        			MButton delete = new MButton(VaadinIcons.CLOSE, event -> {
+        			ConfirmButton delete = new ConfirmButton(VaadinIcons.CLOSE, i18n.get("Delete.confirm"), () -> {
         				deleteHandler.onDelete(entity);
+        				refresh();
         			})
 					.withDescription(i18n.get("Delete"))
 					.withStyleName(ValoTheme.BUTTON_DANGER, ValoTheme.BUTTON_SMALL);
@@ -218,7 +228,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         		return l;
         	});
         	c.setId(ACTIONS_COLUMN_ID);
-        	c.setWidth(100);
+        	c.setWidth(calculateActionsColumnWidth());
         	c.setSortable(false);
         	grid.setColumnOrder(c);
         }
