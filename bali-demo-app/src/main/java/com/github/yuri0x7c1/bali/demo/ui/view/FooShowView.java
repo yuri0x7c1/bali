@@ -27,8 +27,8 @@ public class FooShowView extends EntityShowView<Foo, Integer> {
 	public FooShowView(I18N i18n, FooService fooService, FooListView fooListView) {
 		super(Foo.class, Integer.class, i18n,new EntityDetail<Foo>(Foo.class),
 				p -> fooService.findById(p).orElse(null));
-
 		this.fooListView = fooListView;
+
 		entityDetail.addProperties(fooListView.getDataGrid().getProperties());
 	}
 

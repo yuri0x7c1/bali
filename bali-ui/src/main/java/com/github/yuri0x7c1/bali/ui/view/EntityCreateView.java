@@ -10,59 +10,72 @@ import org.vaadin.viritin.form.AbstractForm.SavedHandler;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author yuri0x7c1
  *
  * @param <T>
- * @param <P>
  */
-@FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
-public class EntityCreateView<T, P> extends CommonView {
+@Slf4j
+public class EntityCreateView<T> extends CommonView {
 
-	Class<T> entityType;
+	protected final Class<T> entityType;
 
-	I18N i18n;
+	protected final I18N i18n;
 
-	AbstractForm<T> entityForm;
+	protected final AbstractForm<T> entityForm;
 
-	Supplier<T> entityProvider;
+	@Setter
+	private Supplier<T> entitySupplier;
 
-	SavedHandler<T> savedHandler;
+	private SavedHandler<T> savedHandler;
 
-	ResetHandler<T> resetHandler;
+	private ResetHandler<T> resetHandler;
 
-	public EntityCreateView(Class<T> entityType, Class<P> paramsType, I18N i18n, AbstractForm<T> entityForm,
-			Supplier<T> entityProvider, SavedHandler<T> savedHandler, ResetHandler<T> resetHandler) {
+	public EntityCreateView(Class<T> entityType, I18N i18n, AbstractForm<T> entityForm) {
 		this.entityType = entityType;
 		this.i18n = i18n;
 		this.entityForm = entityForm;
-		this.entityProvider = entityProvider;
-		this.savedHandler = savedHandler;
-		this.resetHandler = resetHandler;
 
 		setHeaderText(this.getClass().getSimpleName());
 		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back")));
 
-		entityForm.setSavedHandler(savedHandler);
-		entityForm.setResetHandler(resetHandler);
-		addComponent(entityForm);
-	}
+		// default entity supplier
+		setEntitySupplier(() -> {
+			try {
+				return entityType.newInstance();
+			}
+			catch (Exception ex) {
+				log.error(ex.getMessage(), ex);
+				return null;
+			}
+		});
 
-	public EntityCreateView(Class<T> entityType, Class<P> paramsType, I18N i18n, AbstractForm<T> entityForm,
-			Supplier<T> entityProvider, SavedHandler<T> savedHandler) {
-		this(entityType, paramsType, i18n, entityForm, entityProvider, savedHandler, event -> {
+		// default reset handler
+		setResetHandler(e -> {
 			entityForm.setEntity(null);
 			UiUtil.back();
 		});
+
+		addComponent(entityForm);
+	}
+
+	public void setSavedHandler(SavedHandler<T> savedHandler) {
+		this.savedHandler = savedHandler;
+		entityForm.setSavedHandler(savedHandler);
+	}
+
+	public void setResetHandler(ResetHandler<T> resetHandler) {
+		this.resetHandler = resetHandler;
+		entityForm.setResetHandler(resetHandler);
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		T entity = entityProvider.get();
+		T entity = entitySupplier.get();
 		if (entity != null) {
 			entityForm.setEntity(entity);
 		}
