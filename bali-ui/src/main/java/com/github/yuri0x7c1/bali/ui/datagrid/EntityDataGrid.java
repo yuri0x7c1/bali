@@ -88,7 +88,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	@Setter
 	EntityProcessor<T> entityProcessor;
 
-	@Getter
 	final CommonSearchForm searchForm;
 
 	final MGrid<T> grid;
@@ -277,7 +276,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	}
 
 	public void registerSearchFieldComponent(SearchFieldComponentDescriptor fieldComponent) {
-		getSearchForm().registerFieldComponent(fieldComponent);
+		searchForm.registerFieldComponent(fieldComponent);
 	}
 
 	public void addSearchField(String fieldName, SearchFieldOperator operator, Object value) {

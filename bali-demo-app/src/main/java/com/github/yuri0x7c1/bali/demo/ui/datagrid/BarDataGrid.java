@@ -49,9 +49,9 @@ public class BarDataGrid extends EntityDataGrid<Bar> {
 		));
 
 		// search fields
-		getSearchForm().registerFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Bar.id"), Integer.class,
+		registerSearchFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Bar.id"), Integer.class,
 				IntegerField.class, SearchFieldComponentLifecycle.NON_MANAGED));
-		getSearchForm().registerFieldComponent(new SearchFieldComponentDescriptor("value", i18n.get("Bar.value"), String.class,
+		registerSearchFieldComponent(new SearchFieldComponentDescriptor("value", i18n.get("Bar.value"), String.class,
 				MTextField.class, SearchFieldComponentLifecycle.NON_MANAGED));
 
 		// grid columns

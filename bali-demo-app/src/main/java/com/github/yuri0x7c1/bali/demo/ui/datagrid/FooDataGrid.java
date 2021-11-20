@@ -50,7 +50,7 @@ public class FooDataGrid extends EntityDataGrid<Foo> {
 		setSearchCountProvider(searchModel -> fooService.count(SearchUtil.buildSpecification(Foo.class, searchModel)));
 
 		// search fields
-		getSearchForm().registerFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Foo.id"), Integer.class, IntegerField.class,
+		registerSearchFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Foo.id"), Integer.class, IntegerField.class,
 				SearchFieldComponentLifecycle.NON_MANAGED));
 
 		// grid columns
