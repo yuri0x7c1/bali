@@ -1,9 +1,12 @@
 package com.github.yuri0x7c1.bali.ui.view;
 
+import javax.swing.plaf.basic.BasicButtonListener;
+
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import com.github.yuri0x7c1.bali.ui.header.Header;
 import com.github.yuri0x7c1.bali.ui.header.HeaderTextSize;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Component;
@@ -25,6 +28,7 @@ public abstract class CommonView extends MVerticalLayout implements View {
 
 	public CommonView() {
 		setMargin(false);
+		addStyleName(BaliStyle.COMMON_VIEW);
 
 		header = new Header();
 		header.setTextSize(HeaderTextSize.H2);

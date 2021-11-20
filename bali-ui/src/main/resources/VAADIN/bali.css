@@ -67,6 +67,10 @@
   min-width: 0 !important;
 }
 
+.bali-common-view {
+  overflow: auto !important;
+}
+
 /* Extra Small */
 /* Small */
 /* Medium */

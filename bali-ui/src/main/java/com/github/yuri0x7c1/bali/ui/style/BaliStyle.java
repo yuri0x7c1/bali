@@ -25,4 +25,6 @@ public class BaliStyle {
 	public static final String TOP_BAR = "bali-topbar";
 
 	public static final String BUTTON_PRIMARY_FIX = "bali-button-primary-fix";
+
+	public static final String COMMON_VIEW = "bali-common-view";
 }

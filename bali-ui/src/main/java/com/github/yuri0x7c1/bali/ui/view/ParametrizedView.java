@@ -16,6 +16,7 @@ import com.vaadin.ui.UI;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,9 +39,11 @@ public abstract class ParametrizedView<P> extends CommonView {
 		MAPPER.disable(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS);
 	}
 
+	@Getter
 	final Class<P> paramsType;
 
 	@Getter
+	@Setter
 	P params;
 
 	public ParametrizedView(Class<P> paramsType) {
