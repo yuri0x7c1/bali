@@ -1,15 +1,10 @@
 package com.github.yuri0x7c1.bali.ui.view;
 
-import java.io.Serializable;
-
 import org.vaadin.spring.i18n.I18N;
-import org.vaadin.viritin.button.MButton;
 
 import com.github.yuri0x7c1.bali.ui.detail.EntityDetail;
+import com.github.yuri0x7c1.bali.ui.provider.EntityProvider;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
-import com.vaadin.icons.VaadinIcons;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.themes.ValoTheme;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -24,17 +19,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
 public class EntityShowView<T, P> extends ParametrizedView<P> {
 
-	public interface EntityProvider<T, P> extends Serializable {
-		T getEntity(P params);
-	}
-
 	Class<T> entityType;
 
 	I18N i18n;
 
-	EntityProvider<T, P> entityProvider;
-
 	EntityDetail<T> entityDetail;
+
+	EntityProvider<T, P> entityProvider;
 
 	public EntityShowView(Class<T> entityType, Class<P> paramsType, I18N i18n, EntityDetail<T> entityDetail,
 			EntityProvider<T, P> entityProvider) {
@@ -45,8 +36,7 @@ public class EntityShowView<T, P> extends ParametrizedView<P> {
 		this.entityProvider = entityProvider;
 
 		setHeaderText(this.getClass().getSimpleName());
-		addHeaderComponent(new MButton(VaadinIcons.ARROW_LEFT, i18n.get("Back"), (ClickListener) event -> UiUtil.back())
-				.withStyleName(ValoTheme.BUTTON_PRIMARY));
+		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back")));
 
 		addComponent(entityDetail);
 	}

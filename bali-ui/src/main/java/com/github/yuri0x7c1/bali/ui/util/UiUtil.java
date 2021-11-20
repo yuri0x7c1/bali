@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.Sort.Direction;
+import org.vaadin.viritin.button.MButton;
 
 import com.vaadin.data.provider.GridSortOrder;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.data.sort.SortDirection;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.JavaScript;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  *
@@ -61,5 +65,11 @@ public class UiUtil {
 
 	public static Direction getGridOrderDirection(Grid grid, Direction defaultDirection) {
 		return convertSortDirection(getGridSortDirection(grid.getSortOrder(), convertDirection(defaultDirection)));
+	}
+
+	public static MButton createBackButton(String caption) {
+		return new MButton(VaadinIcons.ARROW_LEFT, caption, (ClickListener) event -> UiUtil.back())
+				.withStyleName(ValoTheme.BUTTON_PRIMARY);
+
 	}
 }
