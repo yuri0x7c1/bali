@@ -29,6 +29,7 @@ import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm;
 import com.github.yuri0x7c1.bali.ui.search.SearchFieldComponentDescriptor;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
+import com.vaadin.data.provider.DataProvider;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.Registration;
 import com.vaadin.ui.Grid.Column;
@@ -123,6 +124,8 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	final List<EntityProperty<T>> properties = new ArrayList<>();
 
+	final List<T> items = new ArrayList<>();
+
 	public EntityDataGrid(Class<T> entityType, I18N i18n, CommonSearchForm searchForm, String defaultOrderProperty, Direction defaultOrderDirection) {
 		this.entityType = entityType;
 		this.i18n = i18n;
@@ -145,6 +148,14 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		grid.setSelectionMode(SelectionMode.NONE);
 		grid.setWidthFull();
 		grid.setHeightByRows(pageSize);
+
+		grid.setDataProvider(null, null);
+		grid.setDataProvider(
+			DataProvider.fromCallbacks(
+				query -> items.stream(),
+				query -> items.size()
+			)
+		);
 
 		grid.addSortListener(event -> {
 			orderDirection = UiUtil.getGridOrderDirection(grid, defaultOrderDirection);
@@ -253,7 +264,9 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		Page<T> entityPage = searchProvider.search(page, pageSize, orderProperty, orderDirection,
 				searchForm.getModel());
 		pagination.setTotalCount(entityPage.getTotalElements());
-		grid.setItems(entityPage.getContent());
+		items.clear();
+		items.addAll(entityPage.getContent());
+		grid.getDataProvider().refreshAll();
 	}
 
 	public void refreshColumns() {
