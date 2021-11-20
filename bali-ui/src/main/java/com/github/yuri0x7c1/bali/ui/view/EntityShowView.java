@@ -8,6 +8,7 @@ import com.github.yuri0x7c1.bali.ui.detail.EntityDetail;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 /**
@@ -17,13 +18,14 @@ import lombok.experimental.FieldDefaults;
  * @param <T>
  * @param <P>
  */
-@FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EntityShowView<T, P> extends ParametrizedView<P> {
 
 	Class<T> entityType;
 
 	I18N i18n;
 
+	@Getter
 	EntityDetail<T> entityDetail;
 
 	Function<P, T> entityProvider;
@@ -44,8 +46,8 @@ public class EntityShowView<T, P> extends ParametrizedView<P> {
 
 	@Override
 	public void onEnter() {
-		if (params != null) {
-			T entity = entityProvider.apply(params);
+		if (getParams() != null) {
+			T entity = entityProvider.apply(getParams());
 			if (entity != null) {
 				entityDetail.setEntity(entity);
 			}

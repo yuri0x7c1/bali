@@ -25,6 +25,7 @@ import com.github.yuri0x7c1.bali.ui.handler.ShowHandler;
 import com.github.yuri0x7c1.bali.ui.pagination.Pagination;
 import com.github.yuri0x7c1.bali.ui.pagination.PaginationResource;
 import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm;
+import com.github.yuri0x7c1.bali.ui.search.SearchFieldComponentDescriptor;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.icons.VaadinIcons;
@@ -48,7 +49,7 @@ import lombok.experimental.FieldDefaults;
  *
  * @author yuri0x7c1
  */
-@FieldDefaults(level=AccessLevel.PROTECTED)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public static final String ACTIONS_COLUMN_ID = "_actions";
@@ -87,6 +88,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	@Setter
 	EntityProcessor<T> entityProcessor;
 
+	@Getter
 	final CommonSearchForm searchForm;
 
 	final MGrid<T> grid;
@@ -272,6 +274,10 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public List<EntityProperty<T>> getProperties() {
 		return Collections.unmodifiableList(properties);
+	}
+
+	public void registerSearchFieldComponent(SearchFieldComponentDescriptor fieldComponent) {
+		getSearchForm().registerFieldComponent(fieldComponent);
 	}
 
 	public void addSearchField(String fieldName, SearchFieldOperator operator, Object value) {

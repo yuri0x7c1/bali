@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author yuri0x7c1
  */
 @Slf4j
-@FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public abstract class EntityListView<T> extends CommonView {
 
     Class<T> entityType;

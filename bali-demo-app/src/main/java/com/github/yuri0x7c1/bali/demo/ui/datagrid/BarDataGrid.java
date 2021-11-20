@@ -34,7 +34,7 @@ public class BarDataGrid extends EntityDataGrid<Bar> {
 		super(Bar.class, i18n, searchForm, Bar.Fields.id, Direction.ASC);
 		this.barService = barService;
 
-		searchProvider = (page, pageSize, orderProperty, orderDirection, searchModel) -> barService.findAll(
+		setSearchProvider((page, pageSize, orderProperty, orderDirection, searchModel) -> barService.findAll(
 			SearchUtil.buildSpecification(Bar.class, searchModel),
 			PageRequest.of(
 				page,
@@ -42,16 +42,16 @@ public class BarDataGrid extends EntityDataGrid<Bar> {
 				orderDirection,
 				orderProperty
 			)
-		);
+		));
 
-		searchCountProvider = searchModel -> barService.count(
+		setSearchCountProvider(searchModel -> barService.count(
 			SearchUtil.buildSpecification(Bar.class, searchModel)
-		);
+		));
 
 		// search fields
-		searchForm.registerFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Bar.id"), Integer.class,
+		getSearchForm().registerFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Bar.id"), Integer.class,
 				IntegerField.class, SearchFieldComponentLifecycle.NON_MANAGED));
-		searchForm.registerFieldComponent(new SearchFieldComponentDescriptor("value", i18n.get("Bar.value"), String.class,
+		getSearchForm().registerFieldComponent(new SearchFieldComponentDescriptor("value", i18n.get("Bar.value"), String.class,
 				MTextField.class, SearchFieldComponentLifecycle.NON_MANAGED));
 
 		// grid columns

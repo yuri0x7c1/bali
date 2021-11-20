@@ -34,23 +34,23 @@ public class FooDataGrid extends EntityDataGrid<Foo> {
 		this.fooService = fooService;
 
 		// search provider
-		searchProvider = (page, pageSize, orderProperty, orderDirection, searchModel) -> fooService.findAll(
-			SearchUtil.buildSpecification(Foo.class, searchModel),
-			PageRequest.of(
-				page,
-				pageSize,
-				orderDirection,
-				orderProperty
+		setSearchProvider((page, pageSize, orderProperty, orderDirection, searchModel) ->
+			fooService.findAll(
+				SearchUtil.buildSpecification(Foo.class, searchModel),
+				PageRequest.of(
+					page,
+					pageSize,
+					orderDirection,
+					orderProperty
+				)
 			)
 		);
 
 		// search count provider
-		searchCountProvider = searchModel -> fooService.count(
-			SearchUtil.buildSpecification(Foo.class, searchModel)
-		);
+		setSearchCountProvider(searchModel -> fooService.count(SearchUtil.buildSpecification(Foo.class, searchModel)));
 
 		// search fields
-		searchForm.registerFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Foo.id"), Integer.class, IntegerField.class,
+		getSearchForm().registerFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Foo.id"), Integer.class, IntegerField.class,
 				SearchFieldComponentLifecycle.NON_MANAGED));
 
 		// grid columns

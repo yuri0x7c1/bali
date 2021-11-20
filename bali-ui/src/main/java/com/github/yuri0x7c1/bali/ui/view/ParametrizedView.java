@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  * @param <P>
  */
 @Slf4j
-@FieldDefaults(level = AccessLevel.PROTECTED)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public  abstract class ParametrizedView<P> extends CommonView implements View {
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 	static {

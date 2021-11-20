@@ -10,7 +10,9 @@ import org.vaadin.viritin.form.AbstractForm.SavedHandler;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
+import lombok.AccessLevel;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,20 +22,21 @@ import lombok.extern.slf4j.Slf4j;
  * @param <T>
  */
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EntityCreateView<T> extends CommonView {
 
-	protected final Class<T> entityType;
+	final Class<T> entityType;
 
-	protected final I18N i18n;
+	final I18N i18n;
 
-	protected final AbstractForm<T> entityForm;
+	final AbstractForm<T> entityForm;
 
 	@Setter
-	private Supplier<T> entitySupplier;
+	Supplier<T> entitySupplier;
 
-	private SavedHandler<T> savedHandler;
+	SavedHandler<T> savedHandler;
 
-	private ResetHandler<T> resetHandler;
+	ResetHandler<T> resetHandler;
 
 	public EntityCreateView(Class<T> entityType, I18N i18n, AbstractForm<T> entityForm) {
 		this.entityType = entityType;

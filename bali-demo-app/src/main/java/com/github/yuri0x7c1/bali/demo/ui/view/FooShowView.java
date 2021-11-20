@@ -29,7 +29,7 @@ public class FooShowView extends EntityShowView<Foo, Integer> {
 				p -> fooService.findById(p).orElse(null));
 		this.fooListView = fooListView;
 
-		entityDetail.addProperties(fooListView.getDataGrid().getProperties());
+		getEntityDetail().addProperties(fooListView.getDataGrid().getProperties());
 	}
 
 }

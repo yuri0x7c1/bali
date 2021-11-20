@@ -9,7 +9,9 @@ import org.vaadin.viritin.form.AbstractForm.SavedHandler;
 
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 
+import lombok.AccessLevel;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 /**
  *
@@ -18,20 +20,17 @@ import lombok.Setter;
  * @param <T>
  * @param <P>
  */
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EntityEditView<T, P> extends ParametrizedView<P> {
 
-	protected final Class<T> entityType;
+	private final Class<T> entityType;
 
-	protected final I18N i18n;
+	private final I18N i18n;
 
-	protected final AbstractForm<T> entityForm;
+	private final AbstractForm<T> entityForm;
 
 	@Setter
 	private Function<P, T> entityProvider;
-
-	private SavedHandler<T> savedHandler;
-
-	private ResetHandler<T> resetHandler;
 
 	public EntityEditView(Class<T> entityType, Class<P> paramsType, I18N i18n, AbstractForm<T> entityForm) {
 		super(paramsType);
@@ -52,19 +51,17 @@ public class EntityEditView<T, P> extends ParametrizedView<P> {
 	}
 
 	public void setSavedHandler(SavedHandler<T> savedHandler) {
-		this.savedHandler = savedHandler;
 		entityForm.setSavedHandler(savedHandler);
 	}
 
 	public void setResetHandler(ResetHandler<T> resetHandler) {
-		this.resetHandler = resetHandler;
 		entityForm.setResetHandler(resetHandler);
 	}
 
 	@Override
 	public void onEnter() {
-		if (params != null) {
-			T entity = entityProvider.apply(params);
+		if (getParams() != null) {
+			T entity = entityProvider.apply(getParams());
 			if (entity != null) {
 				entityForm.setEntity(entity);
 			}

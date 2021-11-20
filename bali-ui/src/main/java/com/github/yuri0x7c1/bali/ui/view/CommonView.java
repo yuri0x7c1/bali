@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
  * @author yuri0x7c1
  *
  */
-@FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public abstract class CommonView extends MVerticalLayout implements View {
 	Header header;
 
