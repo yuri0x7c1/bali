@@ -5,6 +5,7 @@ import org.vaadin.viritin.layouts.MVerticalLayout;
 import com.github.yuri0x7c1.bali.ui.header.Header;
 import com.github.yuri0x7c1.bali.ui.header.HeaderTextSize;
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Component;
 
 import lombok.AccessLevel;
@@ -15,9 +16,12 @@ import lombok.experimental.FieldDefaults;
  * @author yuri0x7c1
  *
  */
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class CommonView extends MVerticalLayout implements View {
-	Header header;
+
+	View oldView;
+
+	final Header header;
 
 	public CommonView() {
 		setMargin(false);
@@ -36,4 +40,12 @@ public abstract class CommonView extends MVerticalLayout implements View {
 	public void addHeaderComponent(Component c) {
 		header.addHeaderComponent(c);
 	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+		oldView = event.getOldView();
+		onEnter();
+	}
+
+	public void onEnter() {};
 }

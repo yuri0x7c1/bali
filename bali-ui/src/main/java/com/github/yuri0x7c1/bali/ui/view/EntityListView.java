@@ -5,6 +5,9 @@ import org.vaadin.viritin.button.MButton;
 
 import com.github.yuri0x7c1.bali.ui.datagrid.EntityDataGrid;
 import com.github.yuri0x7c1.bali.ui.handler.CreateHandler;
+import com.github.yuri0x7c1.bali.ui.handler.DeleteHandler;
+import com.github.yuri0x7c1.bali.ui.handler.EditHandler;
+import com.github.yuri0x7c1.bali.ui.handler.ShowHandler;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -49,7 +52,26 @@ public abstract class EntityListView<T> extends CommonView {
 
 	public void setCreateHandler(CreateHandler<T> createHandler) {
 		this.createHandler = createHandler;
-		createButton.addClickListener(event -> createHandler.onCreate());
+		createButton.addClickListener(event -> {
+			createHandler.onCreate();
+		});
 		createButton.setVisible(true);
+	}
+
+	public void setShowHandler(ShowHandler<T> showHandler) {
+		dataGrid.setShowHandler(showHandler);
+	}
+
+	public void setEditHandler(EditHandler<T> editHandler) {
+		dataGrid.setEditHandler(editHandler);
+	}
+
+	public void setDeleteHandler(DeleteHandler<T> deleteHandler) {
+		dataGrid.setDeleteHandler(deleteHandler);
+	}
+
+	@Override
+	public void onEnter() {
+		dataGrid.refresh();
 	}
 }

@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.UI;
 
@@ -28,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public  abstract class ParametrizedView<P> extends CommonView implements View {
+public abstract class ParametrizedView<P> extends CommonView {
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 	static {
 		MAPPER.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
@@ -51,6 +50,7 @@ public  abstract class ParametrizedView<P> extends CommonView implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
+		super.enter(event);
 		try {
 			if (StringUtils.isNotBlank(event.getParameters())) {
 				this.params = MAPPER.readValue(URLDecoder.decode(event.getParameters(), StandardCharsets.UTF_8.name()),
@@ -62,8 +62,6 @@ public  abstract class ParametrizedView<P> extends CommonView implements View {
 		}
 		onEnter();
 	}
-
-	public abstract void onEnter();
 
 	public static void navigateTo(String viewName, Object params) {
 		try {

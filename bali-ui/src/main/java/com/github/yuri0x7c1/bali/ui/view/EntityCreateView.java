@@ -8,7 +8,6 @@ import org.vaadin.viritin.form.AbstractForm.ResetHandler;
 import org.vaadin.viritin.form.AbstractForm.SavedHandler;
 
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
 import lombok.AccessLevel;
 import lombok.Setter;
@@ -77,7 +76,7 @@ public class EntityCreateView<T> extends CommonView {
 	}
 
 	@Override
-	public void enter(ViewChangeEvent event) {
+	public void onEnter() {
 		T entity = entitySupplier.get();
 		if (entity != null) {
 			entityForm.setEntity(entity);
