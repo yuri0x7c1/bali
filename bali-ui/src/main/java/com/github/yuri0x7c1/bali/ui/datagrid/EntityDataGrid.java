@@ -284,6 +284,15 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		grid.sort(orderProperty, UiUtil.convertDirection(orderDirection));
 	}
 
+	public List<EntityProperty<T>> getProperties() {
+		return Collections.unmodifiableList(properties);
+	}
+
+	public void setProperties(List<EntityProperty<T>> properties) {
+		this.properties.clear();
+		this.properties.addAll(properties);
+	}
+
 	public void addProperty(EntityProperty<T> property) {
 		properties.add(property);
 	}
@@ -292,10 +301,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		for (EntityProperty<T> p : properties) {
 			addProperty(p);
 		}
-	}
-
-	public List<EntityProperty<T>> getProperties() {
-		return Collections.unmodifiableList(properties);
 	}
 
 	public void registerSearchFieldComponent(SearchFieldComponentDescriptor fieldComponent) {

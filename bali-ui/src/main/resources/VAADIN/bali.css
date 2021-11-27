@@ -10,13 +10,13 @@
   width: 100%;
   padding: 8px;
 }
-.bali-form .v-widget {
+.bali-form .v-widget:not(.v-button) {
   width: 100% !important;
 }
-.bali-form .v-widget .v-caption {
+.bali-form .v-widget:not(.v-button) .v-caption {
   margin-top: 14px;
 }
-.bali-form .v-widget .v-captiontext {
+.bali-form .v-widget:not(.v-button) .v-captiontext {
   font-weight: bold;
 }
 .bali-form .bali-entity-picker {

@@ -12,7 +12,7 @@
 	width: 100%;
 	padding: 8px;
 
-	.v-widget {
+	.v-widget:not(.v-button)  {
 		width: 100%! important;
 
 		.v-caption {
