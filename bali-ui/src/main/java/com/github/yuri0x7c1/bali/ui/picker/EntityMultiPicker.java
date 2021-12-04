@@ -33,6 +33,12 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ *
+ * @author yuri0x7c1
+ *
+ * @param <T>
+ */
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EntityMultiPicker<T> extends CustomField<List<T>> {
