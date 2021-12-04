@@ -8,4 +8,6 @@ package com.github.yuri0x7c1.bali.data.search.model;
 public enum SearchFieldOperator {
 	EQUAL,
 	NOT_EQUAL,
+	GREATER,
+	LESS
 }
