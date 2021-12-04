@@ -100,8 +100,10 @@ public class CommonSearchForm extends Card {
 	public SearchModel getModel() {
 		SearchModel searchModel = new SearchModel();
 		for (SearchFieldComponent fieldComponent : fieldComponents) {
-			searchModel.getFields().add(
-					new SearchField(fieldComponent.getName(), fieldComponent.getOperator(), fieldComponent.getValue()));
+			if (fieldComponent.getValue() != null) {
+				searchModel.getFields().add(new SearchField(fieldComponent.getName(), fieldComponent.getOperator(),
+						fieldComponent.getValue()));
+			}
 		}
 		return searchModel;
 	}
@@ -154,6 +156,11 @@ public class CommonSearchForm extends Card {
 
 	public void createFieldComponent(String  fieldName, SearchFieldOperator option) {
 		createFieldComponent(fieldName, option, null);
+	}
+
+	public void clearFieldComponents() {
+		fieldLayout.removeAllComponents();
+		fieldComponents.clear();
 	}
 
 	public void registerFieldComponent(SearchFieldComponentDescriptor fieldComponent) {

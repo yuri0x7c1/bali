@@ -94,6 +94,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	final CommonSearchForm searchForm;
 
+	@Getter
 	final MGrid<T> grid;
 
 	final Pagination pagination;
@@ -309,6 +310,10 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public void addSearchField(String fieldName, SearchFieldOperator operator, Object value) {
 		searchForm.createFieldComponent(fieldName, operator, value);
+	}
+
+	public void clearSearchFields() {
+		searchForm.clearFieldComponents();
 	}
 
 	public Set<T> getSelectedItems() {
