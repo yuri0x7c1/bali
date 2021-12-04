@@ -12,7 +12,7 @@ import org.vaadin.viritin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.ui.picker.BarMultiPicker;
-import com.github.yuri0x7c1.bali.demo.ui.select.BarSelect;
+import com.github.yuri0x7c1.bali.demo.ui.picker.BarPicker;
 import com.github.yuri0x7c1.bali.ui.field.BooleanField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
@@ -53,11 +53,11 @@ public class FooForm extends AbstractForm<Foo> {
 
     DateField localDate;
 
-    BarSelect bar;
+    BarPicker bar;
 
     BarMultiPicker linkedBars;
 
-	public FooForm(I18N i18n, UIEventBus eventBus, BarSelect bar, BarMultiPicker linkedBars) {
+	public FooForm(I18N i18n, UIEventBus eventBus, BarPicker bar, BarMultiPicker linkedBars) {
 		super(Foo.class);
 		this.i18n = i18n;
 		this.eventBus = eventBus;
@@ -94,7 +94,7 @@ public class FooForm extends AbstractForm<Foo> {
 		localDate.addStyleNames(BaliStyle.FORM_FIELD);
 
 		// initialize bar
-		bar.withCaption(i18n.get("Foo.bar"));
+		bar.setCaption(i18n.get("Foo.bar"));
 
 		// initialize linkedBars
 		linkedBars.setCaption(i18n.get("Foo.linkedBars"));
