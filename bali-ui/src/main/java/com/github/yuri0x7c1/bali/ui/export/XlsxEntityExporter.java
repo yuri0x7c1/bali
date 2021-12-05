@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -37,6 +36,8 @@ public class XlsxEntityExporter<T> {
 	public static final int DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE = 1000;
 	public static final int DEFAULT_PAGE_SIZE = 5000;
 	public static final float HUNDRED_PERCENT_PROGRESS = 100f;
+	public static final int MAX_ENTITY_COUNT = 1000000;
+	public static final String MAX_ENTITY_COUNT_MESSAGE = "Too many entities: %d. Maximum allowed entity count is: %d";
 
 	@FunctionalInterface
 	public interface PageProvider<T> {
@@ -97,6 +98,13 @@ public class XlsxEntityExporter<T> {
 	       	Pageable pageable = PageRequest.of(0, pageSize, sortDirection, sortProperty);
 	        do {
 	        	Page<T> currentPage = pageProvider.getPage(pageable);
+	        	if (currentPage.getTotalElements() > MAX_ENTITY_COUNT) {
+	        		String msg = String.format(MAX_ENTITY_COUNT_MESSAGE, currentPage.getTotalElements(), MAX_ENTITY_COUNT);
+	        		log.error(msg);
+	        		Row row = sheet.createRow(rowNumber++);
+					row.createCell(0).setCellValue(msg);
+	        		break;
+	        	}
 				for (T entity : currentPage.getContent()) {
 					entityNumber++;
 					Row row = sheet.createRow(rowNumber++);
@@ -116,19 +124,27 @@ public class XlsxEntityExporter<T> {
 	        while (true);
         }
         else {
-			for (T item : entities) {
-				entityNumber++;
-				Row row = sheet.createRow(rowNumber++);
-				for (int i = 0; i < properties.size(); i++) {
-					row.createCell(i).setCellValue(getPropertyValue(item, properties.get(i)));
-				}
-				if (entityNumber % DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE == 0) {
-					log.debug("Exported {} rows of {}!", entityNumber, DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE);
-					if (progressListener != null) {
-						progressListener.onProgress(100f / entities.size() * entityNumber);
+        	if (entities.size() > MAX_ENTITY_COUNT) {
+        		String msg = String.format(MAX_ENTITY_COUNT_MESSAGE, entities.size(), MAX_ENTITY_COUNT);
+        		log.error(msg);
+        		Row row = sheet.createRow(rowNumber++);
+				row.createCell(0).setCellValue(msg);
+        	}
+        	else {
+				for (T item : entities) {
+					entityNumber++;
+					Row row = sheet.createRow(rowNumber++);
+					for (int i = 0; i < properties.size(); i++) {
+						row.createCell(i).setCellValue(getPropertyValue(item, properties.get(i)));
+					}
+					if (entityNumber % DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE == 0) {
+						log.debug("Exported {} rows of {}!", entityNumber, DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE);
+						if (progressListener != null) {
+							progressListener.onProgress(100f / entities.size() * entityNumber);
+						}
 					}
 				}
-			}
+        	}
         }
 
 		log.debug("Export finished. Exported {} rows!", entityNumber);
