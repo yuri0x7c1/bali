@@ -58,7 +58,11 @@ public abstract class EntityListView<T> extends CommonView {
 		this.dataGrid = dataGrid;
 
 		// create button
-		createButton = new MButton(i18n.get("Create")).withVisible(false);
+		createButton = new MButton(i18n.get("Create"))
+			.withIcon(VaadinIcons.PLUS)
+			.withStyleName(ValoTheme.BUTTON_PRIMARY)
+			.withVisible(false);
+
 		addHeaderComponent(createButton);
 
 		// export button
