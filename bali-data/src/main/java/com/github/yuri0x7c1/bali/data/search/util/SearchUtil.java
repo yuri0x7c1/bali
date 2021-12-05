@@ -1,5 +1,9 @@
 package com.github.yuri0x7c1.bali.data.search.util;
 
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.github.yuri0x7c1.bali.data.search.model.SearchField;
@@ -47,19 +52,30 @@ public class SearchUtil {
 			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
 				for (SearchField searchField : searchModel.getFields()) {
+					Field f = FieldUtils.getField(entityType, searchField.getName(), true);
+					Object fieldValue = searchField.getValue();
+
+					// convert LocalDateTime field value to ZonedDateTime
+					if (f != null) {
+						if (f.getType().isAssignableFrom(ZonedDateTime.class) && fieldValue instanceof LocalDateTime) {
+							fieldValue = ZonedDateTime.of((LocalDateTime) fieldValue, ZoneId.systemDefault());
+						}
+					}
+
 					if (SearchFieldOperator.EQUAL.equals(searchField.getOperator())) {
-						Predicate predicate = cb.equal(getPath(root, searchField.getName()), searchField.getValue());
+						Predicate predicate = cb.equal(getPath(root, searchField.getName()), fieldValue);
 						predicates.add(predicate);
 					}
 					else if (SearchFieldOperator.GREATER.equals(searchField.getOperator())) {
 						if (searchField.getValue() instanceof Comparable) {
 							predicates.add(cb.greaterThan((Expression) getPath(root, searchField.getName()),
-									(Comparable) searchField.getValue()));
+									(Comparable) fieldValue));
 						}
-					} else if (SearchFieldOperator.LESS.equals(searchField.getOperator())) {
+					}
+					else if (SearchFieldOperator.LESS.equals(searchField.getOperator())) {
 						if (searchField.getValue() instanceof Comparable) {
 							predicates.add(cb.lessThan((Expression) getPath(root, searchField.getName()),
-									(Comparable) searchField.getValue()));
+									(Comparable) fieldValue));
 						}
 					}
 				}
