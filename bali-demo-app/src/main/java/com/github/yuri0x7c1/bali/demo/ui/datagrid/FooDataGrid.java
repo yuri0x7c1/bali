@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.fields.IntegerField;
+import org.vaadin.viritin.fields.MTextField;
 
 import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
 import com.github.yuri0x7c1.bali.data.search.util.SearchUtil;
@@ -50,11 +51,15 @@ public class FooDataGrid extends EntityDataGrid<Foo> {
 		setSearchCountProvider(searchModel -> fooService.count(SearchUtil.buildSpecification(Foo.class, searchModel)));
 
 		// search fields
-		registerSearchFieldComponent(new SearchFieldComponentDescriptor("id", i18n.get("Foo.id"), Integer.class, IntegerField.class,
-				SearchFieldComponentLifecycle.NON_MANAGED));
+		registerSearchFieldComponent(new SearchFieldComponentDescriptor(Foo.Fields.id, i18n.get("Foo.id"),
+				Integer.class, IntegerField.class, SearchFieldComponentLifecycle.NON_MANAGED));
+		registerSearchFieldComponent(
+				new SearchFieldComponentDescriptor(Foo.Fields.stringValue, i18n.get("Foo.stringValue"), String.class,
+						MTextField.class, SearchFieldComponentLifecycle.NON_MANAGED));
 
 		// grid columns
-		addProperty(new EntityProperty<>("id", i18n.get("Foo.id")));
+		addProperty(new EntityProperty<>(Foo.Fields.id, i18n.get("Foo.id")));
+		addProperty(new EntityProperty<>(Foo.Fields.stringValue, i18n.get("Foo.stringValue")));
 		refreshColumns();
 	}
 }

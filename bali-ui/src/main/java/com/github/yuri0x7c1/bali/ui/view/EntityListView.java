@@ -1,18 +1,25 @@
 package com.github.yuri0x7c1.bali.ui.view;
 
+import java.time.LocalDateTime;
+import java.util.function.Supplier;
+
 import org.vaadin.spring.i18n.I18N;
+import org.vaadin.viritin.button.DownloadButton;
 import org.vaadin.viritin.button.MButton;
 
 import com.github.yuri0x7c1.bali.ui.datagrid.EntityDataGrid;
+import com.github.yuri0x7c1.bali.ui.export.XlsxEntityExporter;
+import com.github.yuri0x7c1.bali.ui.export.XlsxEntityExporter.PageProvider;
 import com.github.yuri0x7c1.bali.ui.handler.CreateHandler;
 import com.github.yuri0x7c1.bali.ui.handler.DeleteHandler;
 import com.github.yuri0x7c1.bali.ui.handler.EditHandler;
 import com.github.yuri0x7c1.bali.ui.handler.ShowHandler;
+import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.themes.ValoTheme;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -21,21 +28,28 @@ import lombok.extern.slf4j.Slf4j;
  * @author yuri0x7c1
  */
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class EntityListView<T> extends CommonView {
 
-    Class<T> entityType;
+    final Class<T> entityType;
 
-	I18N i18n;
+	final I18N i18n;
 
-	@Getter
-	EntityDataGrid<T> dataGrid;
-
-	MButton createButton;
+	final DownloadButton exportButton;
 
 	@Getter
-	@NonFinal
+	final EntityDataGrid<T> dataGrid;
+
+	final MButton createButton;
+
+	@Getter
 	CreateHandler<T> createHandler;
+
+	@Getter
+	PageProvider<T> exportPageProvider;
+
+	@Getter
+	Supplier<String> exportFileNameProvider;
 
 	public EntityListView(Class<T> entityType, I18N i18n, EntityDataGrid<T> dataGrid) {
 		super();
@@ -47,6 +61,16 @@ public abstract class EntityListView<T> extends CommonView {
 		createButton = new MButton(i18n.get("Create")).withVisible(false);
 		addHeaderComponent(createButton);
 
+		// export button
+		exportButton = new DownloadButton()
+			.setFileNameProvider(() -> entityType.getSimpleName() + "_" + LocalDateTime.now() + "." + XlsxEntityExporter.XLSX_FILE_EXTENSION)
+			.withCaption(i18n.get("Export"))
+			.withIcon(VaadinIcons.DOWNLOAD)
+			.withStyleName(ValoTheme.BUTTON_FRIENDLY)
+			.withVisible(false);
+
+		addHeaderComponent(exportButton);
+
 		add(dataGrid);
 	}
 
@@ -56,6 +80,37 @@ public abstract class EntityListView<T> extends CommonView {
 			createHandler.onCreate();
 		});
 		createButton.setVisible(true);
+	}
+
+	public void setExportPageProvider(PageProvider<T> exportPageProvider) {
+		this.exportPageProvider = exportPageProvider;
+		exportButton.setVisible(true);
+		exportButton.setWriter(out -> {
+        	exportButton.setEnabled(false);
+        	XlsxEntityExporter<T> exporter = new XlsxEntityExporter<T>(
+    			entityType,
+    			getDataGrid().getProperties(),
+    			null,
+    			exportPageProvider,
+    			dataGrid.getOrderDirection(),
+    			dataGrid.getOrderProperty(),
+    			XlsxEntityExporter.DEFAULT_PAGE_SIZE,
+    			null
+        	);
+
+            try {
+                out.write(exporter.getByteArray());
+
+            } catch (Exception ex) {
+               log.error(ex.getMessage(), ex);
+            }
+            exportButton.setEnabled(true);
+		});
+	}
+
+	public void setExportFileNameProvider(Supplier<String> exportFileNameProvider) {
+		this.exportFileNameProvider = exportFileNameProvider;
+		exportButton.setFileNameProvider(() -> exportFileNameProvider.get());
 	}
 
 	public void setShowHandler(ShowHandler<T> showHandler) {

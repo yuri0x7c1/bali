@@ -1,10 +1,12 @@
 package com.github.yuri0x7c1.bali.demo.ui.view;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
 import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 
+import com.github.yuri0x7c1.bali.data.search.util.SearchUtil;
 import com.github.yuri0x7c1.bali.demo.domain.Foo;
 import com.github.yuri0x7c1.bali.demo.service.FooService;
 import com.github.yuri0x7c1.bali.demo.ui.datagrid.FooDataGrid;
@@ -38,10 +40,14 @@ public class FooListView extends EntityListView<Foo> {
 
 		setCreateHandler(() -> getUI().getNavigator().navigateTo(FooEditView.NAME));
 
+		setExportPageProvider(pageable -> fooService
+				.findAll(SearchUtil.buildSpecification(Foo.class, fooDataGrid.getSearchModel()), pageable));
+
 		fooDataGrid.setShowHandler(e -> ParametrizedView.navigateTo(FooShowView.NAME, e.getId()));
 
 		fooDataGrid.setEditHandler(e -> ParametrizedView.navigateTo(FooEditView.NAME, e.getId()));
 
 		fooDataGrid.setDeleteHandler(e -> fooService.delete(e));
+
 	}
 }

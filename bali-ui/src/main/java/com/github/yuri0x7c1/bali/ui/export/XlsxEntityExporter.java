@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -37,10 +38,12 @@ public class XlsxEntityExporter<T> {
 	public static final int DEFAULT_PAGE_SIZE = 5000;
 	public static final float HUNDRED_PERCENT_PROGRESS = 100f;
 
+	@FunctionalInterface
 	public interface PageProvider<T> {
 		public Page<T> getPage(Pageable pageable);
 	}
 
+	@FunctionalInterface
 	public interface ProgressListener {
 		public void onProgress(Float progressInPercents);
 	}
@@ -54,14 +57,14 @@ public class XlsxEntityExporter<T> {
 	Integer pageSize;
 	ProgressListener progressListener;
 
-	public XlsxEntityExporter(Class<T> sourceClass, List<EntityProperty<T>> properties, List<T> entities,
+	public XlsxEntityExporter(Class<T> entityType, List<EntityProperty<T>> properties, List<T> entities,
 			PageProvider<T> pageProvider, Direction sortDirection, String sortProperty, Integer pageSize,
 			ProgressListener progressListener) {
 
 		if (entities == null && pageProvider == null) {
 			throw new RuntimeException("List of entities or page provider must be set!");
 		}
-		this.entityClass = sourceClass;
+		this.entityClass = entityType;
 		this.properties = properties;
 		this.entities = entities;
 		this.pageProvider = pageProvider;

@@ -103,11 +103,11 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	@Getter
 	@Setter
-	Integer page = 0;
+	int page = 0;
 
 	@Getter
 	@Setter
-	Integer pageSize = 15;
+	int pageSize = 15;
 
 	@Getter
 	final String defaultOrderProperty;
@@ -159,8 +159,8 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		);
 
 		grid.addSortListener(event -> {
-			orderDirection = UiUtil.getGridOrderDirection(grid, defaultOrderDirection);
-			orderProperty = UiUtil.getGridOrderProperty(grid, defaultOrderProperty);
+			orderDirection = getOrderDirection();
+			orderProperty = getOrderProperty();
 			refresh();
 		});
 
@@ -316,6 +316,10 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		searchForm.clearFieldComponents();
 	}
 
+	public SearchModel getSearchModel() {
+		return searchForm.getModel();
+	}
+
 	public Set<T> getSelectedItems() {
 		return grid.getSelectedItems();
 	}
@@ -345,5 +349,13 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public Registration addItemClickListener(ItemClickListener<? super T> listener) {
 		return grid.addItemClickListener(listener);
+	}
+
+	public Direction getOrderDirection() {
+		return UiUtil.getGridOrderDirection(grid, defaultOrderDirection);
+	}
+
+	public String getOrderProperty() {
+		return UiUtil.getGridOrderProperty(grid, defaultOrderProperty);
 	}
 }
