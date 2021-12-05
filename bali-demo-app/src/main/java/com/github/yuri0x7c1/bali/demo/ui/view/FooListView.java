@@ -1,6 +1,5 @@
 package com.github.yuri0x7c1.bali.demo.ui.view;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
