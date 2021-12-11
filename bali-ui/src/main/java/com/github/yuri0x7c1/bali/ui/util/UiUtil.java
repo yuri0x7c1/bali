@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.viritin.button.MButton;
+import org.vaadin.viritin.label.MLabel;
 
 import com.vaadin.data.provider.GridSortOrder;
 import com.vaadin.icons.VaadinIcons;
@@ -71,5 +72,9 @@ public class UiUtil {
 		return new MButton(VaadinIcons.ARROW_LEFT, caption, (ClickListener) event -> UiUtil.back())
 				.withStyleName(ValoTheme.BUTTON_PRIMARY);
 
+	}
+
+	public static MLabel createErrorLabel(String value) {
+		return new MLabel(value).withStyleName(ValoTheme.LABEL_FAILURE);
 	}
 }
