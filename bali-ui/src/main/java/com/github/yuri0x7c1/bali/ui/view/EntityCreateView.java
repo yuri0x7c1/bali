@@ -43,7 +43,11 @@ public class EntityCreateView<T> extends CommonView {
 		this.entityForm = entityForm;
 
 		setHeaderText(this.getClass().getSimpleName());
-		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back")));
+
+		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back"), e -> {
+			entityForm.setEntity(null);
+			UiUtil.back();
+		}));
 
 		// default entity supplier
 		setEntitySupplier(() -> {

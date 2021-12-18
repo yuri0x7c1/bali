@@ -39,7 +39,11 @@ public class EntityEditView<T, P> extends ParametrizedView<P> {
 		this.entityForm = entityForm;
 
 		setHeaderText(this.getClass().getSimpleName());
-		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back")));
+
+		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back"), e -> {
+			entityForm.setEntity(null);
+			UiUtil.back();
+		}));
 
 		// default reset handler
 		setResetHandler(e -> {
