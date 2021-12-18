@@ -13,6 +13,7 @@ import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.JavaScript;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
@@ -26,6 +27,10 @@ public class UiUtil {
 	 */
 	public static void back() {
 		JavaScript.getCurrent().execute("history.back()");
+	}
+
+	public static void navigateTo(String viewName) {
+		UI.getCurrent().getNavigator().navigateTo(viewName);
 	}
 
 	public static Direction convertSortDirection(SortDirection sortDirection) {
@@ -70,6 +75,12 @@ public class UiUtil {
 
 	public static MButton createBackButton(String caption) {
 		return new MButton(VaadinIcons.ARROW_LEFT, caption, (ClickListener) event -> UiUtil.back())
+				.withStyleName(ValoTheme.BUTTON_PRIMARY);
+
+	}
+
+	public static MButton createBackButton(String caption, ClickListener listener) {
+		return new MButton(VaadinIcons.ARROW_LEFT, caption, listener)
 				.withStyleName(ValoTheme.BUTTON_PRIMARY);
 
 	}
