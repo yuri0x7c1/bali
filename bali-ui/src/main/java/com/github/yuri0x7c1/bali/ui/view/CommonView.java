@@ -1,7 +1,5 @@
 package com.github.yuri0x7c1.bali.ui.view;
 
-import javax.swing.plaf.basic.BasicButtonListener;
-
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import com.github.yuri0x7c1.bali.ui.header.Header;
@@ -22,9 +20,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class CommonView extends MVerticalLayout implements View {
 
-	View oldView;
-
-	final Header header;
+ 	final Header header;
 
 	public CommonView() {
 		setMargin(false);
@@ -47,7 +43,6 @@ public abstract class CommonView extends MVerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		oldView = event.getOldView();
 		onEnter();
 	}
 

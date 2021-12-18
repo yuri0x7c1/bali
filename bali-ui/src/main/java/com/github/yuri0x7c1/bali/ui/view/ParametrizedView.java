@@ -53,7 +53,6 @@ public abstract class ParametrizedView<P> extends CommonView {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		super.enter(event);
 		try {
 			if (StringUtils.isNotBlank(event.getParameters())) {
 				this.params = MAPPER.readValue(URLDecoder.decode(event.getParameters(), StandardCharsets.UTF_8.name()),
