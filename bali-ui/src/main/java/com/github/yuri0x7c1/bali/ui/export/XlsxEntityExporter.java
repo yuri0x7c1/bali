@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -109,7 +108,7 @@ public class XlsxEntityExporter<T> {
 					entityNumber++;
 					Row row = sheet.createRow(rowNumber++);
 					for (int i = 0; i < properties.size(); i++) {
-						row.createCell(i).setCellValue(getPropertyValue(entity, properties.get(i)));
+						row.createCell(i).setCellValue(properties.get(i).getValueAsString(entity));
 					}
 					if (entityNumber % pageSize == 0) {
 						log.debug("Exported {} rows of {}!", entityNumber, currentPage.getTotalElements());
@@ -135,7 +134,7 @@ public class XlsxEntityExporter<T> {
 					entityNumber++;
 					Row row = sheet.createRow(rowNumber++);
 					for (int i = 0; i < properties.size(); i++) {
-						row.createCell(i).setCellValue(getPropertyValue(item, properties.get(i)));
+						row.createCell(i).setCellValue(properties.get(i).getValueAsString(item));
 					}
 					if (entityNumber % DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE == 0) {
 						log.debug("Exported {} rows of {}!", entityNumber, DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE);
@@ -153,22 +152,6 @@ public class XlsxEntityExporter<T> {
 		}
 
 		return workbook;
-	}
-
-	private String getPropertyValue(T entity, EntityProperty<T> p) {
-		String propertyValue = "";
-		try {
-			if (p.getValueProvider() == null) {
-				propertyValue = BeanUtils.getProperty(entity, p.getName());
-			}
-			else {
-				propertyValue = p.getValueProvider().apply(entity);
-			}
-		}
-		catch (Exception ex) {
-			log.error(ex.getMessage(), ex);
-		}
-		return propertyValue;
 	}
 
 	public byte[] getByteArray() throws Exception, IOException {

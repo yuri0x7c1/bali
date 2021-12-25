@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.vaadin.viritin.label.MLabel;
 import org.vaadin.viritin.layouts.MPanel;
 import org.vaadin.viritin.layouts.MVerticalLayout;
@@ -56,15 +55,8 @@ public class EntityDetail<T> extends MPanel {
 		content.removeAllComponents();
 		for(EntityProperty<T> p : properties) {
 			try {
-				String propertyValue = "";
-				if (p.getValueProvider() == null) {
-					propertyValue = BeanUtils.getProperty(entity, p.getName());
-				}
-				else {
-					propertyValue = p.getValueProvider().apply(entity);
-				}
 				MLabel rowLabel = new MLabel(
-					"<b>" + p.getCaption() + "</b>: " + propertyValue
+					"<b>" + p.getCaption() + "</b>: " + p.getValueAsString(entity)
 				).withContentMode(ContentMode.HTML);
 				content.addComponent(rowLabel);
 			}
