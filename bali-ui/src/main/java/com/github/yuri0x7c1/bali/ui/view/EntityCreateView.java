@@ -4,12 +4,13 @@ import java.util.function.Supplier;
 
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.form.AbstractForm;
-import org.vaadin.viritin.form.AbstractForm.ResetHandler;
-import org.vaadin.viritin.form.AbstractForm.SavedHandler;
 
+import com.github.yuri0x7c1.bali.ui.handler.CancelHandler;
+import com.github.yuri0x7c1.bali.ui.handler.SaveHandler;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +34,13 @@ public class EntityCreateView<T> extends CommonView {
 	@Setter
 	Supplier<T> entitySupplier;
 
-	SavedHandler<T> savedHandler;
+	@Getter
+	@Setter
+	private SaveHandler<T> saveHandler;
 
-	ResetHandler<T> resetHandler;
+	@Getter
+	@Setter
+	private CancelHandler<T> cancelHandler;
 
 	public EntityCreateView(Class<T> entityType, I18N i18n, AbstractForm<T> entityForm) {
 		this.entityType = entityType;
@@ -60,23 +65,25 @@ public class EntityCreateView<T> extends CommonView {
 			}
 		});
 
-		// default reset handler
-		setResetHandler(e -> {
+		// form save handler
+		entityForm.setSavedHandler(e -> {
+			if (saveHandler != null) {
+				saveHandler.onSave(e);
+			}
+			entityForm.setEntity(null);
+			UiUtil.back();
+		});
+
+		// form reset handler
+		entityForm.setResetHandler(e -> {
+			if (cancelHandler != null) {
+				cancelHandler.onCancel(e);
+			}
 			entityForm.setEntity(null);
 			UiUtil.back();
 		});
 
 		addComponent(entityForm);
-	}
-
-	public void setSavedHandler(SavedHandler<T> savedHandler) {
-		this.savedHandler = savedHandler;
-		entityForm.setSavedHandler(savedHandler);
-	}
-
-	public void setResetHandler(ResetHandler<T> resetHandler) {
-		this.resetHandler = resetHandler;
-		entityForm.setResetHandler(resetHandler);
 	}
 
 	@Override

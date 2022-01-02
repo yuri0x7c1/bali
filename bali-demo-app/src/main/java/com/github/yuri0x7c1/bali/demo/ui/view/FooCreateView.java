@@ -21,14 +21,11 @@ public class FooCreateView extends EntityCreateView<Foo> {
 	public static final String NAME = "foos/create";
 	public static final String CAPTION_CODE = "Foo.create";
 
-	FooService fooService;
-
 	public FooCreateView(I18N i18n, FooForm entityForm, FooService fooService) {
 		super(Foo.class, i18n, entityForm);
-		this.fooService = fooService;
 
 		setHeaderText(i18n.get(CAPTION_CODE));
 
-		setSavedHandler(e -> fooService.save(e));
+		setSaveHandler(e -> fooService.save(e));
 	}
 }
