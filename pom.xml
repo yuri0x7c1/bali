@@ -33,7 +33,7 @@
 
 		<lombok.version>1.18.22</lombok.version>
 
-		<spring.boot.version>2.1.12.RELEASE</spring.boot.version>
+		<spring.boot.version>2.6.0</spring.boot.version>
 		<commons.collections4.version>4.4</commons.collections4.version>
 		<commons.io.version>2.6</commons.io.version>
 		<commons.lang3.version>3.8.1</commons.lang3.version>
@@ -43,7 +43,6 @@
 		<guava.version>28.1-jre</guava.version>
 		<modelmapper.version>2.3.0</modelmapper.version>
 		<freemarker.java8.version>2.0.0</freemarker.java8.version>
-
 		<hibernate.jpa.api.version>1.0.2.Final</hibernate.jpa.api.version>
 		<javax.validation.api.version>2.0.1.Final</javax.validation.api.version>
 
