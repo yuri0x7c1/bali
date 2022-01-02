@@ -23,11 +23,29 @@ import org.springframework.context.ApplicationContextAware;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * ApplicationContextProvider allows static access to the {@link org.springframework.context.ApplicationContext}.
+ * This implementation exists to provide access from non-managed spring beans.
+ * <p>A ApplicationContextProvider provides:
+ * <ul>
+ * <li>Access to the Spring {@link org.springframework.context.ApplicationContext}.
+ * </ul>
+ *
+ * @author G.J.R. Timmer
+ * @author Petter Holmström (petter@vaadin.com)
+ * @author yuri0x7c1
+ * @see org.springframework.context.ApplicationContext
+ */
 @Slf4j
 public class ApplicationContextProvider implements InitializingBean, ApplicationContextAware {
 
     private static ApplicationContext context;
 
+    /**
+     * Return the spring {@link org.springframework.context.ApplicationContext}
+     *
+     * @return the spring {@link org.springframework.context.ApplicationContext}
+     */
     public static ApplicationContext getContext() {
         return context;
     }
@@ -36,7 +54,7 @@ public class ApplicationContextProvider implements InitializingBean, Application
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         synchronized (ApplicationContextProvider.class) {
             if (context != null) {
-                log.warn("The application context has already been set. Do you have multiple instances of ApplicationContextProvider in your application?");
+                log.warn("The application context has already been set. Do you have multiple instances of VaadinApplicationContext in your application?");
             }
             context = applicationContext;
         }
