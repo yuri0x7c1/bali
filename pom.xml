@@ -22,8 +22,6 @@
 
 	<scm>
 		<url>https://github.com/yuri0x7c1/bali</url>
-		<connection>scm:git:ssh://git@github.com/yuri0x7c1/bali.git</connection>
-    	<developerConnection>scm:git:ssh://git@github.com/yuri0x7c1/bali.git</developerConnection>
 	</scm>
 
 	<properties>
