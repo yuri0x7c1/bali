@@ -6,7 +6,7 @@
 
 	<groupId>com.github.yuri0x7c1.bali</groupId>
 	<artifactId>bali</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>BALI</name>
@@ -57,7 +57,6 @@
 
 	<modules>
 		<module>bali-util</module>
-		<module>bali-core</module>
 		<module>bali-data</module>
 		<module>bali-ui</module>
 		<module>bali-security</module>
