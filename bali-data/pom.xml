@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.github.yuri0x7c1.bali</groupId>
-		<artifactId>bali</artifactId>
+		<artifactId>bali-parent</artifactId>
 		<version>0.0.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>bali-data</artifactId>
