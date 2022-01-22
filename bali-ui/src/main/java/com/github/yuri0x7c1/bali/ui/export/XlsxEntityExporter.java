@@ -90,6 +90,32 @@ public class XlsxEntityExporter<T> {
 		this.progressListener = progressListener;
 	}
 
+	private void setCellValue(Row row, int cellIndex, Object value) {
+		if (value != null) {
+            if (value instanceof String) {
+            	row.createCell(cellIndex).setCellValue((String) value);
+            }
+            else if (value instanceof Long) {
+            	row.createCell(cellIndex).setCellValue((Long) value);
+            }
+            else if (value instanceof Integer) {
+            	row.createCell(cellIndex).setCellValue((Integer) value);
+            }
+            else if (value instanceof Double) {
+            	row.createCell(cellIndex).setCellValue((Double) value);
+            }
+            else if (value instanceof Byte) {
+            	row.createCell(cellIndex).setCellValue((Byte) value);
+            }
+            else if (value instanceof Float) {
+            	row.createCell(cellIndex).setCellValue((Float) value);
+            }
+            else {
+            	row.createCell(cellIndex).setCellValue(String.valueOf(value));
+            }
+		}
+	}
+
 	public Workbook getWorkbook() throws Exception {
         Workbook workbook = new SXSSFWorkbook(1000);
         Sheet sheet = workbook.createSheet();
@@ -124,7 +150,7 @@ public class XlsxEntityExporter<T> {
 					entityNumber++;
 					Row row = sheet.createRow(rowNumber++);
 					for (int i = 0; i < properties.size(); i++) {
-						row.createCell(i).setCellValue(properties.get(i).getValueAsString(entity));
+						setCellValue(row, i, properties.get(i).getValue(entity));
 					}
 					if (entityNumber % pageSize == 0) {
 						log.debug("Exported {} rows of {}!", entityNumber, currentPage.getTotalElements());
@@ -150,7 +176,7 @@ public class XlsxEntityExporter<T> {
 					entityNumber++;
 					Row row = sheet.createRow(rowNumber++);
 					for (int i = 0; i < properties.size(); i++) {
-						row.createCell(i).setCellValue(properties.get(i).getValueAsString(item));
+						setCellValue(row, i, properties.get(i).getValue(item));
 					}
 					if (entityNumber % DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE == 0) {
 						log.debug("Exported {} rows of {}!", entityNumber, DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE);
