@@ -59,6 +59,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class EntityDataGrid.
@@ -67,6 +68,7 @@ import lombok.experimental.FieldDefaults;
  *
  * @author yuri0x7c1
  */
+@Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
@@ -188,7 +190,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		pagination = new Pagination(
 			i18n,
 			PaginationResource.newBuilder()
-				.setPage(page)
+				.setPage(page + 1)
 				.setLimit(pageSize)
 				.build()
 		);
@@ -284,6 +286,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		items.clear();
 		items.addAll(entityPage.getContent());
 		grid.getDataProvider().refreshAll();
+		log.info("!!! Data refreshed!");
 	}
 
 	public void refreshColumns() {
