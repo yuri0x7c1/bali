@@ -24,7 +24,6 @@ import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
 
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
-import com.vaadin.data.HasValue;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.icons.VaadinIcons;
@@ -43,9 +42,6 @@ import com.vaadin.ui.themes.ValoTheme;
  */
 @SuppressWarnings("unused")
 public class Pagination extends HorizontalLayout {
-
-    private static final long serialVersionUID = 1L;
-
     final I18N i18n;
 
     final List<PaginationChangeListener> listeners = new ArrayList<>();
@@ -97,9 +93,12 @@ public class Pagination extends HorizontalLayout {
         updateSummaryLabelValue();
         itemsPerPage = createItemsPerPage();
         pageControls = createPageControlFields();
-        addComponents(/*summaryLabel, */itemsPerPage, pageControls);
+        addComponents(summaryLabel, itemsPerPage, pageControls);
         setComponentAlignment(pageControls, Alignment.MIDDLE_RIGHT);
-        setExpandRatio(pageControls, 1);
+        setComponentAlignment(itemsPerPage, Alignment.MIDDLE_CENTER);
+        setExpandRatio(summaryLabel, 0.33f);
+        setExpandRatio(itemsPerPage, 0.33f);
+        setExpandRatio(pageControls, 0.33f);
         buttonsEnabled();
     }
 
@@ -118,6 +117,7 @@ public class Pagination extends HorizontalLayout {
     public void setTotalCount(long total) {
     	paginationResource.setTotal(total);
     	totalPageLabel.setValue(String.valueOf(paginationResource.totalPage()));
+    	updateSummaryLabelValue();
         buttonsEnabled();
     }
 
@@ -172,7 +172,7 @@ public class Pagination extends HorizontalLayout {
         itemsPerPageSelect.setEmptySelectionAllowed(false);
         itemsPerPageSelect.setWidth("80px");
         itemsPerPageSelect.setStyleName(ValoTheme.COMBOBOX_SMALL);
-        itemsPerPageSelect.addValueChangeListener((HasValue.ValueChangeListener) event -> {
+        itemsPerPageSelect.addValueChangeListener(event -> {
             int pageSize = (Integer)event.getValue();
             if(pageSize== paginationResource.limit()) return;
             paginationResource.setLimit((Integer)event.getValue());
@@ -228,7 +228,7 @@ public class Pagination extends HorizontalLayout {
             }
         });
 
-        currentPageTextField.addValueChangeListener((HasValue.ValueChangeListener) event -> {
+        currentPageTextField.addValueChangeListener(event -> {
             currentPageChangedEvent();
         });
 
@@ -293,8 +293,8 @@ public class Pagination extends HorizontalLayout {
     }
 
     protected void updateSummaryLabelValue() {
-        summaryLabel.setValue(i18n.get(
-        	"Pagination.summary",
+        summaryLabel.setValue(String.format(
+        	"%d - %d / %d",
         	(paginationResource.page()-1) * paginationResource.limit() + 1,
         	(paginationResource.page()-1) * paginationResource.limit() + paginationResource.limit() + 1,
         	paginationResource.total()
