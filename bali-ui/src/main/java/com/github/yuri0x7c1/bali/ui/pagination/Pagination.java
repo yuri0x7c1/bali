@@ -293,10 +293,12 @@ public class Pagination extends HorizontalLayout {
     }
 
     protected void updateSummaryLabelValue() {
+    	Integer fromItem = ((paginationResource.page()-1) * paginationResource.limit() + 1);
+    	Integer remainder = paginationResource.toIndex() - fromItem;
         summaryLabel.setValue(i18n.get(
         	"Pagination.summary",
-        	((paginationResource.page()-1) * paginationResource.limit() + 1) + " - "  +
-        	((paginationResource.page()-1) * paginationResource.limit() + paginationResource.limit() + 1) + " / " +
+        	fromItem + " - "  +
+        	(remainder < paginationResource.limit() ? fromItem + remainder : fromItem + paginationResource.limit()) + " / " +
         	paginationResource.total()
         ));
     }
