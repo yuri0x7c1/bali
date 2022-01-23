@@ -286,7 +286,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		items.clear();
 		items.addAll(entityPage.getContent());
 		grid.getDataProvider().refreshAll();
-		log.info("!!! Data refreshed!");
 	}
 
 	public void refreshColumns() {
