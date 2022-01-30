@@ -280,11 +280,18 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	}
 
 	public void refresh() {
+		items.clear();
 		Page<T> entityPage = searchProvider.search(page, pageSize, orderProperty, orderDirection,
 				searchForm.getModel());
 		pagination.setTotalCount(entityPage.getTotalElements());
-		items.clear();
-		items.addAll(entityPage.getContent());
+		if (entityProcessor == null) {
+			items.addAll(entityPage.getContent());
+		}
+		else {
+			for (T entity : entityPage.getContent()) {
+				items.add(entityProcessor.process(entity));
+			}
+		}
 		grid.getDataProvider().refreshAll();
 	}
 
