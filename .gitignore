@@ -26,4 +26,4 @@ target/
 /src/main/resources/application.properties
 /src/generated/java
 *.log
-.dbeaver/*
+.dbeaver
