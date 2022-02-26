@@ -247,7 +247,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         			l.add(edit);
         		}
         		if (deleteHandler != null) {
-        			ConfirmButton delete = new ConfirmButton(VaadinIcons.CLOSE, i18n.get("Delete.confirm"), () -> {
+        			ConfirmButton delete = new ConfirmButton(VaadinIcons.TRASH, i18n.get("Delete.confirm"), () -> {
         				deleteHandler.onDelete(entity);
         				refresh();
         			})
