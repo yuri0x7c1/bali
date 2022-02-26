@@ -30,6 +30,12 @@ import com.vaadin.ui.HorizontalLayout;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 
+ * @author yuri0x7c1
+ *
+ * @param <T>
+ */
 @Slf4j
 public class EntityForm<T> extends AbstractForm<T> {
 
@@ -51,10 +57,8 @@ public class EntityForm<T> extends AbstractForm<T> {
 		log.info(this.getClass().getName());
 
 		for (Field field : this.getClass().getDeclaredFields()) {
-			log.info("!!! 1). field : {}", field.getName());
 			if (ClassUtils.getAllInterfaces(field.getType()).contains(HasValue.class)
 					&& ClassUtils.getAllInterfaces(field.getType()).contains(Component.class)) {
-				log.info("!!! 2). field : {}", field.getName());
 				try {
 					layout.addRow().addComponent((Component) FieldUtils.readDeclaredField(this, field.getName(), true));
 				} catch (IllegalAccessException ex) {
