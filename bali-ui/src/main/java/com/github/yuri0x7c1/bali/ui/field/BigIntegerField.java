@@ -16,6 +16,8 @@
 
 package com.github.yuri0x7c1.bali.ui.field;
 
+import java.math.BigInteger;
+
 import org.apache.commons.lang3.StringUtils;
 import org.vaadin.viritin.fields.AbstractNumberField;
 
@@ -24,37 +26,37 @@ import com.vaadin.event.FieldEvents;
 /**
  * @author yuri0x7c1
  */
-public class LongField extends AbstractNumberField<LongField, Long> {
+public class BigIntegerField extends AbstractNumberField<BigIntegerField, BigInteger> {
 
-    public LongField() {
+    public BigIntegerField() {
         setSizeUndefined();
     }
 
-    public LongField(String caption) {
+    public BigIntegerField(String caption) {
         setCaption(caption);
     }
 
     @Override
     protected void userInputToValue(String str) {
         if (StringUtils.isNotBlank(str)) {
-            value = Long.parseLong(str);
+            value = new BigInteger(str);
         } else {
             value = null;
         }
     }
 
     @Override
-    public LongField withBlurListener(FieldEvents.BlurListener listener) {
-        return (LongField) super.withBlurListener(listener);
+    public BigIntegerField withBlurListener(FieldEvents.BlurListener listener) {
+        return (BigIntegerField) super.withBlurListener(listener);
     }
 
     @Override
-    public LongField withFocusListener(FieldEvents.FocusListener listener) {
-        return (LongField) super.withFocusListener(listener);
+    public BigIntegerField withFocusListener(FieldEvents.FocusListener listener) {
+        return (BigIntegerField) super.withFocusListener(listener);
     }
 
     @Override
-    public Long getValue() {
+    public BigInteger getValue() {
         return value;
     }
 
