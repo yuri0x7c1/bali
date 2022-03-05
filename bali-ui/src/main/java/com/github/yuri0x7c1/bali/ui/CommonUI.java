@@ -17,11 +17,11 @@
 package com.github.yuri0x7c1.bali.ui;
 
 import java.util.Locale;
+import java.util.function.Supplier;
 
 import org.vaadin.spring.i18n.I18N;
 
 import com.github.appreciated.app.layout.AppLayout;
-import com.github.appreciated.app.layout.behaviour.AppLayoutComponent;
 import com.github.appreciated.app.layout.behaviour.Behaviour;
 import com.github.appreciated.app.layout.builder.CDIAppLayoutBuilder;
 import com.github.appreciated.app.layout.builder.factories.DefaultSpringNavigationElementInfoProducer;
@@ -36,11 +36,11 @@ import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequiredArgsConstructor
 @PushStateNavigation
 @Viewport("width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 @StyleSheet("vaadin://bali.css")
@@ -53,8 +53,24 @@ public abstract class CommonUI extends UI {
 
     private final SpringViewProvider springViewProvider;
 
+    @NonNull
     @Getter
-    private AppLayoutComponent appLayout;
+    @Setter
+    private Supplier<String> pageTitleSupplier;
+
+    @NonNull
+    @Getter
+    @Setter
+    private Supplier<String> appLayoutTitleSupplier;
+
+	public CommonUI(I18N i18n, SpringViewProvider springViewProvider) {
+		super();
+		this.i18n = i18n;
+		this.springViewProvider = springViewProvider;
+
+		pageTitleSupplier = () -> i18n.get("Application.name");
+		appLayoutTitleSupplier = () -> i18n.get("Application.name");
+	}
 
     protected void setDefaultLocale(Locale locale) {
         // Call to affect this current UI. Workaround for bug: http://dev.vaadin.com/ticket/12350
@@ -70,24 +86,21 @@ public abstract class CommonUI extends UI {
     	setDefaultLocale(new Locale("en", "en_US"));
 
     	// set application name
-        getPage().setTitle(i18n.get("Application.name"));
+        getPage().setTitle(pageTitleSupplier.get());
 
         // build application layout
-        CDIAppLayoutBuilder appLayoutBuilder = createAppLayoutBuilder();
+        CDIAppLayoutBuilder appLayoutBuilder = initAppLayoutBuilder();
         buildAppLayout(appLayoutBuilder);
-        appLayout = appLayoutBuilder.build();
-
-        setContent(appLayout);
+        setContent(appLayoutBuilder.build());
 	}
 
-	protected CDIAppLayoutBuilder createAppLayoutBuilder() {
+	protected CDIAppLayoutBuilder initAppLayoutBuilder() {
 		return AppLayout.getCDIBuilder(Behaviour.LEFT_OVERLAY)
 	        .withViewProvider(() -> springViewProvider)
 	        .withNavigationElementInfoProducer(new DefaultSpringNavigationElementInfoProducer())
-	        .withTitle(i18n.get("Application.name"))
-	        .withErrorView(() -> new ErrorView());
+	        .withErrorView(() -> new ErrorView())
+	        .withTitle(appLayoutTitleSupplier.get());
 	}
 
 	abstract protected void buildAppLayout(CDIAppLayoutBuilder builder);
-
 }

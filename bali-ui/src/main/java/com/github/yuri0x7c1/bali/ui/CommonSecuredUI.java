@@ -37,8 +37,8 @@ public abstract class CommonSecuredUI extends CommonUI {
 	}
 
 	@Override
-	protected CDIAppLayoutBuilder createAppLayoutBuilder() {
-		return super.createAppLayoutBuilder()
+	protected CDIAppLayoutBuilder initAppLayoutBuilder() {
+		return super.initAppLayoutBuilder()
 				.addToAppBar(new IconButton(VaadinIcons.POWER_OFF, event -> vaadinSecurity.logout()));
 	}
 }
