@@ -16,93 +16,78 @@
 
 package com.github.yuri0x7c1.bali.ui;
 
-import org.vaadin.spring.sidebar.components.ValoSideBar;
+import java.util.Locale;
 
-import com.github.yuri0x7c1.bali.ui.menu.TopBar;
-import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
-import com.github.yuri0x7c1.bali.ui.view.AccessDeniedView;
+import org.vaadin.spring.i18n.I18N;
+
+import com.github.appreciated.app.layout.AppLayout;
+import com.github.appreciated.app.layout.behaviour.AppLayoutComponent;
+import com.github.appreciated.app.layout.behaviour.Behaviour;
+import com.github.appreciated.app.layout.builder.CDIAppLayoutBuilder;
+import com.github.appreciated.app.layout.builder.factories.DefaultSpringNavigationElementInfoProducer;
 import com.github.yuri0x7c1.bali.ui.view.ErrorView;
 import com.vaadin.annotations.StyleSheet;
+import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Viewport;
+import com.vaadin.annotations.Widgetset;
+import com.vaadin.navigator.PushStateNavigation;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.spring.navigator.SpringViewProvider;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
+@RequiredArgsConstructor
+@PushStateNavigation
+@Viewport("width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 @StyleSheet("vaadin://bali.css")
-public class CommonUI extends UI {
+@Theme("bali_default")
+@Widgetset("BaliDefaultWidgetset")
+public abstract class CommonUI extends UI {
 
 	@Getter
-	SpringViewProvider viewProvider;
+	private final I18N i18n;
 
-	@Getter
-	SpringNavigator navigator;
+    private final SpringViewProvider springViewProvider;
 
-	@Getter
-	TopBar topBar;
+    @Getter
+    private AppLayoutComponent appLayout;
 
-	@Getter
-    ValoSideBar sideBar;
+    protected void setDefaultLocale(Locale locale) {
+        // Call to affect this current UI. Workaround for bug: http://dev.vaadin.com/ticket/12350
+    	this.setLocale(locale);
 
-	public CommonUI(SpringViewProvider viewProvider, SpringNavigator navigator, TopBar topBar, ValoSideBar sideBar) {
-		super();
-		this.viewProvider = viewProvider;
-		this.navigator = navigator;
-		this.topBar = topBar;
-		this.sideBar = sideBar;
-	}
+    	// Affects only future UI instances, not current one because of bug. See workaround in line above.
+    	this.getSession().setLocale(locale);
+    }
 
 	@Override
 	protected void init(VaadinRequest request) {
+    	// set default locale
+    	setDefaultLocale(new Locale("en", "en_US"));
 
-        VerticalLayout verticalLayout = new VerticalLayout();
-        verticalLayout.setMargin(false);
-        verticalLayout.setSpacing(false);
-        verticalLayout.setWidth(100f, Unit.PERCENTAGE);
-        verticalLayout.setHeight(100f, Unit.PERCENTAGE);
+    	// set application name
+        getPage().setTitle(i18n.get("Application.name"));
 
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.setSizeFull();
+        // build application layout
+        CDIAppLayoutBuilder appLayoutBuilder = createAppLayoutBuilder();
+        buildAppLayout(appLayoutBuilder);
+        appLayout = appLayoutBuilder.build();
 
-        final int SIDEBAR_COLLAPSE_WIDTH = 1024;
-
-        if (getPage().getBrowserWindowWidth() < SIDEBAR_COLLAPSE_WIDTH) {
-        	sideBar.setLargeIcons(true);
-        }
-
-        getPage().addBrowserWindowResizeListener(event -> {
-        	if (event.getWidth() < SIDEBAR_COLLAPSE_WIDTH) {
-        		sideBar.setLargeIcons(true);
-        	}
-        	else {
-        		sideBar.setLargeIcons(false);
-        	}
-		});
-
-        horizontalLayout.addComponent(sideBar);
-
-        CssLayout viewContainer = new CssLayout();
-        viewContainer.addStyleName(BaliStyle.VIEW_CONTAINER);
-        viewContainer.setSizeFull();
-        horizontalLayout.addComponent(viewContainer);
-        horizontalLayout.setExpandRatio(viewContainer, 1f);
-
-        verticalLayout.addComponents(topBar, horizontalLayout);
-        verticalLayout.setExpandRatio(horizontalLayout, 1f);
-
-		// Without an AccessDeniedView, the view provider would act like the restricted views did not exist at all.
-        viewProvider.setAccessDeniedViewClass(AccessDeniedView.class);
-        navigator.setErrorView(ErrorView.class);
-		navigator.addProvider(viewProvider);
-		navigator.init(this, viewContainer);
-
-	    setContent(verticalLayout);
+        setContent(appLayout);
 	}
+
+	protected CDIAppLayoutBuilder createAppLayoutBuilder() {
+		return AppLayout.getCDIBuilder(Behaviour.LEFT_OVERLAY)
+	        .withViewProvider(() -> springViewProvider)
+	        .withNavigationElementInfoProducer(new DefaultSpringNavigationElementInfoProducer())
+	        .withTitle(i18n.get("Application.name"))
+	        .withErrorView(() -> new ErrorView());
+	}
+
+	abstract protected void buildAppLayout(CDIAppLayoutBuilder builder);
+
 }

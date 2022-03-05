@@ -16,27 +16,29 @@
 
 package com.github.yuri0x7c1.bali.ui;
 
+import org.vaadin.spring.i18n.I18N;
 import org.vaadin.spring.security.VaadinSecurity;
-import org.vaadin.spring.sidebar.components.ValoSideBar;
 
-import com.github.yuri0x7c1.bali.ui.menu.TopBar;
-import com.vaadin.spring.navigator.SpringNavigator;
+import com.github.appreciated.app.layout.builder.CDIAppLayoutBuilder;
+import com.github.appreciated.app.layout.component.button.IconButton;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.navigator.SpringViewProvider;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CommonSecuredUI extends CommonUI {
+public abstract class CommonSecuredUI extends CommonUI {
 
 	@Getter
-	VaadinSecurity vaadinSecurity;
+	private final VaadinSecurity vaadinSecurity;
 
-	public CommonSecuredUI(SpringViewProvider viewProvider, SpringNavigator navigator, VaadinSecurity vaadinSecurity, TopBar topBar, ValoSideBar sideBar) {
-		super(viewProvider, navigator, topBar, sideBar);
+	public CommonSecuredUI(I18N i18n, SpringViewProvider springViewProvider, VaadinSecurity vaadinSecurity) {
+		super(i18n, springViewProvider);
 		this.vaadinSecurity = vaadinSecurity;
+	}
 
-		topBar.withLogoutButton(event -> vaadinSecurity.logout());
+	@Override
+	protected CDIAppLayoutBuilder createAppLayoutBuilder() {
+		return super.createAppLayoutBuilder()
+				.addToAppBar(new IconButton(VaadinIcons.POWER_OFF, event -> vaadinSecurity.logout()));
 	}
 }

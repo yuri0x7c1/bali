@@ -52,6 +52,16 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.github.appreciated</groupId>
+			<artifactId>app-layout-addon</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>vaadin-combobox-multiselect</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.github.yuri0x7c1.bali</groupId>
 			<artifactId>bali-data</artifactId>
 			<version>${project.version}</version>
