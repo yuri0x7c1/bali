@@ -1,0 +1,10 @@
+@import "bali_default.scss";
+@import "addons.scss";
+
+// This file prefixes all rules with the theme name to avoid causing conflicts with other themes.
+// The actual styles should be defined in bali_default.scss
+
+.bali_default {
+	@include addons;
+	@include bali_default;
+}
