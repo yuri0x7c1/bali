@@ -56,6 +56,11 @@ public abstract class CommonUI extends UI {
     @NonNull
     @Getter
     @Setter
+    private Supplier<Locale> defaultLocaleSupplier;
+
+    @NonNull
+    @Getter
+    @Setter
     private Supplier<String> pageTitleSupplier;
 
     @NonNull
@@ -68,6 +73,7 @@ public abstract class CommonUI extends UI {
 		this.i18n = i18n;
 		this.springViewProvider = springViewProvider;
 
+		defaultLocaleSupplier = () -> new Locale("en", "en_US");
 		pageTitleSupplier = () -> i18n.get("Application.name");
 		appLayoutTitleSupplier = () -> i18n.get("Application.name");
 	}
@@ -83,7 +89,7 @@ public abstract class CommonUI extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
     	// set default locale
-    	setDefaultLocale(new Locale("en", "en_US"));
+    	setDefaultLocale(defaultLocaleSupplier.get());
 
     	// set application name
         getPage().setTitle(pageTitleSupplier.get());
