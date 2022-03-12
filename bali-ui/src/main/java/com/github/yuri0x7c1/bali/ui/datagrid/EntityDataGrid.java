@@ -383,4 +383,12 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	public String getOrderProperty() {
 		return UiUtil.getGridOrderProperty(grid, defaultOrderProperty);
 	}
+
+	public SearchFieldComponentDescriptor.Builder searchFieldComponentBuilder() {
+		return SearchFieldComponentDescriptor.builder();
+	}
+
+	public EntityProperty.Builder<T> propertyBuilder() {
+		return EntityProperty.<T>builder();
+	}
 }
