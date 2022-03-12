@@ -52,8 +52,8 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 	private final SearchFieldComponentLifecycle componentLifecycle;
 
 	private SearchFieldComponentDescriptor(Builder builder) {
-		this.fieldName = builder.fieldName;
-		this.fieldType = builder.fieldType;
+		this.fieldName = TextUtil.requireNonBlank(builder.fieldName);
+		this.fieldType = Objects.requireNonNull(builder.fieldType);
 
 		if (StringUtils.isBlank(builder.fieldCaption)) {
 			this.fieldCaption = TextUtil.createCaptionFromCamelCase(builder.fieldName);
@@ -140,7 +140,6 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		}
 
 		public Builder withFieldCaption(String fieldCaption) {
-			Objects.requireNonNull(fieldCaption);
 			this.fieldCaption = fieldCaption;
 			return this;
 		}
@@ -151,20 +150,16 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		}
 
 		public Builder withComponentClass(Class<? extends Component> componentClass) {
-			Objects.requireNonNull(componentClass);
 			this.componentClass = componentClass;
 			return this;
 		}
 
 		public Builder withComponentLifecycle(SearchFieldComponentLifecycle componentLifecycle) {
-			Objects.requireNonNull(componentLifecycle);
 			this.componentLifecycle = componentLifecycle;
 			return this;
 		}
 
 		public SearchFieldComponentDescriptor build() {
-			Objects.requireNonNull(fieldName);
-			Objects.requireNonNull(fieldType);
 			return new SearchFieldComponentDescriptor(this);
 		}
 	}

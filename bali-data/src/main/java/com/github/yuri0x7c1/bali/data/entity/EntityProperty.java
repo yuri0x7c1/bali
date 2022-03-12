@@ -49,7 +49,7 @@ public class EntityProperty<T> {
 	private final Function<T, String> valueProvider;
 
 	private EntityProperty(Builder<T> builder) {
-		this.name = builder.name;
+		this.name = TextUtil.requireNonBlank(builder.name);
 
 		if (StringUtils.isBlank(builder.caption)) {
 			this.caption = TextUtil.createCaptionFromCamelCase(this.name);
@@ -135,31 +135,26 @@ public class EntityProperty<T> {
 		}
 
 		public Builder<T> withName(String name) {
-			Objects.requireNonNull(name);
 			this.name = name;
 			return this;
 		}
 
 		public Builder<T> withCaption(String caption) {
-			Objects.requireNonNull(caption);
 			this.caption = caption;
 			return this;
 		}
 
 		public Builder<T> withSortable(boolean sortable) {
-			Objects.requireNonNull(sortable);
 			this.sortable = sortable;
 			return this;
 		}
 
 		public Builder<T> withValueProvider(Function<T, String> valueProvider) {
-			Objects.requireNonNull(valueProvider);
 			this.valueProvider = valueProvider;
 			return this;
 		}
 
 		public EntityProperty<T> build() {
-			Objects.requireNonNull(name);
 			return new EntityProperty<T>(this);
 		}
 	}

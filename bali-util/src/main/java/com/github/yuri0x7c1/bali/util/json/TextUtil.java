@@ -59,4 +59,16 @@ public class TextUtil {
 		}
 		return phrase.toString();
 	}
+
+    /**
+     * Require non blank.
+     *
+     * @param str the str
+     * @return the string
+     */
+    public static String requireNonBlank(String str) {
+        if (StringUtils.isBlank(str))
+            throw new RuntimeException("Non blank string is required!");
+        return str;
+    }
 }
