@@ -83,15 +83,21 @@ public class SearchUtil {
 						predicates.add(predicate);
 					}
 					else if (SearchFieldOperator.GREATER.equals(searchField.getOperator())) {
-						if (searchField.getValue() instanceof Comparable) {
+						if (fieldValue instanceof Comparable) {
 							predicates.add(cb.greaterThan((Expression) getPath(root, searchField.getName()),
 									(Comparable) fieldValue));
 						}
 					}
 					else if (SearchFieldOperator.LESS.equals(searchField.getOperator())) {
-						if (searchField.getValue() instanceof Comparable) {
+						if (fieldValue instanceof Comparable) {
 							predicates.add(cb.lessThan((Expression) getPath(root, searchField.getName()),
 									(Comparable) fieldValue));
+						}
+					}
+					else if (SearchFieldOperator.CONTAINS.equals(searchField.getOperator())) {
+						if (fieldValue instanceof String) {
+							predicates.add(cb.like((Expression) getPath(root, searchField.getName()),
+									"%" + (String) fieldValue + "%"));
 						}
 					}
 				}
