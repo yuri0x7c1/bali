@@ -68,6 +68,12 @@
 
 		<dependency>
 			<groupId>com.github.yuri0x7c1.bali</groupId>
+			<artifactId>bali-util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.yuri0x7c1.bali</groupId>
 			<artifactId>bali-data</artifactId>
 			<version>${project.version}</version>
 		</dependency>

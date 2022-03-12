@@ -28,6 +28,7 @@ import com.github.yuri0x7c1.bali.ui.field.BigDecimalField;
 import com.github.yuri0x7c1.bali.ui.field.BigIntegerField;
 import com.github.yuri0x7c1.bali.ui.field.BooleanField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
+import com.github.yuri0x7c1.bali.util.json.TextUtil;
 import com.vaadin.ui.Component;
 
 import lombok.Data;
@@ -56,7 +57,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		this.fieldType = fieldType;
 
 		if (StringUtils.isBlank(fieldCaption)) {
-			this.fieldCaption = StringUtils.capitalize(fieldCaption);
+			this.fieldCaption = TextUtil.createCaptionFromCamelCase(fieldName);
 		}
 		else {
 			this.fieldCaption = fieldCaption;
