@@ -18,6 +18,7 @@ package com.github.yuri0x7c1.bali.ui.search;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.vaadin.viritin.fields.DoubleField;
@@ -50,32 +51,37 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 
 	private final SearchFieldComponentLifecycle componentLifecycle;
 
-	public SearchFieldComponentDescriptor(String fieldName, String fieldCaption, Class<?> fieldType,
-			Class<? extends Component> componentClass, SearchFieldComponentLifecycle componentLifecycle) {
+	private SearchFieldComponentDescriptor(Builder builder) {
+		this.fieldName = builder.fieldName;
+		this.fieldType = builder.fieldType;
 
-		this.fieldName = fieldName;
-		this.fieldType = fieldType;
-
-		if (StringUtils.isBlank(fieldCaption)) {
-			this.fieldCaption = TextUtil.createCaptionFromCamelCase(fieldName);
+		if (StringUtils.isBlank(builder.fieldCaption)) {
+			this.fieldCaption = TextUtil.createCaptionFromCamelCase(builder.fieldName);
 		}
 		else {
-			this.fieldCaption = fieldCaption;
+			this.fieldCaption = builder.fieldCaption;
 		}
 
-		if (componentClass == null) {
+		if (builder.componentClass == null) {
 			this.componentClass = getDefaultComponentClass();
 		}
 		else {
-			this.componentClass = componentClass;
+			this.componentClass = builder.componentClass;
 		}
 
-		if (componentLifecycle == null) {
+		if (builder.componentLifecycle == null) {
 			this.componentLifecycle = getDefaultComponentLifecycle();
 		}
 		else {
-			this.componentLifecycle = componentLifecycle;
+			this.componentLifecycle = builder.componentLifecycle;
 		}
+	}
+
+	@Deprecated
+	public SearchFieldComponentDescriptor(String fieldName, String fieldCaption, Class<?> fieldType,
+			Class<? extends Component> componentClass, SearchFieldComponentLifecycle componentLifecycle) {
+		this(new Builder().withFieldName(fieldName).withFieldCaption(fieldCaption).withFieldType(fieldType)
+				.withComponentClass(componentClass).withComponentLifecycle(componentLifecycle));
 	}
 
 	private Class<? extends Component> getDefaultComponentClass() {
@@ -134,6 +140,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		}
 
 		public Builder withFieldCaption(String fieldCaption) {
+			Objects.requireNonNull(fieldCaption);
 			this.fieldCaption = fieldCaption;
 			return this;
 		}
@@ -144,18 +151,21 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		}
 
 		public Builder withComponentClass(Class<? extends Component> componentClass) {
+			Objects.requireNonNull(componentClass);
 			this.componentClass = componentClass;
 			return this;
 		}
 
 		public Builder withComponentLifecycle(SearchFieldComponentLifecycle componentLifecycle) {
+			Objects.requireNonNull(componentLifecycle);
 			this.componentLifecycle = componentLifecycle;
 			return this;
 		}
 
 		public SearchFieldComponentDescriptor build() {
-			return new SearchFieldComponentDescriptor(fieldName, fieldCaption, fieldType, componentClass,
-					componentLifecycle);
+			Objects.requireNonNull(fieldName);
+			Objects.requireNonNull(fieldType);
+			return new SearchFieldComponentDescriptor(this);
 		}
 	}
 }
