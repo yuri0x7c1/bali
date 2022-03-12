@@ -35,6 +35,7 @@ import lombok.Data;
 
 /**
  * The Class SearchFieldComponentDescriptor.
+ * @author yuri0x7c1
  */
 @Data
 public class SearchFieldComponentDescriptor implements Comparable<SearchFieldComponentDescriptor> {
@@ -72,30 +73,29 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 	}
 
 	private Class<? extends Component> getDefaultComponentClass() {
-		// TODO: use isAssignableFrom
-		if (Integer.class.equals(fieldType)) {
+		if (fieldType.isAssignableFrom(Integer.class)) {
 			return IntegerField.class;
 		}
-		if (Long.class.equals(fieldType)) {
+		if (fieldType.isAssignableFrom(Long.class)) {
 			return LongField.class;
 		}
-		if (Double.class.equals(fieldType)) {
+		if (fieldType.isAssignableFrom(Double.class)) {
 			return DoubleField.class;
 		}
-		if (BigInteger.class.equals(fieldType)) {
+		if (fieldType.isAssignableFrom(BigInteger.class)) {
 			return BigIntegerField.class;
 		}
-		if (BigDecimal.class.equals(fieldType)) {
+		if (fieldType.isAssignableFrom(BigDecimal.class)) {
 			return BigDecimalField.class;
 		}
-		if (Boolean.class.equals(fieldType)) {
+		if (fieldType.isAssignableFrom(Boolean.class)) {
 			return BooleanField.class;
 		}
 		return MTextField.class;
 	}
 
 	private SearchFieldComponentLifecycle getDefaultComponentLifecycle() {
-		if (fieldType.isAssignableFrom(componentClass)) {
+		if (fieldType.isAssignableFrom(Boolean.class)) {
 			return  SearchFieldComponentLifecycle.MANAGED;
 		}
 		else {
