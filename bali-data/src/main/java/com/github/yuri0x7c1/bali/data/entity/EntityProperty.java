@@ -16,11 +16,14 @@
 
 package com.github.yuri0x7c1.bali.data.entity;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import com.github.yuri0x7c1.bali.util.json.TextUtil;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -47,24 +50,31 @@ public class EntityProperty<T> {
 
 	private EntityProperty(Builder<T> builder) {
 		this.name = builder.name;
-		this.caption = builder.caption;
+
+		if (StringUtils.isBlank(builder.caption)) {
+			this.caption = TextUtil.createCaptionFromCamelCase(this.name);
+		}
+		else {
+			this.caption = builder.caption;
+		}
+
 		this.sortable = builder.sortable;
 		this.valueProvider = builder.valueProvider;
 	}
 
 	@Deprecated
 	public EntityProperty(String name, String caption) {
-		this(name, caption, true, null);
+		this(new Builder<T>().withName(name).withCaption(caption));
 	}
 
 	@Deprecated
 	public EntityProperty(String name, String caption, boolean sortable) {
-		this(name, caption, sortable, null);
+		this(new Builder<T>().withName(name).withCaption(caption).withSortable(sortable));
 	}
 
 	@Deprecated
 	public EntityProperty(String name, String caption, Function<T, String> valueProvider) {
-		this(name, caption, true, valueProvider);
+		this(new Builder<T>().withName(name).withCaption(caption).withValueProvider(valueProvider));
 	}
 
 	@Deprecated
@@ -118,33 +128,38 @@ public class EntityProperty<T> {
 	public static final class Builder<T> {
 		private String name;
 		private String caption;
-		private boolean sortable = true;
+		private boolean sortable = false;
 		private Function<T, String> valueProvider;
 
 		private Builder() {
 		}
 
 		public Builder<T> withName(String name) {
+			Objects.requireNonNull(name);
 			this.name = name;
 			return this;
 		}
 
 		public Builder<T> withCaption(String caption) {
+			Objects.requireNonNull(caption);
 			this.caption = caption;
 			return this;
 		}
 
 		public Builder<T> withSortable(boolean sortable) {
+			Objects.requireNonNull(sortable);
 			this.sortable = sortable;
 			return this;
 		}
 
 		public Builder<T> withValueProvider(Function<T, String> valueProvider) {
+			Objects.requireNonNull(valueProvider);
 			this.valueProvider = valueProvider;
 			return this;
 		}
 
 		public EntityProperty<T> build() {
+			Objects.requireNonNull(name);
 			return new EntityProperty<T>(this);
 		}
 	}

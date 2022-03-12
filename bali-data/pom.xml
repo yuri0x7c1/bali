@@ -49,5 +49,11 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.github.yuri0x7c1.bali</groupId>
+			<artifactId>bali-util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>
