@@ -55,7 +55,12 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		this.fieldName = fieldName;
 		this.fieldType = fieldType;
 
-		this.fieldCaption = fieldCaption;
+		if (StringUtils.isBlank(fieldCaption)) {
+			this.fieldCaption = StringUtils.capitalize(fieldCaption);
+		}
+		else {
+			this.fieldCaption = fieldCaption;
+		}
 
 		if (componentClass == null) {
 			this.componentClass = getDefaultComponentClass();
