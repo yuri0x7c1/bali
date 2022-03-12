@@ -157,7 +157,6 @@ public class CommonSearchForm extends Card {
 		fieldComponents.add(
 			fieldComponent
 		);
-		log.debug("!!!! fieldComponents: {}", fieldComponents);
 
 		fieldLayout.add(fieldComponent);
 	}
