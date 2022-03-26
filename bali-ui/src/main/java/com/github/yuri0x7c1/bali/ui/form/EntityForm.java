@@ -25,6 +25,8 @@ import org.vaadin.viritin.form.AbstractForm;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.jarektoro.responsivelayout.ResponsiveLayout;
 import com.vaadin.data.HasValue;
+import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 
@@ -66,12 +68,26 @@ public class EntityForm<T> extends AbstractForm<T> {
 				}
 			}
 		}
-
+		
 		HorizontalLayout toolbar = getToolbar();
 		toolbar.setStyleName(BaliStyle.FORM_TOOLBAR);
 		layout.addRow().addColumn().withComponent(toolbar);
 
 		return layout;
+	}
+	
+	@Override
+	protected Button createSaveButton() {
+		Button b = super.createSaveButton();
+		b.setIcon(VaadinIcons.CHECK);
+		return b;
+	}
+	
+	@Override
+	protected Button createResetButton() {
+		Button b = super.createResetButton();
+		b.setIcon(VaadinIcons.CLOSE);
+		return b;
 	}
 
 	public static void setResponsiveLayoutDefaultRules(ResponsiveLayout layout) {
