@@ -128,7 +128,7 @@ public class EntityProperty<T> {
 	public static final class Builder<T> {
 		private String name;
 		private String caption;
-		private boolean sortable = false;
+		private boolean sortable = true;
 		private Function<T, String> valueProvider;
 
 		private Builder() {
