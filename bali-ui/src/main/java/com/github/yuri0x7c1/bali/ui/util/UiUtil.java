@@ -19,11 +19,14 @@ package com.github.yuri0x7c1.bali.ui.util;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
 
 import com.vaadin.data.provider.GridSortOrder;
+import com.vaadin.data.provider.Query;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Button.ClickListener;
@@ -103,5 +106,18 @@ public class UiUtil {
 
 	public static MLabel createErrorLabel(String value) {
 		return new MLabel(value).withStyleName(ValoTheme.LABEL_FAILURE);
+	}
+	
+	public static Pageable createPageable(Query query, Direction direction, String...fields) {
+		return PageRequest.of(
+			query.getOffset() / query.getLimit(),
+			query.getLimit(),
+			direction,
+			fields
+		);
+	}
+	
+	public static Pageable createPageable(Query query, String...fields) {
+		return createPageable(query, Direction.ASC, fields);
 	}
 }
