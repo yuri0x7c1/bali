@@ -25,10 +25,8 @@ import com.github.yuri0x7c1.bali.ui.handler.CancelHandler;
 import com.github.yuri0x7c1.bali.ui.handler.SaveHandler;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -38,17 +36,19 @@ import lombok.extern.slf4j.Slf4j;
  * @param <T>
  */
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EntityCreateView<T> extends CommonView {
 
-	final Class<T> entityType;
+	@Getter
+	private final Class<T> entityType;
 
-	final I18N i18n;
+	@Getter
+	private final I18N i18n;
 
-	final AbstractForm<T> entityForm;
+	@Getter
+	private final AbstractForm<T> entityForm;
 
 	@Setter
-	Supplier<T> entitySupplier;
+	private Supplier<T> entitySupplier;
 
 	@Getter
 	@Setter
