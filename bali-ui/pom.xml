@@ -67,6 +67,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.vaadin.blackbluegl</groupId>
+			<artifactId>calendar-component</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.github.yuri0x7c1.bali</groupId>
 			<artifactId>bali-data</artifactId>
 			<version>${project.version}</version>
