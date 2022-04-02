@@ -21,29 +21,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.MButton;
+import org.vaadin.viritin.fields.MCheckBox;
 import org.vaadin.viritin.layouts.MCssLayout;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
+import org.vaadin.viritin.layouts.MWindow;
 
 import com.github.yuri0x7c1.bali.data.search.model.SearchField;
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.data.search.model.SearchModel;
 import com.github.yuri0x7c1.bali.ui.card.Card;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.data.HasValue;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 
-import lombok.AccessLevel;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -52,28 +55,38 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-@FieldDefaults(level=AccessLevel.PRIVATE)
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CommonSearchForm extends Card {
 
-	private static final float FIELD_SELECT_WIDTH = 200f;
+	private static final int DEFAULT_FIELD_LIMIT = 20;
+	
+	public enum SearchMode {
+		SIMPLE,
+		ADVANCED
+	}
 
-	final ApplicationContext ctx;
+	private final ApplicationContext ctx;
 
-	final I18N i18n;
+	private final I18N i18n;
 
-	Map<String, SearchFieldComponentDescriptor> fieldDescriptors = new TreeMap<>();
+	private Map<String, SearchFieldComponentDescriptor> fieldDescriptors = new TreeMap<>();
 
-	List<SearchFieldComponent> fieldComponents = new LinkedList<>();
+	private List<SearchFieldComponent> fieldComponents = new LinkedList<>();
 
-	MCssLayout fieldLayout = new MCssLayout();
+	private MCssLayout fieldLayout = new MCssLayout();
 
-	ComboBox<SearchFieldComponentDescriptor> fieldSelect;
+	private ComboBox<SearchFieldComponentDescriptor> fieldSelect;
 
-	MButton addButton;
+	private MButton addFieldButton;
+	
+	private MWindow addFieldWindow;
 
-	MButton searchButton;
+	private MButton searchButton;
+	
+	private SearchMode searchMode = SearchMode.SIMPLE;
+	
+	private MCheckBox searchModeCheckBox;
 
 	@Setter
 	Runnable searchHandler;
@@ -86,6 +99,7 @@ public class CommonSearchForm extends Card {
 		setHeaderText(i18n.get("Search"));
 		setHeaderMargin(true);
 		setWidthFull();
+		addStyleName(BaliStyle.COMMON_SEARCH_FORM);
 
 		searchButton = new MButton(i18n.get("Search"), e -> {
 			if (searchHandler != null) {
@@ -95,22 +109,71 @@ public class CommonSearchForm extends Card {
 		.withStyleName(ValoTheme.BUTTON_PRIMARY)
 		.withIcon(VaadinIcons.SEARCH);
 
-		fieldSelect = new ComboBox<>();
-		fieldSelect.setWidth(FIELD_SELECT_WIDTH, Unit.PIXELS);
+		fieldSelect = new ComboBox<>(i18n.get("Search.fieldName"));
+		fieldSelect.setWidth(100.f, Unit.PERCENTAGE);
 		fieldSelect.setItemCaptionGenerator(fc -> fc.getFieldCaption());
+		fieldSelect.setEmptySelectionAllowed(false);
+		
+		addFieldWindow = new MWindow(i18n.get("Search.addField"),
+			new MVerticalLayout(
+				fieldSelect,
+				new MHorizontalLayout(
+					new MButton(VaadinIcons.CHECK, i18n.get("Add"), event -> {
+						SearchFieldComponentDescriptor d = fieldSelect.getValue();
+						if (d != null) {
+							createFieldComponent(d, SearchFieldOperator.EQUAL, null);
+						}
+						
+						addFieldWindow.close();
+					})
+					.withStyleName(ValoTheme.BUTTON_PRIMARY),
+					new MButton(VaadinIcons.CLOSE, i18n.get("Cancel"), event -> addFieldWindow.close())
+				)	
+			)
+			.withMargin(true)
+		)
+		.withModal(true)
+		.withWidth(256, Unit.PIXELS)
+		
+		.withCenter();
 
-		addButton = new MButton(i18n.get("Search.addField"), event -> {
-			SearchFieldComponentDescriptor d = fieldSelect.getValue();
-			if (d != null) {
-				createFieldComponent(d, SearchFieldOperator.EQUAL, null);
+		addFieldButton = new MButton(i18n.get("Search.addField"), event -> {
+			if (!UI.getCurrent().getWindows().contains(addFieldWindow)) {
+				UI.getCurrent().addWindow(addFieldWindow);
+				if (!MapUtils.isEmpty(fieldDescriptors)) {
+					fieldSelect.setValue(fieldDescriptors.values().iterator().next());
+				}
 			}
 		})
-		.withIcon(VaadinIcons.PLUS)
-		.withStyleName(ValoTheme.BUTTON_PRIMARY);
+		.withIcon(VaadinIcons.PLUS)	
+		.withVisible(SearchMode.ADVANCED.equals(searchMode));
+		
+		searchModeCheckBox = new MCheckBox(i18n.get("Search.advanced"), SearchMode.ADVANCED.equals(searchMode));
+		searchModeCheckBox.addValueChangeListener(event -> {
+			if (event.getValue()) {
+				searchMode = SearchMode.ADVANCED;
+			}
+			else {
+				searchMode = SearchMode.SIMPLE;
+			}
+			updateSearchMode();
+		});
 
-		addHeaderComponent(new MHorizontalLayout(fieldSelect, addButton));
-		setContent(new MVerticalLayout(fieldLayout, searchButton));
+		addHeaderComponent(new MHorizontalLayout(searchModeCheckBox));
+		setContent(new MVerticalLayout(fieldLayout, new MHorizontalLayout(searchButton, addFieldButton)));
 
+	}
+	
+	private void updateSearchMode() {
+		if (SearchMode.SIMPLE.equals(searchMode)) {
+			addFieldButton.setVisible(false);
+		}
+		else if (SearchMode.ADVANCED.equals(searchMode)) {
+			addFieldButton.setVisible(true);
+		}
+		for (SearchFieldComponent fieldComponent : fieldComponents) {
+			fieldComponent.setSearchMode(searchMode);
+		}
 	}
 
 	public SearchModel getModel() {
@@ -144,7 +207,7 @@ public class CommonSearchForm extends Card {
 		}
 
 		SearchFieldComponent fieldComponent = new SearchFieldComponent(i18n, descriptor.getFieldName(),
-				descriptor.getFieldCaption(), option, component);
+				descriptor.getFieldCaption(), option, component, searchMode);
 		if (value != null) {
 			fieldComponent.setValue(value);
 		}

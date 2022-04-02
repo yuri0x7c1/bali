@@ -23,38 +23,39 @@ import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MPanel;
 
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
+import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm.SearchMode;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.data.HasValue;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.themes.ValoTheme;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 
 /**
  *
  * @author yuri0x7c1
  *
  */
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SearchFieldComponent extends MPanel {
-    I18N i18n;
+    private final I18N i18n;
 
     @Getter
-    String name;
+    private final String name;
 
-	MHorizontalLayout layout;
+	private final MHorizontalLayout layout;
 
-	MLabel nameLabel;
+	private final MLabel nameLabel;
 
-	SearchFieldOperatorSelect optionSelect;
+	private final SearchFieldOperatorSelect optionSelect;
 
-	Component valueComponent;
+	private final Component valueComponent;
 
-	MButton closeButton;
+	private final MButton closeButton;
+	
+	@Getter
+	private SearchMode searchMode;
 
-	public SearchFieldComponent(I18N i18n, String name, String caption, SearchFieldOperator operator, Component valueComponent) {
+	public SearchFieldComponent(I18N i18n, String name, String caption, SearchFieldOperator operator, Component valueComponent, SearchMode searchMode) {
 		this.i18n = i18n;
 		this.name = name;
 		this.layout = new MHorizontalLayout()
@@ -63,11 +64,12 @@ public class SearchFieldComponent extends MPanel {
 		this.optionSelect = new SearchFieldOperatorSelect(i18n);
 		this.optionSelect.setValue(operator);
 		this.valueComponent = valueComponent;
-		this.closeButton = new MButton(VaadinIcons.CLOSE)
-				.withStyleName(ValoTheme.BUTTON_DANGER);
+		this.closeButton = new MButton(VaadinIcons.CLOSE);
+		setSearchMode(searchMode);
 
 		layout.add(nameLabel, optionSelect, valueComponent, closeButton);
 
+		addStyleName(BaliStyle.COMMON_SEARCH_FORM_FIELD);
 		setWidthUndefined();
 		setContent(layout);
 	}
@@ -86,5 +88,17 @@ public class SearchFieldComponent extends MPanel {
 
 	public void setValue (Object value) {
 		((HasValue) valueComponent).setValue(value);
+	}
+	
+	public void setSearchMode(SearchMode searchMode) {
+		this.searchMode = searchMode;
+		if (SearchMode.SIMPLE.equals(searchMode)) {
+			optionSelect.setVisible(false);
+			closeButton.setVisible(false);
+		}
+		else if (SearchMode.ADVANCED.equals(searchMode)) {
+			optionSelect.setVisible(true);
+			closeButton.setVisible(true);
+		}
 	}
 }

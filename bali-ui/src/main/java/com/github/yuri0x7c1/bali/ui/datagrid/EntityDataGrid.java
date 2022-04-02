@@ -336,6 +336,10 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	public void addSearchField(String fieldName, SearchFieldOperator operator, Object value) {
 		searchForm.createFieldComponent(fieldName, operator, value);
 	}
+	
+	public void addSearchField(String fieldName, SearchFieldOperator operator) {
+		searchForm.createFieldComponent(fieldName, operator, null);
+	}
 
 	public void clearSearchFields() {
 		searchForm.clearFieldComponents();
