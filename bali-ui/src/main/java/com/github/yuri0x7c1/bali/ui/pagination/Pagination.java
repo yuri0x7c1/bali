@@ -93,9 +93,9 @@ public class Pagination extends HorizontalLayout {
         updateSummaryLabelValue();
         itemsPerPage = createItemsPerPage();
         pageControls = createPageControlFields();
-        addComponents(summaryLabel, pageControls, itemsPerPage);
-        setComponentAlignment(pageControls, Alignment.MIDDLE_CENTER);
-        setComponentAlignment(itemsPerPage, Alignment.MIDDLE_RIGHT);
+        addComponents(summaryLabel, itemsPerPage, pageControls);
+        setComponentAlignment(itemsPerPage, Alignment.MIDDLE_CENTER);
+        setComponentAlignment(pageControls, Alignment.MIDDLE_RIGHT);
         setExpandRatio(summaryLabel, 0.33f);
         setExpandRatio(itemsPerPage, 0.33f);
         setExpandRatio(pageControls, 0.33f);
