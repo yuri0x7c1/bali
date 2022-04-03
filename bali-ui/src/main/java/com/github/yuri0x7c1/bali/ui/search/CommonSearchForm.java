@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -179,9 +180,20 @@ public class CommonSearchForm extends Card {
 	public SearchModel getModel() {
 		SearchModel searchModel = new SearchModel();
 		for (SearchFieldComponent fieldComponent : fieldComponents) {
+			boolean isBlank = true;
 			if (fieldComponent.getValue() != null) {
+				if (fieldComponent.getValue() instanceof String) {
+					if (StringUtils.isNotBlank((String) fieldComponent.getValue())) {
+						isBlank = false;
+					}
+				}
+				else {
+					isBlank = false;
+				}
+			}
+			if (!isBlank) {
 				searchModel.getFields().add(new SearchField(fieldComponent.getName(), fieldComponent.getOperator(),
-						fieldComponent.getValue()));
+						fieldComponent.getValue()));	
 			}
 		}
 		return searchModel;
