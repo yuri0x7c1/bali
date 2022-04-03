@@ -44,7 +44,5 @@ public class BaliStyle {
 
 	public static final String COMMON_VIEW = "bali-common-view";
 	
-	public static final String COMMON_SEARCH_FORM = "common-search-form";
-	
-	public static final String COMMON_SEARCH_FORM_FIELD = "common-search-form-field";
+	public static final String COMMON_SEARCH_FORM = "bali-common-search-form";
 }

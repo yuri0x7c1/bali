@@ -37,6 +37,9 @@ import lombok.Getter;
  *
  */
 public class SearchFieldComponent extends MPanel {
+	public static final String FIELD_CSS_CLASS = "field";
+	public static final String NAME_LABEL_CSS_CLASS = "label";
+	
     private final I18N i18n;
 
     @Getter
@@ -60,7 +63,7 @@ public class SearchFieldComponent extends MPanel {
 		this.name = name;
 		this.layout = new MHorizontalLayout()
 			.withMargin(true);
-		this.nameLabel = new MLabel(caption);
+		this.nameLabel = new MLabel(caption).withStyleName(NAME_LABEL_CSS_CLASS);
 		this.optionSelect = new SearchFieldOperatorSelect(i18n);
 		this.optionSelect.setValue(operator);
 		this.valueComponent = valueComponent;
@@ -69,7 +72,7 @@ public class SearchFieldComponent extends MPanel {
 
 		layout.add(nameLabel, optionSelect, valueComponent, closeButton);
 
-		addStyleName(BaliStyle.COMMON_SEARCH_FORM_FIELD);
+		addStyleName(FIELD_CSS_CLASS);
 		setWidthUndefined();
 		setContent(layout);
 	}

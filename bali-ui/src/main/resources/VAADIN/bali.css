@@ -71,6 +71,13 @@
   overflow: auto !important;
 }
 
+.bali-common-search-form .field {
+  margin: 2px;
+}
+.bali-common-search-form .field .label {
+  margin-top: 4px;
+}
+
 /* AppLayout */
 app-toolbar {
   background-color: #434343 !important;
