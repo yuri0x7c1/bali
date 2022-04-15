@@ -261,7 +261,7 @@ public class EntityMultiPicker<T> extends CustomField<List<T>> {
 			}
 		}
 
-		// sorg grid
+		// sort grid
 		valueGrid.sort(orderProperty, UiUtil.convertDirection(orderDirection));
 	}
 
