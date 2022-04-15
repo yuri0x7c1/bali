@@ -78,7 +78,7 @@ public class EntityMultiPicker<T> extends CustomField<List<T>> {
 
 	MButton cancelButton;
 
-	List<T> value;
+	List<T> value = Collections.emptyList();
 
 	boolean createEnabled = true;
 
@@ -214,6 +214,7 @@ public class EntityMultiPicker<T> extends CustomField<List<T>> {
 
 	@Override
 	protected void doSetValue(List<T> value) {
+		if (value == null) value = Collections.emptyList();
 		this.value = value;
 		valueGrid.setItems(value);
 	}
