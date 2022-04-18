@@ -15,13 +15,13 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class MessagePanel extends HorizontalLayout {
-	public enum MessageLevel {
+	public enum MessageType {
 		SUCCESS,
 		WARNING,
 		ERROR
 	}
 	
-	private final MessageLevel level;
+	private final MessageType messageType;
 	
 	private final MLabel iconLabel;
 	
@@ -29,28 +29,28 @@ public class MessagePanel extends HorizontalLayout {
 	
 	private final MButton closeButton;
 	
-	public MessagePanel(MessageLevel level) {
-		Objects.requireNonNull(level);
-		this.level = level;
+	public MessagePanel(MessageType getMessageType) {
+		Objects.requireNonNull(getMessageType);
+		this.messageType = getMessageType;
 		
 		// icon
 		VaadinIcons icon = VaadinIcons.CHECK;
-		if (MessageLevel.WARNING.equals(level)) {
+		if (MessageType.WARNING.equals(getMessageType)) {
 			icon = VaadinIcons.WARNING;
 		}
-		else if (MessageLevel.ERROR.equals(level)) {
+		else if (MessageType.ERROR.equals(getMessageType)) {
 			icon = VaadinIcons.BAN;
 		}
 		
 		// styles
 		addStyleName(BaliStyle.MESSAGE_PANEL);
-		if (MessageLevel.SUCCESS.equals(level)) {
+		if (MessageType.SUCCESS.equals(getMessageType)) {
 			addStyleName(BaliStyle.MESSAGE_PANEL_SUCCESS);
 		}
-		else if (MessageLevel.WARNING.equals(level)) {
+		else if (MessageType.WARNING.equals(getMessageType)) {
 			addStyleName(BaliStyle.MESSAGE_PANEL_WARNING);
 		}
-		else if (MessageLevel.ERROR.equals(level)) {
+		else if (MessageType.ERROR.equals(getMessageType)) {
 			addStyleName(BaliStyle.MESSAGE_PANEL_ERROR);
 		}
 		

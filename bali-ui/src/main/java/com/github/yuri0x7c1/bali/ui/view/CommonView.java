@@ -22,7 +22,7 @@ import com.github.yuri0x7c1.bali.data.message.CommonMessages;
 import com.github.yuri0x7c1.bali.ui.header.Header;
 import com.github.yuri0x7c1.bali.ui.header.HeaderTextSize;
 import com.github.yuri0x7c1.bali.ui.message.MessagePanel;
-import com.github.yuri0x7c1.bali.ui.message.MessagePanel.MessageLevel;
+import com.github.yuri0x7c1.bali.ui.message.MessagePanel.MessageType;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.navigator.View;
@@ -56,9 +56,9 @@ public abstract class CommonView extends MVerticalLayout implements View {
 		header.setTextSize(HeaderTextSize.H2);
 		header.setMargin(false);
 		
-		successMessagePanel = new MessagePanel(MessageLevel.SUCCESS);
-		warningMessagePanel = new MessagePanel(MessageLevel.WARNING);
-		errorMessagePanel = new MessagePanel(MessageLevel.ERROR);
+		successMessagePanel = new MessagePanel(MessageType.SUCCESS);
+		warningMessagePanel = new MessagePanel(MessageType.WARNING);
+		errorMessagePanel = new MessagePanel(MessageType.ERROR);
 		
 		addComponents(header, successMessagePanel, warningMessagePanel, errorMessagePanel);
 	}
