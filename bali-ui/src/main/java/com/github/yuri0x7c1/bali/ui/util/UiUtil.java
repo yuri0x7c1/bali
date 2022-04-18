@@ -52,6 +52,11 @@ public class UiUtil {
 	public static void back() {
 		JavaScript.getCurrent().execute("history.back()");
 	}
+	
+	public static void back(CommonMessages flashMessages) {
+		writeFlashMessages(flashMessages);
+		JavaScript.getCurrent().execute("history.back()");
+	}
 
 	public static void navigateTo(String viewName) {
 		UI.getCurrent().getNavigator().navigateTo(viewName);

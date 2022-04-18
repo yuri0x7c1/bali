@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.yuri0x7c1.bali.data.message.CommonMessages;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.UI;
 
@@ -69,6 +70,7 @@ public abstract class ParametrizedView<P> extends CommonView {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
+		showFlashMessages();
 		try {
 			if (StringUtils.isNotBlank(event.getParameters())) {
 				this.params = MAPPER.readValue(URLDecoder.decode(event.getParameters(), StandardCharsets.UTF_8.name()),

@@ -72,30 +72,40 @@ public abstract class CommonView extends MVerticalLayout implements View {
 	}
 	
 	protected void showMessages(CommonMessages messages) {
-		if (messages.containsSuccessMessages()) {
-			successMessagePanel.setVisible(true);
-			successMessagePanel.showMessages(messages.getSuccessMessages());
-		}
-		
-		if (messages.containsWarningMessages()) {
-			warningMessagePanel.setVisible(true);
-			warningMessagePanel.showMessages(messages.getWarningMessages());
-		}
-		
-		if (messages.containsErrorMessages()) {
-			errorMessagePanel.setVisible(true);
-			errorMessagePanel.showMessages(messages.getErrorMessages());
-		}
-	}
-	
-	private void showFlashMessages() {
-		CommonMessages messages = UiUtil.readFlashMessages();
 		if (messages == null) {
 			successMessagePanel.setVisible(false);
 			warningMessagePanel.setVisible(false);
 			errorMessagePanel.setVisible(false);
 			return;
 		}
+		
+		if (messages.containsSuccessMessages()) {
+			successMessagePanel.setVisible(true);
+			successMessagePanel.showMessages(messages.getSuccessMessages());
+		}
+		else {
+			successMessagePanel.setVisible(false);
+		}
+		
+		if (messages.containsWarningMessages()) {
+			warningMessagePanel.setVisible(true);
+			warningMessagePanel.showMessages(messages.getWarningMessages());
+		}
+		else {
+			warningMessagePanel.setVisible(false);
+		}
+		
+		if (messages.containsErrorMessages()) {
+			errorMessagePanel.setVisible(true);
+			errorMessagePanel.showMessages(messages.getErrorMessages());
+		}
+		else {
+			errorMessagePanel.setVisible(false);
+		}
+	}
+	
+	protected void showFlashMessages() {
+		CommonMessages messages = UiUtil.readFlashMessages();
 		showMessages(messages);
 	}
 
