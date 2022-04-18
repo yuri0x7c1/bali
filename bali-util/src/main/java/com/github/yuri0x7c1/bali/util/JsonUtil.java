@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.github.yuri0x7c1.bali.util.json;
+package com.github.yuri0x7c1.bali.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

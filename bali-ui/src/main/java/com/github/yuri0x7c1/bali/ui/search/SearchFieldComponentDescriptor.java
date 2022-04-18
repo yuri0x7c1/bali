@@ -29,7 +29,7 @@ import com.github.yuri0x7c1.bali.ui.field.BigDecimalField;
 import com.github.yuri0x7c1.bali.ui.field.BigIntegerField;
 import com.github.yuri0x7c1.bali.ui.field.BooleanField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
-import com.github.yuri0x7c1.bali.util.json.TextUtil;
+import com.github.yuri0x7c1.bali.util.TextUtil;
 import com.vaadin.ui.Component;
 
 import lombok.Data;

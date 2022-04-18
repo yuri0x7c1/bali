@@ -23,7 +23,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.github.yuri0x7c1.bali.util.json.TextUtil;
+import com.github.yuri0x7c1.bali.util.TextUtil;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
