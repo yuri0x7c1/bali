@@ -25,9 +25,11 @@ import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
 
+import com.github.yuri0x7c1.bali.data.message.ApplicationMessages;
 import com.vaadin.data.provider.GridSortOrder;
 import com.vaadin.data.provider.Query;
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Grid;
@@ -41,6 +43,9 @@ import com.vaadin.ui.themes.ValoTheme;
  *
  */
 public class UiUtil {
+	
+	public static final String FLASH_MESSAGES = "FLASH_MESSAGES";
+	
 	/*
 	 * Navigate back
 	 */
@@ -119,5 +124,17 @@ public class UiUtil {
 	
 	public static Pageable createPageable(Query query, String...fields) {
 		return createPageable(query, Direction.ASC, fields);
+	}
+	
+	public static ApplicationMessages readFlashMessages() {
+		ApplicationMessages messages = (ApplicationMessages) VaadinSession.getCurrent().getAttribute(FLASH_MESSAGES);
+		if (messages != null) {
+			VaadinSession.getCurrent().setAttribute(FLASH_MESSAGES, null);
+		}
+		return messages;
+	}
+	
+	public static void writeFlashMessages(ApplicationMessages messages) {
+		VaadinSession.getCurrent().setAttribute(FLASH_MESSAGES, messages);
 	}
 }
