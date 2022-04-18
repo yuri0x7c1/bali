@@ -18,9 +18,13 @@ package com.github.yuri0x7c1.bali.ui.view;
 
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
+import com.github.yuri0x7c1.bali.data.message.CommonMessages;
 import com.github.yuri0x7c1.bali.ui.header.Header;
 import com.github.yuri0x7c1.bali.ui.header.HeaderTextSize;
+import com.github.yuri0x7c1.bali.ui.message.MessagePanel;
+import com.github.yuri0x7c1.bali.ui.message.MessagePanel.MessageLevel;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
+import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Component;
@@ -37,6 +41,12 @@ import lombok.experimental.FieldDefaults;
 public abstract class CommonView extends MVerticalLayout implements View {
 
  	final Header header;
+ 	
+ 	final MessagePanel successMessagePanel;
+ 	
+ 	final MessagePanel warningMessagePanel;
+ 	
+ 	final MessagePanel errorMessagePanel;
 
 	public CommonView() {
 		setMargin(false);
@@ -45,8 +55,12 @@ public abstract class CommonView extends MVerticalLayout implements View {
 		header = new Header();
 		header.setTextSize(HeaderTextSize.H2);
 		header.setMargin(false);
-
-		addComponent(header);
+		
+		successMessagePanel = new MessagePanel(MessageLevel.SUCCESS);
+		warningMessagePanel = new MessagePanel(MessageLevel.WARNING);
+		errorMessagePanel = new MessagePanel(MessageLevel.ERROR);
+		
+		addComponents(header, successMessagePanel, warningMessagePanel, errorMessagePanel);
 	}
 
 	public void setHeaderText(String text) {
@@ -56,9 +70,38 @@ public abstract class CommonView extends MVerticalLayout implements View {
 	public void addHeaderComponent(Component c) {
 		header.addHeaderComponent(c);
 	}
+	
+	protected void showMessages(CommonMessages messages) {
+		if (messages.containsSuccessMessages()) {
+			successMessagePanel.setVisible(true);
+			successMessagePanel.showMessages(messages.getSuccessMessages());
+		}
+		
+		if (messages.containsWarningMessages()) {
+			warningMessagePanel.setVisible(true);
+			warningMessagePanel.showMessages(messages.getWarningMessages());
+		}
+		
+		if (messages.containsErrorMessages()) {
+			errorMessagePanel.setVisible(true);
+			errorMessagePanel.showMessages(messages.getErrorMessages());
+		}
+	}
+	
+	private void showFlashMessages() {
+		CommonMessages messages = UiUtil.readFlashMessages();
+		if (messages == null) {
+			successMessagePanel.setVisible(false);
+			warningMessagePanel.setVisible(false);
+			errorMessagePanel.setVisible(false);
+			return;
+		}
+		showMessages(messages);
+	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
+		showFlashMessages();
 		onEnter();
 	}
 

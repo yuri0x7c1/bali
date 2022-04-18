@@ -94,6 +94,61 @@
 	}
 }
 
+
+$success-color: #2c9720;
+$warning-color: orange;
+$error-color: #ed473b;
+
+$success-color-light: lighten($success-color, 50%);
+$warning-color-light: lighten($warning-color, 40%);
+$error-color-light: lighten($error-color, 40%);
+
+$success-color-dark: darken($success-color, 20%);
+$warning-color-dark: darken($warning-color, 20%);
+$error-color-dark: darken($error-color, 20%);
+
+.bali-message-panel {
+	border: 2px solid;
+	border-radius: 4px;
+	.icon-label {
+		margin-left: 8px;
+		margin-right: 4px;
+	}
+}
+
+.bali-message-panel-success {
+	border-color: $success-color;
+	background-color: $success-color-light;
+	.icon-label {
+		color: $success-color-dark;
+	}
+	.message-label {
+		color: $success-color-dark;
+	}
+}
+
+.bali-message-panel-warning {
+	border-color: $warning-color;
+	background-color: $warning-color-light;
+	.icon-label {
+		color: $warning-color-dark;
+	}
+	.message-label {
+		color: $warning-color-dark;
+	}
+}
+
+.bali-message-panel-error {
+	border-color: $error-color;
+	background-color: $error-color-light;
+	.icon-label {
+		color: $error-color-dark;
+	}
+	.message-label {
+		color: $error-color-dark;
+	}
+}
+
 /* AppLayout */
 app-toolbar {
     background-color: #434343 !important;

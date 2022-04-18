@@ -79,6 +79,48 @@
   font-weight: bold;
 }
 
+.bali-message-panel {
+  border: 2px solid;
+  border-radius: 4px;
+}
+.bali-message-panel .icon-label {
+  margin-left: 8px;
+  margin-right: 4px;
+}
+
+.bali-message-panel-success {
+  border-color: #2c9720;
+  background-color: #c8f2c4;
+}
+.bali-message-panel-success .icon-label {
+  color: #13430e;
+}
+.bali-message-panel-success .message-label {
+  color: #13430e;
+}
+
+.bali-message-panel-warning {
+  border-color: orange;
+  background-color: #ffedcc;
+}
+.bali-message-panel-warning .icon-label {
+  color: #996300;
+}
+.bali-message-panel-warning .message-label {
+  color: #996300;
+}
+
+.bali-message-panel-error {
+  border-color: #ed473b;
+  background-color: #fef6f6;
+}
+.bali-message-panel-error .icon-label {
+  color: #b21b10;
+}
+.bali-message-panel-error .message-label {
+  color: #b21b10;
+}
+
 /* AppLayout */
 app-toolbar {
   background-color: #434343 !important;

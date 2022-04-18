@@ -45,4 +45,12 @@ public class BaliStyle {
 	public static final String COMMON_VIEW = "bali-common-view";
 	
 	public static final String COMMON_SEARCH_FORM = "bali-common-search-form";
+
+	public static final String MESSAGE_PANEL = "bali-message-panel";
+
+	public static final String MESSAGE_PANEL_SUCCESS = "bali-message-panel-success";
+	
+	public static final String MESSAGE_PANEL_WARNING = "bali-message-panel-warning";
+	
+	public static final String MESSAGE_PANEL_ERROR = "bali-message-panel-error";
 }
