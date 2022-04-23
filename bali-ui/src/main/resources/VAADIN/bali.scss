@@ -151,9 +151,9 @@ $error-color-dark: darken($error-color, 20%);
 
 /* AppLayout */
 app-toolbar {
-    background-color: black !important;
-    color: white !important;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+	background-color: #222222 !important;
+	color: #9d9d9d !important;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .app-bar-application-content  > .v-panel > .v-panel-content {
