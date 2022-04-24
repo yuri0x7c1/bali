@@ -100,6 +100,9 @@ public class SearchUtil {
 									"%" + (String) fieldValue + "%"));
 						}
 					}
+					else if (SearchFieldOperator.INTERVAL.equals(searchField.getOperator())) {
+
+					}
 				}
 
 				return cb.and(predicates.toArray(new Predicate[predicates.size()]));

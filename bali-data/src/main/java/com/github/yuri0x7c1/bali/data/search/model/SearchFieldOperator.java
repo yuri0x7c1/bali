@@ -26,5 +26,6 @@ public enum SearchFieldOperator {
 	NOT_EQUAL,
 	GREATER,
 	LESS,
-	CONTAINS
+	CONTAINS,
+	INTERVAL
 }
