@@ -22,7 +22,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 import org.vaadin.spring.i18n.I18N;
 
 /**
@@ -30,7 +29,6 @@ import org.vaadin.spring.i18n.I18N;
  * @author yuri0x7c1
  *
  */
-@Component
 public class Formatter extends I18N {
 	public static final String DEFAULT_DATETIME_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	public static final String DEFAULT_DATE_FORMAT_PATTERN = "yyyy-MM-dd";
