@@ -16,40 +16,57 @@
 
 package com.github.yuri0x7c1.bali.ui.search;
 
+import static com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator.*;
+import static com.github.yuri0x7c1.bali.ui.search.SearchFieldComponentLifecycle.MANAGED;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.vaadin.viritin.fields.DoubleField;
 import org.vaadin.viritin.fields.IntegerField;
-import org.vaadin.viritin.fields.MTextField;
 
+import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.ui.field.BigDecimalField;
 import com.github.yuri0x7c1.bali.ui.field.BigIntegerField;
 import com.github.yuri0x7c1.bali.ui.field.BooleanField;
+import com.github.yuri0x7c1.bali.ui.field.DateTimeRangeField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
 import com.github.yuri0x7c1.bali.util.TextUtil;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.DateTimeField;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
- * The Class SearchFieldComponentDescriptor.
+ * The Class SearchFieldComponentDescriptor
+ *
  * @author yuri0x7c1
  */
+@Slf4j
 @Data
 public class SearchFieldComponentDescriptor implements Comparable<SearchFieldComponentDescriptor> {
+
 	private final String fieldName;
 
 	private final String fieldCaption;
 
 	private final Class<?> fieldType;
 
-	private final Class<? extends Component> componentClass;
+	// private final Class<? extends Component> componentClass;
 
-	private final SearchFieldComponentLifecycle componentLifecycle;
+	// private final SearchFieldComponentLifecycle componentLifecycle;
+
+	private final Map<SearchFieldOperator, SearchFielComponentDescription> componentDescriptions = new LinkedHashMap<>();
 
 	private SearchFieldComponentDescriptor(Builder builder) {
 		this.fieldName = TextUtil.requireNonBlank(builder.fieldName);
@@ -62,57 +79,77 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 			this.fieldCaption = builder.fieldCaption;
 		}
 
-		if (builder.componentClass == null) {
-			this.componentClass = getDefaultComponentClass();
-		}
-		else {
-			this.componentClass = builder.componentClass;
-		}
+		componentDescriptions.putAll(getDefaultComponentDescriptions());
+		componentDescriptions.putAll(builder.componentDescriptions);
 
-		if (builder.componentLifecycle == null) {
-			this.componentLifecycle = getDefaultComponentLifecycle();
-		}
-		else {
-			this.componentLifecycle = builder.componentLifecycle;
-		}
+		log.debug("!!! componentDescriptions : {}", componentDescriptions);
 	}
 
 	@Deprecated
 	public SearchFieldComponentDescriptor(String fieldName, String fieldCaption, Class<?> fieldType,
 			Class<? extends Component> componentClass, SearchFieldComponentLifecycle componentLifecycle) {
 		this(new Builder().withFieldName(fieldName).withFieldCaption(fieldCaption).withFieldType(fieldType)
-				.withComponentClass(componentClass).withComponentLifecycle(componentLifecycle));
+				.withComponent(componentClass, componentLifecycle, SearchFieldOperator.values()));
 	}
 
-	private Class<? extends Component> getDefaultComponentClass() {
-		if (fieldType.isAssignableFrom(Integer.class)) {
-			return IntegerField.class;
+	private Map<SearchFieldOperator, SearchFielComponentDescription> getDefaultComponentDescriptions() {
+		Map<SearchFieldOperator, SearchFielComponentDescription> cds = new LinkedHashMap<>();
+		for (SearchFieldOperator operator : SearchFieldOperator.values()) {
+			if (fieldType.equals(String.class)) {
+				if (EQUAL.equals(operator) || NOT_EQUAL.equals(operator) || CONTAINS.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(IntegerField.class));
+				}
+			}
+			else if (fieldType.isAssignableFrom(Integer.class)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(IntegerField.class));
+				}
+			}
+			else if (fieldType.isAssignableFrom(Long.class)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(LongField.class));
+				}
+			}
+			else if (fieldType.isAssignableFrom(Double.class)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(DoubleField.class));
+				}
+			}
+			else if (fieldType.equals(BigInteger.class)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(BigIntegerField.class));
+				}
+			}
+			else if (fieldType.equals(BigDecimal.class)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(BigDecimalField.class));
+				}
+			}
+			else if (fieldType.isAssignableFrom(Boolean.class)) {
+				if (EQUAL.equals(operator) || NOT_EQUAL.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(BooleanField.class, MANAGED));
+				}
+			}
+			else if (fieldType.equals(LocalDateTime.class)) {
+				if (INTERVAL.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(DateTimeRangeField.class, MANAGED));
+				}
+				else if (CONTAINS.equals(operator)) {
+				}
+				else {
+					cds.put(operator, new SearchFielComponentDescription(DateTimeField.class));
+				}
+			}
 		}
-		if (fieldType.isAssignableFrom(Long.class)) {
-			return LongField.class;
-		}
-		if (fieldType.isAssignableFrom(Double.class)) {
-			return DoubleField.class;
-		}
-		if (fieldType.isAssignableFrom(BigInteger.class)) {
-			return BigIntegerField.class;
-		}
-		if (fieldType.isAssignableFrom(BigDecimal.class)) {
-			return BigDecimalField.class;
-		}
-		if (fieldType.isAssignableFrom(Boolean.class)) {
-			return BooleanField.class;
-		}
-		return MTextField.class;
+		return cds;
 	}
 
-	private SearchFieldComponentLifecycle getDefaultComponentLifecycle() {
-		if (fieldType.isAssignableFrom(Boolean.class)) {
-			return  SearchFieldComponentLifecycle.MANAGED;
-		}
-		else {
-			return SearchFieldComponentLifecycle.NON_MANAGED;
-		}
+	public SearchFielComponentDescription getComponentDescription(SearchFieldOperator operator) {
+		return componentDescriptions.get(operator);
+	}
+
+	public Set<SearchFieldOperator> getValidOperators() {
+		return componentDescriptions.keySet();
 	}
 
 	@Override
@@ -130,6 +167,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		private Class<?> fieldType;
 		private Class<? extends Component> componentClass;
 		private SearchFieldComponentLifecycle componentLifecycle;
+		private final Map<SearchFieldOperator, SearchFielComponentDescription> componentDescriptions = new HashMap<>();
 
 		private Builder() {
 		}
@@ -149,13 +187,19 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 			return this;
 		}
 
-		public Builder withComponentClass(Class<? extends Component> componentClass) {
-			this.componentClass = componentClass;
+		public Builder withComponent(Class<? extends Component> componentClass,
+				SearchFieldComponentLifecycle componentLifecycle, SearchFieldOperator... operators) {
+			for (SearchFieldOperator operator : operators) {
+				this.componentDescriptions.put(operator, new SearchFielComponentDescription(componentClass, componentLifecycle));
+			}
 			return this;
 		}
 
-		public Builder withComponentLifecycle(SearchFieldComponentLifecycle componentLifecycle) {
-			this.componentLifecycle = componentLifecycle;
+		public Builder withComponentExcludeOperators(Class<? extends Component> componentClass,
+				SearchFieldComponentLifecycle componentLifecycle, SearchFieldOperator... excludeOperators) {
+			for (SearchFieldOperator operator : ArrayUtils.removeElements(SearchFieldOperator.values(), excludeOperators)) {
+				this.componentDescriptions.put(operator, new SearchFielComponentDescription(componentClass, componentLifecycle));
+			}
 			return this;
 		}
 

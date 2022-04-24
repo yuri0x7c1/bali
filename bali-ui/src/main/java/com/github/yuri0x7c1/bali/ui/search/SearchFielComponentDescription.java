@@ -16,19 +16,24 @@
 
 package com.github.yuri0x7c1.bali.ui.search;
 
-import org.vaadin.spring.i18n.I18N;
+import static com.github.yuri0x7c1.bali.ui.search.SearchFieldComponentLifecycle.NON_MANAGED;
 
-import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
-import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Component;
 
-/**
- *
- * @author yuri0x7c1
- *
- */
-public class SearchFieldOperatorSelect extends ComboBox<SearchFieldOperator> {
-	public SearchFieldOperatorSelect(I18N i18n) {
-		setItemCaptionGenerator(item -> i18n.get(SearchFieldOperator.class.getSimpleName() + "." + item.name()));
-		setItems(SearchFieldOperator.values());
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+public class SearchFielComponentDescription {
+	@Getter
+	private final Class<? extends Component> componentClass;
+
+	@Getter
+	private final SearchFieldComponentLifecycle componentLifecycle;
+
+	public SearchFielComponentDescription(Class<? extends Component> componentClass) {
+		super();
+		this.componentClass = componentClass;
+		this.componentLifecycle = NON_MANAGED;
 	}
 }

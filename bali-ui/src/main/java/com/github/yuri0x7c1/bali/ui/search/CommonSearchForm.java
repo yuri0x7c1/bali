@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.commons.collections.MapUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -61,7 +61,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CommonSearchForm extends Card {
 
 	private static final int DEFAULT_FIELD_LIMIT = 20;
-	
+
 	public enum SearchMode {
 		SIMPLE,
 		ADVANCED
@@ -79,14 +79,16 @@ public class CommonSearchForm extends Card {
 
 	private ComboBox<SearchFieldComponentDescriptor> fieldSelect;
 
+	private ComboBox<SearchFieldOperator> operatorSelect;
+
 	private MButton addFieldButton;
-	
+
 	private MWindow addFieldWindow;
 
 	private MButton searchButton;
-	
+
 	private SearchMode searchMode = SearchMode.SIMPLE;
-	
+
 	private MCheckBox searchModeCheckBox;
 
 	@Setter
@@ -102,6 +104,7 @@ public class CommonSearchForm extends Card {
 		setWidthFull();
 		addStyleName(BaliStyle.COMMON_SEARCH_FORM);
 
+		// initialize search button
 		searchButton = new MButton(i18n.get("Search"), e -> {
 			if (searchHandler != null) {
 				searchHandler.run();
@@ -110,34 +113,48 @@ public class CommonSearchForm extends Card {
 		.withStyleName(ValoTheme.BUTTON_PRIMARY)
 		.withIcon(VaadinIcons.SEARCH);
 
+		// initialize operator select
+		operatorSelect = new ComboBox<SearchFieldOperator>();
+		operatorSelect.setItemCaptionGenerator(
+				item -> i18n.get(SearchFieldOperator.class.getSimpleName() + "." + item.name()));
+		operatorSelect.setEmptySelectionAllowed(false);
+		operatorSelect.setWidthFull();
+
+		// initialize field select
 		fieldSelect = new ComboBox<>(i18n.get("Search.fieldName"));
-		fieldSelect.setWidth(100.f, Unit.PERCENTAGE);
+		fieldSelect.setWidthFull();
 		fieldSelect.setItemCaptionGenerator(fc -> fc.getFieldCaption());
 		fieldSelect.setEmptySelectionAllowed(false);
-		
+		fieldSelect.addValueChangeListener(event -> {
+			operatorSelect.setItems(event.getValue().getValidOperators());
+			operatorSelect.setSelectedItem(event.getValue().getValidOperators().iterator().next());
+		});
+
+		// initialize add field window
 		addFieldWindow = new MWindow(i18n.get("Search.addField"),
 			new MVerticalLayout(
 				fieldSelect,
+				operatorSelect,
 				new MHorizontalLayout(
 					new MButton(VaadinIcons.CHECK, i18n.get("Add"), event -> {
 						SearchFieldComponentDescriptor d = fieldSelect.getValue();
 						if (d != null) {
-							createFieldComponent(d, SearchFieldOperator.EQUAL, null);
+							createFieldComponent(d, operatorSelect.getValue(), null);
 						}
-						
+
 						addFieldWindow.close();
 					})
 					.withStyleName(ValoTheme.BUTTON_PRIMARY),
 					new MButton(VaadinIcons.CLOSE, i18n.get("Cancel"), event -> addFieldWindow.close())
-				)	
+				)
 			)
 			.withMargin(true)
 		)
 		.withModal(true)
 		.withWidth(256, Unit.PIXELS)
-		
 		.withCenter();
 
+		// initialize add field button
 		addFieldButton = new MButton(i18n.get("Search.addField"), event -> {
 			if (!UI.getCurrent().getWindows().contains(addFieldWindow)) {
 				UI.getCurrent().addWindow(addFieldWindow);
@@ -146,9 +163,10 @@ public class CommonSearchForm extends Card {
 				}
 			}
 		})
-		.withIcon(VaadinIcons.PLUS)	
+		.withIcon(VaadinIcons.PLUS)
 		.withVisible(SearchMode.ADVANCED.equals(searchMode));
-		
+
+		// initialize search mode checkbox
 		searchModeCheckBox = new MCheckBox(i18n.get("Search.advanced"), SearchMode.ADVANCED.equals(searchMode));
 		searchModeCheckBox.addValueChangeListener(event -> {
 			if (event.getValue()) {
@@ -164,7 +182,7 @@ public class CommonSearchForm extends Card {
 		setContent(new MVerticalLayout(fieldLayout, new MHorizontalLayout(searchButton, addFieldButton)));
 
 	}
-	
+
 	private void updateSearchMode() {
 		if (SearchMode.SIMPLE.equals(searchMode)) {
 			addFieldButton.setVisible(false);
@@ -193,20 +211,21 @@ public class CommonSearchForm extends Card {
 			}
 			if (!isBlank) {
 				searchModel.getFields().add(new SearchField(fieldComponent.getName(), fieldComponent.getOperator(),
-						fieldComponent.getValue()));	
+						fieldComponent.getValue()));
 			}
 		}
 		return searchModel;
 	}
 
-	private void createFieldComponent(SearchFieldComponentDescriptor descriptor, SearchFieldOperator option, Object value) {
+	private void createFieldComponent(SearchFieldComponentDescriptor descriptor, SearchFieldOperator operator, Object value) {
 		Component component = null;
 		try {
-			if (SearchFieldComponentLifecycle.NON_MANAGED.equals(descriptor.getComponentLifecycle())) {
-				component = descriptor.getComponentClass().getDeclaredConstructor().newInstance();
+			SearchFielComponentDescription description = descriptor.getComponentDescription(operator);
+			if (SearchFieldComponentLifecycle.NON_MANAGED.equals(description.getComponentLifecycle())) {
+				component = description.getComponentClass().getDeclaredConstructor().newInstance();
 			}
-			else if (SearchFieldComponentLifecycle.MANAGED.equals(descriptor.getComponentLifecycle())) {
-				component = ctx.getBean(descriptor.getComponentClass());
+			else if (SearchFieldComponentLifecycle.MANAGED.equals(description.getComponentLifecycle())) {
+				component = ctx.getBean(description.getComponentClass());
 			}
 		}
 		catch (Exception ex) {
@@ -219,7 +238,7 @@ public class CommonSearchForm extends Card {
 		}
 
 		SearchFieldComponent fieldComponent = new SearchFieldComponent(i18n, descriptor.getFieldName(),
-				descriptor.getFieldCaption(), option, component, searchMode);
+				descriptor.getFieldCaption(), operator, component, searchMode);
 		if (value != null) {
 			fieldComponent.setValue(value);
 		}
