@@ -16,7 +16,7 @@
 
 package com.github.yuri0x7c1.bali.ui.field;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -40,45 +40,45 @@ import com.vaadin.ui.CustomField;
  */
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class DateTimeRangeField extends CustomField<List<LocalDateTime>> {
+public class DateRangeField extends CustomField<List<LocalDate>> {
 	private final Formatter f;
-	private final DateTimeField startDateTimeField;
-	private final DateTimeField endDateTimeField;
+	private final DateField startDateField;
+	private final DateField endDateField;
 
-	public DateTimeRangeField() {
+	public DateRangeField() {
 		this(ApplicationContextProvider.getContext().getBean(Formatter.class));
 	}
 
 	@Autowired
-	public DateTimeRangeField(Formatter f) {
+	public DateRangeField(Formatter f) {
 		this.f = f;
 
-		startDateTimeField = new DateTimeField(f);
-		startDateTimeField.setWidth(180, Unit.PIXELS);
-		startDateTimeField.setPlaceholder(f.get("startDateTime"));
+		startDateField = new DateField(f);
+		startDateField.setWidth(120, Unit.PIXELS);
+		startDateField.setPlaceholder(f.get("startDate"));
 
-		endDateTimeField = new DateTimeField(f);
-		endDateTimeField.setWidth(180, Unit.PIXELS);
-		endDateTimeField.setPlaceholder(f.get("endDateTime"));
+		endDateField = new DateField(f);
+		endDateField.setWidth(120, Unit.PIXELS);
+		endDateField.setPlaceholder(f.get("endDate"));
 	}
 
 	@Override
 	protected Component initContent() {
-		return new MHorizontalLayout(startDateTimeField, endDateTimeField);
+		return new MHorizontalLayout(startDateField, endDateField);
 	}
 
 	@Override
-	protected void doSetValue(List<LocalDateTime> value) {
-		startDateTimeField.setValue(null);
-		endDateTimeField.setValue(null);
+	protected void doSetValue(List<LocalDate> value) {
+		startDateField.setValue(null);
+		endDateField.setValue(null);
 		if (CollectionUtils.isNotEmpty(value)) {
-			if (value.size() > 0) startDateTimeField.setValue(value.get(0));
-			if (value.size() > 1) endDateTimeField.setValue(value.get(1));
+			if (value.size() > 0) startDateField.setValue(value.get(0));
+			if (value.size() > 1) endDateField.setValue(value.get(1));
 		}
 	}
 
 	@Override
-	public List<LocalDateTime> getValue() {
-		return Collections.unmodifiableList(Arrays.asList(startDateTimeField.getValue(), endDateTimeField.getValue()));
+	public List<LocalDate> getValue() {
+		return Collections.unmodifiableList(Arrays.asList(startDateField.getValue(), endDateField.getValue()));
 	}
 }

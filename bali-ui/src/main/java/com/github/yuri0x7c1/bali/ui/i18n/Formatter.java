@@ -53,6 +53,10 @@ public class Formatter extends I18N {
 	}
 
 	public String getDateTimeFormatPattern() {
+		return DEFAULT_DATETIME_FORMAT_PATTERN;
+	}
+
+	public String getDateFormatPattern() {
 		return DEFAULT_DATE_FORMAT_PATTERN;
 	}
 

@@ -21,6 +21,7 @@ import static com.github.yuri0x7c1.bali.ui.search.SearchFieldComponentLifecycle.
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -37,6 +38,8 @@ import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.ui.field.BigDecimalField;
 import com.github.yuri0x7c1.bali.ui.field.BigIntegerField;
 import com.github.yuri0x7c1.bali.ui.field.BooleanField;
+import com.github.yuri0x7c1.bali.ui.field.DateField;
+import com.github.yuri0x7c1.bali.ui.field.DateRangeField;
 import com.github.yuri0x7c1.bali.ui.field.DateTimeRangeField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
 import com.github.yuri0x7c1.bali.util.TextUtil;
@@ -138,6 +141,16 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 				}
 				else {
 					cds.put(operator, new SearchFielComponentDescription(DateTimeField.class));
+				}
+			}
+			else if (fieldType.equals(LocalDate.class)) {
+				if (INTERVAL.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(DateRangeField.class, MANAGED));
+				}
+				else if (CONTAINS.equals(operator)) {
+				}
+				else {
+					cds.put(operator, new SearchFielComponentDescription(DateField.class));
 				}
 			}
 		}
