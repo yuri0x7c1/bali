@@ -20,19 +20,19 @@ public class MessagePanel extends HorizontalLayout {
 		WARNING,
 		ERROR
 	}
-	
+
 	private final MessageType messageType;
-	
+
 	private final MLabel iconLabel;
-	
+
 	private final MLabel messageLabel;
-	
+
 	private final MButton closeButton;
-	
+
 	public MessagePanel(MessageType getMessageType) {
 		Objects.requireNonNull(getMessageType);
 		this.messageType = getMessageType;
-		
+
 		// icon
 		VaadinIcons icon = VaadinIcons.CHECK;
 		if (MessageType.WARNING.equals(getMessageType)) {
@@ -41,7 +41,7 @@ public class MessagePanel extends HorizontalLayout {
 		else if (MessageType.ERROR.equals(getMessageType)) {
 			icon = VaadinIcons.BAN;
 		}
-		
+
 		// styles
 		addStyleName(BaliStyle.MESSAGE_PANEL);
 		if (MessageType.SUCCESS.equals(getMessageType)) {
@@ -53,24 +53,25 @@ public class MessagePanel extends HorizontalLayout {
 		else if (MessageType.ERROR.equals(getMessageType)) {
 			addStyleName(BaliStyle.MESSAGE_PANEL_ERROR);
 		}
-		
+
 		iconLabel = new MLabel(icon.getHtml()).withContentMode(ContentMode.HTML).withStyleName("icon-label");
 		messageLabel = new MLabel().withContentMode(ContentMode.PREFORMATTED).withStyleName("message-label").withFullSize();
 		closeButton = new MButton(VaadinIcons.CLOSE, event -> {
 			setVisible(false);
 		})
 		.withStyleName("close-button", ValoTheme.BUTTON_FRIENDLY, ValoTheme.BUTTON_BORDERLESS);
-		
+
 		setSpacing(true);
 		setSizeFull();
 		setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-				
+
 		addComponents(iconLabel, messageLabel, closeButton);
+		setComponentAlignment(closeButton, Alignment.TOP_RIGHT);
 		setExpandRatio(messageLabel, 1.0f);
 	}
-	
+
 	public void showMessages(List<String> messages) {
 		messageLabel.setValue(StringUtils.join(messages, "\n"));
 	}
-	
+
 }
