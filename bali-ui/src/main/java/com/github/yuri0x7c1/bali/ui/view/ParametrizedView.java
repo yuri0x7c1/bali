@@ -27,7 +27,6 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.yuri0x7c1.bali.data.message.CommonMessages;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.UI;
 
@@ -78,7 +77,7 @@ public abstract class ParametrizedView<P> extends CommonView {
 			}
 		}
 		catch (Exception ex) {
-			log.error(ex.getMessage(), ex);
+			throw new RuntimeException(ex);
 		}
 		onEnter();
 	}
@@ -88,7 +87,7 @@ public abstract class ParametrizedView<P> extends CommonView {
 			UI.getCurrent().getNavigator().navigateTo(viewName + "/" +
 					URLEncoder.encode(MAPPER.writeValueAsString(params), StandardCharsets.UTF_8.name()));
 		} catch (Exception ex) {
-			log.error(ex.getMessage(), ex);
+			throw new RuntimeException(ex);
 		}
 	}
 }
