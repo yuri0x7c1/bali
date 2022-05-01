@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -42,6 +43,7 @@ import com.github.yuri0x7c1.bali.ui.field.DateField;
 import com.github.yuri0x7c1.bali.ui.field.DateRangeField;
 import com.github.yuri0x7c1.bali.ui.field.DateTimeRangeField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
+import com.github.yuri0x7c1.bali.ui.field.ZonedDateTimeRangeField;
 import com.github.yuri0x7c1.bali.util.TextUtil;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DateTimeField;
@@ -104,27 +106,27 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 				}
 			}
 			else if (fieldType.isAssignableFrom(Integer.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
 					cds.put(operator, new SearchFielComponentDescription(IntegerField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Long.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
 					cds.put(operator, new SearchFielComponentDescription(LongField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Double.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
 					cds.put(operator, new SearchFielComponentDescription(DoubleField.class));
 				}
 			}
 			else if (fieldType.equals(BigInteger.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
 					cds.put(operator, new SearchFielComponentDescription(BigIntegerField.class));
 				}
 			}
 			else if (fieldType.equals(BigDecimal.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
 					cds.put(operator, new SearchFielComponentDescription(BigDecimalField.class));
 				}
 			}
@@ -133,11 +135,25 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 					cds.put(operator, new SearchFielComponentDescription(BooleanField.class, MANAGED));
 				}
 			}
+			else if (fieldType.equals(ZonedDateTime.class)) {
+				if (INTERVAL.equals(operator)) {
+					cds.put(operator, new SearchFielComponentDescription(ZonedDateTimeRangeField.class, MANAGED));
+				}
+				else if (CONTAINS.equals(operator)) {
+				}
+				else if (IN.equals(operator)) {
+				}
+				else {
+					cds.put(operator, new SearchFielComponentDescription(DateTimeField.class));
+				}
+			}
 			else if (fieldType.equals(LocalDateTime.class)) {
 				if (INTERVAL.equals(operator)) {
 					cds.put(operator, new SearchFielComponentDescription(DateTimeRangeField.class, MANAGED));
 				}
 				else if (CONTAINS.equals(operator)) {
+				}
+				else if (IN.equals(operator)) {
 				}
 				else {
 					cds.put(operator, new SearchFielComponentDescription(DateTimeField.class));
@@ -148,6 +164,8 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 					cds.put(operator, new SearchFielComponentDescription(DateRangeField.class, MANAGED));
 				}
 				else if (CONTAINS.equals(operator)) {
+				}
+				else if (IN.equals(operator)) {
 				}
 				else {
 					cds.put(operator, new SearchFielComponentDescription(DateField.class));

@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -117,6 +118,12 @@ public class SearchUtil {
 										(Comparable) endValue));
 							}
 						}
+					}
+					else if (SearchFieldOperator.IN.equals(searchField.getOperator())) {
+						if (!(fieldValue instanceof Collection)) continue;
+						if (CollectionUtils.isEmpty((Collection) fieldValue)) continue;
+						Predicate predicate = getPath(root, searchField.getName()).in(fieldValue);
+						predicates.add(predicate);
 					}
 				}
 
