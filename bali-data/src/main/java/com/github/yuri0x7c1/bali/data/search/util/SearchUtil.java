@@ -101,7 +101,22 @@ public class SearchUtil {
 						}
 					}
 					else if (SearchFieldOperator.INTERVAL.equals(searchField.getOperator())) {
+						if (!(fieldValue instanceof List)) continue;
+						if (CollectionUtils.isEmpty((List) fieldValue)) continue;
 
+						Object startValue = ((List) fieldValue).get(0);
+						if (startValue != null && startValue instanceof Comparable) {
+							predicates.add(cb.greaterThanOrEqualTo((Expression) getPath(root, searchField.getName()),
+									(Comparable) startValue));
+						}
+
+						if (((List) fieldValue).size() > 1) {
+							Object endValue = ((List) fieldValue).get(1);
+							if (endValue != null && endValue instanceof Comparable) {
+								predicates.add(cb.lessThanOrEqualTo((Expression) getPath(root, searchField.getName()),
+										(Comparable) endValue));
+							}
+						}
 					}
 				}
 
