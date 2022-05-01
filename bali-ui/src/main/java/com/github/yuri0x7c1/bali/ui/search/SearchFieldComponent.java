@@ -84,7 +84,7 @@ public class SearchFieldComponent extends MPanel {
 		.withStyleName(ValoTheme.BUTTON_BORDERLESS)
 		.withDescription(i18n.get("Clear"));
 		this.closeButton = new MButton(VaadinIcons.TRASH)
-			.withStyleName(ValoTheme.BUTTON_DANGER)
+			.withStyleName(ValoTheme.BUTTON_BORDERLESS)
 			.withDescription(i18n.get("Delete"));
 		setSearchMode(searchMode);
 
