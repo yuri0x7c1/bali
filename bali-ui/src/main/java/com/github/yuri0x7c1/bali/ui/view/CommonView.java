@@ -41,11 +41,11 @@ import lombok.experimental.FieldDefaults;
 public abstract class CommonView extends MVerticalLayout implements View {
 
  	final Header header;
- 	
+
  	final MessagePanel successMessagePanel;
- 	
+
  	final MessagePanel warningMessagePanel;
- 	
+
  	final MessagePanel errorMessagePanel;
 
 	public CommonView() {
@@ -55,11 +55,11 @@ public abstract class CommonView extends MVerticalLayout implements View {
 		header = new Header();
 		header.setTextSize(HeaderTextSize.H2);
 		header.setMargin(false);
-		
+
 		successMessagePanel = new MessagePanel(MessageType.SUCCESS);
 		warningMessagePanel = new MessagePanel(MessageType.WARNING);
 		errorMessagePanel = new MessagePanel(MessageType.ERROR);
-		
+
 		addComponents(header, successMessagePanel, warningMessagePanel, errorMessagePanel);
 	}
 
@@ -70,15 +70,15 @@ public abstract class CommonView extends MVerticalLayout implements View {
 	public void addHeaderComponent(Component c) {
 		header.addHeaderComponent(c);
 	}
-	
-	protected void showMessages(CommonMessages messages) {
+
+	public void showMessages(CommonMessages messages) {
 		if (messages == null) {
 			successMessagePanel.setVisible(false);
 			warningMessagePanel.setVisible(false);
 			errorMessagePanel.setVisible(false);
 			return;
 		}
-		
+
 		if (messages.containsSuccessMessages()) {
 			successMessagePanel.setVisible(true);
 			successMessagePanel.showMessages(messages.getSuccessMessages());
@@ -86,7 +86,7 @@ public abstract class CommonView extends MVerticalLayout implements View {
 		else {
 			successMessagePanel.setVisible(false);
 		}
-		
+
 		if (messages.containsWarningMessages()) {
 			warningMessagePanel.setVisible(true);
 			warningMessagePanel.showMessages(messages.getWarningMessages());
@@ -94,7 +94,7 @@ public abstract class CommonView extends MVerticalLayout implements View {
 		else {
 			warningMessagePanel.setVisible(false);
 		}
-		
+
 		if (messages.containsErrorMessages()) {
 			errorMessagePanel.setVisible(true);
 			errorMessagePanel.showMessages(messages.getErrorMessages());
@@ -103,7 +103,7 @@ public abstract class CommonView extends MVerticalLayout implements View {
 			errorMessagePanel.setVisible(false);
 		}
 	}
-	
+
 	protected void showFlashMessages() {
 		CommonMessages messages = UiUtil.readFlashMessages();
 		showMessages(messages);

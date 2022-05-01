@@ -19,18 +19,23 @@ package com.github.yuri0x7c1.bali.ui;
 import java.util.Locale;
 import java.util.function.Supplier;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.vaadin.spring.i18n.I18N;
 
 import com.github.appreciated.app.layout.AppLayout;
 import com.github.appreciated.app.layout.behaviour.Behaviour;
 import com.github.appreciated.app.layout.builder.CDIAppLayoutBuilder;
 import com.github.appreciated.app.layout.builder.factories.DefaultSpringNavigationElementInfoProducer;
+import com.github.yuri0x7c1.bali.data.message.CommonMessages;
+import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.ui.view.ErrorView;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Viewport;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.navigator.PushStateNavigation;
+import com.vaadin.navigator.View;
+import com.vaadin.server.DefaultErrorHandler;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
@@ -76,6 +81,27 @@ public abstract class CommonUI extends UI {
 		defaultLocaleSupplier = () -> new Locale("en", "en_US");
 		pageTitleSupplier = () -> i18n.get("Application.name");
 		appLayoutTitleSupplier = () -> i18n.get("Application.name");
+
+		// default error handler
+		setErrorHandler(new DefaultErrorHandler() {
+			@Override
+			public void error(com.vaadin.server.ErrorEvent event) {
+				View currentView = UI.getCurrent().getNavigator().getCurrentView();
+				if (currentView == null) {
+					return;
+				}
+
+				if (currentView instanceof CommonView) {
+					Throwable t = ExceptionUtils.getRootCause(event.getThrowable());
+					log.error(t.getMessage(), t);
+					((CommonView) currentView).showMessages(new CommonMessages()
+							.withErrorMessage(t.getMessage()));
+				} else {
+					doDefault(event);
+				}
+			}
+
+		});
 	}
 
     protected void setDefaultLocale(Locale locale) {
