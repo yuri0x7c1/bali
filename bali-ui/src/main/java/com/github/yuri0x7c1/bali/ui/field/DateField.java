@@ -38,6 +38,11 @@ public class DateField extends com.vaadin.ui.DateField {
 		this(ApplicationContextProvider.getContext().getBean(Formatter.class));
 	}
 
+	public DateField(String caption) {
+		this(ApplicationContextProvider.getContext().getBean(Formatter.class));
+		setCaption(caption);
+	}
+
 	@Autowired
 	public DateField(Formatter f) {
 		this.f = f;
