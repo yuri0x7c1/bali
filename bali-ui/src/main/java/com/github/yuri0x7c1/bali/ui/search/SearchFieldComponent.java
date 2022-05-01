@@ -28,6 +28,7 @@ import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm.SearchMode;
 import com.vaadin.data.HasValue;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.themes.ValoTheme;
 
 import lombok.Getter;
 
@@ -56,6 +57,8 @@ public class SearchFieldComponent extends MPanel {
 
 	private final Component valueComponent;
 
+	private final MButton clearButton;
+
 	private final MButton closeButton;
 
 	@Getter
@@ -71,10 +74,21 @@ public class SearchFieldComponent extends MPanel {
 		this.operatorLabel = new MTextField().withReadOnly(true)
 				.withValue(i18n.get(SearchFieldOperator.class.getSimpleName() + "." + operator.name()));
 		this.valueComponent = valueComponent;
-		this.closeButton = new MButton(VaadinIcons.CLOSE);
+		this.clearButton = new MButton(VaadinIcons.CLOSE, event -> {
+			if (valueComponent != null) {
+				if (valueComponent instanceof HasValue) {
+					((HasValue)valueComponent).setValue(null);
+				}
+			}
+		})
+		.withStyleName(ValoTheme.BUTTON_BORDERLESS)
+		.withDescription(i18n.get("Clear"));
+		this.closeButton = new MButton(VaadinIcons.TRASH)
+			.withStyleName(ValoTheme.BUTTON_DANGER)
+			.withDescription(i18n.get("Delete"));
 		setSearchMode(searchMode);
 
-		layout.add(nameLabel, operatorLabel, valueComponent, closeButton);
+		layout.add(nameLabel, operatorLabel, valueComponent, clearButton, closeButton);
 
 		addStyleName(FIELD_CSS_CLASS);
 		setWidthUndefined();
