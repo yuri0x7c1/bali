@@ -64,11 +64,11 @@ public class ZonedDateTimeRangeField extends CustomField<List<ZonedDateTime>> {
 		this.f = f;
 
 		startDateTimeField = new DateTimeField(f);
-		startDateTimeField.setWidth(180, Unit.PIXELS);
+		startDateTimeField.setWidth(190, Unit.PIXELS);
 		startDateTimeField.setPlaceholder(f.get("startDateTime"));
 
 		endDateTimeField = new DateTimeField(f);
-		endDateTimeField.setWidth(180, Unit.PIXELS);
+		endDateTimeField.setWidth(190, Unit.PIXELS);
 		endDateTimeField.setPlaceholder(f.get("endDateTime"));
 	}
 
