@@ -34,6 +34,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.vaadin.viritin.fields.DoubleField;
 import org.vaadin.viritin.fields.IntegerField;
+import org.vaadin.viritin.fields.MTextField;
 
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.ui.field.BigDecimalField;
@@ -102,7 +103,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		for (SearchFieldOperator operator : SearchFieldOperator.values()) {
 			if (fieldType.equals(String.class)) {
 				if (EQUAL.equals(operator) || NOT_EQUAL.equals(operator) || CONTAINS.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(IntegerField.class));
+					cds.put(operator, new SearchFielComponentDescription(MTextField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Integer.class)) {
