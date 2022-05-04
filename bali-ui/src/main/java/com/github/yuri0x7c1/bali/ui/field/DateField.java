@@ -21,7 +21,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
-import com.github.yuri0x7c1.bali.ui.i18n.Formatter;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.spring.annotation.SpringComponent;
 
 /**
@@ -32,20 +32,20 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DateField extends com.vaadin.ui.DateField {
-	private final Formatter f;
+	private final I18N i18n;
 
 	public DateField() {
-		this(ApplicationContextProvider.getContext().getBean(Formatter.class));
+		this(ApplicationContextProvider.getContext().getBean(I18N.class));
 	}
 
 	public DateField(String caption) {
-		this(ApplicationContextProvider.getContext().getBean(Formatter.class));
+		this(ApplicationContextProvider.getContext().getBean(I18N.class));
 		setCaption(caption);
 	}
 
 	@Autowired
-	public DateField(Formatter f) {
-		this.f = f;
-		setDateFormat(f.getDateFormat());
+	public DateField(I18N i18n) {
+		this.i18n = i18n;
+		setDateFormat(i18n.getDateFormat());
 	}
 }

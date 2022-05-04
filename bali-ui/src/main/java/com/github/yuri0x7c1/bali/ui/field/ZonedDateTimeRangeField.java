@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Scope;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 
 import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
-import com.github.yuri0x7c1.bali.ui.i18n.Formatter;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
@@ -46,7 +46,7 @@ import lombok.Setter;
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ZonedDateTimeRangeField extends CustomField<List<ZonedDateTime>> {
-	private final Formatter f;
+	private final I18N i18n;
 	private final DateTimeField startDateTimeField;
 	private final DateTimeField endDateTimeField;
 
@@ -56,20 +56,20 @@ public class ZonedDateTimeRangeField extends CustomField<List<ZonedDateTime>> {
 	private ZoneId zoneId = ZoneId.systemDefault();
 
 	public ZonedDateTimeRangeField() {
-		this(ApplicationContextProvider.getContext().getBean(Formatter.class));
+		this(ApplicationContextProvider.getContext().getBean(I18N.class));
 	}
 
 	@Autowired
-	public ZonedDateTimeRangeField(Formatter f) {
-		this.f = f;
+	public ZonedDateTimeRangeField(I18N i18n) {
+		this.i18n = i18n;
 
-		startDateTimeField = new DateTimeField(f);
+		startDateTimeField = new DateTimeField(i18n);
 		startDateTimeField.setWidth(190, Unit.PIXELS);
-		startDateTimeField.setPlaceholder(f.get("startDateTime"));
+		startDateTimeField.setPlaceholder(i18n.get("startDateTime"));
 
-		endDateTimeField = new DateTimeField(f);
+		endDateTimeField = new DateTimeField(i18n);
 		endDateTimeField.setWidth(190, Unit.PIXELS);
-		endDateTimeField.setPlaceholder(f.get("endDateTime"));
+		endDateTimeField.setPlaceholder(i18n.get("endDateTime"));
 	}
 
 	@Override

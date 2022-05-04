@@ -25,7 +25,7 @@ import org.vaadin.spring.i18n.MessageProvider;
 import org.vaadin.spring.i18n.MessageProviderCacheCleanupExecutor;
 import org.vaadin.spring.i18n.ResourceBundleMessageProvider;
 
-import com.github.yuri0x7c1.bali.ui.i18n.Formatter;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 
 /**
  *
@@ -33,11 +33,11 @@ import com.github.yuri0x7c1.bali.ui.i18n.Formatter;
  *
  */
 @Configuration
-public class FormatterConfiguration {
+public class I18nConfiguration {
 
     @Bean
-    Formatter f(ApplicationContext context) {
-        return new Formatter(context);
+    I18N i18n(ApplicationContext context) {
+        return new I18N(context);
     }
 
     @Bean

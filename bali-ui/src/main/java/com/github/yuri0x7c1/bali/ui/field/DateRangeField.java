@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Scope;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 
 import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
-import com.github.yuri0x7c1.bali.ui.i18n.Formatter;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
@@ -41,25 +41,25 @@ import com.vaadin.ui.CustomField;
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DateRangeField extends CustomField<List<LocalDate>> {
-	private final Formatter f;
+	private final I18N i18n;
 	private final DateField startDateField;
 	private final DateField endDateField;
 
 	public DateRangeField() {
-		this(ApplicationContextProvider.getContext().getBean(Formatter.class));
+		this(ApplicationContextProvider.getContext().getBean(I18N.class));
 	}
 
 	@Autowired
-	public DateRangeField(Formatter f) {
-		this.f = f;
+	public DateRangeField(I18N i18n) {
+		this.i18n = i18n;
 
-		startDateField = new DateField(f);
+		startDateField = new DateField(i18n);
 		startDateField.setWidth(120, Unit.PIXELS);
-		startDateField.setPlaceholder(f.get("startDate"));
+		startDateField.setPlaceholder(i18n.get("startDate"));
 
-		endDateField = new DateField(f);
+		endDateField = new DateField(i18n);
 		endDateField.setWidth(120, Unit.PIXELS);
-		endDateField.setPlaceholder(f.get("endDate"));
+		endDateField.setPlaceholder(i18n.get("endDate"));
 	}
 
 	@Override

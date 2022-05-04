@@ -22,7 +22,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.context.ApplicationContext;
-import org.vaadin.spring.i18n.I18N;
 
 import lombok.Getter;
 
@@ -31,7 +30,7 @@ import lombok.Getter;
  * @author yuri0x7c1
  *
  */
-public class Formatter extends I18N {
+public class I18N extends org.vaadin.spring.i18n.I18N {
 	public static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 	public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
@@ -54,7 +53,7 @@ public class Formatter extends I18N {
 	private final DateTimeFormatter timeFormatter;
 
 	ApplicationContext ctx;
-	public Formatter(ApplicationContext ctx) {
+	public I18N(ApplicationContext ctx) {
 		super(ctx);
 		this.ctx = ctx;
 
