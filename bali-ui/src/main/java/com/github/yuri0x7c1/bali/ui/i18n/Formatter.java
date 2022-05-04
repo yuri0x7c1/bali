@@ -24,45 +24,52 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.context.ApplicationContext;
 import org.vaadin.spring.i18n.I18N;
 
+import lombok.Getter;
+
 /**
  *
  * @author yuri0x7c1
  *
  */
 public class Formatter extends I18N {
-	public static final String DEFAULT_DATETIME_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss";
-	public static final String DEFAULT_DATE_FORMAT_PATTERN = "yyyy-MM-dd";
-	public static final String DEFAULT_TIME_FORMAT_PATTERN = "HH:mm:ss";
+	public static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+	public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
 
 	public static final String DATETIME_FORMAT_PROPERTY = "dateTime.format";
 	public static final String DATE_FORMAT_PROPERTY = "date.format";
 	public static final String TIME_FORMAT_PROPERTY = "time.format";
 
-	private final DateTimeFormatter dateTimeFormatPattern;
+	@Getter
+	private String dateTimeFormat;
+
+	@Getter
+	private String dateFormat;
+
+	@Getter
+	private String timeFormat;
+
+	private final DateTimeFormatter dateTimeFormatter;
 	private final DateTimeFormatter dateFormatter;
 	private final DateTimeFormatter timeFormatter;
 
-	ApplicationContext applicationContext;
-	public Formatter(ApplicationContext applicationContext) {
-		super(applicationContext);
-		this.applicationContext = applicationContext;
+	ApplicationContext ctx;
+	public Formatter(ApplicationContext ctx) {
+		super(ctx);
+		this.ctx = ctx;
 
-		dateTimeFormatPattern = DateTimeFormatter.ofPattern(DEFAULT_DATETIME_FORMAT_PATTERN);
-		dateFormatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT_PATTERN);
-		timeFormatter = DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT_PATTERN);
-	}
+		dateTimeFormat = ctx.getEnvironment().getProperty(DATETIME_FORMAT_PROPERTY.toLowerCase(), DEFAULT_DATETIME_FORMAT);
+		dateFormat = ctx.getEnvironment().getProperty(DATE_FORMAT_PROPERTY, DEFAULT_DATE_FORMAT);
+		timeFormat = ctx.getEnvironment().getProperty(TIME_FORMAT_PROPERTY, DEFAULT_TIME_FORMAT);
 
-	public String getDateTimeFormatPattern() {
-		return DEFAULT_DATETIME_FORMAT_PATTERN;
-	}
-
-	public String getDateFormatPattern() {
-		return DEFAULT_DATE_FORMAT_PATTERN;
+		dateTimeFormatter = DateTimeFormatter.ofPattern(DEFAULT_DATETIME_FORMAT);
+		dateFormatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT);
+		timeFormatter = DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT);
 	}
 
 	public String format(LocalDateTime localDateTime) {
 		if (localDateTime == null) return "";
-		return dateTimeFormatPattern.format(localDateTime);
+		return dateTimeFormatter.format(localDateTime);
 	}
 
 	public String format(LocalDate localDate) {

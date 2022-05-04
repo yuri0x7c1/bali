@@ -46,6 +46,6 @@ public class DateField extends com.vaadin.ui.DateField {
 	@Autowired
 	public DateField(Formatter f) {
 		this.f = f;
-		setDateFormat(f.getDateFormatPattern());
+		setDateFormat(f.getDateFormat());
 	}
 }
