@@ -80,4 +80,8 @@ public class I18N extends org.vaadin.spring.i18n.I18N {
 		if (localTime == null) return "";
 		return timeFormatter.format(localTime);
 	}
+
+	public String get(Boolean b) {
+		return get(String.valueOf(b));
+	}
 }
