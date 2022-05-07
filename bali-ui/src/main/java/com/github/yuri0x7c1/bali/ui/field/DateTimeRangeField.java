@@ -29,9 +29,13 @@ import org.vaadin.viritin.layouts.MHorizontalLayout;
 
 import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.github.yuri0x7c1.bali.util.TimeUtil;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.MenuBar.MenuItem;
 
 /**
  *
@@ -44,6 +48,7 @@ public class DateTimeRangeField extends CustomField<List<LocalDateTime>> {
 	private final I18N i18n;
 	private final DateTimeField startDateTimeField;
 	private final DateTimeField endDateTimeField;
+	private final MenuBar optionsMenu;
 
 	public DateTimeRangeField() {
 		this(ApplicationContextProvider.getContext().getBean(I18N.class));
@@ -60,11 +65,19 @@ public class DateTimeRangeField extends CustomField<List<LocalDateTime>> {
 		endDateTimeField = new DateTimeField(i18n);
 		endDateTimeField.setWidth(190, Unit.PIXELS);
 		endDateTimeField.setPlaceholder(i18n.get("endDateTime"));
+
+		optionsMenu = new MenuBar();
+		MenuItem optionsItem = optionsMenu.addItem("", VaadinIcons.CALENDAR_CLOCK, null);
+		optionsItem.setDescription(i18n.get("Options"));
+		optionsItem.addItem(i18n.get("Today"), selectedItem -> {
+			startDateTimeField.setValue(TimeUtil.getStartOfCurrentDay());
+			endDateTimeField.setValue(TimeUtil.getEndOfCurrentDay());
+		});
 	}
 
 	@Override
 	protected Component initContent() {
-		return new MHorizontalLayout(startDateTimeField, endDateTimeField);
+		return new MHorizontalLayout(startDateTimeField, endDateTimeField, optionsMenu);
 	}
 
 	@Override
