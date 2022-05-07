@@ -64,7 +64,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 
 	private final String fieldName;
 
-	private final String fieldCaption;
+	private final String caption;
 
 	private final Class<?> fieldType;
 
@@ -78,11 +78,11 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		this.fieldName = TextUtil.requireNonBlank(builder.fieldName);
 		this.fieldType = Objects.requireNonNull(builder.fieldType);
 
-		if (StringUtils.isBlank(builder.fieldCaption)) {
-			this.fieldCaption = TextUtil.createCaptionFromCamelCase(builder.fieldName);
+		if (StringUtils.isBlank(builder.caption)) {
+			this.caption = TextUtil.createCaptionFromCamelCase(builder.fieldName);
 		}
 		else {
-			this.fieldCaption = builder.fieldCaption;
+			this.caption = builder.caption;
 		}
 
 		componentDescriptions.putAll(getDefaultComponentDescriptions());
@@ -186,7 +186,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 
 	@Override
 	public int compareTo(SearchFieldComponentDescriptor o) {
-		return StringUtils.compare(o.getFieldCaption(), o.getFieldCaption());
+		return StringUtils.compare(o.getCaption(), o.getCaption());
 	}
 
 	public static Builder builder() {
@@ -195,7 +195,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 
 	public static final class Builder {
 		private String fieldName;
-		private String fieldCaption;
+		private String caption;
 		private Class<?> fieldType;
 		private Class<? extends Component> componentClass;
 		private SearchFieldComponentLifecycle componentLifecycle;
@@ -209,8 +209,14 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 			return this;
 		}
 
+		@Deprecated
 		public Builder withFieldCaption(String fieldCaption) {
-			this.fieldCaption = fieldCaption;
+			this.caption = fieldCaption;
+			return this;
+		}
+
+		public Builder withCaption(String caption) {
+			this.caption = caption;
 			return this;
 		}
 

@@ -123,7 +123,7 @@ public class CommonSearchForm extends Card {
 		// initialize field select
 		fieldSelect = new ComboBox<>(i18n.get("Search.fieldName"));
 		fieldSelect.setWidthFull();
-		fieldSelect.setItemCaptionGenerator(fc -> fc.getFieldCaption());
+		fieldSelect.setItemCaptionGenerator(fc -> fc.getCaption());
 		fieldSelect.setEmptySelectionAllowed(false);
 		fieldSelect.addValueChangeListener(event -> {
 			operatorSelect.setItems(event.getValue().getValidOperators());
@@ -238,7 +238,7 @@ public class CommonSearchForm extends Card {
 		}
 
 		SearchFieldComponent fieldComponent = new SearchFieldComponent(i18n, descriptor.getFieldName(),
-				descriptor.getFieldCaption(), operator, component, searchMode);
+				descriptor.getCaption(), operator, component, searchMode);
 		if (value != null) {
 			fieldComponent.setValue(value);
 		}
