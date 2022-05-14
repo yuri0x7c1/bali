@@ -40,17 +40,17 @@ import com.vaadin.ui.CustomField;
  */
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class DateRangeField extends CustomField<List<LocalDate>> {
+public class LocalDateRangeField extends CustomField<List<LocalDate>> {
 	private final I18N i18n;
 	private final LocalDateField startDateField;
 	private final LocalDateField endDateField;
 
-	public DateRangeField() {
+	public LocalDateRangeField() {
 		this(ApplicationContextProvider.getContext().getBean(I18N.class));
 	}
 
 	@Autowired
-	public DateRangeField(I18N i18n) {
+	public LocalDateRangeField(I18N i18n) {
 		this.i18n = i18n;
 
 		startDateField = new LocalDateField(i18n);

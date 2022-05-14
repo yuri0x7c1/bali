@@ -42,8 +42,8 @@ import com.github.yuri0x7c1.bali.ui.field.BigDecimalField;
 import com.github.yuri0x7c1.bali.ui.field.BigIntegerField;
 import com.github.yuri0x7c1.bali.ui.field.BooleanField;
 import com.github.yuri0x7c1.bali.ui.field.LocalDateField;
-import com.github.yuri0x7c1.bali.ui.field.DateRangeField;
-import com.github.yuri0x7c1.bali.ui.field.DateTimeRangeField;
+import com.github.yuri0x7c1.bali.ui.field.LocalDateRangeField;
+import com.github.yuri0x7c1.bali.ui.field.LocalDateTimeRangeField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
 import com.github.yuri0x7c1.bali.ui.field.ZonedDateTimeRangeField;
 import com.github.yuri0x7c1.bali.util.TextUtil;
@@ -147,7 +147,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 			}
 			else if (fieldType.equals(LocalDateTime.class)) {
 				if (INTERVAL.equals(operator)) {
-					cds.put(operator, new SearchFieldComponentDescription(DateTimeRangeField.class, MANAGED));
+					cds.put(operator, new SearchFieldComponentDescription(LocalDateTimeRangeField.class, MANAGED));
 				}
 				else if (CONTAINS.equals(operator)) {
 				}
@@ -159,7 +159,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 			}
 			else if (fieldType.equals(LocalDate.class)) {
 				if (INTERVAL.equals(operator)) {
-					cds.put(operator, new SearchFieldComponentDescription(DateRangeField.class, MANAGED));
+					cds.put(operator, new SearchFieldComponentDescription(LocalDateRangeField.class, MANAGED));
 				}
 				else if (CONTAINS.equals(operator)) {
 				}

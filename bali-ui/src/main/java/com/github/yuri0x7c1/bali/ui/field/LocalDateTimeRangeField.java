@@ -25,18 +25,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
-import org.vaadin.viritin.layouts.MHorizontalLayout;
 
-import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.github.yuri0x7c1.bali.util.TimePeriod;
 import com.github.yuri0x7c1.bali.util.TimeUtil;
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CustomField;
-import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.MenuBar.MenuItem;
 
 /**
  *
@@ -45,41 +38,20 @@ import com.vaadin.ui.MenuBar.MenuItem;
  */
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class DateTimeRangeField extends CustomField<List<LocalDateTime>> {
-	private final I18N i18n;
-	private final LocalDateTimeField startDateTimeField;
-	private final LocalDateTimeField endDateTimeField;
-	private final MenuBar optionsMenu;
+public class LocalDateTimeRangeField extends AbstractDateTimeRangeField<LocalDateTime> {
 
-	public DateTimeRangeField() {
-		this(ApplicationContextProvider.getContext().getBean(I18N.class));
+	public LocalDateTimeRangeField() {
+		super();
 	}
 
 	@Autowired
-	public DateTimeRangeField(I18N i18n) {
-		this.i18n = i18n;
-
-		startDateTimeField = new LocalDateTimeField(i18n);
-		startDateTimeField.setWidth(190, Unit.PIXELS);
-		startDateTimeField.setPlaceholder(i18n.get("From"));
-
-		endDateTimeField = new LocalDateTimeField(i18n);
-		endDateTimeField.setWidth(190, Unit.PIXELS);
-		endDateTimeField.setPlaceholder(i18n.get("To"));
-
-		optionsMenu = new MenuBar();
-		MenuItem optionsItem = optionsMenu.addItem("", VaadinIcons.CALENDAR_CLOCK, null);
-		optionsItem.setDescription(i18n.get("Options"));
-		for (TimePeriod timePeriod : TimePeriod.values()) {
-			optionsItem.addItem(i18n.get("Today"), selectedItem -> {
-				doSetValue(TimeUtil.getTimePeriod(timePeriod));
-			});
-		}
+	public LocalDateTimeRangeField(I18N i18n) {
+		super(i18n);
 	}
 
 	@Override
-	protected Component initContent() {
-		return new MHorizontalLayout(startDateTimeField, endDateTimeField);
+	protected List<LocalDateTime> getTimePeriodValues(TimePeriod timePeriod) {
+		return TimeUtil.getLocalDateTimePeriod(timePeriod);
 	}
 
 	@Override

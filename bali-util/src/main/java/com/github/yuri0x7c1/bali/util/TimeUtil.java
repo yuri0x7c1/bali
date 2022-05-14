@@ -127,11 +127,90 @@ public class TimeUtil {
 			.minusSeconds(1);
 	}
 
-	public static List<LocalDateTime> getTimePeriod(TimePeriod timePeriod) {
-		LocalDateTime now = LocalDateTime.now();
+	public static List<LocalDateTime> getLocalDateTimePeriod(TimePeriod timePeriod) {
 		if (TimePeriod.TODAY.equals(timePeriod)) {
+			LocalDateTime dt = LocalDateTime.now();
 			return Collections
-					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfDay(now), getEndOfDay(now) }));
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfDay(dt), getEndOfDay(dt) }));
+		}
+		if (TimePeriod.YESTERDAY.equals(timePeriod)) {
+			LocalDateTime dt = LocalDateTime.now().minusDays(1);
+			return Collections
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfDay(dt.minusDays(1)), getEndOfDay(dt.minusDays(1)) }));
+		}
+		else if (TimePeriod.CURRENT_WEEK.equals(timePeriod)) {
+			LocalDateTime dt = LocalDateTime.now();
+			return Collections
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfWeek(dt), getEndOfWeek(dt) }));
+		}
+		else if (TimePeriod.PREVIOUS_WEEK.equals(timePeriod)) {
+			LocalDateTime dt = LocalDateTime.now().minusWeeks(1);
+			return Collections
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfWeek(dt.minusWeeks(1)), getEndOfWeek(dt.minusWeeks(1)) }));
+		}
+		else if (TimePeriod.CURRENT_MONTH.equals(timePeriod)) {
+			LocalDateTime dt = LocalDateTime.now();
+			return Collections
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfMonth(dt), getEndOfMonth(dt) }));
+		}
+		else if (TimePeriod.PREVIOUS_MOHTH.equals(timePeriod)) {
+			LocalDateTime dt = LocalDateTime.now().minusMonths(1);
+			return Collections
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfMonth(dt), getEndOfMonth(dt) }));
+		}
+		else if (TimePeriod.CURRENT_YEAR.equals(timePeriod)) {
+			LocalDateTime dt = LocalDateTime.now();
+			return Collections
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfYear(dt), getEndOfYear(dt) }));
+		}
+		else if (TimePeriod.PREVIOUS_YEAR.equals(timePeriod)) {
+			LocalDateTime dt = LocalDateTime.now().minusYears(1);
+			return Collections
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfYear(dt), getEndOfYear(dt) }));
+		}
+		throw new RuntimeException("Unsupported TimePeriod!");
+	}
+
+	public static List<ZonedDateTime> getZonedDateTimePeriod(TimePeriod timePeriod) {
+		if (TimePeriod.TODAY.equals(timePeriod)) {
+			ZonedDateTime dt = ZonedDateTime.now();
+			return Collections
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfDay(dt), getEndOfDay(dt) }));
+		}
+		if (TimePeriod.YESTERDAY.equals(timePeriod)) {
+			ZonedDateTime dt = ZonedDateTime.now().minusDays(1);
+			return Collections
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfDay(dt.minusDays(1)), getEndOfDay(dt.minusDays(1)) }));
+		}
+		else if (TimePeriod.CURRENT_WEEK.equals(timePeriod)) {
+			ZonedDateTime dt = ZonedDateTime.now();
+			return Collections
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfWeek(dt), getEndOfWeek(dt) }));
+		}
+		else if (TimePeriod.PREVIOUS_WEEK.equals(timePeriod)) {
+			ZonedDateTime dt = ZonedDateTime.now().minusWeeks(1);
+			return Collections
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfWeek(dt.minusWeeks(1)), getEndOfWeek(dt.minusWeeks(1)) }));
+		}
+		else if (TimePeriod.CURRENT_MONTH.equals(timePeriod)) {
+			ZonedDateTime dt = ZonedDateTime.now();
+			return Collections
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfMonth(dt), getEndOfMonth(dt) }));
+		}
+		else if (TimePeriod.PREVIOUS_MOHTH.equals(timePeriod)) {
+			ZonedDateTime dt = ZonedDateTime.now().minusMonths(1);
+			return Collections
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfMonth(dt), getEndOfMonth(dt) }));
+		}
+		else if (TimePeriod.CURRENT_YEAR.equals(timePeriod)) {
+			ZonedDateTime dt = ZonedDateTime.now();
+			return Collections
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfYear(dt), getEndOfYear(dt) }));
+		}
+		else if (TimePeriod.PREVIOUS_YEAR.equals(timePeriod)) {
+			ZonedDateTime dt = ZonedDateTime.now().minusYears(1);
+			return Collections
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfYear(dt), getEndOfYear(dt) }));
 		}
 		throw new RuntimeException("Unsupported TimePeriod!");
 	}

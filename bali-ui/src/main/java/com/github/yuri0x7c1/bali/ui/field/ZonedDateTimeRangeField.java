@@ -26,13 +26,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
-import org.vaadin.viritin.layouts.MHorizontalLayout;
 
-import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.github.yuri0x7c1.bali.util.TimePeriod;
+import com.github.yuri0x7c1.bali.util.TimeUtil;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CustomField;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -45,36 +43,24 @@ import lombok.Setter;
  */
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class ZonedDateTimeRangeField extends CustomField<List<ZonedDateTime>> {
-	private final I18N i18n;
-	private final LocalDateTimeField startDateTimeField;
-	private final LocalDateTimeField endDateTimeField;
-
+public class ZonedDateTimeRangeField extends AbstractDateTimeRangeField<ZonedDateTime> {
 	@NonNull
 	@Getter
 	@Setter
 	private ZoneId zoneId = ZoneId.systemDefault();
 
 	public ZonedDateTimeRangeField() {
-		this(ApplicationContextProvider.getContext().getBean(I18N.class));
+		super();
 	}
 
 	@Autowired
 	public ZonedDateTimeRangeField(I18N i18n) {
-		this.i18n = i18n;
-
-		startDateTimeField = new LocalDateTimeField(i18n);
-		startDateTimeField.setWidth(190, Unit.PIXELS);
-		startDateTimeField.setPlaceholder(i18n.get("From"));
-
-		endDateTimeField = new LocalDateTimeField(i18n);
-		endDateTimeField.setWidth(190, Unit.PIXELS);
-		endDateTimeField.setPlaceholder(i18n.get("To"));
+		super(i18n);
 	}
 
 	@Override
-	protected Component initContent() {
-		return new MHorizontalLayout(startDateTimeField, endDateTimeField);
+	protected List<ZonedDateTime> getTimePeriodValues(TimePeriod timePeriod) {
+		return TimeUtil.getZonedDateTimePeriod(timePeriod);
 	}
 
 	@Override
