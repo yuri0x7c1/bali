@@ -27,6 +27,7 @@ import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm.SearchMode;
 import com.vaadin.data.HasValue;
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.AbstractTextField;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -74,15 +75,9 @@ public class SearchFieldComponent extends MPanel {
 		this.operatorLabel = new MTextField().withReadOnly(true)
 				.withValue(i18n.get(SearchFieldOperator.class.getSimpleName() + "." + operator.name()));
 		this.valueComponent = valueComponent;
-		this.clearButton = new MButton(VaadinIcons.CLOSE, event -> {
-			if (valueComponent != null) {
-				if (valueComponent instanceof HasValue) {
-					((HasValue)valueComponent).setValue(null);
-				}
-			}
-		})
-		.withStyleName(ValoTheme.BUTTON_BORDERLESS)
-		.withDescription(i18n.get("Clear"));
+		this.clearButton = new MButton(VaadinIcons.CLOSE, event -> clearValue())
+			.withStyleName(ValoTheme.BUTTON_BORDERLESS)
+			.withDescription(i18n.get("Clear"));
 		this.closeButton = new MButton(VaadinIcons.TRASH)
 			.withStyleName(ValoTheme.BUTTON_BORDERLESS)
 			.withDescription(i18n.get("Delete"));
@@ -105,6 +100,19 @@ public class SearchFieldComponent extends MPanel {
 
 	public void setValue (Object value) {
 		((HasValue) valueComponent).setValue(value);
+	}
+
+	public void clearValue() {
+		if (valueComponent != null) {
+			if (valueComponent instanceof HasValue) {
+				if (valueComponent instanceof AbstractTextField) {
+					((AbstractTextField)valueComponent).setValue("");
+				}
+				else {
+					((HasValue)valueComponent).setValue(null);
+				}
+			}
+		}
 	}
 
 	public void setSearchMode(SearchMode searchMode) {
