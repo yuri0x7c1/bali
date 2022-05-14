@@ -72,7 +72,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 
 	// private final SearchFieldComponentLifecycle componentLifecycle;
 
-	private final Map<SearchFieldOperator, SearchFielComponentDescription> componentDescriptions = new LinkedHashMap<>();
+	private final Map<SearchFieldOperator, SearchFieldComponentDescription> componentDescriptions = new LinkedHashMap<>();
 
 	private SearchFieldComponentDescriptor(Builder builder) {
 		this.fieldName = TextUtil.requireNonBlank(builder.fieldName);
@@ -98,85 +98,85 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 				.withComponent(componentClass, componentLifecycle, SearchFieldOperator.values()));
 	}
 
-	private Map<SearchFieldOperator, SearchFielComponentDescription> getDefaultComponentDescriptions() {
-		Map<SearchFieldOperator, SearchFielComponentDescription> cds = new LinkedHashMap<>();
+	private Map<SearchFieldOperator, SearchFieldComponentDescription> getDefaultComponentDescriptions() {
+		Map<SearchFieldOperator, SearchFieldComponentDescription> cds = new LinkedHashMap<>();
 		for (SearchFieldOperator operator : SearchFieldOperator.values()) {
 			if (fieldType.equals(String.class)) {
 				if (EQUAL.equals(operator) || NOT_EQUAL.equals(operator) || CONTAINS.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(MTextField.class));
+					cds.put(operator, new SearchFieldComponentDescription(MTextField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Integer.class)) {
 				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(IntegerField.class));
+					cds.put(operator, new SearchFieldComponentDescription(IntegerField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Long.class)) {
 				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(LongField.class));
+					cds.put(operator, new SearchFieldComponentDescription(LongField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Double.class)) {
 				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(DoubleField.class));
+					cds.put(operator, new SearchFieldComponentDescription(DoubleField.class));
 				}
 			}
 			else if (fieldType.equals(BigInteger.class)) {
 				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(BigIntegerField.class));
+					cds.put(operator, new SearchFieldComponentDescription(BigIntegerField.class));
 				}
 			}
 			else if (fieldType.equals(BigDecimal.class)) {
 				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(BigDecimalField.class));
+					cds.put(operator, new SearchFieldComponentDescription(BigDecimalField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Boolean.class)) {
 				if (EQUAL.equals(operator) || NOT_EQUAL.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(BooleanField.class, MANAGED));
+					cds.put(operator, new SearchFieldComponentDescription(BooleanField.class, MANAGED));
 				}
 			}
 			else if (fieldType.equals(ZonedDateTime.class)) {
 				if (INTERVAL.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(ZonedDateTimeRangeField.class, MANAGED));
+					cds.put(operator, new SearchFieldComponentDescription(ZonedDateTimeRangeField.class, MANAGED));
 				}
 				else if (CONTAINS.equals(operator)) {
 				}
 				else if (IN.equals(operator)) {
 				}
 				else {
-					cds.put(operator, new SearchFielComponentDescription(DateTimeField.class));
+					cds.put(operator, new SearchFieldComponentDescription(DateTimeField.class));
 				}
 			}
 			else if (fieldType.equals(LocalDateTime.class)) {
 				if (INTERVAL.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(DateTimeRangeField.class, MANAGED));
+					cds.put(operator, new SearchFieldComponentDescription(DateTimeRangeField.class, MANAGED));
 				}
 				else if (CONTAINS.equals(operator)) {
 				}
 				else if (IN.equals(operator)) {
 				}
 				else {
-					cds.put(operator, new SearchFielComponentDescription(DateTimeField.class));
+					cds.put(operator, new SearchFieldComponentDescription(DateTimeField.class));
 				}
 			}
 			else if (fieldType.equals(LocalDate.class)) {
 				if (INTERVAL.equals(operator)) {
-					cds.put(operator, new SearchFielComponentDescription(DateRangeField.class, MANAGED));
+					cds.put(operator, new SearchFieldComponentDescription(DateRangeField.class, MANAGED));
 				}
 				else if (CONTAINS.equals(operator)) {
 				}
 				else if (IN.equals(operator)) {
 				}
 				else {
-					cds.put(operator, new SearchFielComponentDescription(DateField.class));
+					cds.put(operator, new SearchFieldComponentDescription(DateField.class));
 				}
 			}
 		}
 		return cds;
 	}
 
-	public SearchFielComponentDescription getComponentDescription(SearchFieldOperator operator) {
+	public SearchFieldComponentDescription getComponentDescription(SearchFieldOperator operator) {
 		return componentDescriptions.get(operator);
 	}
 
@@ -199,7 +199,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		private Class<?> fieldType;
 		private Class<? extends Component> componentClass;
 		private SearchFieldComponentLifecycle componentLifecycle;
-		private final Map<SearchFieldOperator, SearchFielComponentDescription> componentDescriptions = new HashMap<>();
+		private final Map<SearchFieldOperator, SearchFieldComponentDescription> componentDescriptions = new HashMap<>();
 
 		private Builder() {
 		}
@@ -228,7 +228,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		public Builder withComponent(Class<? extends Component> componentClass,
 				SearchFieldComponentLifecycle componentLifecycle, SearchFieldOperator... operators) {
 			for (SearchFieldOperator operator : operators) {
-				this.componentDescriptions.put(operator, new SearchFielComponentDescription(componentClass, componentLifecycle));
+				this.componentDescriptions.put(operator, new SearchFieldComponentDescription(componentClass, componentLifecycle));
 			}
 			return this;
 		}
@@ -236,7 +236,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		public Builder withComponentExcludeOperators(Class<? extends Component> componentClass,
 				SearchFieldComponentLifecycle componentLifecycle, SearchFieldOperator... excludeOperators) {
 			for (SearchFieldOperator operator : ArrayUtils.removeElements(SearchFieldOperator.values(), excludeOperators)) {
-				this.componentDescriptions.put(operator, new SearchFielComponentDescription(componentClass, componentLifecycle));
+				this.componentDescriptions.put(operator, new SearchFieldComponentDescription(componentClass, componentLifecycle));
 			}
 			return this;
 		}

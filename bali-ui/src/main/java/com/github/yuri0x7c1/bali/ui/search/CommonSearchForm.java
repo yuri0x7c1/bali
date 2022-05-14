@@ -229,7 +229,7 @@ public class CommonSearchForm extends Card {
 	private void createFieldComponent(SearchFieldComponentDescriptor descriptor, SearchFieldOperator operator, Object value) {
 		Component component = null;
 		try {
-			SearchFielComponentDescription description = descriptor.getComponentDescription(operator);
+			SearchFieldComponentDescription description = descriptor.getComponentDescription(operator);
 			if (SearchFieldComponentLifecycle.NON_MANAGED.equals(description.getComponentLifecycle())) {
 				component = description.getComponentClass().getDeclaredConstructor().newInstance();
 			}

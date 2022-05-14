@@ -24,14 +24,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public class SearchFielComponentDescription {
+public class SearchFieldComponentDescription {
 	@Getter
 	private final Class<? extends Component> componentClass;
 
 	@Getter
 	private final SearchFieldComponentLifecycle componentLifecycle;
 
-	public SearchFielComponentDescription(Class<? extends Component> componentClass) {
+	public SearchFieldComponentDescription(Class<? extends Component> componentClass) {
 		super();
 		this.componentClass = componentClass;
 		this.componentLifecycle = NON_MANAGED;
