@@ -47,8 +47,8 @@ import com.vaadin.ui.MenuBar.MenuItem;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DateTimeRangeField extends CustomField<List<LocalDateTime>> {
 	private final I18N i18n;
-	private final DateTimeField startDateTimeField;
-	private final DateTimeField endDateTimeField;
+	private final LocalDateTimeField startDateTimeField;
+	private final LocalDateTimeField endDateTimeField;
 	private final MenuBar optionsMenu;
 
 	public DateTimeRangeField() {
@@ -59,11 +59,11 @@ public class DateTimeRangeField extends CustomField<List<LocalDateTime>> {
 	public DateTimeRangeField(I18N i18n) {
 		this.i18n = i18n;
 
-		startDateTimeField = new DateTimeField(i18n);
+		startDateTimeField = new LocalDateTimeField(i18n);
 		startDateTimeField.setWidth(190, Unit.PIXELS);
 		startDateTimeField.setPlaceholder(i18n.get("From"));
 
-		endDateTimeField = new DateTimeField(i18n);
+		endDateTimeField = new LocalDateTimeField(i18n);
 		endDateTimeField.setWidth(190, Unit.PIXELS);
 		endDateTimeField.setPlaceholder(i18n.get("To"));
 

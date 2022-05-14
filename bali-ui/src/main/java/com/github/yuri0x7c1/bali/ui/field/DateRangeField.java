@@ -42,8 +42,8 @@ import com.vaadin.ui.CustomField;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DateRangeField extends CustomField<List<LocalDate>> {
 	private final I18N i18n;
-	private final DateField startDateField;
-	private final DateField endDateField;
+	private final LocalDateField startDateField;
+	private final LocalDateField endDateField;
 
 	public DateRangeField() {
 		this(ApplicationContextProvider.getContext().getBean(I18N.class));
@@ -53,11 +53,11 @@ public class DateRangeField extends CustomField<List<LocalDate>> {
 	public DateRangeField(I18N i18n) {
 		this.i18n = i18n;
 
-		startDateField = new DateField(i18n);
+		startDateField = new LocalDateField(i18n);
 		startDateField.setWidth(120, Unit.PIXELS);
 		startDateField.setPlaceholder(i18n.get("From"));
 
-		endDateField = new DateField(i18n);
+		endDateField = new LocalDateField(i18n);
 		endDateField.setWidth(120, Unit.PIXELS);
 		endDateField.setPlaceholder(i18n.get("To"));
 	}

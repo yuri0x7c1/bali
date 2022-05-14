@@ -41,7 +41,7 @@ import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.ui.field.BigDecimalField;
 import com.github.yuri0x7c1.bali.ui.field.BigIntegerField;
 import com.github.yuri0x7c1.bali.ui.field.BooleanField;
-import com.github.yuri0x7c1.bali.ui.field.DateField;
+import com.github.yuri0x7c1.bali.ui.field.LocalDateField;
 import com.github.yuri0x7c1.bali.ui.field.DateRangeField;
 import com.github.yuri0x7c1.bali.ui.field.DateTimeRangeField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
@@ -166,7 +166,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 				else if (IN.equals(operator)) {
 				}
 				else {
-					cds.put(operator, new SearchFieldComponentDescription(DateField.class));
+					cds.put(operator, new SearchFieldComponentDescription(LocalDateField.class));
 				}
 			}
 		}

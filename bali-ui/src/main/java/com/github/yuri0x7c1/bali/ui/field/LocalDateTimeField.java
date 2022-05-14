@@ -31,20 +31,20 @@ import com.vaadin.spring.annotation.SpringComponent;
  */
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class DateTimeField extends com.vaadin.ui.DateTimeField {
+public class LocalDateTimeField extends com.vaadin.ui.DateTimeField {
 	private final I18N i18n;
 
-	public DateTimeField() {
+	public LocalDateTimeField() {
 		this(ApplicationContextProvider.getContext().getBean(I18N.class));
 	}
 
-	public DateTimeField(String caption) {
+	public LocalDateTimeField(String caption) {
 		this(ApplicationContextProvider.getContext().getBean(I18N.class));
 		setCaption(caption);
 	}
 
 	@Autowired
-	public DateTimeField(I18N i18n) {
+	public LocalDateTimeField(I18N i18n) {
 		this.i18n = i18n;
 		setDateFormat(i18n.getDateTimeFormat());
 	}
