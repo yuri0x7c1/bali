@@ -169,7 +169,7 @@ public class CommonSearchForm extends Card {
 		.withVisible(SearchMode.ADVANCED.equals(searchMode));
 
 		// initialize clear all button
-		clearAllButton = new MButton(VaadinIcons.CLOSE, "Search.clearAll", e -> {
+		clearAllButton = new MButton(VaadinIcons.CLOSE, i18n.get("Search.clearAll"), e -> {
 			for (SearchFieldComponent c : fieldComponents) {
 				c.clearValue();
 			}

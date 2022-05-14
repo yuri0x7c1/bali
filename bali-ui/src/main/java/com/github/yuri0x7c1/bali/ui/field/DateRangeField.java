@@ -55,11 +55,11 @@ public class DateRangeField extends CustomField<List<LocalDate>> {
 
 		startDateField = new DateField(i18n);
 		startDateField.setWidth(120, Unit.PIXELS);
-		startDateField.setPlaceholder(i18n.get("startDate"));
+		startDateField.setPlaceholder(i18n.get("From"));
 
 		endDateField = new DateField(i18n);
 		endDateField.setWidth(120, Unit.PIXELS);
-		endDateField.setPlaceholder(i18n.get("endDate"));
+		endDateField.setPlaceholder(i18n.get("To"));
 	}
 
 	@Override

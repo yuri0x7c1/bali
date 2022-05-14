@@ -61,11 +61,11 @@ public class DateTimeRangeField extends CustomField<List<LocalDateTime>> {
 
 		startDateTimeField = new DateTimeField(i18n);
 		startDateTimeField.setWidth(190, Unit.PIXELS);
-		startDateTimeField.setPlaceholder(i18n.get("startDateTime"));
+		startDateTimeField.setPlaceholder(i18n.get("From"));
 
 		endDateTimeField = new DateTimeField(i18n);
 		endDateTimeField.setWidth(190, Unit.PIXELS);
-		endDateTimeField.setPlaceholder(i18n.get("endDateTime"));
+		endDateTimeField.setPlaceholder(i18n.get("To"));
 
 		optionsMenu = new MenuBar();
 		MenuItem optionsItem = optionsMenu.addItem("", VaadinIcons.CALENDAR_CLOCK, null);

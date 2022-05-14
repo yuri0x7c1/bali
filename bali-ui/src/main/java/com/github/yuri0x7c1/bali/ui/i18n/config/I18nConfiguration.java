@@ -50,6 +50,11 @@ public class I18nConfiguration {
 		return new ResourceBundleMessageProvider("messages");
 	}
 
+	@Bean
+	MessageProvider baliMessageProvider() {
+		return new ResourceBundleMessageProvider("bali_messages");
+	}
+
     @Bean
     MessageProviderCacheCleanupExecutor messageProviderCacheCleanupExecutor(Environment environment,
         CompositeMessageSource messageSource) {
