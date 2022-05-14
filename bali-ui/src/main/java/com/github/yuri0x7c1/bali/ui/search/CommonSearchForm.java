@@ -87,6 +87,8 @@ public class CommonSearchForm extends Card {
 
 	private MButton searchButton;
 
+	private MButton clearAllButton;
+
 	private SearchMode searchMode = SearchMode.SIMPLE;
 
 	private MCheckBox searchModeCheckBox;
@@ -99,7 +101,7 @@ public class CommonSearchForm extends Card {
 		this.ctx = ctx;
 		this.i18n = i18n;
 
-		setHeaderText(i18n.get("Search"));
+		setHeaderText(i18n.get("Search.searchParams"));
 		setHeaderMargin(true);
 		setWidthFull();
 		addStyleName(BaliStyle.COMMON_SEARCH_FORM);
@@ -166,6 +168,13 @@ public class CommonSearchForm extends Card {
 		.withIcon(VaadinIcons.PLUS)
 		.withVisible(SearchMode.ADVANCED.equals(searchMode));
 
+		// initialize clear all button
+		clearAllButton = new MButton(VaadinIcons.CLOSE, "Search.clearAll", e -> {
+			for (SearchFieldComponent c : fieldComponents) {
+				c.clearValue();
+			}
+		});
+
 		// initialize search mode checkbox
 		searchModeCheckBox = new MCheckBox(i18n.get("Search.advanced"), SearchMode.ADVANCED.equals(searchMode));
 		searchModeCheckBox.addValueChangeListener(event -> {
@@ -178,7 +187,7 @@ public class CommonSearchForm extends Card {
 			updateSearchMode();
 		});
 
-		addHeaderComponent(new MHorizontalLayout(searchModeCheckBox));
+		addHeaderComponent(new MHorizontalLayout(clearAllButton, searchModeCheckBox));
 		setContent(new MVerticalLayout(fieldLayout, new MHorizontalLayout(searchButton, addFieldButton)));
 
 	}
