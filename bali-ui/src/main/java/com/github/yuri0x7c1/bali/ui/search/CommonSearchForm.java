@@ -230,11 +230,17 @@ public class CommonSearchForm extends Card {
 		Component component = null;
 		try {
 			SearchFieldComponentDescription description = descriptor.getComponentDescription(operator);
-			if (SearchFieldComponentLifecycle.NON_MANAGED.equals(description.getComponentLifecycle())) {
-				component = description.getComponentClass().getDeclaredConstructor().newInstance();
+
+			if (description.getComponentSupplier() == null) {
+				if (SearchFieldComponentLifecycle.NON_MANAGED.equals(description.getComponentLifecycle())) {
+					component = description.getComponentClass().getDeclaredConstructor().newInstance();
+				}
+				else if (SearchFieldComponentLifecycle.MANAGED.equals(description.getComponentLifecycle())) {
+					component = ctx.getBean(description.getComponentClass());
+				}
 			}
-			else if (SearchFieldComponentLifecycle.MANAGED.equals(description.getComponentLifecycle())) {
-				component = ctx.getBean(description.getComponentClass());
+			else {
+				component = description.getComponentSupplier().get();
 			}
 		}
 		catch (Exception ex) {

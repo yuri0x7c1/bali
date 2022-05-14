@@ -18,12 +18,12 @@ package com.github.yuri0x7c1.bali.ui.search;
 
 import static com.github.yuri0x7c1.bali.ui.search.SearchFieldComponentLifecycle.NON_MANAGED;
 
+import java.util.function.Supplier;
+
 import com.vaadin.ui.Component;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
 public class SearchFieldComponentDescription {
 	@Getter
 	private final Class<? extends Component> componentClass;
@@ -31,9 +31,32 @@ public class SearchFieldComponentDescription {
 	@Getter
 	private final SearchFieldComponentLifecycle componentLifecycle;
 
+	@Getter
+	private final Supplier<? extends Component> componentSupplier;
+
 	public SearchFieldComponentDescription(Class<? extends Component> componentClass) {
 		super();
 		this.componentClass = componentClass;
 		this.componentLifecycle = NON_MANAGED;
+		this.componentSupplier = null;
 	}
+
+	public SearchFieldComponentDescription(Class<? extends Component> componentClass,
+			SearchFieldComponentLifecycle componentLifecycle) {
+		super();
+		this.componentClass = componentClass;
+		this.componentLifecycle = componentLifecycle;
+		this.componentSupplier = null;
+	}
+
+	public SearchFieldComponentDescription(Supplier<? extends Component> componentSupplier) {
+		super();
+		this.componentClass = null;
+		this.componentLifecycle = null;
+		this.componentSupplier = componentSupplier;
+	}
+
+
+
+
 }

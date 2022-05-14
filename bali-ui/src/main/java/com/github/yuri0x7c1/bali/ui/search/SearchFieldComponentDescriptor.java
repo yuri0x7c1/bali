@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -67,10 +68,6 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 	private final String caption;
 
 	private final Class<?> fieldType;
-
-	// private final Class<? extends Component> componentClass;
-
-	// private final SearchFieldComponentLifecycle componentLifecycle;
 
 	private final Map<SearchFieldOperator, SearchFieldComponentDescription> componentDescriptions = new LinkedHashMap<>();
 
@@ -197,8 +194,6 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		private String fieldName;
 		private String caption;
 		private Class<?> fieldType;
-		private Class<? extends Component> componentClass;
-		private SearchFieldComponentLifecycle componentLifecycle;
 		private final Map<SearchFieldOperator, SearchFieldComponentDescription> componentDescriptions = new HashMap<>();
 
 		private Builder() {
@@ -222,6 +217,13 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 
 		public Builder withFieldType(Class<?> fieldType) {
 			this.fieldType = fieldType;
+			return this;
+		}
+
+		public Builder withComponent(Supplier<? extends Component> componentSupplier, SearchFieldOperator... operators) {
+			for (SearchFieldOperator operator : operators) {
+				this.componentDescriptions.put(operator, new SearchFieldComponentDescription(componentSupplier));
+			}
 			return this;
 		}
 
