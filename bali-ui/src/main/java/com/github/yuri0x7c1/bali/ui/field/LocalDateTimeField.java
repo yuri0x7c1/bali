@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Scope;
 
 import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.vaadin.shared.ui.datefield.DateTimeResolution;
 import com.vaadin.spring.annotation.SpringComponent;
 
 /**
@@ -47,5 +48,6 @@ public class LocalDateTimeField extends com.vaadin.ui.DateTimeField {
 	public LocalDateTimeField(I18N i18n) {
 		this.i18n = i18n;
 		setDateFormat(i18n.getDateTimeFormat());
+		setResolution(DateTimeResolution.SECOND);
 	}
 }
