@@ -16,6 +16,8 @@
 
 package com.github.yuri0x7c1.bali.ui.search;
 
+import java.util.Collections;
+
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.fields.MTextField;
@@ -27,6 +29,7 @@ import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm.SearchMode;
 import com.vaadin.data.HasValue;
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.AbstractMultiSelect;
 import com.vaadin.ui.AbstractTextField;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.themes.ValoTheme;
@@ -107,6 +110,9 @@ public class SearchFieldComponent extends MPanel {
 			if (valueComponent instanceof HasValue) {
 				if (valueComponent instanceof AbstractTextField) {
 					((AbstractTextField)valueComponent).setValue("");
+				}
+				else if (valueComponent instanceof AbstractMultiSelect) {
+					((AbstractMultiSelect)valueComponent).setValue(Collections.EMPTY_SET);
 				}
 				else {
 					((HasValue)valueComponent).setValue(null);
