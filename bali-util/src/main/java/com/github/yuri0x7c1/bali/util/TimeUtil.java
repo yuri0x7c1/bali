@@ -136,7 +136,7 @@ public class TimeUtil {
 		if (TimePeriod.YESTERDAY.equals(timePeriod)) {
 			LocalDateTime dt = LocalDateTime.now().minusDays(1);
 			return Collections
-					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfDay(dt.minusDays(1)), getEndOfDay(dt.minusDays(1)) }));
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfDay(dt), getEndOfDay(dt) }));
 		}
 		else if (TimePeriod.CURRENT_WEEK.equals(timePeriod)) {
 			LocalDateTime dt = LocalDateTime.now();
@@ -146,7 +146,7 @@ public class TimeUtil {
 		else if (TimePeriod.PREVIOUS_WEEK.equals(timePeriod)) {
 			LocalDateTime dt = LocalDateTime.now().minusWeeks(1);
 			return Collections
-					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfWeek(dt.minusWeeks(1)), getEndOfWeek(dt.minusWeeks(1)) }));
+					.unmodifiableList(Arrays.asList(new LocalDateTime[] { getStartOfWeek(dt), getEndOfWeek(dt) }));
 		}
 		else if (TimePeriod.CURRENT_MONTH.equals(timePeriod)) {
 			LocalDateTime dt = LocalDateTime.now();
@@ -180,7 +180,7 @@ public class TimeUtil {
 		if (TimePeriod.YESTERDAY.equals(timePeriod)) {
 			ZonedDateTime dt = ZonedDateTime.now().minusDays(1);
 			return Collections
-					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfDay(dt.minusDays(1)), getEndOfDay(dt.minusDays(1)) }));
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfDay(dt), getEndOfDay(dt) }));
 		}
 		else if (TimePeriod.CURRENT_WEEK.equals(timePeriod)) {
 			ZonedDateTime dt = ZonedDateTime.now();
@@ -190,7 +190,7 @@ public class TimeUtil {
 		else if (TimePeriod.PREVIOUS_WEEK.equals(timePeriod)) {
 			ZonedDateTime dt = ZonedDateTime.now().minusWeeks(1);
 			return Collections
-					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfWeek(dt.minusWeeks(1)), getEndOfWeek(dt.minusWeeks(1)) }));
+					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfWeek(dt), getEndOfWeek(dt) }));
 		}
 		else if (TimePeriod.CURRENT_MONTH.equals(timePeriod)) {
 			ZonedDateTime dt = ZonedDateTime.now();
