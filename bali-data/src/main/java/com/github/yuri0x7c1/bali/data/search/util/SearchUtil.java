@@ -83,15 +83,27 @@ public class SearchUtil {
 						Predicate predicate = cb.equal(getPath(root, searchField.getName()), fieldValue);
 						predicates.add(predicate);
 					}
+					else if (SearchFieldOperator.LESS.equals(searchField.getOperator())) {
+						if (fieldValue instanceof Comparable) {
+							predicates.add(cb.lessThan((Expression) getPath(root, searchField.getName()),
+									(Comparable) fieldValue));
+						}
+					}
+					else if (SearchFieldOperator.LESS_OR_EQUAL.equals(searchField.getOperator())) {
+						if (fieldValue instanceof Comparable) {
+							predicates.add(cb.lessThanOrEqualTo((Expression) getPath(root, searchField.getName()),
+									(Comparable) fieldValue));
+						}
+					}
 					else if (SearchFieldOperator.GREATER.equals(searchField.getOperator())) {
 						if (fieldValue instanceof Comparable) {
 							predicates.add(cb.greaterThan((Expression) getPath(root, searchField.getName()),
 									(Comparable) fieldValue));
 						}
 					}
-					else if (SearchFieldOperator.LESS.equals(searchField.getOperator())) {
+					else if (SearchFieldOperator.GREATER_OR_EQUAL.equals(searchField.getOperator())) {
 						if (fieldValue instanceof Comparable) {
-							predicates.add(cb.lessThan((Expression) getPath(root, searchField.getName()),
+							predicates.add(cb.greaterThanOrEqualTo((Expression) getPath(root, searchField.getName()),
 									(Comparable) fieldValue));
 						}
 					}
