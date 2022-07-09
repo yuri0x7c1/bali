@@ -24,7 +24,7 @@ import com.vaadin.event.FieldEvents;
 /**
  * @author yuri0x7c1
  */
-public class ShortField extends AbstractNumberField<ShortField, Long> {
+public class ShortField extends AbstractNumberField<ShortField, Short> {
 
     public ShortField() {
         setSizeUndefined();
@@ -37,7 +37,7 @@ public class ShortField extends AbstractNumberField<ShortField, Long> {
     @Override
     protected void userInputToValue(String str) {
         if (StringUtils.isNotBlank(str)) {
-            value = Long.parseLong(str);
+            value = Short.parseShort(str);
         } else {
             value = null;
         }
@@ -54,7 +54,7 @@ public class ShortField extends AbstractNumberField<ShortField, Long> {
     }
 
     @Override
-    public Long getValue() {
+    public Short getValue() {
         return value;
     }
 
