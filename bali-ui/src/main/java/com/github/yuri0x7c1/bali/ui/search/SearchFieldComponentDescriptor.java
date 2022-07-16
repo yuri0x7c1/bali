@@ -41,10 +41,12 @@ import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.ui.field.BigDecimalField;
 import com.github.yuri0x7c1.bali.ui.field.BigIntegerField;
 import com.github.yuri0x7c1.bali.ui.field.BooleanField;
+import com.github.yuri0x7c1.bali.ui.field.ByteField;
 import com.github.yuri0x7c1.bali.ui.field.LocalDateField;
 import com.github.yuri0x7c1.bali.ui.field.LocalDateRangeField;
 import com.github.yuri0x7c1.bali.ui.field.LocalDateTimeRangeField;
 import com.github.yuri0x7c1.bali.ui.field.LongField;
+import com.github.yuri0x7c1.bali.ui.field.ShortField;
 import com.github.yuri0x7c1.bali.ui.field.ZonedDateTimeRangeField;
 import com.github.yuri0x7c1.bali.util.TextUtil;
 import com.vaadin.ui.Component;
@@ -101,6 +103,16 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 			if (fieldType.equals(String.class)) {
 				if (EQUAL.equals(operator) || NOT_EQUAL.equals(operator) || CONTAINS.equals(operator)) {
 					cds.put(operator, new SearchFieldComponentDescription(MTextField.class));
+				}
+			}
+			else if (fieldType.isAssignableFrom(Short.class)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
+					cds.put(operator, new SearchFieldComponentDescription(ShortField.class));
+				}
+			}
+			else if (fieldType.isAssignableFrom(Byte.class)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
+					cds.put(operator, new SearchFieldComponentDescription(ByteField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Integer.class)) {
