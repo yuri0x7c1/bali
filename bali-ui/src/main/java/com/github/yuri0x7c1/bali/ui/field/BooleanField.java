@@ -49,7 +49,7 @@ public class BooleanField extends ComboBox<Boolean> {
 		setItems(new Boolean[] {Boolean.TRUE, Boolean.FALSE});
 		setItemCaptionGenerator(item -> {
 			if (item != null) {
-				return i18n.get(String.valueOf(item));
+				return i18n.get(item);
 			}
 			return "";
 		});
