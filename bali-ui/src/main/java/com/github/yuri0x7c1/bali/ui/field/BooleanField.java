@@ -20,22 +20,28 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.vaadin.spring.i18n.I18N;
 
+import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.ComboBox;
-
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 
 /**
  *
  * @author yuri0x7c1
  *
  */
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @SpringComponent
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class BooleanField extends ComboBox<Boolean> {
-	I18N i18n;
+	private final I18N i18n;
+
+	public BooleanField() {
+		this(ApplicationContextProvider.getContext().getBean(I18N.class));
+	}
+
+	public BooleanField(String caption) {
+		this(ApplicationContextProvider.getContext().getBean(I18N.class));
+		setCaption(caption);
+	}
 
 	public BooleanField(I18N i18n) {
 		this.i18n = i18n;
