@@ -18,9 +18,9 @@ package com.github.yuri0x7c1.bali.ui.field;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
-import org.vaadin.spring.i18n.I18N;
 
 import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
+import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.ComboBox;
 
