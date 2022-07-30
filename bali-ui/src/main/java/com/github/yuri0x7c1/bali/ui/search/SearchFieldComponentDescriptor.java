@@ -86,8 +86,6 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 
 		componentDescriptions.putAll(getDefaultComponentDescriptions());
 		componentDescriptions.putAll(builder.componentDescriptions);
-
-		log.debug("!!! componentDescriptions : {}", componentDescriptions);
 	}
 
 	@Deprecated
