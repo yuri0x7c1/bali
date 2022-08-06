@@ -333,12 +333,20 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		searchForm.registerFieldComponent(fieldComponent);
 	}
 
-	public void addSearchField(String fieldName, SearchFieldOperator operator, Object value) {
-		searchForm.createFieldComponent(fieldName, operator, value);
+	public void addSearchField(String fieldName, SearchFieldOperator operator, Object[] params, Object value) {
+		searchForm.createFieldComponent(fieldName, operator, params, value);
 	}
-	
+
+	public void addSearchField(String fieldName, SearchFieldOperator operator, Object[] params) {
+		searchForm.createFieldComponent(fieldName, operator, params, null);
+	}
+
+	public void addSearchField(String fieldName, SearchFieldOperator operator, Object value) {
+		searchForm.createFieldComponent(fieldName, operator, new Object[0], value);
+	}
+
 	public void addSearchField(String fieldName, SearchFieldOperator operator) {
-		searchForm.createFieldComponent(fieldName, operator, null);
+		searchForm.createFieldComponent(fieldName, operator, new Object[0], null);
 	}
 
 	public void clearSearchFields() {

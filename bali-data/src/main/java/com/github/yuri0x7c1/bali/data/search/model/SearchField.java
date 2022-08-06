@@ -36,5 +36,14 @@ public class SearchField {
 
 	SearchFieldOperator operator;
 
+	Object[] params;
+
 	Object value;
+
+	public SearchField(String name, SearchFieldOperator operator, Object value) {
+		super();
+		this.name = name;
+		this.operator = operator;
+		this.value = value;
+	}
 }

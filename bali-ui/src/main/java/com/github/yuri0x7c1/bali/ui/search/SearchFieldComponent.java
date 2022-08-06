@@ -57,7 +57,12 @@ public class SearchFieldComponent extends MPanel {
 	@Getter
 	private final SearchFieldOperator operator;
 
+	@Getter
+	private final Object[] params;
+
 	private final MTextField operatorLabel;
+
+	private final MTextField param1Label;
 
 	private final Component valueComponent;
 
@@ -68,15 +73,22 @@ public class SearchFieldComponent extends MPanel {
 	@Getter
 	private SearchMode searchMode;
 
-	public SearchFieldComponent(I18N i18n, String name, String caption, SearchFieldOperator operator,
+	public SearchFieldComponent(I18N i18n, String name, String caption, SearchFieldOperator operator, Object[] params,
 			Component valueComponent, SearchMode searchMode) {
 		this.i18n = i18n;
 		this.name = name;
 		this.layout = new MHorizontalLayout().withMargin(true);
 		this.nameLabel = new MLabel(caption).withStyleName(NAME_LABEL_CSS_CLASS);
 		this.operator = operator;
+		this.params = params;
+
 		this.operatorLabel = new MTextField().withReadOnly(true)
 				.withValue(i18n.get(SearchFieldOperator.class.getSimpleName() + "." + operator.name()));
+		this.param1Label = new MTextField().withReadOnly(true).withVisible(false);
+		if (SearchFieldOperator.SPEC.equals(operator)) {
+			param1Label.setValue(String.valueOf(params[0]));
+			param1Label.setVisible(true);
+		}
 		this.valueComponent = valueComponent;
 		this.clearButton = new MButton(VaadinIcons.CLOSE, event -> clearValue())
 			.withStyleName(ValoTheme.BUTTON_BORDERLESS)
@@ -86,7 +98,7 @@ public class SearchFieldComponent extends MPanel {
 			.withDescription(i18n.get("Delete"));
 		setSearchMode(searchMode);
 
-		layout.add(nameLabel, operatorLabel, valueComponent, clearButton, closeButton);
+		layout.add(nameLabel, operatorLabel, param1Label, valueComponent, clearButton, closeButton);
 
 		addStyleName(FIELD_CSS_CLASS);
 		setWidthUndefined();
@@ -125,10 +137,14 @@ public class SearchFieldComponent extends MPanel {
 		this.searchMode = searchMode;
 		if (SearchMode.SIMPLE.equals(searchMode)) {
 			operatorLabel.setVisible(false);
+			param1Label.setVisible(false);
 			closeButton.setVisible(false);
 		}
 		else if (SearchMode.ADVANCED.equals(searchMode)) {
 			operatorLabel.setVisible(true);
+			if (SearchFieldOperator.SPEC.equals(operator)) {
+				param1Label.setVisible(true);
+			}
 			closeButton.setVisible(true);
 		}
 	}

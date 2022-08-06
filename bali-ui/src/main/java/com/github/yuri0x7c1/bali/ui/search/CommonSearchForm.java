@@ -19,6 +19,7 @@ package com.github.yuri0x7c1.bali.ui.search;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.commons.collections4.MapUtils;
@@ -119,7 +120,6 @@ public class CommonSearchForm extends Card {
 		operatorSelect = new ComboBox<SearchFieldOperator>();
 		operatorSelect.setItemCaptionGenerator(
 				item -> i18n.get(SearchFieldOperator.class.getSimpleName() + "." + item.name()));
-		operatorSelect.setEmptySelectionAllowed(false);
 		operatorSelect.setWidthFull();
 
 		// initialize field select
@@ -128,7 +128,14 @@ public class CommonSearchForm extends Card {
 		fieldSelect.setItemCaptionGenerator(fc -> fc.getCaption());
 		fieldSelect.setEmptySelectionAllowed(false);
 		fieldSelect.addValueChangeListener(event -> {
-			operatorSelect.setItems(event.getValue().getValidOperators());
+			Set<SearchFieldOperator> validOperators = event.getValue().getValidOperators();
+
+			// TODO: support spec operator with name
+			if (validOperators.contains(SearchFieldOperator.SPEC)) {
+				validOperators.remove(SearchFieldOperator.SPEC);
+			}
+
+			operatorSelect.setItems(validOperators);
 			operatorSelect.setSelectedItem(event.getValue().getValidOperators().iterator().next());
 		});
 
@@ -141,7 +148,7 @@ public class CommonSearchForm extends Card {
 					new MButton(VaadinIcons.CHECK, i18n.get("Add"), event -> {
 						SearchFieldComponentDescriptor d = fieldSelect.getValue();
 						if (d != null) {
-							createFieldComponent(d, operatorSelect.getValue(), null);
+							createFieldComponent(d, operatorSelect.getValue(), new Object[0], null);
 						}
 
 						addFieldWindow.close();
@@ -219,14 +226,14 @@ public class CommonSearchForm extends Card {
 				}
 			}
 			if (!isBlank) {
-				searchModel.getFields().add(new SearchField(fieldComponent.getName(), fieldComponent.getOperator(),
+				searchModel.getFields().add(new SearchField(fieldComponent.getName(), fieldComponent.getOperator(), fieldComponent.getParams(),
 						fieldComponent.getValue()));
 			}
 		}
 		return searchModel;
 	}
 
-	private void createFieldComponent(SearchFieldComponentDescriptor descriptor, SearchFieldOperator operator, Object value) {
+	private void createFieldComponent(SearchFieldComponentDescriptor descriptor, SearchFieldOperator operator, Object[] params, Object value) {
 		Component component = null;
 		try {
 			SearchFieldComponentDescription description = descriptor.getComponentDescription(operator);
@@ -253,7 +260,7 @@ public class CommonSearchForm extends Card {
 		}
 
 		SearchFieldComponent fieldComponent = new SearchFieldComponent(i18n, descriptor.getFieldName(),
-				descriptor.getCaption(), operator, component, searchMode);
+				descriptor.getCaption(), operator, params, component, searchMode);
 		if (value != null) {
 			fieldComponent.setValue(value);
 		}
@@ -270,16 +277,16 @@ public class CommonSearchForm extends Card {
 		fieldLayout.add(fieldComponent);
 	}
 
-	public void createFieldComponent(String fieldName, SearchFieldOperator operator, Object value) {
+	public void createFieldComponent(String fieldName, SearchFieldOperator operator, Object[] params, Object value) {
 		SearchFieldComponentDescriptor d = fieldDescriptors.get(fieldName);
 		if (d == null) {
 			throw new RuntimeException(String.format("Descriptor for search field %s not found!", fieldName));
 		}
-		createFieldComponent(d, operator, value);
+		createFieldComponent(d, operator, params, value);
 	}
 
-	public void createFieldComponent(String  fieldName, SearchFieldOperator option) {
-		createFieldComponent(fieldName, option, null);
+	public void createFieldComponent(String fieldName, SearchFieldOperator operator) {
+		createFieldComponent(fieldName, operator, new Object[0], null);
 	}
 
 	public void clearFieldComponents() {

@@ -60,6 +60,10 @@ public class SearchUtil {
 	}
 
 	public static <T> Specification<T> buildSpecification(Class<T> entityType, SearchModel searchModel) {
+		return buildSpecification(entityType, searchModel, null);
+	}
+
+	public static <T> Specification<T> buildSpecification(Class<T> entityType, SearchModel searchModel, SearchSpecProvider<T> specProvider) {
 		if (CollectionUtils.isEmpty(searchModel.getFields()))
 			return null;
 
@@ -135,6 +139,10 @@ public class SearchUtil {
 						if (!(fieldValue instanceof Collection)) continue;
 						if (CollectionUtils.isEmpty((Collection) fieldValue)) continue;
 						Predicate predicate = getPath(root, searchField.getName()).in(fieldValue);
+						predicates.add(predicate);
+					}
+					else if (SearchFieldOperator.SPEC.equals(searchField.getOperator())) {
+						Predicate predicate = specProvider.getSpec((String) searchField.getParams()[0], searchField.getValue()).toPredicate(root, cq, cb);
 						predicates.add(predicate);
 					}
 				}

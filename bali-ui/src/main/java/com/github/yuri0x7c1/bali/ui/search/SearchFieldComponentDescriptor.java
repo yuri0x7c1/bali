@@ -104,37 +104,37 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 				}
 			}
 			else if (fieldType.isAssignableFrom(Short.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator) && !SPEC.equals(operator)) {
 					cds.put(operator, new SearchFieldComponentDescription(ShortField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Byte.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator) && !SPEC.equals(operator)) {
 					cds.put(operator, new SearchFieldComponentDescription(ByteField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Integer.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator) && !SPEC.equals(operator)) {
 					cds.put(operator, new SearchFieldComponentDescription(IntegerField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Long.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator) && !SPEC.equals(operator)) {
 					cds.put(operator, new SearchFieldComponentDescription(LongField.class));
 				}
 			}
 			else if (fieldType.isAssignableFrom(Double.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator) && !SPEC.equals(operator)) {
 					cds.put(operator, new SearchFieldComponentDescription(DoubleField.class));
 				}
 			}
 			else if (fieldType.equals(BigInteger.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator) && !SPEC.equals(operator)) {
 					cds.put(operator, new SearchFieldComponentDescription(BigIntegerField.class));
 				}
 			}
 			else if (fieldType.equals(BigDecimal.class)) {
-				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator)) {
+				if (!CONTAINS.equals(operator) && !INTERVAL.equals(operator) && !IN.equals(operator) && !SPEC.equals(operator)) {
 					cds.put(operator, new SearchFieldComponentDescription(BigDecimalField.class));
 				}
 			}

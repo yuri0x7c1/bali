@@ -30,5 +30,6 @@ public enum SearchFieldOperator {
 	GREATER_OR_EQUAL,
 	CONTAINS,
 	INTERVAL,
-	IN
+	IN,
+	SPEC
 }
