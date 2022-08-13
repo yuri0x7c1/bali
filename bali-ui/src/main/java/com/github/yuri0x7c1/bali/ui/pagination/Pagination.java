@@ -24,6 +24,8 @@ import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
 
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
+import com.jarektoro.responsivelayout.ResponsiveLayout;
+import com.jarektoro.responsivelayout.ResponsiveRow;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.icons.VaadinIcons;
@@ -40,8 +42,7 @@ import com.vaadin.ui.themes.ValoTheme;
  * Created by basakpie on 2017-05-18.
  * @author yuri0x7c1
  */
-@SuppressWarnings("unused")
-public class Pagination extends HorizontalLayout {
+public class Pagination extends ResponsiveLayout {
     final I18N i18n;
 
     final List<PaginationChangeListener> listeners = new ArrayList<>();
@@ -53,7 +54,7 @@ public class Pagination extends HorizontalLayout {
 
     final MLabel summaryLabel = new MLabel();
 
-    final ComboBox<Integer> itemsPerPageSelect = new ComboBox();
+    final ComboBox<Integer> itemsPerPageSelect = new ComboBox<>();
 
     final TextField currentPageTextField = new TextField(null, "1");
     final Label totalPageLabel = new Label();
@@ -67,7 +68,6 @@ public class Pagination extends HorizontalLayout {
     public Pagination(I18N i18n, PaginationResource paginationResource) {
     	this.i18n = i18n;
         setWidth("100%");
-        setSpacing(true);
 
 		firstButton = new MButton(VaadinIcons.ANGLE_DOUBLE_LEFT)
 			.withDescription(i18n.get("Pagination.first"))
@@ -86,19 +86,22 @@ public class Pagination extends HorizontalLayout {
     }
 
     protected void init(PaginationResource resource) {
-        if(getComponentCount()>0) {
-            removeAllComponents();
-        }
         paginationResource = resource;
         updateSummaryLabelValue();
         itemsPerPage = createItemsPerPage();
         pageControls = createPageControlFields();
-        addComponents(summaryLabel, itemsPerPage, pageControls);
+
+        ResponsiveRow row = addRow().withSpacing(true);
+        row.addColumn().withComponent(summaryLabel).withDisplayRules(6, 6, 4, 4);
+        row.addColumn().withCenteredComponent(itemsPerPage).withDisplayRules(6, 6, 4, 4);
+        row.addColumn().withRightAlignedComponent(pageControls).withDisplayRules(12, 12, 4, 4);
+        /*
         setComponentAlignment(itemsPerPage, Alignment.MIDDLE_CENTER);
         setComponentAlignment(pageControls, Alignment.MIDDLE_RIGHT);
         setExpandRatio(summaryLabel, 0.33f);
         setExpandRatio(itemsPerPage, 0.33f);
         setExpandRatio(pageControls, 0.33f);
+        */
         buttonsEnabled();
     }
 
@@ -159,11 +162,11 @@ public class Pagination extends HorizontalLayout {
     }
 
 	private void setItemsPerPageAlignment(Alignment alignment) {
-        setComponentAlignment(itemsPerPage, alignment);
+       // setComponentAlignment(itemsPerPage, alignment);
     }
 
     private void setPageControlsAlignment(Alignment alignment) {
-        setComponentAlignment(pageControls, alignment);
+        // setComponentAlignment(pageControls, alignment);
     }
 
     private HorizontalLayout createItemsPerPage() {
