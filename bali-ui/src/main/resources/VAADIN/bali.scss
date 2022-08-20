@@ -1,0 +1,185 @@
+/* view container */
+.bali-view-container {
+	overflow: auto;
+
+	// padding-left: 12px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+/* form */
+.bali-form {
+	width: 100%;
+	padding: 8px;
+
+	.v-widget:not(.v-button)  {
+		width: 100%! important;
+
+		.v-caption {
+			margin-top: 14px;
+		}
+
+		.v-captiontext {
+			font-weight: bold;
+		}
+	}
+
+	.bali-entity-picker {
+		width: 100%;
+
+		.v-textfield {
+			width: 80%;
+		}
+
+		.v-button {
+			width: 20%;
+		}
+	}
+
+	.bali-form-toolbar {
+		padding-top: 20px;
+	}
+}
+
+/* topbar */
+.bali-topbar {
+	width: 100%;
+	background-color: #404040;
+
+	.collapse-button {
+		display: inline-block;
+
+		.v-icon {
+			color: white;
+		}
+	}
+
+	.logout-button {
+		display: inline-block;
+		float: right;
+
+		.v-icon {
+			color: white;
+		}
+	}
+
+	.user-label {
+		width: auto !important;
+		display: inline-block;
+		float: right;
+		color: white;
+		margin-top: 6px;
+	}
+}
+/* Other */
+.bali-overflow-auto {
+	overflow: auto;
+}
+
+.bali-button-primary-fix {
+	min-width: 0 !important;
+}
+
+.bali-common-view {
+	overflow: auto !important;
+}
+
+.bali-common-search-form {
+	.field {
+		margin: 2px;
+		.label {
+			margin-top: 4px;
+			font-weight: bold;
+		}
+	}
+}
+
+
+$success-color: #2c9720;
+$warning-color: orange;
+$error-color: #ed473b;
+
+$success-color-light: lighten($success-color, 50%);
+$warning-color-light: lighten($warning-color, 40%);
+$error-color-light: lighten($error-color, 40%);
+
+$success-color-dark: darken($success-color, 20%);
+$warning-color-dark: darken($warning-color, 20%);
+$error-color-dark: darken($error-color, 20%);
+
+.bali-message-panel {
+	border: 2px solid;
+	border-radius: 4px;
+	.icon-label {
+		margin-left: 8px;
+		margin-right: 4px;
+	}
+	.close-button {
+		margin-top: 8px;
+	}
+}
+
+.bali-message-panel-success {
+	border-color: $success-color;
+	background-color: $success-color-light;
+	.icon-label {
+		color: $success-color-dark;
+	}
+	.message-label {
+		color: $success-color-dark;
+	}
+}
+
+.bali-message-panel-warning {
+	border-color: $warning-color;
+	background-color: $warning-color-light;
+	.icon-label {
+		color: $warning-color-dark;
+	}
+	.message-label {
+		color: $warning-color-dark;
+	}
+}
+
+.bali-message-panel-error {
+	border-color: $error-color;
+	background-color: $error-color-light;
+	.icon-label {
+		color: $error-color-dark;
+	}
+	.message-label {
+		color: $error-color-dark;
+	}
+}
+
+/* AppLayout */
+app-toolbar {
+	background-color: #222222 !important;
+	color: #eeeeee !important;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.app-bar-application-content  > .v-panel > .v-panel-content {
+	padding-left: 12px !important;
+	padding-right: 12px !important;
+}
+
+/* Extra Small */
+@media(min-width:480px){
+}
+
+/* Small */
+@media(min-width:768px){
+		}
+
+/* Medium */
+@media(min-width:992px){
+}
+
+/* Large */
+@media(min-width:1200px){
+}
+
+/* Extra large  */
+@media (min-width: 1600px) {
+}
