@@ -84,6 +84,7 @@ public abstract class EntityListView<T> extends CommonView {
 		// export button
 		exportButton = new DownloadButton()
 			.setFileNameProvider(() -> entityType.getSimpleName() + "_" + LocalDateTime.now() + "." + XlsxEntityExporter.XLSX_FILE_EXTENSION)
+			.setCacheTime(0)
 			.withCaption(i18n.get("Export"))
 			.withIcon(VaadinIcons.DOWNLOAD)
 			.withStyleName(ValoTheme.BUTTON_FRIENDLY)
