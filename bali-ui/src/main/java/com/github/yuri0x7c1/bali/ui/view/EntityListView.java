@@ -51,11 +51,13 @@ public abstract class EntityListView<T> extends CommonView {
 
 	final I18N i18n;
 
+	@Getter
 	final DownloadButton exportButton;
 
 	@Getter
 	final EntityDataGrid<T> dataGrid;
 
+	@Getter
 	final MButton createButton;
 
 	@Getter
