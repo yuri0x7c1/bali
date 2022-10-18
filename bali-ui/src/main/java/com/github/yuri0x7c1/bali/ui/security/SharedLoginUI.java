@@ -74,51 +74,6 @@ public class SharedLoginUI extends UI {
     protected void init(VaadinRequest request) {
         getPage().setTitle(i18n.get("Application.name"));
 
-        /*
-        FormLayout loginForm = new FormLayout();
-        loginForm.setSizeUndefined();
-
-        userName = new TextField("Username");
-        passwordField = new PasswordField("Password");
-        rememberMe = new CheckBox("Remember me");
-        login = new Button("Login");
-        loginForm.addComponent(userName);
-        loginForm.addComponent(passwordField);
-        loginForm.addComponent(rememberMe);
-        loginForm.addComponent(login);
-        login.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        login.setDisableOnClick(true);
-        login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        login.addClickListener(event -> login());
-
-        VerticalLayout loginLayout = new VerticalLayout();
-        loginLayout.setSpacing(true);
-        loginLayout.setSizeUndefined();
-
-        if (request.getParameter("logout") != null) {
-            loggedOutLabel = new Label("You have been logged out!");
-            loggedOutLabel.addStyleName(ValoTheme.LABEL_SUCCESS);
-            loggedOutLabel.setSizeUndefined();
-            loginLayout.addComponent(loggedOutLabel);
-            loginLayout.setComponentAlignment(loggedOutLabel, Alignment.BOTTOM_CENTER);
-        }
-
-        loginLayout.addComponent(loginFailedLabel = new Label());
-        loginLayout.setComponentAlignment(loginFailedLabel, Alignment.BOTTOM_CENTER);
-        loginFailedLabel.setSizeUndefined();
-        loginFailedLabel.addStyleName(ValoTheme.LABEL_FAILURE);
-        loginFailedLabel.setVisible(false);
-
-        loginLayout.addComponent(loginForm);
-        loginLayout.setComponentAlignment(loginForm, Alignment.TOP_CENTER);
-
-        VerticalLayout rootLayout = new VerticalLayout(loginLayout);
-        rootLayout.setSizeFull();
-        rootLayout.setComponentAlignment(loginLayout, Alignment.MIDDLE_CENTER);
-        setContent(rootLayout);
-        setSizeFull();
-        */
-
         Component loginForm = buildLoginForm(request);
         setContent(
         	new MVerticalLayout(
@@ -136,11 +91,10 @@ public class SharedLoginUI extends UI {
         loginLayout.addStyleName(ValoTheme.LAYOUT_CARD);
         loginLayout.setSizeUndefined();
         loginLayout.setMargin(true);
-        // Responsive.makeResponsive(loginPanel);
         loginLayout.addStyleName("bali-login-panel");
 
         if (request.getParameter("logout") != null) {
-            loggedOutLabel = new Label("You have been logged out!");
+            loggedOutLabel = new Label(i18n.get("Login.logoutMsg"));
             loggedOutLabel.addStyleName(ValoTheme.LABEL_SUCCESS);
             loggedOutLabel.setWidthFull();
             loginLayout.addComponent(loggedOutLabel);
@@ -156,7 +110,7 @@ public class SharedLoginUI extends UI {
 
         loginLayout.addComponent(buildLabels());
         loginLayout.addComponent(buildFields());
-        rememberMe = new CheckBox("Remember me", true);
+        rememberMe = new CheckBox(i18n.get("Login.rememberMe"), true);
         loginLayout.addComponent(rememberMe);
         return loginLayout;
     }
@@ -165,15 +119,15 @@ public class SharedLoginUI extends UI {
         HorizontalLayout fields = new HorizontalLayout();
         fields.addStyleName("fields");
 
-        username = new TextField("Username");
+        username = new TextField(i18n.get("Login.username"));
         username.setIcon(FontAwesome.USER);
         username.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-        password = new PasswordField("Password");
+        password = new PasswordField(i18n.get("Login.password"));
         password.setIcon(FontAwesome.LOCK);
         password.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-        login = new Button("Sign In");
+        login = new Button(i18n.get("Login.signIn"));
         login.addStyleName(ValoTheme.BUTTON_PRIMARY);
         login.setClickShortcut(KeyCode.ENTER);
         login.focus();
@@ -202,7 +156,7 @@ public class SharedLoginUI extends UI {
             username.focus();
             username.selectAll();
             password.setValue("");
-            loginFailedLabel.setValue(String.format("Login failed: %s", ex.getMessage()));
+            loginFailedLabel.setValue(i18n.get("Login.failedMsg", ex.getMessage()));
             loginFailedLabel.setVisible(true);
             if (loggedOutLabel != null) {
                 loggedOutLabel.setVisible(false);
