@@ -257,7 +257,12 @@ public class Pagination extends ResponsiveLayout {
             Integer.parseInt(currentPageTextField.getValue());
             int currentPage = Integer.valueOf(currentPageTextField.getValue());
             int pageNumber = paginationResource.page();
-            if (currentPage==pageNumber) return;
+            if (currentPage == pageNumber) {
+            	return;
+            }
+            else if (currentPage > paginationResource.totalPage()) {
+            	currentPage = paginationResource.totalPage();
+            }
             paginationResource.setPage(currentPage);
             firePagedChangedEvent();
         } catch (Exception e) {
