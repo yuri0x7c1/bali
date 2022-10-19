@@ -41,6 +41,7 @@ import com.github.yuri0x7c1.bali.data.search.model.SearchModel;
 import com.github.yuri0x7c1.bali.ui.card.Card;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.data.HasValue;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.ComboBox;
@@ -114,7 +115,8 @@ public class CommonSearchForm extends Card {
 			}
 		})
 		.withStyleName(ValoTheme.BUTTON_PRIMARY)
-		.withIcon(VaadinIcons.SEARCH);
+		.withIcon(VaadinIcons.SEARCH)
+		.withClickShortcut(KeyCode.ENTER);
 
 		// initialize operator select
 		operatorSelect = new ComboBox<SearchFieldOperator>();
