@@ -182,10 +182,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 			refresh();
 		});
 
-		UI.getCurrent().getPage().addBrowserWindowResizeListener(event -> {
-           grid.recalculateColumnWidths();
-        });
-
 		// pagination
 		pagination = new Pagination(
 			i18n,
