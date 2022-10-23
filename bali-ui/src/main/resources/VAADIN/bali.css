@@ -136,6 +136,11 @@ app-toolbar {
   padding-right: 12px !important;
 }
 
+/* disable grid cell focus */
+.v-grid-cell-focused:before {
+  display: none !important;
+}
+
 /* Extra Small */
 /* Small */
 /* Medium */
