@@ -200,6 +200,9 @@ public class EntityMultiPicker<T> extends CustomField<List<T>> {
         	new MHorizontalLayout(confirmButton, cancelButton))
         );
 
+		// refresh data grid
+		dataGrid.sortAndRefresh();
+
 		// set ordering and  default property set from data grid
 		orderProperty = dataGrid.getDefaultOrderProperty();
 		orderDirection = dataGrid.getDefaultOrderDirection();

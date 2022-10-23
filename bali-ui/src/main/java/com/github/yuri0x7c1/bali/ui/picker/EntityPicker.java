@@ -132,6 +132,8 @@ public abstract class EntityPicker<T> extends CustomField<T> {
         	dataGrid,
         	new MHorizontalLayout(confirmButton, cancelButton))
         );
+
+		dataGrid.sortAndRefresh();
 	}
 
 	@Override

@@ -30,6 +30,7 @@ import com.github.yuri0x7c1.bali.ui.handler.CreateHandler;
 import com.github.yuri0x7c1.bali.ui.handler.DeleteHandler;
 import com.github.yuri0x7c1.bali.ui.handler.EditHandler;
 import com.github.yuri0x7c1.bali.ui.handler.ShowHandler;
+import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -150,6 +151,6 @@ public abstract class EntityListView<T> extends CommonView {
 
 	@Override
 	public void onEnter() {
-		dataGrid.refresh();
+		dataGrid.sortAndRefresh();
 	}
 }

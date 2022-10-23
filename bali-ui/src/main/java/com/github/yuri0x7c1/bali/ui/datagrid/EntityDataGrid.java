@@ -50,7 +50,6 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.Registration;
 import com.vaadin.ui.Grid.Column;
 import com.vaadin.ui.Grid.SelectionMode;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.components.grid.GridSelectionModel;
 import com.vaadin.ui.components.grid.ItemClickListener;
 import com.vaadin.ui.themes.ValoTheme;
@@ -291,6 +290,10 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		grid.getDataProvider().refreshAll();
 	}
 
+	public void sortAndRefresh() {
+		grid.sort(orderProperty, UiUtil.convertDirection(orderDirection));
+	}
+
 	public void refreshColumns() {
 		grid.removeAllColumns();
 		for (EntityProperty<T> property : properties) {
@@ -303,7 +306,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 			}
 		}
 		refreshActionsColumn();
-		grid.sort(orderProperty, UiUtil.convertDirection(orderDirection));
 	}
 
 	public List<EntityProperty<T>> getProperties() {
