@@ -259,6 +259,13 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         }
 	}
 
+	public void setHandlers(ShowHandler<T> showHandler, EditHandler<T> editHandler, DeleteHandler<T> deleteHandler) {
+		this.showHandler = showHandler;
+		this.editHandler = editHandler;
+		this.deleteHandler = deleteHandler;
+		refreshActionsColumn();
+	}
+
 	public void setShowHandler(ShowHandler<T> showHandler) {
 		this.showHandler = showHandler;
 		refreshActionsColumn();
