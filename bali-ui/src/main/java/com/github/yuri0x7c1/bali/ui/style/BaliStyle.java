@@ -43,14 +43,18 @@ public class BaliStyle {
 	public static final String BUTTON_PRIMARY_FIX = "bali-button-primary-fix";
 
 	public static final String COMMON_VIEW = "bali-common-view";
-	
+
 	public static final String COMMON_SEARCH_FORM = "bali-common-search-form";
 
 	public static final String MESSAGE_PANEL = "bali-message-panel";
 
 	public static final String MESSAGE_PANEL_SUCCESS = "bali-message-panel-success";
-	
+
 	public static final String MESSAGE_PANEL_WARNING = "bali-message-panel-warning";
-	
+
 	public static final String MESSAGE_PANEL_ERROR = "bali-message-panel-error";
+
+	public static final String ENTITY_DATA_GRID = "bali-entity-data-grid";
+
+	public static final String ACTION_BUTTON = "action-button";
 }

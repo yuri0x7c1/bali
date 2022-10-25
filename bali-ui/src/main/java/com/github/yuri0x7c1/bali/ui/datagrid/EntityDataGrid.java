@@ -29,6 +29,7 @@ import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.ConfirmButton;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.grid.MGrid;
+import org.vaadin.viritin.layouts.MCssLayout;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MPanel;
 import org.vaadin.viritin.layouts.MVerticalLayout;
@@ -47,7 +48,7 @@ import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.data.provider.DataProvider;
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.shared.Registration;
+import com.vaadin.shared.Registration;import com.vaadin.ui.StyleGenerator;
 import com.vaadin.ui.Grid.Column;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.components.grid.GridSelectionModel;
@@ -156,6 +157,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 		setSizeFull();
 		setMargin(false);
+		addStyleName(BaliStyle.ENTITY_DATA_GRID);
 
 		// search form
 		searchForm.setSearchHandler(() -> refresh());
@@ -219,14 +221,17 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         	if (grid.getColumn(ACTIONS_COLUMN_ID) != null) {
         		grid.removeColumn(ACTIONS_COLUMN_ID);
         	}
-        	Column<T, MHorizontalLayout> c = grid.addComponentColumn(entity -> {
-        		MHorizontalLayout l = new MHorizontalLayout().withFullWidth();
+        	Column<T, MCssLayout> c = grid.addComponentColumn(entity -> {
+        		MCssLayout l = new MCssLayout().withFullWidth();
         		if (showHandler != null) {
         			MButton show = new MButton(VaadinIcons.EYE, event -> {
         				showHandler.onShow(entity);
         			})
         			.withDescription(i18n.get("Show"))
-					.withStyleName(ValoTheme.BUTTON_SMALL);
+					.withStyleName(
+						BaliStyle.ACTION_BUTTON,
+						ValoTheme.BUTTON_SMALL
+					);
         			l.add(show);
         		}
         		if (editHandler != null) {
@@ -235,6 +240,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         			})
 					.withDescription(i18n.get("Edit"))
 					.withStyleName(
+						BaliStyle.ACTION_BUTTON,
 						BaliStyle.BUTTON_PRIMARY_FIX,
 						ValoTheme.BUTTON_PRIMARY,
 						ValoTheme.BUTTON_SMALL
@@ -247,7 +253,11 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         				refresh();
         			})
 					.withDescription(i18n.get("Delete"))
-					.withStyleName(ValoTheme.BUTTON_DANGER, ValoTheme.BUTTON_SMALL);
+					.withStyleName(
+						BaliStyle.ACTION_BUTTON,
+						ValoTheme.BUTTON_DANGER,
+						ValoTheme.BUTTON_SMALL
+					);
         			l.add(delete);
         		}
         		return l;

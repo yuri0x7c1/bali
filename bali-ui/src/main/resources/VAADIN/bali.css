@@ -136,8 +136,12 @@ app-toolbar {
   padding-right: 12px !important;
 }
 
-/* disable grid cell focus */
-.v-grid-cell-focused:before {
+/* EntityDataGrid */
+.bali-entity-data-grid .action-button {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.bali-entity-data-grid .v-grid-cell-focused:before {
   display: none !important;
 }
 
