@@ -16,7 +16,7 @@
 
 package com.github.yuri0x7c1.bali.ui.view;
 
-import org.vaadin.viritin.layouts.MVerticalLayout;
+import org.vaadin.viritin.layouts.MCssLayout;
 
 import com.github.yuri0x7c1.bali.data.message.CommonMessages;
 import com.github.yuri0x7c1.bali.ui.header.Header;
@@ -38,7 +38,7 @@ import lombok.experimental.FieldDefaults;
  *
  */
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public abstract class CommonView extends MVerticalLayout implements View {
+public abstract class CommonView extends MCssLayout implements View {
 
  	final Header header;
 
@@ -49,7 +49,7 @@ public abstract class CommonView extends MVerticalLayout implements View {
  	final MessagePanel errorMessagePanel;
 
 	public CommonView() {
-		setMargin(false);
+		setWidthFull();
 		addStyleName(BaliStyle.COMMON_VIEW);
 
 		header = new Header();
