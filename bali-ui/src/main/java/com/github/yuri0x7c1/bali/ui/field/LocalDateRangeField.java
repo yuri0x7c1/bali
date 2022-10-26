@@ -25,10 +25,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
-import org.vaadin.viritin.layouts.MHorizontalLayout;
+import org.vaadin.viritin.layouts.MCssLayout;
 
 import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
@@ -60,11 +61,14 @@ public class LocalDateRangeField extends CustomField<List<LocalDate>> {
 		endDateField = new LocalDateField(i18n);
 		endDateField.setWidth(120, Unit.PIXELS);
 		endDateField.setPlaceholder(i18n.get("To"));
+
+		addStyleName(BaliStyle.TEMPORAL_RANGE_FIELD);
+		setWidthUndefined();
 	}
 
 	@Override
 	protected Component initContent() {
-		return new MHorizontalLayout(startDateField, endDateField);
+		return new MCssLayout(startDateField, endDateField);
 	}
 
 	@Override

@@ -18,10 +18,11 @@ package com.github.yuri0x7c1.bali.ui.field;
 
 import java.util.List;
 
-import org.vaadin.viritin.layouts.MHorizontalLayout;
+import org.vaadin.viritin.layouts.MCssLayout;
 
 import com.github.yuri0x7c1.bali.context.ApplicationContextProvider;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.util.TimePeriod;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Component;
@@ -63,12 +64,15 @@ public abstract class AbstractDateTimeRangeField<T> extends CustomField<List<T>>
 				doSetValue(getTimePeriodValues(timePeriod));
 			});
 		}
+
+		addStyleName(BaliStyle.TEMPORAL_RANGE_FIELD);
+		setWidthUndefined();
 	}
 
 	protected abstract List<T> getTimePeriodValues(TimePeriod timePeriod);
 
 	@Override
 	protected Component initContent() {
-		return new MHorizontalLayout(startDateTimeField, endDateTimeField, optionsMenu);
+		return new MCssLayout(startDateTimeField, endDateTimeField, optionsMenu);
 	}
 }

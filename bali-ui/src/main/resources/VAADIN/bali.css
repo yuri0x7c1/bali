@@ -72,11 +72,16 @@
 }
 
 .bali-common-search-form .field {
+  padding: 11px;
   margin: 2px;
 }
 .bali-common-search-form .field .label {
   margin-top: 4px;
   font-weight: bold;
+}
+.bali-common-search-form .field > .v-widget {
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .bali-message-panel {
@@ -148,6 +153,11 @@ app-toolbar {
 }
 .bali-entity-data-grid .v-grid-cell-focused:before {
   display: none !important;
+}
+
+.bali-temporal-range-field .v-widget {
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 /* Extra Small */

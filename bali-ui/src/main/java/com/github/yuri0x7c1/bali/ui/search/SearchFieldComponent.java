@@ -22,8 +22,8 @@ import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.fields.MTextField;
 import org.vaadin.viritin.label.MLabel;
+import org.vaadin.viritin.layouts.MCssLayout;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
-import org.vaadin.viritin.layouts.MPanel;
 
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm.SearchMode;
@@ -41,7 +41,7 @@ import lombok.Getter;
  * @author yuri0x7c1
  *
  */
-public class SearchFieldComponent extends MPanel {
+public class SearchFieldComponent extends MCssLayout {
 	public static final String FIELD_CSS_CLASS = "field";
 	public static final String NAME_LABEL_CSS_CLASS = "label";
 
@@ -49,8 +49,6 @@ public class SearchFieldComponent extends MPanel {
 
     @Getter
     private final String name;
-
-	private final MHorizontalLayout layout;
 
 	private final MLabel nameLabel;
 
@@ -77,7 +75,6 @@ public class SearchFieldComponent extends MPanel {
 			Component valueComponent, SearchMode searchMode) {
 		this.i18n = i18n;
 		this.name = name;
-		this.layout = new MHorizontalLayout().withMargin(true);
 		this.nameLabel = new MLabel(caption).withStyleName(NAME_LABEL_CSS_CLASS);
 		this.operator = operator;
 		this.params = params;
@@ -98,11 +95,10 @@ public class SearchFieldComponent extends MPanel {
 			.withDescription(i18n.get("Delete"));
 		setSearchMode(searchMode);
 
-		layout.add(nameLabel, operatorLabel, param1Label, valueComponent, clearButton, closeButton);
+		add(nameLabel, operatorLabel, param1Label, valueComponent, clearButton, closeButton);
 
-		addStyleName(FIELD_CSS_CLASS);
+		addStyleNames(ValoTheme.LAYOUT_CARD, FIELD_CSS_CLASS);
 		setWidthUndefined();
-		setContent(layout);
 	}
 
 	public void setCloseHandler(Runnable closeHandler) {
