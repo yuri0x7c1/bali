@@ -72,7 +72,7 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
-	private static final int ACTION_BUTTON_WIDTH = 43;
+	private static final int ACTION_BUTTON_WIDTH = 38;
 
 	public static final String ACTIONS_COLUMN_ID = "_actions";
 
@@ -211,9 +211,9 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	}
 
 	private int calculateActionsColumnWidth() {
-		return 32 + (showHandler != null ? ACTION_BUTTON_WIDTH : 0)
-				 + (editHandler != null ? ACTION_BUTTON_WIDTH : 0)
-				 + (deleteHandler != null ? ACTION_BUTTON_WIDTH : 0);
+		int buttonCount = (showHandler != null ? 1 : 0) + (editHandler != null ? 1 : 0) + (deleteHandler != null ? 1 : 0);
+		if (buttonCount == 0) return 8;
+		return 8 + buttonCount*ACTION_BUTTON_WIDTH + (buttonCount-1)*4;
 	}
 
 	private void refreshActionsColumn() {
@@ -265,6 +265,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         	c.setId(ACTIONS_COLUMN_ID);
         	c.setWidth(calculateActionsColumnWidth());
         	c.setSortable(false);
+        	c.setStyleGenerator(item -> BaliStyle.ACTION_CELL);
         	grid.setColumnOrder(c);
         }
 	}

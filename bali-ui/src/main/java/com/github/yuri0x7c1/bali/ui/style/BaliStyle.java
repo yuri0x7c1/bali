@@ -56,5 +56,7 @@ public class BaliStyle {
 
 	public static final String ENTITY_DATA_GRID = "bali-entity-data-grid";
 
+	public static final String ACTION_CELL = "action-cell";
+
 	public static final String ACTION_BUTTON = "action-button";
 }

@@ -166,10 +166,15 @@ app-toolbar {
 
 /* EntityDataGrid */
 .bali-entity-data-grid {
-	.action-button {
-		width: 38px;
-		margin-left: 2px;
-		margin-right: 2px;
+	.action-cell {
+		padding-left: 2px;
+		padding-right: 2px;
+
+		.action-button {
+			width: 38px;
+			margin-left: 2px;
+			margin-right: 2px;
+		}
 	}
 
 	.v-grid-cell-focused:before {
