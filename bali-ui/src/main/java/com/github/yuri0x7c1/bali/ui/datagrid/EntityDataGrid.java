@@ -32,6 +32,7 @@ import org.vaadin.viritin.grid.MGrid;
 import org.vaadin.viritin.layouts.MCssLayout;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MPanel;
+import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
@@ -69,7 +70,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public abstract class EntityDataGrid<T> extends MCssLayout {
+public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	private static final int ACTION_BUTTON_WIDTH = 38;
 
@@ -155,6 +156,7 @@ public abstract class EntityDataGrid<T> extends MCssLayout {
 		this.orderDirection = defaultOrderDirection;
 
 		setSizeFull();
+		setMargin(false);
 		addStyleName(BaliStyle.ENTITY_DATA_GRID);
 
 		// search form
