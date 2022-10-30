@@ -175,8 +175,8 @@ app-toolbar {
 /* EntityDataGrid */
 .bali-entity-data-grid {
 	.action-cell {
-		padding-left: 2px;
-		padding-right: 2px;
+		padding-left: 2px !important;
+		padding-right: 2px !important;
 
 		.action-button {
 			width: 38px;
