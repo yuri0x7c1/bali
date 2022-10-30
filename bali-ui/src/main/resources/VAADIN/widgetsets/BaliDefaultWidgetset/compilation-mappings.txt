@@ -1,4 +1,4 @@
-5DC0DB9DF80AA4FE4B6342A6D9F6E909.cache.js
+6CFC228AA821427FBE84769BBFC2CA7C.cache.js
 ClientBundle.enableInlining true
 audioElementSupport maybe
 canvasElementSupport maybe
@@ -41,7 +41,7 @@ vaadin.profiler false
 videoElementSupport maybe
 webApiUsage modern
 
-5DC0DB9DF80AA4FE4B6342A6D9F6E909.cache.js
+6CFC228AA821427FBE84769BBFC2CA7C.cache.js
 ClientBundle.enableInlining true
 audioElementSupport maybe
 canvasElementSupport maybe
@@ -84,7 +84,7 @@ vaadin.profiler false
 videoElementSupport maybe
 webApiUsage modern
 
-5DC0DB9DF80AA4FE4B6342A6D9F6E909.cache.js
+6CFC228AA821427FBE84769BBFC2CA7C.cache.js
 ClientBundle.enableInlining true
 audioElementSupport maybe
 canvasElementSupport maybe
