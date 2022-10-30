@@ -66,17 +66,13 @@ public class EntityEditView<T, P> extends ParametrizedView<P> {
 
 		setHeaderText(this.getClass().getSimpleName());
 
-		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back"), e -> {
-			entityForm.setEntity(null);
-			UiUtil.back();
-		}));
+		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back"), e -> UiUtil.back()));
 
 		// form save handler
 		entityForm.setSavedHandler(e -> {
 			if (saveHandler != null) {
 				saveHandler.onSave(e);
 			}
-			entityForm.setEntity(null);
 			UiUtil.back();
 		});
 
@@ -85,7 +81,6 @@ public class EntityEditView<T, P> extends ParametrizedView<P> {
 			if (cancelHandler != null) {
 				cancelHandler.onCancel(e);
 			}
-			entityForm.setEntity(null);
 			UiUtil.back();
 		});
 
@@ -100,5 +95,10 @@ public class EntityEditView<T, P> extends ParametrizedView<P> {
 				entityForm.setEntity(entity);
 			}
 		}
+	}
+
+	@Override
+	public void onBeforeLeave() {
+		entityForm.setEntity(null);
 	}
 }

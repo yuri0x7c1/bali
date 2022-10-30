@@ -26,6 +26,7 @@ import com.github.yuri0x7c1.bali.ui.message.MessagePanel.MessageType;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewBeforeLeaveEvent;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Component;
 
@@ -115,5 +116,13 @@ public abstract class CommonView extends MVerticalLayout implements View {
 		onEnter();
 	}
 
-	public void onEnter() {};
+	public void onEnter() {}
+
+	@Override
+	public void beforeLeave(ViewBeforeLeaveEvent event) {
+		View.super.beforeLeave(event);
+		onBeforeLeave();
+	}
+
+	public void onBeforeLeave() {}
 }

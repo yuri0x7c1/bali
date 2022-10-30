@@ -65,10 +65,7 @@ public class EntityCreateView<T> extends CommonView {
 
 		setHeaderText(this.getClass().getSimpleName());
 
-		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back"), e -> {
-			entityForm.setEntity(null);
-			UiUtil.back();
-		}));
+		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back"), e -> UiUtil.back()));
 
 		// default entity supplier
 		setEntitySupplier(() -> {
@@ -86,7 +83,6 @@ public class EntityCreateView<T> extends CommonView {
 			if (saveHandler != null) {
 				saveHandler.onSave(e);
 			}
-			entityForm.setEntity(null);
 			UiUtil.back();
 		});
 
@@ -95,7 +91,6 @@ public class EntityCreateView<T> extends CommonView {
 			if (cancelHandler != null) {
 				cancelHandler.onCancel(e);
 			}
-			entityForm.setEntity(null);
 			UiUtil.back();
 		});
 
@@ -108,5 +103,10 @@ public class EntityCreateView<T> extends CommonView {
 		if (entity != null) {
 			entityForm.setEntity(entity);
 		}
+	}
+
+	@Override
+	public void onBeforeLeave() {
+		entityForm.setEntity(null);
 	}
 }
