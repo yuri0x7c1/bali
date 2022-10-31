@@ -38,6 +38,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,18 +54,22 @@ import lombok.extern.slf4j.Slf4j;
 public class SharedLoginUI extends UI {
 
 	@NonNull
-	I18N i18n;
+	private I18N i18n;
 
     @NonNull
-    VaadinSharedSecurity vaadinSecurity;
+    private VaadinSharedSecurity vaadinSecurity;
 
-    private TextField username;
+    @Getter
+    private TextField usernameField;
 
-    private PasswordField password;
+    @Getter
+    private PasswordField passwordField;
 
-    private CheckBox rememberMe;
+    @Getter
+    private CheckBox rememberMeField;
 
-    private Button login;
+    @Getter
+    private Button loginButton;
 
     private Label loginFailedLabel;
 
@@ -110,8 +115,8 @@ public class SharedLoginUI extends UI {
 
         loginLayout.addComponent(buildLabels());
         loginLayout.addComponent(buildFields());
-        rememberMe = new CheckBox(i18n.get("Login.rememberMe"), true);
-        loginLayout.addComponent(rememberMe);
+        rememberMeField = new CheckBox(i18n.get("Login.rememberMe"), false);
+        loginLayout.addComponent(rememberMeField);
         return loginLayout;
     }
 
@@ -119,23 +124,23 @@ public class SharedLoginUI extends UI {
         HorizontalLayout fields = new HorizontalLayout();
         fields.addStyleName("fields");
 
-        username = new TextField(i18n.get("Login.username"));
-        username.setIcon(FontAwesome.USER);
-        username.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+        usernameField = new TextField(i18n.get("Login.username"));
+        usernameField.setIcon(FontAwesome.USER);
+        usernameField.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-        password = new PasswordField(i18n.get("Login.password"));
-        password.setIcon(FontAwesome.LOCK);
-        password.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+        passwordField = new PasswordField(i18n.get("Login.password"));
+        passwordField.setIcon(FontAwesome.LOCK);
+        passwordField.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-        login = new Button(i18n.get("Login.signIn"));
-        login.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        login.setClickShortcut(KeyCode.ENTER);
-        login.focus();
+        loginButton = new Button(i18n.get("Login.signIn"));
+        loginButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        loginButton.setClickShortcut(KeyCode.ENTER);
+        loginButton.focus();
 
-        fields.addComponents(username, password, login);
-        fields.setComponentAlignment(login, Alignment.BOTTOM_LEFT);
+        fields.addComponents(usernameField, passwordField, loginButton);
+        fields.setComponentAlignment(loginButton, Alignment.BOTTOM_LEFT);
 
-        login.addClickListener(event -> login());
+        loginButton.addClickListener(event -> login());
         return fields;
     }
 
@@ -151,11 +156,11 @@ public class SharedLoginUI extends UI {
 
     private void login() {
         try {
-            vaadinSecurity.login(username.getValue(), password.getValue(), rememberMe.getValue());
+            vaadinSecurity.login(usernameField.getValue(), passwordField.getValue(), rememberMeField.getValue());
         } catch (AuthenticationException ex) {
-            username.focus();
-            username.selectAll();
-            password.setValue("");
+            usernameField.focus();
+            usernameField.selectAll();
+            passwordField.setValue("");
             loginFailedLabel.setValue(i18n.get("Login.failedMsg", ex.getMessage()));
             loginFailedLabel.setVisible(true);
             if (loggedOutLabel != null) {
@@ -165,7 +170,7 @@ public class SharedLoginUI extends UI {
             Notification.show("An unexpected error occurred", ex.getMessage(), Notification.Type.ERROR_MESSAGE);
             log.error("Unexpected error while logging in", ex);
         } finally {
-            login.setEnabled(true);
+            loginButton.setEnabled(true);
         }
     }
 }
