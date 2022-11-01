@@ -74,7 +74,11 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	private static final int ACTION_BUTTON_WIDTH = 38;
 
-	public static final String ACTIONS_COLUMN_ID = "_actions";
+	private static final String ACTIONS_COLUMN_ID = "_actions";
+
+	private static final String ACTION_BUTTON = "action-button";
+
+	private static final String ACTION_CELL = "action-cell";
 
 	public interface SearchProvider<T> extends Serializable {
 		Page<T> search(Integer page, Integer pageSize, String orderProperty, Direction orderDirection, SearchModel searchModel);
@@ -144,6 +148,8 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	final List<EntityProperty<T>> properties = new ArrayList<>();
 
 	final List<T> items = new ArrayList<>();
+
+
 
 	public EntityDataGrid(Class<T> entityType, I18N i18n, CommonSearchForm searchForm, String defaultOrderProperty, Direction defaultOrderDirection) {
 		this.entityType = entityType;
@@ -229,7 +235,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         			})
         			.withDescription(i18n.get("Show"))
 					.withStyleName(
-						BaliStyle.ACTION_BUTTON,
+						EntityDataGrid.ACTION_BUTTON,
 						ValoTheme.BUTTON_SMALL
 					);
         			l.add(show);
@@ -240,7 +246,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         			})
 					.withDescription(i18n.get("Edit"))
 					.withStyleName(
-						BaliStyle.ACTION_BUTTON,
+						EntityDataGrid.ACTION_BUTTON,
 						BaliStyle.BUTTON_PRIMARY_FIX,
 						ValoTheme.BUTTON_PRIMARY,
 						ValoTheme.BUTTON_SMALL
@@ -254,7 +260,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         			})
 					.withDescription(i18n.get("Delete"))
 					.withStyleName(
-						BaliStyle.ACTION_BUTTON,
+						EntityDataGrid.ACTION_BUTTON,
 						ValoTheme.BUTTON_DANGER,
 						ValoTheme.BUTTON_SMALL
 					);
@@ -265,7 +271,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         	c.setId(ACTIONS_COLUMN_ID);
         	c.setWidth(calculateActionsColumnWidth());
         	c.setSortable(false);
-        	c.setStyleGenerator(item -> BaliStyle.ACTION_CELL);
+        	c.setStyleGenerator(item -> EntityDataGrid.ACTION_CELL);
         	grid.setColumnOrder(c);
         }
 	}
