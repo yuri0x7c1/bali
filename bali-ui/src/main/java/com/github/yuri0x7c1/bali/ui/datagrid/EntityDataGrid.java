@@ -72,13 +72,13 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
-	private static final int ACTION_BUTTON_WIDTH = 38;
-
 	private static final String ACTIONS_COLUMN_ID = "_actions";
+
+	private static final String ACTION_CELL = "action-cell";
 
 	private static final String ACTION_BUTTON = "action-button";
 
-	private static final String ACTION_CELL = "action-cell";
+	private static final int ACTION_BUTTON_WIDTH = 38;
 
 	public interface SearchProvider<T> extends Serializable {
 		Page<T> search(Integer page, Integer pageSize, String orderProperty, Direction orderDirection, SearchModel searchModel);
