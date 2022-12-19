@@ -175,7 +175,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		grid.setWidthFull();
 		grid.setHeightByRows(pageSize);
 
-		grid.setDataProvider(null, null);
 		grid.setDataProvider(
 			DataProvider.fromCallbacks(
 				query -> items.stream(),
@@ -202,7 +201,9 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		pagination.addPageChangeListener(event -> {
 			page = event.page() - 1;
 			pageSize = event.limit();
-			grid.setHeightByRows(pageSize);
+			if (grid.getHeightByRows() != Double.valueOf(pageSize)) {
+				grid.setHeightByRows(pageSize);
+			}
 			refresh();
 		});
 
