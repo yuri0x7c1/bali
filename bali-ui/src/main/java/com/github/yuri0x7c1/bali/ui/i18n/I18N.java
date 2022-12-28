@@ -19,6 +19,8 @@ package com.github.yuri0x7c1.bali.ui.i18n;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.context.ApplicationContext;
@@ -69,6 +71,16 @@ public class I18N extends org.vaadin.spring.i18n.I18N {
 	public String format(LocalDateTime localDateTime) {
 		if (localDateTime == null) return "";
 		return dateTimeFormatter.format(localDateTime);
+	}
+
+	public String format(ZonedDateTime zonedDateTime) {
+		if (zonedDateTime == null) return "";
+		return dateTimeFormatter.format(zonedDateTime);
+	}
+
+	public String format(OffsetDateTime offsetDateTime) {
+		if (offsetDateTime == null) return "";
+		return dateTimeFormatter.format(offsetDateTime);
 	}
 
 	public String format(LocalDate localDate) {
