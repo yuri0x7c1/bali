@@ -38,15 +38,16 @@ import lombok.Getter;
  *
  */
 public abstract class AbstractDateTimeRangeField<T> extends CustomField<List<T>> {
-	protected final I18N i18n;
+	private final I18N i18n;
 
 	@Getter
-	protected final LocalDateTimeField startDateTimeField;
+	private final LocalDateTimeField startDateTimeField;
 
 	@Getter
-	protected final LocalDateTimeField endDateTimeField;
+	private final LocalDateTimeField endDateTimeField;
 
-	protected final MenuBar optionsMenu;
+	@Getter
+	private final MenuBar optionsMenu;
 
 	public AbstractDateTimeRangeField() {
 		this(ApplicationContextProvider.getContext().getBean(I18N.class));

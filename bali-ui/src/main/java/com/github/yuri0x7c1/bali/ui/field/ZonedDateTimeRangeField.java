@@ -65,11 +65,11 @@ public class ZonedDateTimeRangeField extends AbstractDateTimeRangeField<ZonedDat
 
 	@Override
 	protected void doSetValue(List<ZonedDateTime> value) {
-		startDateTimeField.setValue(null);
-		endDateTimeField.setValue(null);
+		getStartDateTimeField().setValue(null);
+		getEndDateTimeField().setValue(null);
 		if (CollectionUtils.isNotEmpty(value)) {
-			if (value.size() > 0 && value.get(0) != null) startDateTimeField.setValue(value.get(0).toLocalDateTime());
-			if (value.size() > 1 && value.get(1) != null) endDateTimeField.setValue(value.get(1).toLocalDateTime());
+			if (value.size() > 0 && value.get(0) != null) getStartDateTimeField().setValue(value.get(0).toLocalDateTime());
+			if (value.size() > 1 && value.get(1) != null) getEndDateTimeField().setValue(value.get(1).toLocalDateTime());
 		}
 	}
 
@@ -77,8 +77,8 @@ public class ZonedDateTimeRangeField extends AbstractDateTimeRangeField<ZonedDat
 	public List<ZonedDateTime> getValue() {
 		ZonedDateTime startDateTime = null;
 		ZonedDateTime endDateTime = null;
-		if (startDateTimeField.getValue() != null) startDateTime = startDateTimeField.getValue().atZone(zoneId);
-		if (endDateTimeField.getValue() != null) endDateTime = endDateTimeField.getValue().atZone(zoneId);
+		if (getStartDateTimeField().getValue() != null) startDateTime = getStartDateTimeField().getValue().atZone(zoneId);
+		if (getEndDateTimeField().getValue() != null) endDateTime = getEndDateTimeField().getValue().atZone(zoneId);
 		return Collections.unmodifiableList(Arrays.asList(startDateTime, endDateTime));
 	}
 }

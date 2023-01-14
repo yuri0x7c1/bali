@@ -56,16 +56,16 @@ public class LocalDateTimeRangeField extends AbstractDateTimeRangeField<LocalDat
 
 	@Override
 	protected void doSetValue(List<LocalDateTime> value) {
-		startDateTimeField.setValue(null);
-		endDateTimeField.setValue(null);
+		getStartDateTimeField().setValue(null);
+		getEndDateTimeField().setValue(null);
 		if (CollectionUtils.isNotEmpty(value)) {
-			if (value.size() > 0) startDateTimeField.setValue(value.get(0));
-			if (value.size() > 1) endDateTimeField.setValue(value.get(1));
+			if (value.size() > 0) getStartDateTimeField().setValue(value.get(0));
+			if (value.size() > 1) getEndDateTimeField().setValue(value.get(1));
 		}
 	}
 
 	@Override
 	public List<LocalDateTime> getValue() {
-		return Collections.unmodifiableList(Arrays.asList(startDateTimeField.getValue(), endDateTimeField.getValue()));
+		return Collections.unmodifiableList(Arrays.asList(getStartDateTimeField().getValue(), getEndDateTimeField().getValue()));
 	}
 }
