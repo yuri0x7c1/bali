@@ -38,6 +38,10 @@ import lombok.Getter;
  *
  */
 public abstract class AbstractDateTimeRangeField<T> extends CustomField<List<T>> {
+	public static final String START_CSS_CLASS_NAME = "start";
+	public static final String END_CSS_CLASS_NAME = "end";
+	public static final String OPTIONS_CSS_CLASS_NAME = "options";
+
 	private final I18N i18n;
 
 	@Getter
@@ -59,12 +63,15 @@ public abstract class AbstractDateTimeRangeField<T> extends CustomField<List<T>>
 		startDateTimeField = new LocalDateTimeField(i18n);
 		startDateTimeField.setWidth(190, Unit.PIXELS);
 		startDateTimeField.setPlaceholder(i18n.get("From"));
+		startDateTimeField.addStyleName(START_CSS_CLASS_NAME);
 
 		endDateTimeField = new LocalDateTimeField(i18n);
 		endDateTimeField.setWidth(190, Unit.PIXELS);
 		endDateTimeField.setPlaceholder(i18n.get("To"));
+		endDateTimeField.addStyleName(END_CSS_CLASS_NAME);
 
 		optionsMenu = new MenuBar();
+		optionsMenu.addStyleName(OPTIONS_CSS_CLASS_NAME);
 		MenuItem optionsItem = optionsMenu.addItem("", VaadinIcons.CALENDAR_CLOCK, null);
 		optionsItem.setDescription(i18n.get("Options"));
 		for (TimePeriod timePeriod : TimePeriod.values()) {

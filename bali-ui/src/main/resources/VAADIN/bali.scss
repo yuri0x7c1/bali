@@ -191,9 +191,16 @@ app-toolbar {
 }
 
 .bali-temporal-range-field {
-	.v-widget {
-		margin-left: 2px;
+	.start {
 		margin-right: 2px;
+	}
+
+	.end {
+		margin-left: 2px;
+	}
+
+	.options {
+		margin-left: 4px;
 	}
 }
 

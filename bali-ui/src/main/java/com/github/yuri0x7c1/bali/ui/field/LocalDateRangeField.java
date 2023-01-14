@@ -63,10 +63,12 @@ public class LocalDateRangeField extends CustomField<List<LocalDate>> {
 		startDateField = new LocalDateField(i18n);
 		startDateField.setWidth(124, Unit.PIXELS);
 		startDateField.setPlaceholder(i18n.get("From"));
+		startDateField.addStyleName(AbstractDateTimeRangeField.START_CSS_CLASS_NAME);
 
 		endDateField = new LocalDateField(i18n);
 		endDateField.setWidth(124, Unit.PIXELS);
 		endDateField.setPlaceholder(i18n.get("To"));
+		startDateField.addStyleName(AbstractDateTimeRangeField.END_CSS_CLASS_NAME);
 
 		addStyleName(BaliStyle.TEMPORAL_RANGE_FIELD);
 		setWidthUndefined();

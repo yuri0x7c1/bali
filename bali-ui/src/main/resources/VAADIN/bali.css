@@ -155,9 +155,14 @@ app-toolbar {
   display: none !important;
 }
 
-.bali-temporal-range-field .v-widget {
-  margin-left: 2px;
+.bali-temporal-range-field .start {
   margin-right: 2px;
+}
+.bali-temporal-range-field .end {
+  margin-left: 2px;
+}
+.bali-temporal-range-field .options {
+  margin-left: 4px;
 }
 
 /* Extra Small */
