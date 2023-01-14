@@ -34,6 +34,8 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
 
+import lombok.Getter;
+
 /**
  *
  * @author yuri0x7c1
@@ -43,7 +45,11 @@ import com.vaadin.ui.CustomField;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class LocalDateRangeField extends CustomField<List<LocalDate>> {
 	private final I18N i18n;
+
+	@Getter
 	private final LocalDateField startDateField;
+
+	@Getter
 	private final LocalDateField endDateField;
 
 	public LocalDateRangeField() {

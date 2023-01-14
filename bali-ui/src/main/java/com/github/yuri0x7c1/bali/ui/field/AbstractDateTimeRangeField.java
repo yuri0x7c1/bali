@@ -30,6 +30,8 @@ import com.vaadin.ui.CustomField;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 
+import lombok.Getter;
+
 /**
  *
  * @author yuri0x7c1
@@ -37,8 +39,13 @@ import com.vaadin.ui.MenuBar.MenuItem;
  */
 public abstract class AbstractDateTimeRangeField<T> extends CustomField<List<T>> {
 	protected final I18N i18n;
+
+	@Getter
 	protected final LocalDateTimeField startDateTimeField;
+
+	@Getter
 	protected final LocalDateTimeField endDateTimeField;
+
 	protected final MenuBar optionsMenu;
 
 	public AbstractDateTimeRangeField() {
