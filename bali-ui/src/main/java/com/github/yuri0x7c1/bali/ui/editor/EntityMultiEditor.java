@@ -30,7 +30,6 @@ import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.form.AbstractForm;
 import org.vaadin.viritin.grid.MGrid;
 import org.vaadin.viritin.layouts.MCssLayout;
-import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
@@ -48,18 +47,18 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
+ *
  * @author yuri0x7c1
  *
  */
 @Slf4j
 public class EntityMultiEditor<T> extends CustomField<List<T>> {
 	private final Class<T> entityType;
-	
+
 	private final I18N i18n;
 
 	private final AbstractForm<T> entityForm;
-	
+
 	@Setter
 	private Supplier<T> entitySupplier;
 
@@ -73,14 +72,10 @@ public class EntityMultiEditor<T> extends CustomField<List<T>> {
 
 	private Window window;
 
-	private MButton confirmButton;
-
-	private MButton cancelButton;
-
 	private List<T> value = Collections.emptyList();
-	
+
 	private final List<EntityProperty<T>> properties = new ArrayList<>();
-	
+
 	@Getter
 	@Setter
 	private String sortProperty;
@@ -88,15 +83,15 @@ public class EntityMultiEditor<T> extends CustomField<List<T>> {
 	@Getter
 	@Setter
 	private Direction sortDirection = Direction.ASC;
-	
+
 	public EntityMultiEditor(Class<T> entityType, I18N i18n, AbstractForm<T> entityForm) {
 		super();
 		this.entityType = entityType;
 		this.i18n = i18n;
 		this.entityForm = entityForm;
-	
+
 		addStyleName(BaliStyle.MULTI_EDITOR);
-		
+
 		// default entity supplier
 		setEntitySupplier(() -> {
 			try {
@@ -171,29 +166,24 @@ public class EntityMultiEditor<T> extends CustomField<List<T>> {
 			});
 
 		// confirm button
-		confirmButton = new MButton(i18n.get("Confirm"))
-			.withStyleName(ValoTheme.BUTTON_PRIMARY)
-			.withListener(e -> {
-				window.close();
-				List<T> newValue = new ArrayList<>(getValue());
-				newValue.add(entityForm.getEntity());
-				setValue(Collections.unmodifiableList(newValue));
-				entityForm.setEntity(null);
-			});
+		entityForm.setSavedHandler(entity -> {
+			window.close();
+			List<T> newValue = new ArrayList<>(getValue());
+			newValue.add(entityForm.getEntity());
+			setValue(Collections.unmodifiableList(newValue));
+			entityForm.setEntity(null);
+		});
 
 		// cancel button
-		cancelButton = new MButton(i18n.get("Cancel"))
-			.withStyleName(ValoTheme.BUTTON_DANGER)
-			.withListener(e -> {
-				window.close();
-				entityForm.setEntity(null);
-			});
+		entityForm.setResetHandler(entity -> {
+			window.close();
+			entityForm.setEntity(null);
+		});
 
 		// set window content
         window.setContent(new MVerticalLayout(
-        	entityForm,
-        	new MHorizontalLayout(confirmButton, cancelButton))
-        );
+        	entityForm
+        ));
 	}
 
 	@Override
@@ -215,7 +205,7 @@ public class EntityMultiEditor<T> extends CustomField<List<T>> {
 	public List<T> getValue() {
 		return value;
 	}
-	
+
 	public List<EntityProperty<T>> getProperties() {
 		return Collections.unmodifiableList(properties);
 	}
@@ -254,5 +244,9 @@ public class EntityMultiEditor<T> extends CustomField<List<T>> {
 
 		// sort grid
 		valueGrid.sort(sortProperty, UiUtil.convertDirection(sortDirection));
+	}
+
+	public EntityProperty.Builder<T> propertyBuilder() {
+		return EntityProperty.<T>builder();
 	}
 }
