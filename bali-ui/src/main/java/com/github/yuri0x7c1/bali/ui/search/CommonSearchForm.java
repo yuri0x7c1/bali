@@ -228,8 +228,10 @@ public class CommonSearchForm extends Card {
 				}
 			}
 			if (!isBlank) {
-				searchModel.getFields().add(new SearchField(fieldComponent.getName(), fieldComponent.getOperator(), fieldComponent.getParams(),
-						fieldComponent.getValue()));
+				SearchFieldComponentDescriptor d = fieldDescriptors.get(fieldComponent.getName());
+				Object v = d.getConverter() == null ? fieldComponent.getValue()
+						: d.getConverter().convertToPresentation(fieldComponent.getValue(), null);
+				searchModel.getFields().add(new SearchField(fieldComponent.getName(), fieldComponent.getOperator(), fieldComponent.getParams(), v));
 			}
 		}
 		return searchModel;

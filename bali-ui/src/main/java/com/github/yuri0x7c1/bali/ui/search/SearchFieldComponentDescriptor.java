@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -49,6 +50,7 @@ import com.github.yuri0x7c1.bali.ui.field.LongField;
 import com.github.yuri0x7c1.bali.ui.field.ShortField;
 import com.github.yuri0x7c1.bali.ui.field.ZonedDateTimeRangeField;
 import com.github.yuri0x7c1.bali.util.TextUtil;
+import com.vaadin.data.Converter;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DateTimeField;
 
@@ -72,6 +74,8 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 	private final Class<?> fieldType;
 
 	private final Map<SearchFieldOperator, SearchFieldComponentDescription> componentDescriptions = new LinkedHashMap<>();
+
+	private Converter converter;
 
 	private SearchFieldComponentDescriptor(Builder builder) {
 		this.fieldName = TextUtil.requireNonBlank(builder.fieldName);
@@ -205,6 +209,7 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		private String caption;
 		private Class<?> fieldType;
 		private final Map<SearchFieldOperator, SearchFieldComponentDescription> componentDescriptions = new HashMap<>();
+		private Converter converter;
 
 		private Builder() {
 		}
@@ -250,6 +255,11 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 			for (SearchFieldOperator operator : ArrayUtils.removeElements(SearchFieldOperator.values(), excludeOperators)) {
 				this.componentDescriptions.put(operator, new SearchFieldComponentDescription(componentClass, componentLifecycle));
 			}
+			return this;
+		}
+
+		public Builder withConverter(Converter converter) {
+			this.converter = converter;
 			return this;
 		}
 
