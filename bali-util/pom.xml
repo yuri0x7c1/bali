@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.github.yuri0x7c1.bali</groupId>
 		<artifactId>bali-parent</artifactId>
-		<version>1.0.2</version>
+		<version>1.0.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>bali-util</artifactId>
