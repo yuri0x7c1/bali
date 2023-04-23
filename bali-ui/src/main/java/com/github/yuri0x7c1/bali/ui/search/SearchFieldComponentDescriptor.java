@@ -29,7 +29,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -87,6 +86,8 @@ public class SearchFieldComponentDescriptor implements Comparable<SearchFieldCom
 		else {
 			this.caption = builder.caption;
 		}
+
+		this.converter = builder.converter;
 
 		componentDescriptions.putAll(getDefaultComponentDescriptions());
 		componentDescriptions.putAll(builder.componentDescriptions);
