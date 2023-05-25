@@ -21,6 +21,8 @@ import java.util.function.Supplier;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.form.AbstractForm;
 
+import com.github.yuri0x7c1.bali.ui.form.EntityForm;
+import com.github.yuri0x7c1.bali.ui.form.EntityForm.FormAction;
 import com.github.yuri0x7c1.bali.ui.handler.CancelHandler;
 import com.github.yuri0x7c1.bali.ui.handler.SaveHandler;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
@@ -66,6 +68,11 @@ public class EntityCreateView<T> extends CommonView {
 		setHeaderText(this.getClass().getSimpleName());
 
 		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back"), e -> UiUtil.back()));
+
+		// set form action
+		if (entityForm instanceof EntityForm) {
+			((EntityForm<T>) entityForm).setFormAction(FormAction.EDIT);
+		}
 
 		// default entity supplier
 		setEntitySupplier(() -> {

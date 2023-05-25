@@ -30,10 +30,12 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
+ *
  * @author yuri0x7c1
  *
  * @param <T>
@@ -45,6 +47,15 @@ public class EntityForm<T> extends AbstractForm<T> {
 	public static final int DEFAULT_RESPONSIVE_FORM_SM = 6;
 	public static final int DEFAULT_RESPONSIVE_FORM_MD = 6;
 	public static final int DEFAULT_RESPONSIVE_FORM_LG = 4;
+
+	public enum FormAction {
+		CREATE,
+		EDIT;
+	}
+
+	@Getter
+	@Setter
+	private FormAction formAction;
 
 	public EntityForm(Class<T> entityType) {
 		super(entityType);
@@ -68,21 +79,21 @@ public class EntityForm<T> extends AbstractForm<T> {
 				}
 			}
 		}
-		
+
 		HorizontalLayout toolbar = getToolbar();
 		toolbar.setStyleName(BaliStyle.FORM_TOOLBAR);
 		layout.addRow().addColumn().withComponent(toolbar);
 
 		return layout;
 	}
-	
+
 	@Override
 	protected Button createSaveButton() {
 		Button b = super.createSaveButton();
 		b.setIcon(VaadinIcons.CHECK);
 		return b;
 	}
-	
+
 	@Override
 	protected Button createResetButton() {
 		Button b = super.createResetButton();
