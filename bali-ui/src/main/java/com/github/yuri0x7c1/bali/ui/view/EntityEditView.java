@@ -22,7 +22,7 @@ import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.ui.form.EntityForm;
-import com.github.yuri0x7c1.bali.ui.form.EntityForm.FormAction;
+import com.github.yuri0x7c1.bali.ui.form.EntityForm.FormActionType;
 import com.github.yuri0x7c1.bali.ui.handler.CancelHandler;
 import com.github.yuri0x7c1.bali.ui.handler.SaveHandler;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
@@ -72,7 +72,7 @@ public class EntityEditView<T, P> extends ParametrizedView<P> {
 
 		// set form action
 		if (entityForm instanceof EntityForm) {
-			((EntityForm<T>) entityForm).setFormAction(FormAction.EDIT);
+			((EntityForm<T>) entityForm).setActionType(FormActionType.EDIT);
 		}
 
 		// form save handler

@@ -34,7 +34,7 @@ import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
 import com.github.yuri0x7c1.bali.ui.form.EntityForm;
-import com.github.yuri0x7c1.bali.ui.form.EntityForm.FormAction;
+import com.github.yuri0x7c1.bali.ui.form.EntityForm.FormActionType;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.icons.VaadinIcons;
@@ -123,7 +123,7 @@ public class EntityMultiEditor<T> extends CustomField<List<T>> {
 			)
 			.withListener(e -> {
 				if (entityForm instanceof EntityForm) {
-					((EntityForm<T>) entityForm).setFormAction(FormAction.CREATE);
+					((EntityForm<T>) entityForm).setActionType(FormActionType.CREATE);
 				}
 				entityForm.setEntity(entitySupplier.get());
 				window.setCaption(i18n.get("Create"));
@@ -142,7 +142,7 @@ public class EntityMultiEditor<T> extends CustomField<List<T>> {
 				if (CollectionUtils.isNotEmpty(selected)) {
 					if (selected.size() == 1) {
 						if (entityForm instanceof EntityForm) {
-							((EntityForm<T>) entityForm).setFormAction(FormAction.EDIT);
+							((EntityForm<T>) entityForm).setActionType(FormActionType.EDIT);
 						}
 						entityForm.setEntity(selected.iterator().next());
 						window.setCaption(i18n.get("Edit"));

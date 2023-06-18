@@ -48,14 +48,14 @@ public class EntityForm<T> extends AbstractForm<T> {
 	public static final int DEFAULT_RESPONSIVE_FORM_MD = 6;
 	public static final int DEFAULT_RESPONSIVE_FORM_LG = 4;
 
-	public enum FormAction {
+	public enum FormActionType {
 		CREATE,
 		EDIT;
 	}
 
 	@Getter
 	@Setter
-	private FormAction formAction;
+	private FormActionType actionType;
 
 	public EntityForm(Class<T> entityType) {
 		super(entityType);
