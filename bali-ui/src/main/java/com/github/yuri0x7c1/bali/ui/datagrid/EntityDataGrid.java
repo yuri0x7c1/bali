@@ -50,9 +50,11 @@ import com.vaadin.data.provider.DataProvider;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.Registration;
 import com.vaadin.ui.Grid.Column;
+import com.vaadin.ui.Grid.Column.NestedNullBehavior;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.components.grid.GridSelectionModel;
 import com.vaadin.ui.components.grid.ItemClickListener;
+import com.vaadin.ui.renderers.TextRenderer;
 import com.vaadin.ui.themes.ValoTheme;
 
 import lombok.AccessLevel;
@@ -323,7 +325,8 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		grid.removeAllColumns();
 		for (EntityProperty<T> property : properties) {
 			if (property.getValueProvider() == null) {
-				grid.addColumn(property.getName()).setCaption(property.getCaption()).setSortable(property.isSortable());
+				grid.addColumn(property.getName(), new TextRenderer(), NestedNullBehavior.ALLOW_NULLS).setCaption(property.getCaption())
+						.setSortable(property.isSortable());
 			}
 			else {
 				grid.addColumn(e -> property.getValueProvider().apply(e)).setId(property.getName())
