@@ -168,9 +168,9 @@
 			</dependency>
 
 			<dependency>
-				<groupId>com.github.appreciated</groupId>
-				<artifactId>app-layout-addon</artifactId>
-				<version>1.0.5-SNAPSHOT</version>
+			    <groupId>com.github.appreciated</groupId>
+			    <artifactId>app-layout-addon</artifactId>
+			    <version>1.0.4</version>
 			</dependency>
 
 			<dependency>
