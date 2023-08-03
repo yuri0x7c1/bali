@@ -71,4 +71,8 @@ public class TextUtil {
             throw new RuntimeException("Non blank string is required!");
         return str;
     }
+
+    public static String joinWithDot(String... elements) {
+    	return StringUtils.join(elements, ".");
+    }
 }
