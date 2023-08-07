@@ -21,6 +21,7 @@ import org.vaadin.spring.security.VaadinSecurity;
 
 import com.github.appreciated.app.layout.builder.CDIAppLayoutBuilder;
 import com.github.appreciated.app.layout.component.button.IconButton;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.navigator.SpringViewProvider;
 
@@ -38,7 +39,8 @@ public abstract class CommonSecuredUI extends CommonUI {
 
 	@Override
 	protected CDIAppLayoutBuilder initAppLayoutBuilder() {
-		return super.initAppLayoutBuilder()
-				.addToAppBar(new IconButton(VaadinIcons.POWER_OFF, event -> vaadinSecurity.logout()));
+		IconButton logoutButton = new IconButton(VaadinIcons.POWER_OFF, event -> vaadinSecurity.logout());
+		logoutButton.addStyleNames(BaliStyle.SQUARE_BUTTON, BaliStyle.BORDERLESS_BUTTON);
+		return super.initAppLayoutBuilder().addToAppBar(logoutButton);
 	}
 }

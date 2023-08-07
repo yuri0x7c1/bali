@@ -57,4 +57,8 @@ public class BaliStyle {
 	public static final String ENTITY_DATA_GRID = "bali-entity-data-grid";
 
 	public static final String TEMPORAL_RANGE_FIELD = "bali-temporal-range-field";
+
+	public static final String SQUARE_BUTTON = "bali-square-button";
+
+	public static final String BORDERLESS_BUTTON = "bali-borderless-button";
 }
