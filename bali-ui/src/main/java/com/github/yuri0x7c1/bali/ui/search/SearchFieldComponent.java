@@ -23,10 +23,10 @@ import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.fields.MTextField;
 import org.vaadin.viritin.label.MLabel;
 import org.vaadin.viritin.layouts.MCssLayout;
-import org.vaadin.viritin.layouts.MHorizontalLayout;
 
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.ui.search.CommonSearchForm.SearchMode;
+import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.data.HasValue;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.AbstractMultiSelect;
@@ -88,10 +88,10 @@ public class SearchFieldComponent extends MCssLayout {
 		}
 		this.valueComponent = valueComponent;
 		this.clearButton = new MButton(VaadinIcons.CLOSE, event -> clearValue())
-			.withStyleName(ValoTheme.BUTTON_BORDERLESS)
+			.withStyleName(ValoTheme.BUTTON_BORDERLESS, BaliStyle.BORDERLESS_BUTTON_LIGHT)
 			.withDescription(i18n.get("Clear"));
 		this.closeButton = new MButton(VaadinIcons.TRASH)
-			.withStyleName(ValoTheme.BUTTON_BORDERLESS)
+			.withStyleName(ValoTheme.BUTTON_BORDERLESS, BaliStyle.BORDERLESS_BUTTON_LIGHT)
 			.withDescription(i18n.get("Delete"));
 		setSearchMode(searchMode);
 

@@ -40,7 +40,7 @@ public abstract class CommonSecuredUI extends CommonUI {
 	@Override
 	protected CDIAppLayoutBuilder initAppLayoutBuilder() {
 		IconButton logoutButton = new IconButton(VaadinIcons.POWER_OFF, event -> vaadinSecurity.logout());
-		logoutButton.addStyleNames(BaliStyle.SQUARE_BUTTON, BaliStyle.BORDERLESS_BUTTON);
+		logoutButton.addStyleNames(BaliStyle.SQUARE_BUTTON, BaliStyle.BORDERLESS_BUTTON_DARK);
 		return super.initAppLayoutBuilder().addToAppBar(logoutButton);
 	}
 }

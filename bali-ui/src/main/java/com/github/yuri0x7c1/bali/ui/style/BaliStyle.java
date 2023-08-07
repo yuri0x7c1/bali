@@ -60,5 +60,7 @@ public class BaliStyle {
 
 	public static final String SQUARE_BUTTON = "bali-square-button";
 
-	public static final String BORDERLESS_BUTTON = "bali-borderless-button";
+	public static final String BORDERLESS_BUTTON_LIGHT = "bali-borderless-button-light";
+
+	public static final String BORDERLESS_BUTTON_DARK = "bali-borderless-button-dark";
 }

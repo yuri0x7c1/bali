@@ -169,11 +169,19 @@ app-toolbar {
   border-radius: 0 !important;
 }
 
-.bali-borderless-button:focus::after {
+.bali-borderless-button-light:focus::after {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
 }
-.bali-borderless-button:hover {
+.bali-borderless-button-light:hover {
+  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.1) !important;
+}
+
+.bali-borderless-button-dark:focus::after {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+.bali-borderless-button-dark:hover {
   box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1) !important;
 }
 
