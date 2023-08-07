@@ -26,6 +26,8 @@ import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
 
 import com.github.yuri0x7c1.bali.data.message.CommonMessages;
+import com.jarektoro.responsivelayout.ResponsiveLayout;
+import com.jarektoro.responsivelayout.ResponsiveRow;
 import com.vaadin.data.provider.GridSortOrder;
 import com.vaadin.data.provider.Query;
 import com.vaadin.icons.VaadinIcons;
@@ -43,16 +45,16 @@ import com.vaadin.ui.themes.ValoTheme;
  *
  */
 public class UiUtil {
-	
+
 	public static final String FLASH_MESSAGES = "FLASH_MESSAGES";
-	
+
 	/*
 	 * Navigate back
 	 */
 	public static void back() {
 		JavaScript.getCurrent().execute("history.back()");
 	}
-	
+
 	public static void back(CommonMessages flashMessages) {
 		writeFlashMessages(flashMessages);
 		JavaScript.getCurrent().execute("history.back()");
@@ -61,7 +63,7 @@ public class UiUtil {
 	public static void navigateTo(String viewName) {
 		UI.getCurrent().getNavigator().navigateTo(viewName);
 	}
-	
+
 	public static void reload() {
 		UI.getCurrent().getPage().reload();
 	}
@@ -121,7 +123,7 @@ public class UiUtil {
 	public static MLabel createErrorLabel(String value) {
 		return new MLabel(value).withStyleName(ValoTheme.LABEL_FAILURE);
 	}
-	
+
 	public static Pageable createPageable(Query query, Direction direction, String...fields) {
 		return PageRequest.of(
 			query.getOffset() / query.getLimit(),
@@ -130,11 +132,11 @@ public class UiUtil {
 			fields
 		);
 	}
-	
+
 	public static Pageable createPageable(Query query, String...fields) {
 		return createPageable(query, Direction.ASC, fields);
 	}
-	
+
 	public static CommonMessages readFlashMessages() {
 		CommonMessages messages = (CommonMessages) VaadinSession.getCurrent().getAttribute(FLASH_MESSAGES);
 		if (messages != null) {
@@ -142,8 +144,12 @@ public class UiUtil {
 		}
 		return messages;
 	}
-	
+
 	public static void writeFlashMessages(CommonMessages messages) {
 		VaadinSession.getCurrent().setAttribute(FLASH_MESSAGES, messages);
+	}
+
+	public static void enableHorizontalSpacing(ResponsiveLayout layout) {
+		layout.iterator().forEachRemaining(c -> ((ResponsiveRow) c).setHorizontalSpacing(true));
 	}
 }
