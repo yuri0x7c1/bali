@@ -118,12 +118,16 @@ $error-color-dark: darken($error-color, 20%);
 .bali-message-panel {
 	border: 2px solid;
 	border-radius: 4px;
-	.icon-label {
-		margin-left: 8px;
-		margin-right: 4px;
+
+	.message-label {
+		margin-left: 18px;
 	}
+
 	.close-button {
+		width: 32px;
 		margin-top: 8px;
+		margin-right: 8px;
+		padding: 0;
 	}
 }
 

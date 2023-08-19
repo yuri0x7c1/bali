@@ -23,8 +23,6 @@ public class MessagePanel extends HorizontalLayout {
 
 	private final MessageType messageType;
 
-	private final MLabel iconLabel;
-
 	private final MLabel messageLabel;
 
 	private final MButton closeButton;
@@ -54,18 +52,17 @@ public class MessagePanel extends HorizontalLayout {
 			addStyleName(BaliStyle.MESSAGE_PANEL_ERROR);
 		}
 
-		iconLabel = new MLabel(icon.getHtml()).withContentMode(ContentMode.HTML).withStyleName("icon-label");
 		messageLabel = new MLabel().withContentMode(ContentMode.PREFORMATTED).withStyleName("message-label").withFullSize();
 		closeButton = new MButton(VaadinIcons.CLOSE, event -> {
 			setVisible(false);
 		})
-		.withStyleName("close-button", ValoTheme.BUTTON_FRIENDLY, ValoTheme.BUTTON_BORDERLESS);
+		.withStyleName("close-button", ValoTheme.BUTTON_BORDERLESS, BaliStyle.BORDERLESS_BUTTON_LIGHT);
 
 		setSpacing(true);
 		setSizeFull();
-		setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-		addComponents(iconLabel, messageLabel, closeButton);
+		addComponents(messageLabel, closeButton);
+		setComponentAlignment(messageLabel, Alignment.TOP_CENTER);
 		setComponentAlignment(closeButton, Alignment.TOP_RIGHT);
 		setExpandRatio(messageLabel, 1.0f);
 	}

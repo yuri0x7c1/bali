@@ -88,12 +88,14 @@
   border: 2px solid;
   border-radius: 4px;
 }
-.bali-message-panel .icon-label {
-  margin-left: 8px;
-  margin-right: 4px;
+.bali-message-panel .message-label {
+  margin-left: 18px;
 }
 .bali-message-panel .close-button {
+  width: 32px;
   margin-top: 8px;
+  margin-right: 8px;
+  padding: 0;
 }
 
 .bali-message-panel-success {
