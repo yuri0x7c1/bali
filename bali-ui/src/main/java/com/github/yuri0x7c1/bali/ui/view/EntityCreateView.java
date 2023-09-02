@@ -71,7 +71,7 @@ public class EntityCreateView<T> extends CommonView {
 
 		// set form action
 		if (entityForm instanceof EntityForm) {
-			((EntityForm<T>) entityForm).setActionType(FormActionType.EDIT);
+			((EntityForm<T>) entityForm).setActionType(FormActionType.CREATE);
 		}
 
 		// default entity supplier
