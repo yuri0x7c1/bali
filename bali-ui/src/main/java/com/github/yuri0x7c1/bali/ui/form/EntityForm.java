@@ -93,6 +93,7 @@ public class EntityForm<T> extends AbstractForm<T> {
 		super.setEntity(entity);
 		setHasChanges(true);
 		adjustSaveButtonState();
+		adjustResetButtonState();
 	}
 
 	@Override
