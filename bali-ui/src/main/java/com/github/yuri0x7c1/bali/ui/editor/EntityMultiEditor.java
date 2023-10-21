@@ -35,6 +35,7 @@ import org.vaadin.viritin.layouts.MVerticalLayout;
 import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
 import com.github.yuri0x7c1.bali.ui.form.EntityForm;
 import com.github.yuri0x7c1.bali.ui.form.EntityForm.FormActionType;
+import com.github.yuri0x7c1.bali.ui.picker.EntityPicker;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.icons.VaadinIcons;
@@ -108,8 +109,8 @@ public class EntityMultiEditor<T> extends CustomField<List<T>> {
 		// window
 		window = new Window();
         window.setModal(true);
-        window.setWidth("80%");
-        window.setHeight("80%");
+        window.setWidth(EntityPicker.WINDOW_SIZE);
+        window.setHeight(EntityPicker.WINDOW_SIZE);
 
 		// value grid
 		valueGrid = new MGrid<>(entityType);

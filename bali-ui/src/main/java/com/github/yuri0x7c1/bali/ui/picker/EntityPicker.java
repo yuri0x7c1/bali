@@ -46,6 +46,8 @@ import lombok.experimental.NonFinal;
  */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public abstract class EntityPicker<T> extends CustomField<T> {
+	public static final String WINDOW_SIZE = "95%";
+
 	Class<T> entityType;
 
 	I18N i18n;
@@ -80,8 +82,8 @@ public abstract class EntityPicker<T> extends CustomField<T> {
 		dialog = new MWindow();
 		dialog.setCaption(i18n.get("Select"));
         dialog.setModal(true);
-        dialog.setWidth("80%");
-        dialog.setHeight("80%");
+        dialog.setWidth(WINDOW_SIZE);
+        dialog.setHeight(WINDOW_SIZE);
 
   		// grid
 		dataGrid.setSelectionMode(SelectionMode.SINGLE);

@@ -106,8 +106,8 @@ public class EntityMultiPicker<T> extends CustomField<List<T>> {
 		window = new Window();
         window.setCaption(i18n.get("Select"));
         window.setModal(true);
-        window.setWidth("80%");
-        window.setHeight("80%");
+        window.setWidth(EntityPicker.WINDOW_SIZE);
+        window.setHeight(EntityPicker.WINDOW_SIZE);
 
   		// grid
 		dataGrid.setSelectionMode(SelectionMode.MULTI);
