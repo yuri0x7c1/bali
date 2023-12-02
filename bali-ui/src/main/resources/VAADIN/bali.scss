@@ -234,6 +234,12 @@ app-toolbar {
 	}
 }
 
+.bali-entity-multi-picker {
+	.v-grid-cell-focused:before {
+		display: none !important;
+	}
+}
+
 /* Extra Small */
 @media(min-width:480px){
 }

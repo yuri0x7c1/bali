@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.ConfirmButton;
@@ -59,6 +57,7 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EntityMultiPicker<T> extends CustomField<List<T>> {
 	public static final String ACTIONS_COLUMN_ID = "_actions";
+	public static final int ACTION_BUTTON_WIDTH = 38;
 
 	final Class<T> entityType;
 
@@ -80,7 +79,7 @@ public class EntityMultiPicker<T> extends CustomField<List<T>> {
 
 	List<T> value = Collections.emptyList();
 
-	boolean createEnabled = true;
+	boolean selectEnabled = true;
 
 	boolean deleteEnabled = true;
 
@@ -127,13 +126,14 @@ public class EntityMultiPicker<T> extends CustomField<List<T>> {
 					setValue(Collections.unmodifiableList(newValue));
     			})
 				.withDescription(i18n.get("Delete"))
-				.withStyleName(ValoTheme.BUTTON_DANGER, ValoTheme.BUTTON_SMALL);
+				.withStyleName(ValoTheme.BUTTON_SMALL);
 				l.add(delete);
     		}
     		return l;
     	});
     	c.setId(ACTIONS_COLUMN_ID);
     	c.setSortable(false);
+    	c.setResizable(false);
 
 		// select button
 		selectButton = new MButton(VaadinIcons.PLUS)
@@ -151,48 +151,44 @@ public class EntityMultiPicker<T> extends CustomField<List<T>> {
 
 		// delete button
 		deleteButton = new ConfirmButton()
-			.withIcon(VaadinIcons.TRASH)
-			.withDescription(i18n.get("Delete"))
-			.setConfirmationText(i18n.get("Delete.confirm"))
+			.withIcon(VaadinIcons.CLOSE)
+			.withDescription(i18n.get("Delete.all"))
+			.setConfirmationText(i18n.get("Delete.all.confirm"))
 			.withStyleName(
 				BaliStyle.MULTI_EDITOR_ACTION_BUTTON,
-				ValoTheme.BUTTON_DANGER,
 				ValoTheme.BUTTON_SMALL
 			)
 			.addClickListener(() -> {
-				Set<T> selected = valueGrid.getSelectedItems();
-				if (CollectionUtils.isNotEmpty(selected)) {
-					if (selected.size() == 1) {
-						List<T> newValue = new ArrayList<>();
-						newValue.addAll(getValue());
-						newValue.remove(selected.iterator().next());
-						setValue(Collections.unmodifiableList(newValue));
-					}
-				}
+				setValue(Collections.emptyList());
 			});
 
 		// add buttons to header
-		valueGrid.getDefaultHeaderRow().getCell(ACTIONS_COLUMN_ID).setComponent(
-			new MHorizontalLayout(selectButton, deleteButton)
-				.withFullWidth()
-				.withMargin(false)
-		);
+		MHorizontalLayout buttonLayout = new MHorizontalLayout()
+			.withFullWidth()
+			.withMargin(false);
+
+		if (deleteEnabled) {
+			buttonLayout.add(deleteButton);
+		}
+		if (selectEnabled) {
+			buttonLayout.add(selectButton);
+		}
+		valueGrid.getDefaultHeaderRow().getCell(ACTIONS_COLUMN_ID).setComponent(buttonLayout);
+		c.setWidth(16*2 + buttonLayout.getComponentCount() * ACTION_BUTTON_WIDTH + (buttonLayout.getComponentCount()-1) * 4);
 
 		// window confirm button
-		confirmButton = new MButton("Confirm")
-			.withListener(e -> {window.close();
-				if (!dataGrid.getSelectedItems().isEmpty()) {
-					setValue(Collections.unmodifiableList(new ArrayList<>(dataGrid.getSelectedItems())));
-				}
-			})
-			.withStyleName(ValoTheme.BUTTON_PRIMARY);
+		confirmButton = new MButton(i18n.get("Confirm"), e -> {
+			window.close();
+			if (!dataGrid.getSelectedItems().isEmpty()) {
+				setValue(Collections.unmodifiableList(new ArrayList<>(dataGrid.getSelectedItems())));
+			}
+		})
+		.withStyleName(ValoTheme.BUTTON_PRIMARY);
 
 		// window cancel button
-		cancelButton = new MButton("Cancel")
-			.withListener(e -> {
-				window.close();
-			})
-			.withStyleName(ValoTheme.BUTTON_DANGER);
+		cancelButton = new MButton(i18n.get("Cancel"), e -> {
+			window.close();
+		});
 
 		// set window content
 		window.setContent(new MVerticalLayout(
