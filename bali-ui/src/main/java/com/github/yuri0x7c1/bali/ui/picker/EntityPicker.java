@@ -46,7 +46,7 @@ import lombok.experimental.NonFinal;
  */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public abstract class EntityPicker<T> extends CustomField<T> {
-	public static final String WINDOW_SIZE = "95%";
+	public static final String WINDOW_SIZE = "90%";
 
 	Class<T> entityType;
 
