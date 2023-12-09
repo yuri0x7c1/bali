@@ -83,6 +83,8 @@ public class CommonSearchForm extends Card {
 
 	private ComboBox<SearchFieldOperator> operatorSelect;
 
+	private MButton deleteFieldsButton;
+
 	private MButton addFieldButton;
 
 	private MWindow addFieldWindow;
@@ -141,6 +143,10 @@ public class CommonSearchForm extends Card {
 			operatorSelect.setSelectedItem(event.getValue().getValidOperators().iterator().next());
 		});
 
+		// initialize delete fields button
+		deleteFieldsButton = new MButton(VaadinIcons.TRASH, i18n.get("Search.deleteFields"), e -> clearFieldComponents())
+				.withVisible(SearchMode.ADVANCED.equals(searchMode));
+
 		// initialize add field window
 		addFieldWindow = new MWindow(i18n.get("Search.addField"),
 			new MVerticalLayout(
@@ -197,15 +203,17 @@ public class CommonSearchForm extends Card {
 		});
 
 		addHeaderComponent(new MHorizontalLayout(clearAllButton, searchModeCheckBox));
-		setContent(new MVerticalLayout(fieldLayout, new MHorizontalLayout(searchButton, addFieldButton)));
+		setContent(new MVerticalLayout(fieldLayout, new MHorizontalLayout(searchButton, deleteFieldsButton, addFieldButton)));
 
 	}
 
 	private void updateSearchMode() {
 		if (SearchMode.SIMPLE.equals(searchMode)) {
+			deleteFieldsButton.setVisible(false);
 			addFieldButton.setVisible(false);
 		}
 		else if (SearchMode.ADVANCED.equals(searchMode)) {
+			deleteFieldsButton.setVisible(true);
 			addFieldButton.setVisible(true);
 		}
 		for (SearchFieldComponent fieldComponent : fieldComponents) {
