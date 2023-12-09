@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.yuri0x7c1.bali</groupId>
 		<artifactId>bali-parent</artifactId>
-		<version>1.0.9</version>
+		<version>1.0.10-SNAPSHOT</version>
 	</parent>
 	<artifactId>bali-security-ext</artifactId>
 
