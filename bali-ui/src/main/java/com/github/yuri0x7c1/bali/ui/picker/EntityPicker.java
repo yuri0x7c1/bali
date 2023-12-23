@@ -18,7 +18,7 @@ package com.github.yuri0x7c1.bali.ui.picker;
 
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.MButton;
-import org.vaadin.viritin.label.MLabel;
+import org.vaadin.viritin.fields.MTextField;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 import org.vaadin.viritin.layouts.MWindow;
@@ -54,13 +54,13 @@ public abstract class EntityPicker<T> extends CustomField<T> {
 
 	EntityDataGrid<T> dataGrid;
 
-	MLabel valueLabel;
+	MTextField valueLabel;
 
 	MWindow dialog;
 
 	MButton selectButton;
 
-	MButton deleteButton;
+	MButton clearButton;
 
 	MButton confirmButton;
 
@@ -76,8 +76,6 @@ public abstract class EntityPicker<T> extends CustomField<T> {
 		this.i18n = i18n;
 		this.dataGrid = dataGrid;
 
-		// addStyleName(BaliStyle.MULTI_PICKER);
-
 		// window
 		dialog = new MWindow();
 		dialog.setCaption(i18n.get("Select"));
@@ -89,30 +87,25 @@ public abstract class EntityPicker<T> extends CustomField<T> {
 		dataGrid.setSelectionMode(SelectionMode.SINGLE);
 
 		// value grid
-		valueLabel = new MLabel();
-		valueLabel.addStyleName("v-textfield");
+		valueLabel = new MTextField().withReadOnly(true)
+				.withStyleName(ValoTheme.TEXTFIELD_TINY, ValoTheme.TEXTFIELD_BORDERLESS);
 
 		// select button
 		selectButton = new MButton()
 			.withIcon(VaadinIcons.ANGLE_DOWN)
-			.withStyleName(
-				BaliStyle.BUTTON_PRIMARY_FIX,
-				ValoTheme.BUTTON_PRIMARY
-			)
 			.withListener(e -> {
 				if (getValue() != null) {
 					dataGrid.setSelectedItem(getValue());
 				}
 				getUI().addWindow(dialog);
-			});
+			})
+			.withStyleName(ValoTheme.BUTTON_TINY, ValoTheme.BUTTON_BORDERLESS, BaliStyle.BORDERLESS_BUTTON_LIGHT);
 
 		// delete button
-		deleteButton = new MButton(VaadinIcons.CLOSE, event -> {
+		clearButton = new MButton(VaadinIcons.CLOSE, event -> {
 				setValue(null);
-			})
-			.withStyleName(
-				ValoTheme.BUTTON_DANGER
-			);
+		})
+		.withStyleName(ValoTheme.BUTTON_TINY, ValoTheme.BUTTON_BORDERLESS, BaliStyle.BORDERLESS_BUTTON_LIGHT);
 
 		// confirm button
 		confirmButton = new MButton("Confirm")
@@ -140,8 +133,12 @@ public abstract class EntityPicker<T> extends CustomField<T> {
 
 	@Override
 	protected Component initContent() {
-		return new MHorizontalLayout(valueLabel, selectButton, deleteButton)
-			.withFullWidth().withExpand(valueLabel, 1.0f);
+		return new MHorizontalLayout(valueLabel, selectButton, clearButton)
+			.withFullWidth()
+			.withExpand(valueLabel, 1.0f)
+			.withSpacing(false)
+			.withStyleName("v-textfield")
+			.withHeight(32, Unit.PIXELS);
 	}
 
 	@Override
