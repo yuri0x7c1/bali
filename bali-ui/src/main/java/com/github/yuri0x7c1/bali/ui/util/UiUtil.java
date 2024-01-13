@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
@@ -29,6 +30,7 @@ import com.github.yuri0x7c1.bali.data.message.CommonMessages;
 import com.jarektoro.responsivelayout.ResponsiveLayout;
 import com.jarektoro.responsivelayout.ResponsiveRow;
 import com.vaadin.data.provider.GridSortOrder;
+import com.vaadin.data.provider.GridSortOrderBuilder;
 import com.vaadin.data.provider.Query;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.VaadinSession;
@@ -47,6 +49,9 @@ import com.vaadin.ui.themes.ValoTheme;
 public class UiUtil {
 
 	public static final String FLASH_MESSAGES = "FLASH_MESSAGES";
+
+	public static final String ACTIONS_COLUMN_ID = "_actions";
+	public static final int ACTION_BUTTON_WIDTH = 38;
 
 	/*
 	 * Navigate back
@@ -80,6 +85,19 @@ public class UiUtil {
 			return SortDirection.ASCENDING;
 		}
 		return SortDirection.DESCENDING;
+	}
+
+	public static <T> List<GridSortOrder<T>> convertSort(Grid grid, Sort sort) {
+		GridSortOrderBuilder<T> builder = new GridSortOrderBuilder<>();
+		sort.forEach(order -> {
+			if (Direction.ASC.equals(order.getDirection())) {
+				builder.thenAsc(grid.getColumn(order.getProperty()));
+			}
+			else {
+				builder.thenDesc(grid.getColumn(order.getProperty()));
+			}
+		});
+		return builder.build();
 	}
 
 	public static String getGridSortProperty(List<GridSortOrder> sortOrders, String defaultProperty) {
