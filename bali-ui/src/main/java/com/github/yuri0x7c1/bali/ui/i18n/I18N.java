@@ -59,13 +59,18 @@ public class I18N extends org.vaadin.spring.i18n.I18N {
 		super(ctx);
 		this.ctx = ctx;
 
-		dateTimeFormat = ctx.getEnvironment().getProperty(DATETIME_FORMAT_PROPERTY.toLowerCase(), DEFAULT_DATETIME_FORMAT);
-		dateFormat = ctx.getEnvironment().getProperty(DATE_FORMAT_PROPERTY, DEFAULT_DATE_FORMAT);
-		timeFormat = ctx.getEnvironment().getProperty(TIME_FORMAT_PROPERTY, DEFAULT_TIME_FORMAT);
+		dateTimeFormat = ctx.getEnvironment().getProperty(DATETIME_FORMAT_PROPERTY.toLowerCase() + "." + getLocale().getLanguage(),
+				ctx.getEnvironment().getProperty(DATETIME_FORMAT_PROPERTY.toLowerCase(), DEFAULT_DATETIME_FORMAT));
 
-		dateTimeFormatter = DateTimeFormatter.ofPattern(DEFAULT_DATETIME_FORMAT);
-		dateFormatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT);
-		timeFormatter = DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT);
+		dateFormat = ctx.getEnvironment().getProperty(DATE_FORMAT_PROPERTY.toLowerCase() + "." + getLocale().getLanguage(),
+				ctx.getEnvironment().getProperty(DATE_FORMAT_PROPERTY, DEFAULT_DATE_FORMAT));
+
+		timeFormat = ctx.getEnvironment().getProperty(TIME_FORMAT_PROPERTY.toLowerCase() + "." + getLocale().getLanguage(),
+				ctx.getEnvironment().getProperty(TIME_FORMAT_PROPERTY, DEFAULT_TIME_FORMAT));
+
+		dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimeFormat);
+		dateFormatter = DateTimeFormatter.ofPattern(dateFormat);
+		timeFormatter = DateTimeFormatter.ofPattern(timeFormat);
 	}
 
 	public String format(LocalDateTime localDateTime) {
