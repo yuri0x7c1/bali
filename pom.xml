@@ -43,7 +43,6 @@
 		<guava.version>28.1-jre</guava.version>
 		<modelmapper.version>2.3.0</modelmapper.version>
 		<freemarker.java8.version>2.0.0</freemarker.java8.version>
-		<hibernate.jpa.api.version>1.0.4.Final</hibernate.jpa.api.version>
 		<javax.validation.api.version>2.0.1.Final</javax.validation.api.version>
 
 		<vaadin.version>8.14.3</vaadin.version>
@@ -51,7 +50,6 @@
 		<viritin.version>2.12</viritin.version>
 		<responsive.layout.version>2.1.1</responsive.layout.version>
 
-		<evo.inflector.version>1.2.2</evo.inflector.version>
 		<poi.version>3.12</poi.version>
 	</properties>
 
@@ -241,12 +239,6 @@
 			</dependency>
 
 			<!-- JPA api -->
-			<dependency>
-				<groupId>org.hibernate.javax.persistence</groupId>
-				<artifactId>hibernate-jpa-2.1-api</artifactId>
-				<version>${hibernate.jpa.api.version}</version>
-			</dependency>
-
 			<dependency>
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
