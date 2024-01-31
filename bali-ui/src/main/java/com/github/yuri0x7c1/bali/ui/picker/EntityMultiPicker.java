@@ -41,10 +41,8 @@ import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -54,44 +52,43 @@ import lombok.extern.slf4j.Slf4j;
  * @param <T>
  */
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EntityMultiPicker<T> extends CustomField<List<T>> {
 	public static final String ACTIONS_COLUMN_ID = "_actions";
 	public static final int ACTION_BUTTON_WIDTH = 38;
 
-	final Class<T> entityType;
+	private final Class<T> entityType;
 
-	final I18N i18n;
+	private final I18N i18n;
 
-	final EntityDataGrid<T> dataGrid;
+	private final EntityDataGrid<T> dataGrid;
 
-	MButton selectButton;
+	private MButton selectButton;
 
-	MGrid<T> valueGrid;
+	private MGrid<T> valueGrid;
 
-	Window window;
+	private Window window;
 
-	ConfirmButton deleteButton;
+	private ConfirmButton deleteButton;
 
-	MButton confirmButton;
+	private MButton confirmButton;
 
-	MButton cancelButton;
+	private MButton cancelButton;
 
-	List<T> value = Collections.emptyList();
+	private List<T> value = Collections.emptyList();
 
-	boolean selectEnabled = true;
+	private boolean selectEnabled = true;
 
-	boolean deleteEnabled = true;
-
-	@Getter
-	@Setter
-	String orderProperty;
+	private boolean deleteEnabled = true;
 
 	@Getter
 	@Setter
-	Direction orderDirection;
+	private String orderProperty;
 
-	final List<EntityProperty<T>> properties = new ArrayList<>();
+	@Getter
+	@Setter
+	private Direction orderDirection;
+
+	private final List<EntityProperty<T>> properties = new ArrayList<>();
 
 	public EntityMultiPicker(Class<T> entityType, I18N i18n, EntityDataGrid<T> dataGrid) {
 		super();
