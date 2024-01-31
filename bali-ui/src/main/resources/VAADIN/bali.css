@@ -191,6 +191,32 @@ app-toolbar {
   display: none !important;
 }
 
+.bali-table-wrapper {
+  overflow-x: scroll;
+  border: 1px solid #d4d4d4;
+}
+.bali-table-wrapper .bali-table {
+  display: table !important;
+}
+.bali-table-wrapper .bali-table-header {
+  display: table-header-group !important;
+  position: static !important;
+}
+.bali-table-wrapper .bali-table-body {
+  display: table-row-group !important;
+  position: static !important;
+}
+.bali-table-wrapper .bali-table-row {
+  display: table-row !important;
+  position: static !important;
+}
+.bali-table-wrapper .bali-table-cell {
+  display: table-cell !important;
+  float: none !important;
+  border-left: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
+}
+
 /* Extra Small */
 /* Small */
 /* Medium */

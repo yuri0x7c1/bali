@@ -240,6 +240,39 @@ app-toolbar {
 	}
 }
 
+$bali-table-border: 1px solid #d4d4d4;
+
+.bali-table-wrapper {
+	overflow-x: scroll;
+	border: $bali-table-border;
+
+	.bali-table {
+		display: table !important;
+	}
+
+	.bali-table-header {
+		display: table-header-group !important;
+		position: static !important;
+	}
+
+	.bali-table-body {
+		display: table-row-group !important;
+		position: static !important;
+	}
+
+	.bali-table-row {
+		display: table-row !important;
+		position: static !important;
+	}
+
+	.bali-table-cell {
+		display: table-cell !important;
+		float: none !important;
+		border-left: $bali-table-border;
+		border-bottom: $bali-table-border;
+	}
+}
+
 /* Extra Small */
 @media(min-width:480px){
 }
