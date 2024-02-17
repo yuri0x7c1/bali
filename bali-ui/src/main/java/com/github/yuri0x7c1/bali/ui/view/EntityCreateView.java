@@ -19,13 +19,16 @@ package com.github.yuri0x7c1.bali.ui.view;
 import java.util.function.Supplier;
 
 import org.vaadin.spring.i18n.I18N;
+import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.form.AbstractForm;
 
 import com.github.yuri0x7c1.bali.ui.form.EntityForm;
 import com.github.yuri0x7c1.bali.ui.form.EntityForm.FormActionType;
 import com.github.yuri0x7c1.bali.ui.handler.CancelHandler;
+import com.github.yuri0x7c1.bali.ui.handler.CloseHandler;
 import com.github.yuri0x7c1.bali.ui.handler.SaveHandler;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
+import com.vaadin.icons.VaadinIcons;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -60,6 +63,13 @@ public class EntityCreateView<T> extends CommonView {
 	@Setter
 	private CancelHandler<T> cancelHandler;
 
+	@Getter
+	@Setter
+	private CloseHandler closeHandler;
+
+	@Getter
+	private final MButton closeButton;
+
 	public EntityCreateView(Class<T> entityType, I18N i18n, AbstractForm<T> entityForm) {
 		this.entityType = entityType;
 		this.i18n = i18n;
@@ -67,7 +77,14 @@ public class EntityCreateView<T> extends CommonView {
 
 		setHeaderText(this.getClass().getSimpleName());
 
-		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back"), e -> UiUtil.back()));
+		// create close button
+		closeHandler = () -> UiUtil.back();
+		closeButton = UiUtil.createBackButton(i18n.get("Back"), event -> {
+			if (closeHandler != null) {
+				closeHandler.onClose();
+			}
+		});
+		addHeaderComponent(closeButton);
 
 		// set form action
 		if (entityForm instanceof EntityForm) {
@@ -90,7 +107,9 @@ public class EntityCreateView<T> extends CommonView {
 			if (saveHandler != null) {
 				saveHandler.onSave(e);
 			}
-			UiUtil.back();
+			if (closeHandler != null) {
+				closeHandler.onClose();
+			}
 		});
 
 		// form reset handler
@@ -98,7 +117,9 @@ public class EntityCreateView<T> extends CommonView {
 			if (cancelHandler != null) {
 				cancelHandler.onCancel(e);
 			}
-			UiUtil.back();
+			if (closeHandler != null) {
+				closeHandler.onClose();
+			}
 		});
 
 		addComponent(entityForm);

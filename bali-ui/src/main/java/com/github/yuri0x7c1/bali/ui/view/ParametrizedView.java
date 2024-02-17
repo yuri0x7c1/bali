@@ -30,10 +30,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.UI;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -43,7 +41,6 @@ import lombok.extern.slf4j.Slf4j;
  * @param <P>
  */
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class ParametrizedView<P> extends CommonView {
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 	static {
@@ -56,11 +53,11 @@ public abstract class ParametrizedView<P> extends CommonView {
 	}
 
 	@Getter
-	final Class<P> paramsType;
+	private final Class<P> paramsType;
 
 	@Getter
 	@Setter
-	P params;
+	private P params;
 
 	public ParametrizedView(Class<P> paramsType) {
 		super();
