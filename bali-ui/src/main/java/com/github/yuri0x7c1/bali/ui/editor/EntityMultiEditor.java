@@ -21,6 +21,7 @@ import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.ui.Component;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,6 +31,7 @@ public abstract class EntityMultiEditor<T> extends EntityMultiComponent<T> {
 	private final AbstractForm<T> entityForm;
 
 	@Getter
+	@Setter
 	private Supplier<T> entitySupplier;
 
 	public EntityMultiEditor(Class<T> entityType, I18N i18n, AbstractForm<T> entityForm) {
