@@ -30,24 +30,26 @@ import com.vaadin.navigator.ViewBeforeLeaveEvent;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Component;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
+import lombok.Getter;
 
 /**
  *
  * @author yuri0x7c1
  *
  */
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class CommonView extends MVerticalLayout implements View {
 
- 	final Header header;
+	@Getter
+ 	private final Header header;
 
- 	final MessagePanel successMessagePanel;
+	@Getter
+ 	private final MessagePanel successMessagePanel;
 
- 	final MessagePanel warningMessagePanel;
+	@Getter
+ 	private final MessagePanel warningMessagePanel;
 
- 	final MessagePanel errorMessagePanel;
+	@Getter
+ 	private final MessagePanel errorMessagePanel;
 
 	public CommonView() {
 		setMargin(false);

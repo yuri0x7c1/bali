@@ -19,13 +19,15 @@ package com.github.yuri0x7c1.bali.ui.view;
 import java.util.function.Function;
 
 import org.vaadin.spring.i18n.I18N;
+import org.vaadin.viritin.button.MButton;
 
 import com.github.yuri0x7c1.bali.ui.detail.EntityDetail;
+import com.github.yuri0x7c1.bali.ui.handler.CloseHandler;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
+import com.vaadin.icons.VaadinIcons;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
+import lombok.Setter;
 
 /**
  *
@@ -34,17 +36,26 @@ import lombok.experimental.FieldDefaults;
  * @param <T>
  * @param <P>
  */
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EntityShowView<T, P> extends ParametrizedView<P> {
 
-	Class<T> entityType;
-
-	I18N i18n;
+	@Getter
+	private final Class<T> entityType;
 
 	@Getter
-	EntityDetail<T> entityDetail;
+	private final I18N i18n;
 
-	Function<P, T> entityProvider;
+	@Getter
+	private final EntityDetail<T> entityDetail;
+
+	@Getter
+	private final Function<P, T> entityProvider;
+
+	@Getter
+	@Setter
+	private CloseHandler closeHandler;
+
+	@Getter
+	private final MButton closeButton;
 
 	public EntityShowView(Class<T> entityType, Class<P> paramsType, I18N i18n, EntityDetail<T> entityDetail,
 			Function<P, T> entityProvider) {
@@ -55,7 +66,13 @@ public class EntityShowView<T, P> extends ParametrizedView<P> {
 		this.entityProvider = entityProvider;
 
 		setHeaderText(this.getClass().getSimpleName());
-		addHeaderComponent(UiUtil.createBackButton(i18n.get("Back")));
+
+		// create close button
+		closeHandler = () -> UiUtil.back();
+		closeButton = UiUtil.createBackButton(i18n.get("Back"), event -> {
+			if (closeHandler != null) closeHandler.onClose();
+		});
+		addHeaderComponent(closeButton);
 
 		addComponent(entityDetail);
 	}
