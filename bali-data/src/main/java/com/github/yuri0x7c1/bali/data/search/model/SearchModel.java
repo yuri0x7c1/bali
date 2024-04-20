@@ -31,7 +31,13 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SearchModel {
+	public enum LogicalOperator {
+		AND,
+		OR
+	}
+
 	List<SearchField> fields = new ArrayList<>();
+	LogicalOperator logicalOperator = LogicalOperator.AND;
 
 	public void removeFieldsByName(String name) {
 		List<SearchField> newFields = new ArrayList<>();
