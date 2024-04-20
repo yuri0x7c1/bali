@@ -38,6 +38,7 @@ import org.vaadin.viritin.layouts.MWindow;
 import com.github.yuri0x7c1.bali.data.search.model.SearchField;
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.data.search.model.SearchModel;
+import com.github.yuri0x7c1.bali.data.search.model.SearchModel.LogicalOperator;
 import com.github.yuri0x7c1.bali.ui.card.Card;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.data.HasValue;
@@ -46,6 +47,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -96,6 +98,8 @@ public class CommonSearchForm extends Card {
 	private SearchMode searchMode = SearchMode.SIMPLE;
 
 	private MCheckBox searchModeCheckBox;
+
+	private RadioButtonGroup<LogicalOperator> logicalOperators;
 
 	@Setter
 	Runnable searchHandler;
@@ -202,8 +206,23 @@ public class CommonSearchForm extends Card {
 			updateSearchMode();
 		});
 
+		logicalOperators = new RadioButtonGroup<>();
+		logicalOperators.addStyleName(ValoTheme.OPTIONGROUP_HORIZONTAL);
+		logicalOperators.addStyleName(ValoTheme.OPTIONGROUP_SMALL);
+		logicalOperators.setItems(LogicalOperator.AND, LogicalOperator.OR);
+		logicalOperators.setValue(LogicalOperator.AND);
+		logicalOperators.setItemCaptionGenerator(o -> {
+			if (LogicalOperator.AND.equals(o)) {
+				return i18n.get("LogicalOperator.AND");
+			}
+			else {
+				return i18n.get("LogicalOperator.OR");
+			}
+		});
+		logicalOperators.setVisible(false);
+
 		addHeaderComponent(new MHorizontalLayout(clearAllButton, searchModeCheckBox));
-		setContent(new MVerticalLayout(fieldLayout, new MHorizontalLayout(searchButton, deleteFieldsButton, addFieldButton)));
+		setContent(new MVerticalLayout(logicalOperators, fieldLayout, new MHorizontalLayout(searchButton, deleteFieldsButton, addFieldButton)));
 
 	}
 
@@ -211,10 +230,12 @@ public class CommonSearchForm extends Card {
 		if (SearchMode.SIMPLE.equals(searchMode)) {
 			deleteFieldsButton.setVisible(false);
 			addFieldButton.setVisible(false);
+			logicalOperators.setVisible(false);
 		}
 		else if (SearchMode.ADVANCED.equals(searchMode)) {
 			deleteFieldsButton.setVisible(true);
 			addFieldButton.setVisible(true);
+			logicalOperators.setVisible(true);
 		}
 		for (SearchFieldComponent fieldComponent : fieldComponents) {
 			fieldComponent.setSearchMode(searchMode);
@@ -242,6 +263,9 @@ public class CommonSearchForm extends Card {
 				searchModel.getFields().add(new SearchField(fieldComponent.getName(), fieldComponent.getOperator(), fieldComponent.getParams(), v));
 			}
 		}
+
+		searchModel.setLogicalOperator(getLogicalOperator());
+
 		return searchModel;
 	}
 
@@ -309,5 +333,13 @@ public class CommonSearchForm extends Card {
 	public void registerFieldComponent(SearchFieldComponentDescriptor fieldComponent) {
 		fieldDescriptors.put(fieldComponent.getFieldName(), fieldComponent);
 		fieldSelect.setItems(fieldDescriptors.values());
+	}
+
+	public LogicalOperator getLogicalOperator() {
+		return logicalOperators.getValue();
+	}
+
+	public void setLogicalOperator(LogicalOperator logicalOperator) {
+		logicalOperators.setValue(logicalOperator);
 	}
 }
