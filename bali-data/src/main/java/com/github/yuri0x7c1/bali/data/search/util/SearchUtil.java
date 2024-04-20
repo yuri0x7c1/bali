@@ -38,6 +38,7 @@ import org.springframework.data.jpa.domain.Specification;
 import com.github.yuri0x7c1.bali.data.search.model.SearchField;
 import com.github.yuri0x7c1.bali.data.search.model.SearchFieldOperator;
 import com.github.yuri0x7c1.bali.data.search.model.SearchModel;
+import com.github.yuri0x7c1.bali.data.search.model.SearchModel.LogicalOperator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -147,7 +148,12 @@ public class SearchUtil {
 					}
 				}
 
-				return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+				if (LogicalOperator.AND.equals(searchModel.getLogicalOperator())) {
+					return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+				}
+				else {
+					return cb.or(predicates.toArray(new Predicate[predicates.size()]));
+				}
 			}
 		};
 		return spec;
