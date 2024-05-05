@@ -24,6 +24,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.viritin.button.ConfirmButton;
@@ -82,8 +85,13 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	private static final int ACTION_BUTTON_WIDTH = 38;
 
-	public interface SearchProvider<T> extends Serializable {
+	@Deprecated
+	public interface SearchProviderOld<T> extends Serializable {
 		Page<T> search(Integer page, Integer pageSize, String orderProperty, Direction orderDirection, SearchModel searchModel);
+	}
+
+	public interface SearchProvider<T> extends Serializable {
+		Page<T> search(Pageable pageable, SearchModel searchModel);
 	}
 
     public interface SearchCountProvider<T> extends Serializable {
@@ -94,13 +102,21 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
     	T process(T entity);
     }
 
+    public interface SortProcessor extends Serializable {
+    	Sort process(Sort currentSort);
+    }
+
 	final Class<T> entityType;
 
 	final I18N i18n;
 
+//	@Getter
+//	@Setter
+//	SearchProviderOld<T> searchProvider = (page, pageSize, orderProperty, orderDirection, searchModel) -> Page.empty();
+
 	@Getter
 	@Setter
-	SearchProvider<T> searchProvider = (page, pageSize, orderProperty, orderDirection, searchModel) -> Page.empty();
+	SearchProvider<T> searchProvider = (pageable, searchModel) -> Page.empty();
 
 	@Getter
 	@Setter
@@ -113,7 +129,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	DeleteHandler<T> deleteHandler;
 
 	@Getter
-	@Setter
 	EntityProcessor<T> entityProcessor;
 
 	final CommonSearchForm searchForm;
@@ -134,34 +149,47 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	int pageSize = 15;
 
 	@Getter
-	final String defaultOrderProperty;
+	final Sort defaultSort;
 
 	@Getter
-	final Direction defaultOrderDirection;
+	Sort sort = Sort.unsorted();
 
-	@Getter
-	@Setter
-	String orderProperty;
+	SortProcessor sortProcessor;
 
-	@Getter
-	@Setter
-	Direction orderDirection;
+//	@Getter
+//	final String defaultOrderProperty;
+//
+//	@Getter
+//	final Direction defaultOrderDirection;
+//
+//	@Getter
+//	@Setter
+//	String orderProperty;
+//
+//	@Getter
+//	@Setter
+//	Direction orderDirection;
 
 	final List<EntityProperty<T>> properties = new ArrayList<>();
 
 	final List<T> items = new ArrayList<>();
 
-
-
+	@Deprecated
 	public EntityDataGrid(Class<T> entityType, I18N i18n, CommonSearchForm searchForm, String defaultOrderProperty, Direction defaultOrderDirection) {
+		this(entityType, i18n, searchForm, Sort.by(defaultOrderDirection, defaultOrderProperty));
+	}
+
+	public EntityDataGrid(Class<T> entityType, I18N i18n, CommonSearchForm searchForm, Sort defaultSort) {
+		this(entityType, i18n, searchForm, defaultSort, null);
+	}
+
+	public EntityDataGrid(Class<T> entityType, I18N i18n, CommonSearchForm searchForm, Sort defaultSort, SortProcessor sortProcessor) {
 		this.entityType = entityType;
 		this.i18n = i18n;
 		this.searchForm = searchForm;
-		this.defaultOrderProperty = defaultOrderProperty;
-		this.defaultOrderDirection = defaultOrderDirection;
-
-		this.orderProperty = defaultOrderProperty;
-		this.orderDirection = defaultOrderDirection;
+		this.sortProcessor = sortProcessor;
+		this.defaultSort = defaultSort;
+		this.sort = defaultSort;
 
 		setSizeFull();
 		setMargin(false);
@@ -185,8 +213,10 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		);
 
 		grid.addSortListener(event -> {
-			orderDirection = getOrderDirection();
-			orderProperty = getOrderProperty();
+			sort = UiUtil.convertGridSortOrders(event.getSortOrder());
+			if (sortProcessor != null) {
+				sort = sortProcessor.process(sort);
+			}
 			refresh();
 		});
 
@@ -303,7 +333,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public void refresh() {
 		items.clear();
-		Page<T> entityPage = searchProvider.search(page, pageSize, orderProperty, orderDirection,
+		Page<T> entityPage = searchProvider.search(PageRequest.of(page, pageSize, sort),
 				searchForm.getModel());
 		pagination.setTotalCount(entityPage.getTotalElements());
 		if (entityProcessor == null) {
@@ -318,7 +348,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	}
 
 	public void sortAndRefresh() {
-		grid.sort(orderProperty, UiUtil.convertDirection(orderDirection));
+		grid.setSortOrder(UiUtil.convertSort(grid, sort));
 	}
 
 	public void refreshColumns() {
@@ -414,13 +444,13 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 		return grid.addItemClickListener(listener);
 	}
 
-	public Direction getOrderDirection() {
-		return UiUtil.getGridOrderDirection(grid, defaultOrderDirection);
-	}
-
-	public String getOrderProperty() {
-		return UiUtil.getGridOrderProperty(grid, defaultOrderProperty);
-	}
+//	public Direction getOrderDirection() {
+//		return UiUtil.getGridOrderDirection(grid, defaultOrderDirection);
+//	}
+//
+//	public String getOrderProperty() {
+//		return UiUtil.getGridOrderProperty(grid, defaultOrderProperty);
+//	}
 
 	public SearchFieldComponentDescriptor.Builder searchFieldComponentBuilder() {
 		return SearchFieldComponentDescriptor.builder();
@@ -428,5 +458,16 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public EntityProperty.Builder<T> propertyBuilder() {
 		return EntityProperty.<T>builder();
+	}
+
+	@Deprecated
+	public void setSearchProvider(SearchProviderOld<T> sp) {
+		searchProvider = (pageable, searchModel) -> sp.search(pageable.getPageNumber(), pageable.getPageSize(),
+				pageable.getSort().toList().get(0).getProperty(), pageable.getSort().toList().get(0).getDirection(),
+				searchModel);
+	}
+
+	public void setSearchProvider(SearchProvider<T> searchProvider) {
+		this.searchProvider = searchProvider;
 	}
 }

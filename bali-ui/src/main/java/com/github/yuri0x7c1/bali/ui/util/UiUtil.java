@@ -17,12 +17,14 @@
 package com.github.yuri0x7c1.bali.ui.util;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.label.MLabel;
 
@@ -98,6 +100,12 @@ public class UiUtil {
 			}
 		});
 		return builder.build();
+	}
+
+	public static <T> Sort convertGridSortOrders(List<GridSortOrder<T>> sortOrders) {
+		return Sort.by(sortOrders.stream()
+			.map(so -> SortDirection.ASCENDING.equals(so.getDirection()) ? Order.asc(so.getSorted().getId()) : Order.desc(so.getSorted().getId()))
+			.collect(Collectors.toList()));
 	}
 
 	public static String getGridSortProperty(List<GridSortOrder> sortOrders, String defaultProperty) {

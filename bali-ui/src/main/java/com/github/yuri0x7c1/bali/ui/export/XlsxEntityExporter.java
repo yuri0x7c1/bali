@@ -30,6 +30,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
@@ -68,13 +69,18 @@ public class XlsxEntityExporter<T> {
 	List<EntityProperty<T>> properties;
 	List<T> entities;
 	PageProvider<T> pageProvider;
-	Direction sortDirection;
-	String sortProperty;
+	Sort sort;
 	Integer pageSize;
 	ProgressListener progressListener;
 
 	public XlsxEntityExporter(Class<T> entityType, List<EntityProperty<T>> properties, List<T> entities,
 			PageProvider<T> pageProvider, Direction sortDirection, String sortProperty, Integer pageSize,
+			ProgressListener progressListener) {
+		this(entityType, properties, entities, pageProvider, Sort.by(sortDirection, sortProperty), pageSize, progressListener);
+	}
+
+	public XlsxEntityExporter(Class<T> entityType, List<EntityProperty<T>> properties, List<T> entities,
+			PageProvider<T> pageProvider, Sort sort, Integer pageSize,
 			ProgressListener progressListener) {
 
 		if (entities == null && pageProvider == null) {
@@ -84,8 +90,7 @@ public class XlsxEntityExporter<T> {
 		this.properties = properties;
 		this.entities = entities;
 		this.pageProvider = pageProvider;
-		this.sortDirection = sortDirection;
-		this.sortProperty = sortProperty;
+		this.sort = sort;
 		this.pageSize = pageSize;
 		this.progressListener = progressListener;
 	}
@@ -136,7 +141,7 @@ public class XlsxEntityExporter<T> {
 
         int entityNumber = 0;
         if (pageProvider != null) {
-	       	Pageable pageable = PageRequest.of(0, pageSize, sortDirection, sortProperty);
+	       	Pageable pageable = PageRequest.of(0, pageSize, sort);
 	        do {
 	        	Page<T> currentPage = pageProvider.getPage(pageable);
 	        	if (currentPage.getTotalElements() > MAX_ENTITY_COUNT) {
