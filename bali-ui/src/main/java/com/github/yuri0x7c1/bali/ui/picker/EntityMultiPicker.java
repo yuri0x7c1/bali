@@ -22,9 +22,6 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.themes.ValoTheme;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public abstract class EntityMultiPicker<T> extends EntityMultiComponent<T> {
 
 	private final EntityDataGrid<T> dataGrid;
