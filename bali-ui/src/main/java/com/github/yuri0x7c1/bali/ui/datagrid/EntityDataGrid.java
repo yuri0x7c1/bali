@@ -60,11 +60,8 @@ import com.vaadin.ui.components.grid.ItemClickListener;
 import com.vaadin.ui.renderers.TextRenderer;
 import com.vaadin.ui.themes.ValoTheme;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class EntityDataGrid.
@@ -74,14 +71,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author yuri0x7c1
  */
 public abstract class EntityDataGrid<T> extends MVerticalLayout {
-
-	private static final String ACTIONS_COLUMN_ID = "_actions";
-
-	private static final String ACTION_CELL = "action-cell";
-
-	private static final String ACTION_BUTTON = "action-button";
-
-	private static final int ACTION_BUTTON_WIDTH = 38;
 
 	@Deprecated
 	public interface SearchProviderOld<T> extends Serializable {
@@ -232,13 +221,13 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	private int calculateActionsColumnWidth() {
 		int buttonCount = (showHandler != null ? 1 : 0) + (editHandler != null ? 1 : 0) + (deleteHandler != null ? 1 : 0);
 		if (buttonCount == 0) return 8;
-		return 8 + buttonCount*ACTION_BUTTON_WIDTH + (buttonCount-1)*4;
+		return 8 + buttonCount*BaliStyle.ACTION_BUTTON_WIDTH + (buttonCount-1)*4;
 	}
 
 	private void refreshActionsColumn() {
         if (showHandler != null || editHandler != null || deleteHandler != null) {
-        	if (grid.getColumn(ACTIONS_COLUMN_ID) != null) {
-        		grid.removeColumn(ACTIONS_COLUMN_ID);
+        	if (grid.getColumn(BaliStyle.ACTIONS_COLUMN_ID) != null) {
+        		grid.removeColumn(BaliStyle.ACTIONS_COLUMN_ID);
         	}
         	Column<T, MCssLayout> c = grid.addComponentColumn(entity -> {
         		MCssLayout l = new MCssLayout().withFullWidth();
@@ -248,7 +237,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         			})
         			.withDescription(i18n.get("Show"))
 					.withStyleName(
-						EntityDataGrid.ACTION_BUTTON,
+						BaliStyle.ACTION_BUTTON,
 						ValoTheme.BUTTON_SMALL
 					);
         			l.add(show);
@@ -259,7 +248,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         			})
 					.withDescription(i18n.get("Edit"))
 					.withStyleName(
-						EntityDataGrid.ACTION_BUTTON,
+						BaliStyle.ACTION_BUTTON,
 						BaliStyle.BUTTON_PRIMARY_FIX,
 						ValoTheme.BUTTON_PRIMARY,
 						ValoTheme.BUTTON_SMALL
@@ -273,7 +262,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         			})
 					.withDescription(i18n.get("Delete"))
 					.withStyleName(
-						EntityDataGrid.ACTION_BUTTON,
+						BaliStyle.ACTION_BUTTON,
 						ValoTheme.BUTTON_DANGER,
 						ValoTheme.BUTTON_SMALL
 					);
@@ -281,10 +270,10 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
         		}
         		return l;
         	});
-        	c.setId(ACTIONS_COLUMN_ID);
+        	c.setId(BaliStyle.ACTIONS_COLUMN_ID);
         	c.setWidth(calculateActionsColumnWidth());
         	c.setSortable(false);
-        	c.setStyleGenerator(item -> EntityDataGrid.ACTION_CELL);
+        	c.setStyleGenerator(item -> BaliStyle.ACTION_CELL);
         	grid.setColumnOrder(c);
         }
 	}

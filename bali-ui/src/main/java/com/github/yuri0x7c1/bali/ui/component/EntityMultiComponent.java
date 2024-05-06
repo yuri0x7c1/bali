@@ -38,7 +38,6 @@ import com.github.yuri0x7c1.bali.ui.picker.EntityPicker;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.github.yuri0x7c1.bali.ui.util.UiUtil;
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
 import com.vaadin.ui.Grid.Column;
@@ -162,7 +161,7 @@ public abstract class EntityMultiComponent<T> extends CustomField<List<T>> {
 
     		return l;
     	});
-    	c.setId(UiUtil.ACTIONS_COLUMN_ID);
+    	c.setId(BaliStyle.ACTIONS_COLUMN_ID);
 		c.setWidth(112);
     	c.setSortable(false);
     	c.setResizable(false);
@@ -198,7 +197,7 @@ public abstract class EntityMultiComponent<T> extends CustomField<List<T>> {
 			.withMargin(false);
 
 		buttonLayout.add(removeAllButton, addButton);
-		valueGrid.getDefaultHeaderRow().getCell(UiUtil.ACTIONS_COLUMN_ID).setComponent(buttonLayout);
+		valueGrid.getDefaultHeaderRow().getCell(BaliStyle.ACTIONS_COLUMN_ID).setComponent(buttonLayout);
 
 		// init handlers
 		removeAllHandler = initRemoveAllHandler();
@@ -272,7 +271,7 @@ public abstract class EntityMultiComponent<T> extends CustomField<List<T>> {
 	public void refreshColumns() {
 		// clear columns
         for (Column<T, ?> column : valueGrid.getColumns()) {
-        	if (!UiUtil.ACTIONS_COLUMN_ID.equals(column.getId())) {
+        	if (!BaliStyle.ACTIONS_COLUMN_ID.equals(column.getId())) {
         		valueGrid.removeColumn(column);
         	}
         }

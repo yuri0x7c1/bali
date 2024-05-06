@@ -63,4 +63,12 @@ public class BaliStyle {
 	public static final String BORDERLESS_BUTTON_LIGHT = "bali-borderless-button-light";
 
 	public static final String BORDERLESS_BUTTON_DARK = "bali-borderless-button-dark";
+
+	public static final String ACTIONS_COLUMN_ID = "_actions";
+
+	public static final String ACTION_CELL = "action-cell";
+
+	public static final String ACTION_BUTTON = "action-button";
+
+	public static final int ACTION_BUTTON_WIDTH = 38;
 }

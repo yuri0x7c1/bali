@@ -52,9 +52,6 @@ public class UiUtil {
 
 	public static final String FLASH_MESSAGES = "FLASH_MESSAGES";
 
-	public static final String ACTIONS_COLUMN_ID = "_actions";
-	public static final int ACTION_BUTTON_WIDTH = 38;
-
 	/*
 	 * Navigate back
 	 */
