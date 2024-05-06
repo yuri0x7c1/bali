@@ -69,6 +69,7 @@
 
 .bali-common-view {
   overflow: auto !important;
+  padding-bottom: 14px;
 }
 
 .bali-common-search-form .field {

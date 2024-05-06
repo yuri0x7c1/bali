@@ -82,6 +82,7 @@
 
 .bali-common-view {
 	overflow: auto !important;
+	padding-bottom: 14px;
 }
 
 .bali-common-search-form {
@@ -246,7 +247,7 @@ app-toolbar {
 
 /* Small */
 @media(min-width:768px){
-		}
+}
 
 /* Medium */
 @media(min-width:992px){
