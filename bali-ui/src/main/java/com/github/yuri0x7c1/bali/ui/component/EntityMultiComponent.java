@@ -47,14 +47,12 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author yuri0x7c1
  *
  */
-@Slf4j
 public abstract class EntityMultiComponent<T> extends CustomField<List<T>> {
 	@Getter
 	private final Class<T> entityType;
