@@ -73,8 +73,6 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author yuri0x7c1
  */
-@Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	private static final String ACTIONS_COLUMN_ID = "_actions";
@@ -106,73 +104,55 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
     	Sort process(Sort currentSort);
     }
 
-	final Class<T> entityType;
+	private final Class<T> entityType;
 
-	final I18N i18n;
-
-//	@Getter
-//	@Setter
-//	SearchProviderOld<T> searchProvider = (page, pageSize, orderProperty, orderDirection, searchModel) -> Page.empty();
+	private final I18N i18n;
 
 	@Getter
 	@Setter
-	SearchProvider<T> searchProvider = (pageable, searchModel) -> Page.empty();
+	private SearchProvider<T> searchProvider = (pageable, searchModel) -> Page.empty();
 
 	@Getter
 	@Setter
-	SearchCountProvider<T> searchCountProvider = (searchModel) -> 0L;
+	private SearchCountProvider<T> searchCountProvider = (searchModel) -> 0L;
 
-	ShowHandler<T> showHandler;
+	private ShowHandler<T> showHandler;
 
-	EditHandler<T> editHandler;
+	private EditHandler<T> editHandler;
 
-	DeleteHandler<T> deleteHandler;
-
-	@Getter
-	EntityProcessor<T> entityProcessor;
-
-	final CommonSearchForm searchForm;
+	private DeleteHandler<T> deleteHandler;
 
 	@Getter
-	final MGrid<T> grid;
+	private EntityProcessor<T> entityProcessor;
 
-	final Pagination pagination;
-
-	Column<T, MHorizontalLayout> actionsColumn;
+	private final CommonSearchForm searchForm;
 
 	@Getter
-	@Setter
-	int page = 0;
+	private final MGrid<T> grid;
+
+	private final Pagination pagination;
+
+	private Column<T, MHorizontalLayout> actionsColumn;
 
 	@Getter
 	@Setter
-	int pageSize = 15;
+	private int page = 0;
 
 	@Getter
-	final Sort defaultSort;
+	@Setter
+	private int pageSize = 15;
 
 	@Getter
-	Sort sort = Sort.unsorted();
+	private final Sort defaultSort;
 
-	SortProcessor sortProcessor;
+	@Getter
+	private Sort sort = Sort.unsorted();
 
-//	@Getter
-//	final String defaultOrderProperty;
-//
-//	@Getter
-//	final Direction defaultOrderDirection;
-//
-//	@Getter
-//	@Setter
-//	String orderProperty;
-//
-//	@Getter
-//	@Setter
-//	Direction orderDirection;
+	private SortProcessor sortProcessor;
 
-	final List<EntityProperty<T>> properties = new ArrayList<>();
+	private final List<EntityProperty<T>> properties = new ArrayList<>();
 
-	final List<T> items = new ArrayList<>();
+	private final List<T> items = new ArrayList<>();
 
 	@Deprecated
 	public EntityDataGrid(Class<T> entityType, I18N i18n, CommonSearchForm searchForm, String defaultOrderProperty, Direction defaultOrderDirection) {
@@ -443,14 +423,6 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	public Registration addItemClickListener(ItemClickListener<? super T> listener) {
 		return grid.addItemClickListener(listener);
 	}
-
-//	public Direction getOrderDirection() {
-//		return UiUtil.getGridOrderDirection(grid, defaultOrderDirection);
-//	}
-//
-//	public String getOrderProperty() {
-//		return UiUtil.getGridOrderProperty(grid, defaultOrderProperty);
-//	}
 
 	public SearchFieldComponentDescriptor.Builder searchFieldComponentBuilder() {
 		return SearchFieldComponentDescriptor.builder();
