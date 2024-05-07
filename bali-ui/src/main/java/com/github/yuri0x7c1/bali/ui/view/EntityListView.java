@@ -69,6 +69,8 @@ public abstract class EntityListView<T> extends CommonView {
 	@Getter
 	Supplier<String> exportFileNameProvider;
 
+	boolean initialized = false;
+
 	public EntityListView(Class<T> entityType, I18N i18n, EntityDataGrid<T> dataGrid) {
 		super();
 		this.entityType = entityType;
@@ -149,6 +151,12 @@ public abstract class EntityListView<T> extends CommonView {
 
 	@Override
 	public void onEnter() {
-		dataGrid.sortAndRefresh();
+		if (initialized) {
+			dataGrid.refresh();
+		}
+		else {
+			dataGrid.sortAndRefresh();
+			initialized = true;
+		}
 	}
 }
