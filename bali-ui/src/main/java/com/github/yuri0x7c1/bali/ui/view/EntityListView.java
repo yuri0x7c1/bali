@@ -33,9 +33,7 @@ import com.github.yuri0x7c1.bali.ui.handler.ShowHandler;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.themes.ValoTheme;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -44,32 +42,31 @@ import lombok.extern.slf4j.Slf4j;
  * @author yuri0x7c1
  */
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class EntityListView<T> extends CommonView {
 
-    final Class<T> entityType;
+	private boolean initialized = false;
 
-	final I18N i18n;
+    private final Class<T> entityType;
 
-	@Getter
-	final DownloadButton exportButton;
-
-	@Getter
-	final EntityDataGrid<T> dataGrid;
+    private final I18N i18n;
 
 	@Getter
-	final MButton createButton;
+	private final DownloadButton exportButton;
 
 	@Getter
-	CreateHandler<T> createHandler;
+	private final EntityDataGrid<T> dataGrid;
 
 	@Getter
-	PageProvider<T> exportPageProvider;
+	private final MButton createButton;
 
 	@Getter
-	Supplier<String> exportFileNameProvider;
+	private CreateHandler<T> createHandler;
 
-	boolean initialized = false;
+	@Getter
+	private PageProvider<T> exportPageProvider;
+
+	@Getter
+	private Supplier<String> exportFileNameProvider;
 
 	public EntityListView(Class<T> entityType, I18N i18n, EntityDataGrid<T> dataGrid) {
 		super();
