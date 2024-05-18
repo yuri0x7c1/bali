@@ -92,6 +92,16 @@
 		</dependency>
 
 		<dependency>
+		   <groupId>com.vaadin</groupId>
+		   <artifactId>vaadin-context-menu</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.tltv.gantt</groupId>
+			<artifactId>gantt-addon</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.github.yuri0x7c1.bali</groupId>
 			<artifactId>bali-core</artifactId>
 			<version>${project.version}</version>

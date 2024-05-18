@@ -200,6 +200,18 @@
 				<artifactId>v-leaflet</artifactId>
 				<version>3.0.2</version>
 			</dependency>
+			
+			<dependency>
+			   <groupId>com.vaadin</groupId>
+			   <artifactId>vaadin-context-menu</artifactId>
+			   <version>3.1.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.tltv.gantt</groupId>
+				<artifactId>gantt-addon</artifactId>
+				<version>1.0.4</version>
+			</dependency>
 
 			<!-- vaadin4spring -->
 			<dependency>
