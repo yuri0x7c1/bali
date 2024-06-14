@@ -130,12 +130,6 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.atteo</groupId>
-				<artifactId>evo-inflector</artifactId>
-				<version>${evo.inflector.version}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>org.modelmapper</groupId>
 				<artifactId>modelmapper</artifactId>
 				<version>${modelmapper.version}</version>
@@ -200,7 +194,7 @@
 				<artifactId>v-leaflet</artifactId>
 				<version>3.0.2</version>
 			</dependency>
-			
+
 			<dependency>
 			   <groupId>com.vaadin</groupId>
 			   <artifactId>vaadin-context-menu</artifactId>
