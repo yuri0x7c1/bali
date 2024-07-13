@@ -71,4 +71,6 @@ public class BaliStyle {
 	public static final String ACTION_BUTTON = "action-button";
 
 	public static final int ACTION_BUTTON_WIDTH = 38;
+
+	public static final String BALI_SIMPLE_TABLE = "bali-simple-table";
 }

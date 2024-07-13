@@ -192,6 +192,34 @@ app-toolbar {
   display: none !important;
 }
 
+.bali-simple-table {
+  display: table !important;
+}
+
+.bali-simple-table-header {
+  display: table-header-group !important;
+}
+
+.bali-simple-table-header-row {
+  display: table-row !important;
+}
+
+.bali-simple-table-header-cell {
+  display: table-cell !important;
+}
+
+.bali-simple-table-body {
+  display: table-row-group !important;
+}
+
+.bali-simple-table-row {
+  display: table-row !important;
+}
+
+.bali-simple-table-cell {
+  display: table-cell !important;
+}
+
 /* Extra Small */
 /* Small */
 /* Medium */
