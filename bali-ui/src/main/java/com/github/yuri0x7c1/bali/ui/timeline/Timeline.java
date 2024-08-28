@@ -20,4 +20,18 @@ public class Timeline extends AbstractJavaScriptComponent {
     protected TimelineState getState() {
         return (TimelineState) super.getState();
     }
+
+	public void addCustomTime(String time, String id) {
+		callFunction("addCustomTime", time, id);
+	}
+
+	public void setCustomTimeMarker(String title, String id, Boolean editable) {
+		callFunction("setCustomTimeMarker", title, id, editable);
+	}
+
+	public void setCustomTimeTitle(String title, String id) {
+		callFunction("setCustomTimeTitle", title, id);
+	}
+
+
 }
