@@ -16,7 +16,11 @@
 
 package com.github.yuri0x7c1.bali.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.StrSubstitutor;
 
 /**
  *
@@ -75,4 +79,24 @@ public class TextUtil {
     public static String joinWithDot(String... elements) {
     	return StringUtils.join(elements, ".");
     }
+
+	/**
+	 * Substitute.
+	 *
+	 * @param template the template
+	 * @param keysOrValues the keys or values
+	 * @return the string
+	 */
+	public static String substitute(String template, Object... keysOrValues) {
+		if (keysOrValues.length % 2 != 0) {
+			throw new RuntimeException("Inconsistent keys and values pairs!");
+		}
+
+		Map<String, Object> params = new HashMap<>();
+		for (int i = 0; i < keysOrValues.length-1; i+=2) {
+			params.put((String) keysOrValues[i], keysOrValues[i+1]);
+		}
+
+		return new StrSubstitutor(params).replace(template);
+	}
 }
