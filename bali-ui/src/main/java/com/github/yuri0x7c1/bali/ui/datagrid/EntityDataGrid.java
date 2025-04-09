@@ -136,6 +136,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 	private final Sort defaultSort;
 
 	@Getter
+	@Setter
 	private Sort sort = Sort.unsorted();
 
 	private SortProcessor sortProcessor;
