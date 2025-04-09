@@ -106,4 +106,16 @@ public class EntityForm<T> extends AbstractForm<T> {
 				DEFAULT_RESPONSIVE_FORM_LG);
 	}
 
+	@Override
+    protected void adjustSaveButtonState() {
+        if (isBound()) {
+            getSaveButton().setEnabled(isValid());
+        }
+    }
+
+	@Override
+    protected void adjustResetButtonState() {
+    	getResetButton().setEnabled(true);
+    }
+
 }
