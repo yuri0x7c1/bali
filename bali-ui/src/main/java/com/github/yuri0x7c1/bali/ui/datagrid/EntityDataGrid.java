@@ -111,6 +111,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	private DeleteHandler<T> deleteHandler;
 
+	@Setter
 	@Getter
 	private EntityProcessor<T> entityProcessor;
 
@@ -314,6 +315,12 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 			}
 		}
 		grid.getDataProvider().refreshAll();
+		if (entityPage.getNumberOfElements() > 0) {
+			grid.setHeightByRows(entityPage.getNumberOfElements());
+		}
+		else {
+			grid.setHeightByRows(1);
+		}
 	}
 
 	public void sortAndRefresh() {
