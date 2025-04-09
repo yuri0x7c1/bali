@@ -27,6 +27,7 @@ import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -52,12 +53,22 @@ import lombok.extern.slf4j.Slf4j;
 public class SearchUtil {
 
 	public static Path getPath(Root root, String fieldName) {
-		String[] subpaths = fieldName.split("\\.");
-		Path path = root.get(subpaths[0]);
-		for (int i = 1; i < subpaths.length; i++) {
-			path = path.get(subpaths[i]);
+		if (!fieldName.contains(".")) {
+			return root.get(fieldName);
 		}
-		return path;
+
+		String[] subpaths = fieldName.split("\\.");
+		Join join = null;
+		for (int i = 0; i < subpaths.length-1; i++) {
+			join = getJoin(root, join, subpaths[i]);
+		}
+
+		return join.get(subpaths[subpaths.length-1]);
+	}
+
+	public static Join getJoin(Root root, Join join, String fieldName) {
+		if (join != null) return join.join(fieldName);
+		return root.join(fieldName);
 	}
 
 	public static <T> Specification<T> buildSpecification(Class<T> entityType, SearchModel searchModel) {
