@@ -17,12 +17,15 @@
 package com.github.yuri0x7c1.bali.util;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -213,5 +216,21 @@ public class TimeUtil {
 					.unmodifiableList(Arrays.asList(new ZonedDateTime[] { getStartOfYear(dt), getEndOfYear(dt) }));
 		}
 		throw new RuntimeException("Unsupported TimePeriod!");
+	}
+
+	public Date convertToDate(LocalDateTime localDateTime, ZoneId zoneId) {
+		return Date.from(localDateTime.atZone(zoneId).toInstant());
+	}
+
+	public Date convertToDate(LocalDateTime localDateTime) {
+		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	public Date convertToDate(LocalDate localDate, ZoneId zoneId) {
+		return Date.from(localDate.atStartOfDay(zoneId).toInstant());
+	}
+
+	public Date convertToDate(LocalDate localDate) {
+		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 }
