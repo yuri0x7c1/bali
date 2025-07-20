@@ -148,9 +148,18 @@ public class UiUtil {
 	}
 
 	public static Pageable createPageable(Query query, Direction direction, String...fields) {
+		int pageSize = query.getLimit();
+		int pageOffset = query.getOffset();
+
+		if (pageOffset > pageSize && pageOffset % pageSize != 0) {
+			while (pageOffset % pageSize != 0) {
+				pageSize++;
+			}
+		}
+
 		return PageRequest.of(
-			query.getOffset() / query.getLimit(),
-			query.getLimit(),
+			pageOffset / pageSize,
+			pageSize,
 			direction,
 			fields
 		);
