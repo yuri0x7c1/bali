@@ -6,7 +6,7 @@
 
 	<groupId>com.github.yuri0x7c1.bali</groupId>
 	<artifactId>bali-parent</artifactId>
-	<version>1.0.14</version>
+	<version>1.0.15-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>BALI</name>
