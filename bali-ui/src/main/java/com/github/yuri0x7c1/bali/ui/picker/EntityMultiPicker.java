@@ -18,6 +18,7 @@ import com.github.yuri0x7c1.bali.ui.handler.CancelHandler;
 import com.github.yuri0x7c1.bali.ui.handler.CloseHandler;
 import com.github.yuri0x7c1.bali.ui.handler.ConfirmHandler;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.themes.ValoTheme;
@@ -48,16 +49,18 @@ public abstract class EntityMultiPicker<T> extends EntityMultiComponent<T> {
 		// window confirm button
 		confirmButton = new MButton(i18n.get("Confirm"), e -> {
 			if (!dataGrid.getSelectedItems().isEmpty()) {
-				setValue(Collections.unmodifiableList(new ArrayList<>(dataGrid.getSelectedItems())));
+				setValue(Collections.unmodifiableList(new ArrayList<>(dataGrid.getSelectedItems())), true);
 			}
 			getWindow().close();
 		})
+		.withIcon(VaadinIcons.CHECK)
 		.withStyleName(ValoTheme.BUTTON_PRIMARY);
 
 		// window cancel button
 		cancelButton = new MButton(i18n.get("Cancel"), e -> {
 			getWindow().close();
-		});
+		})
+		.withIcon(VaadinIcons.CLOSE);
 	}
 
 	@Override

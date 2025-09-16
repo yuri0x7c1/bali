@@ -214,7 +214,7 @@ public abstract class EntityMultiComponent<T> extends CustomField<List<T>> {
 
 
 	protected RemoveHandler<List<T>> initRemoveAllHandler() {
-		return (entities) -> setValue(Collections.emptyList());
+		return (entities) -> setValue(Collections.emptyList(), true);
 	}
 
 	protected RemoveHandler<T> initRemoveHandler() {
@@ -222,7 +222,7 @@ public abstract class EntityMultiComponent<T> extends CustomField<List<T>> {
 			List<T> newValue = new ArrayList<>();
 			newValue.addAll(getValue());
 			newValue.remove(entity);
-			setValue(Collections.unmodifiableList(newValue));
+			setValue(Collections.unmodifiableList(newValue), true);
 		};
 	}
 

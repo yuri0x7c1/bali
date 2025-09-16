@@ -92,7 +92,7 @@ public abstract class EntityPicker<T> extends CustomField<T> {
 
 		// select button
 		selectButton = new MButton()
-			.withIcon(VaadinIcons.ANGLE_DOWN)
+			.withIcon(VaadinIcons.SEARCH)
 			.withListener(e -> {
 				if (getValue() != null) {
 					dataGrid.setSelectedItem(getValue());
@@ -103,24 +103,25 @@ public abstract class EntityPicker<T> extends CustomField<T> {
 
 		// delete button
 		clearButton = new MButton(VaadinIcons.CLOSE, event -> {
-				setValue(null);
+				setValue(null, true);
 		})
 		.withStyleName(ValoTheme.BUTTON_TINY, ValoTheme.BUTTON_BORDERLESS, BaliStyle.BORDERLESS_BUTTON_LIGHT);
 
 		// confirm button
-		confirmButton = new MButton("Confirm")
+		confirmButton = new MButton(i18n.get("Confirm"))
 			.withListener(e -> {
 				dialog.close();
-				setValue(dataGrid.getFirstSelectedItem().orElse(null));
+				setValue(dataGrid.getFirstSelectedItem().orElse(null), true);
 			})
+			.withIcon(VaadinIcons.CHECK)
 			.withStyleName(ValoTheme.BUTTON_PRIMARY);
 
 		// cancel button
-		cancelButton = new MButton("Cancel")
+		cancelButton = new MButton(i18n.get("Cancel"))
 			.withListener(e -> {
 				dialog.close();
 			})
-			.withStyleName(ValoTheme.BUTTON_DANGER);
+			.withIcon(VaadinIcons.CLOSE);
 
 		// set dialog content
 		dialog.setContent(new MVerticalLayout(
