@@ -71,4 +71,18 @@ public class BaliStyle {
 	public static final String ACTION_BUTTON = "action-button";
 
 	public static final int ACTION_BUTTON_WIDTH = 38;
+
+	public static final String CHIP_COMBO_BOX = "bali-chip-combo-box";
+
+	public static final String CHIP_LAYOUT = "chip-layout";
+
+	public static final String CHIP = "chip";
+
+	public static final String CHIP_CLEAR_ALL= "chip-clear-all";
+
+	public static final String CHIP_LABEL = "chip-label";
+
+	public static final String CHIP_BUTTON = "chip-button";
+
+
 }

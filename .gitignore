@@ -27,3 +27,6 @@ target/
 /src/generated/java
 *.log
 .dbeaver
+
+/bali-ui/src/main/resources/VAADIN/.sass-cache
+

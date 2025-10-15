@@ -2,195 +2,165 @@
 .bali-view-container {
   overflow: auto;
   padding-right: 10px;
-  padding-bottom: 10px;
-}
+  padding-bottom: 10px; }
 
 /* form */
 .bali-form {
   width: 100%;
-  padding: 8px;
-}
-.bali-form .v-widget:not(.v-button) {
-  width: 100% !important;
-}
-.bali-form .v-widget:not(.v-button) .v-caption {
-  margin-top: 14px;
-}
-.bali-form .v-widget:not(.v-button) .v-captiontext {
-  font-weight: bold;
-}
-.bali-form .bali-entity-picker {
-  width: 100%;
-}
-.bali-form .bali-entity-picker .v-textfield {
-  width: 80%;
-}
-.bali-form .bali-entity-picker .v-button {
-  width: 20%;
-}
-.bali-form .bali-form-toolbar {
-  padding-top: 20px;
-}
+  padding: 8px; }
+  .bali-form .v-widget:not(.v-button):not(.chip) {
+    width: 100% !important; }
+    .bali-form .v-widget:not(.v-button):not(.chip) .v-caption {
+      margin-top: 14px; }
+    .bali-form .v-widget:not(.v-button):not(.chip) .v-captiontext {
+      font-weight: bold; }
+  .bali-form .bali-entity-picker {
+    width: 100%; }
+    .bali-form .bali-entity-picker .v-textfield {
+      width: 80%; }
+    .bali-form .bali-entity-picker .v-button {
+      width: 20%; }
+  .bali-form .bali-form-toolbar {
+    padding-top: 20px; }
 
 /* topbar */
 .bali-topbar {
   width: 100%;
-  background-color: #404040;
-}
-.bali-topbar .collapse-button {
-  display: inline-block;
-}
-.bali-topbar .collapse-button .v-icon {
-  color: white;
-}
-.bali-topbar .logout-button {
-  display: inline-block;
-  float: right;
-}
-.bali-topbar .logout-button .v-icon {
-  color: white;
-}
-.bali-topbar .user-label {
-  width: auto !important;
-  display: inline-block;
-  float: right;
-  color: white;
-  margin-top: 6px;
-}
+  background-color: #404040; }
+  .bali-topbar .collapse-button {
+    display: inline-block; }
+    .bali-topbar .collapse-button .v-icon {
+      color: white; }
+  .bali-topbar .logout-button {
+    display: inline-block;
+    float: right; }
+    .bali-topbar .logout-button .v-icon {
+      color: white; }
+  .bali-topbar .user-label {
+    width: auto !important;
+    display: inline-block;
+    float: right;
+    color: white;
+    margin-top: 6px; }
 
 /* Other */
 .bali-overflow-auto {
-  overflow: auto;
-}
+  overflow: auto; }
 
 .bali-button-primary-fix {
-  min-width: 0 !important;
-}
+  min-width: 0 !important; }
 
 .bali-common-view {
   overflow: auto !important;
-  padding-bottom: 14px;
-}
+  padding-bottom: 14px; }
 
 .bali-common-search-form .field {
   padding: 11px;
-  margin: 2px;
-}
-.bali-common-search-form .field .label {
-  margin-top: 4px;
-  font-weight: bold;
-}
-.bali-common-search-form .field > .v-widget {
-  margin-left: 3px;
-  margin-right: 3px;
-}
+  margin: 2px; }
+  .bali-common-search-form .field .label {
+    margin-top: 4px;
+    font-weight: bold; }
+  .bali-common-search-form .field > .v-widget {
+    margin-left: 3px;
+    margin-right: 3px; }
 
 .bali-message-panel {
   border: 2px solid;
-  border-radius: 4px;
-}
-.bali-message-panel .message-label {
-  margin-left: 18px;
-}
-.bali-message-panel .close-button {
-  width: 32px;
-  margin-top: 8px;
-  margin-right: 8px;
-  padding: 0;
-}
+  border-radius: 4px; }
+  .bali-message-panel .message-label {
+    margin-left: 18px; }
+  .bali-message-panel .close-button {
+    width: 32px;
+    margin-top: 8px;
+    margin-right: 8px;
+    padding: 0; }
 
 .bali-message-panel-success {
   border-color: #2c9720;
-  background-color: #c8f2c4;
-}
-.bali-message-panel-success .icon-label {
-  color: #13430e;
-}
-.bali-message-panel-success .message-label {
-  color: #13430e;
-}
+  background-color: #c8f2c4; }
+  .bali-message-panel-success .icon-label {
+    color: #13430e; }
+  .bali-message-panel-success .message-label {
+    color: #13430e; }
 
 .bali-message-panel-warning {
   border-color: orange;
-  background-color: #ffedcc;
-}
-.bali-message-panel-warning .icon-label {
-  color: #996300;
-}
-.bali-message-panel-warning .message-label {
-  color: #996300;
-}
+  background-color: #ffedcc; }
+  .bali-message-panel-warning .icon-label {
+    color: #996300; }
+  .bali-message-panel-warning .message-label {
+    color: #996300; }
 
 .bali-message-panel-error {
   border-color: #ed473b;
-  background-color: #fef6f6;
-}
-.bali-message-panel-error .icon-label {
-  color: #b21b10;
-}
-.bali-message-panel-error .message-label {
-  color: #b21b10;
-}
+  background-color: #fef6f6; }
+  .bali-message-panel-error .icon-label {
+    color: #b21b10; }
+  .bali-message-panel-error .message-label {
+    color: #b21b10; }
 
 /* AppLayout */
 app-toolbar {
   background-color: #222222 !important;
   color: #eeeeee !important;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
-}
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3); }
 
 .app-bar-application-content > .v-panel > .v-panel-content {
   padding-left: 12px !important;
-  padding-right: 12px !important;
-}
+  padding-right: 12px !important; }
 
 /* EntityDataGrid */
 .bali-entity-data-grid .action-cell {
   padding-left: 2px !important;
-  padding-right: 2px !important;
-}
-.bali-entity-data-grid .action-cell .action-button {
-  width: 38px;
-  margin-left: 2px;
-  margin-right: 2px;
-}
+  padding-right: 2px !important; }
+  .bali-entity-data-grid .action-cell .action-button {
+    width: 38px;
+    margin-left: 2px;
+    margin-right: 2px; }
 .bali-entity-data-grid .v-grid-cell-focused:before {
-  display: none !important;
-}
+  display: none !important; }
 
 .bali-temporal-range-field .start {
-  margin-right: 2px;
-}
+  margin-right: 2px; }
 .bali-temporal-range-field .end {
-  margin-left: 2px;
-}
+  margin-left: 2px; }
 .bali-temporal-range-field .options {
-  margin-left: 4px;
-}
+  margin-left: 4px; }
 
 .bali-square-button {
-  border-radius: 0 !important;
-}
+  border-radius: 0 !important; }
 
 .bali-borderless-button-light:focus::after {
   box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-}
+  -webkit-box-shadow: none !important; }
 .bali-borderless-button-light:hover {
-  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.1) !important;
-}
+  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.1) !important; }
 
 .bali-borderless-button-dark:focus::after {
   box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-}
+  -webkit-box-shadow: none !important; }
 .bali-borderless-button-dark:hover {
-  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1) !important;
-}
+  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1) !important; }
 
 .bali-entity-multi-picker .v-grid-cell-focused:before {
-  display: none !important;
-}
+  display: none !important; }
+
+.bali-chip-combo-box .chip-layout {
+  padding-top: 2px; }
+.bali-chip-combo-box .chip {
+  margin-top: 2px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  padding-top: 1px;
+  padding-right: 1px;
+  padding-bottom: 1px;
+  padding-left: 6px; }
+  .bali-chip-combo-box .chip .chip-label {
+    line-height: 24px; }
+  .bali-chip-combo-box .chip .chip-button {
+    padding: 0 9px; }
+.bali-chip-combo-box .chip-clear-all {
+  padding-left: 1px; }
 
 /* Extra Small */
 /* Small */

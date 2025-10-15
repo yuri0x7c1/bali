@@ -12,7 +12,7 @@
 	width: 100%;
 	padding: 8px;
 
-	.v-widget:not(.v-button)  {
+	.v-widget:not(.v-button):not(.chip)  {
 		width: 100%! important;
 
 		.v-caption {
@@ -238,6 +238,35 @@ app-toolbar {
 .bali-entity-multi-picker {
 	.v-grid-cell-focused:before {
 		display: none !important;
+	}
+}
+
+.bali-chip-combo-box {
+	.chip-layout {
+		padding-top: 2px;
+	}
+
+	.chip {
+		margin-top: 2px;
+		margin-right: 2px;
+		margin-bottom: 2px;
+
+		padding-top: 1px;
+		padding-right: 1px;
+		padding-bottom: 1px;
+		padding-left: 6px;
+
+		.chip-label {
+			line-height: 24px;
+		}
+
+		.chip-button {
+			padding: 0 9px;
+		}
+	}
+
+	.chip-clear-all {
+		padding-left: 1px;
 	}
 }
 
