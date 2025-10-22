@@ -25,7 +25,9 @@ import org.vaadin.spring.i18n.MessageProvider;
 import org.vaadin.spring.i18n.MessageProviderCacheCleanupExecutor;
 import org.vaadin.spring.i18n.ResourceBundleMessageProvider;
 
+import com.github.yuri0x7c1.bali.ui.i18n.DefaultLocaleProvider;
 import com.github.yuri0x7c1.bali.ui.i18n.I18N;
+import com.github.yuri0x7c1.bali.ui.i18n.LocaleProvider;
 
 /**
  *
@@ -36,8 +38,8 @@ import com.github.yuri0x7c1.bali.ui.i18n.I18N;
 public class I18nConfiguration {
 
     @Bean
-    I18N i18n(ApplicationContext context) {
-        return new I18N(context);
+    I18N i18n(ApplicationContext context, LocaleProvider localeProvider) {
+        return new I18N(context, localeProvider);
     }
 
     @Bean
@@ -59,5 +61,10 @@ public class I18nConfiguration {
     MessageProviderCacheCleanupExecutor messageProviderCacheCleanupExecutor(Environment environment,
         CompositeMessageSource messageSource) {
         return new MessageProviderCacheCleanupExecutor(environment, messageSource);
+    }
+
+    @Bean
+    LocaleProvider localeProvider() {
+    	return new DefaultLocaleProvider();
     }
 }

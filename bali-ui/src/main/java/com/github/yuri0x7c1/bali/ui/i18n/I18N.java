@@ -22,6 +22,7 @@ import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import org.springframework.context.ApplicationContext;
 
@@ -54,10 +55,14 @@ public class I18N extends org.vaadin.spring.i18n.I18N {
 	private final DateTimeFormatter dateFormatter;
 	private final DateTimeFormatter timeFormatter;
 
-	ApplicationContext ctx;
-	public I18N(ApplicationContext ctx) {
+	private final ApplicationContext ctx;
+
+	private final LocaleProvider localeProvider;
+
+	public I18N(ApplicationContext ctx, LocaleProvider localeProvider) {
 		super(ctx);
 		this.ctx = ctx;
+		this.localeProvider = localeProvider;
 
 		dateTimeFormat = ctx.getEnvironment().getProperty(DATETIME_FORMAT_PROPERTY.toLowerCase() + "." + getLocale().getLanguage(),
 				ctx.getEnvironment().getProperty(DATETIME_FORMAT_PROPERTY.toLowerCase(), DEFAULT_DATETIME_FORMAT));
@@ -101,4 +106,9 @@ public class I18N extends org.vaadin.spring.i18n.I18N {
 	public String get(Boolean b) {
 		return get(String.valueOf(b));
 	}
+
+	@Override
+    public Locale getLocale() {
+		return localeProvider.getLocale();
+    }
 }
