@@ -30,3 +30,14 @@ target/
 
 /bali-ui/src/main/resources/VAADIN/.sass-cache
 
+
+/bali-ui-app-layout/src/main/polymer/bower_components/
+/bali-ui-app-layout/src/main/polymer/build/
+/bali-ui-app-layout/build-tools/node/
+/bali-ui-app-layout/build-tools/node_modules/
+/bali-ui-app-layout/src/main/webapp/VAADIN/frontend/bower_components/
+/bali-ui-app-layout/src/main/webapp/VAADIN/frontend/build/
+/bali-ui-app-layout/src/main/webapp/VAADIN/frontend/es5/
+/bali-ui-app-layout/src/main/webapp/VAADIN/frontend/es6/
+/bali-ui-app-layout/target/
+

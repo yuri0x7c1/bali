@@ -58,6 +58,7 @@
 		<module>bali-ui</module>
 		<module>bali-security</module>
 		<module>bali-security-ext</module>
+		<module>bali-ui-app-layout</module>
 	</modules>
 
 	<dependencyManagement>
