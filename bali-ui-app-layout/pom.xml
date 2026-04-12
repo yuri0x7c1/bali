@@ -10,7 +10,6 @@
     <version>1.0.15-SNAPSHOT</version>
   </parent>
 
-    <groupId>com.github.appreciated</groupId>
     <artifactId>bali-ui-app-layout</artifactId>
     <packaging>jar</packaging>
     <name>App Layout Add-on</name>
