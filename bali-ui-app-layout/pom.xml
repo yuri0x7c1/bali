@@ -19,7 +19,6 @@
     </prerequisites>
 
     <properties>
-        <jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
         <!-- ZIP Manifest fields -->
         <Implementation-Version>${project.version}</Implementation-Version>
         <!-- Must not change this because of the Directory -->
@@ -28,33 +27,23 @@
         <Vaadin-License-Title>Apache License 2.0</Vaadin-License-Title>
         <Vaadin-Addon>${project.artifactId}-${project.version}.jar</Vaadin-Addon>
         <!-- Plugins -->
-        <frontend.maven.plugin.version>1.6</frontend.maven.plugin.version>
         <maven.resources.plugin.version>3.0.2</maven.resources.plugin.version>
         <maven.clean.plugin.version>3.0.0</maven.clean.plugin.version>
-
-        <!-- Frontend -->
-        <node.version>v8.11.3</node.version>
-        <yarn.version>v1.7.0</yarn.version>
-        <buildtools.directory>build-tools</buildtools.directory>
-        <frontend.directory>src/main/webapp/VAADIN/frontend</frontend.directory>
         <maven.source.excludeResources>true</maven.source.excludeResources>
     </properties>
 
     <organization>
-        <name>appreciated</name>
-        <url>https://github.com/appreciated</url>
+        <name>yuri0x7c1</name>
+        <url>https://github.com/yuri0x7c1</url>
     </organization>
 
     <scm>
-        <url>git://github.com/appreciated/vaadin-app-layout.git</url>
-        <connection>scm:git:git://github.com/appreciated/vaadin-app-layout</connection>
-        <developerConnection>scm:git:ssh://git@github.com:/appreciated/vaadin-app-layout.git</developerConnection>
-        <tag>App Layout Add-on for Vaadin</tag>
+        <url>https://github.com/yuri0x7c1/bali</url>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/appreciated/vaadin-app-layout/issues</url>
+        <url>https://github.com/yuri0x7c1/bali/issues</url>
     </issueManagement>
 
     <licenses>
@@ -128,15 +117,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${maven.resources.plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.eirslett</groupId>
-                    <artifactId>frontend-maven-plugin</artifactId>
-                    <version>${frontend.maven.plugin.version}</version>
-                    <configuration>
-                        <nodeVersion>${node.version}</nodeVersion>
-                        <yarnVersion>${yarn.version}</yarnVersion>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -214,23 +194,6 @@
                         <phase>install</phase>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- Testing -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-            </plugin>
-            <!-- The Jetty plugin allows us to easily test the development build by -->
-            <!-- running jetty:run on the command line. -->
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.plugin.version}</version>
-                <configuration>
-                    <scanIntervalSeconds>2</scanIntervalSeconds>
-                </configuration>
             </plugin>
         </plugins>
 
