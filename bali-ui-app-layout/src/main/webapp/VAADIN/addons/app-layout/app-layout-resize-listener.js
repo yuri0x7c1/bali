@@ -1,4 +1,4 @@
-window.com_github_appreciated_app_layout_behaviour_listener_AppLayoutResizeListener = function () {
+window.com_github_yuri0x7c1_bali_ui_app_layout_behaviour_listener_AppLayoutResizeListener = function () {
 
     var self = this;
     var limits = [0, 640, 1024]; // 0 - 640 small mobile device | 641 - 1023 tablet | > 1024 desktop or large tablet
