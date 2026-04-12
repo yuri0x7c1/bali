@@ -19,8 +19,8 @@ package com.github.yuri0x7c1.bali.ui;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.spring.security.VaadinSecurity;
 
-import com.github.appreciated.app.layout.builder.CDIAppLayoutBuilder;
-import com.github.appreciated.app.layout.component.button.IconButton;
+import com.github.yuri0x7c1.bali.ui.app.layout.builder.CDIAppLayoutBuilder;
+import com.github.yuri0x7c1.bali.ui.app.layout.component.button.IconButton;
 import com.github.yuri0x7c1.bali.ui.style.BaliStyle;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.navigator.SpringViewProvider;

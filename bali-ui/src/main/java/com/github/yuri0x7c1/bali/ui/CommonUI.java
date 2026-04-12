@@ -22,11 +22,11 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.vaadin.spring.i18n.I18N;
 
-import com.github.appreciated.app.layout.AppLayout;
-import com.github.appreciated.app.layout.behaviour.Behaviour;
-import com.github.appreciated.app.layout.builder.CDIAppLayoutBuilder;
-import com.github.appreciated.app.layout.builder.factories.DefaultSpringNavigationElementInfoProducer;
 import com.github.yuri0x7c1.bali.data.message.CommonMessages;
+import com.github.yuri0x7c1.bali.ui.app.layout.AppLayout;
+import com.github.yuri0x7c1.bali.ui.app.layout.behaviour.Behaviour;
+import com.github.yuri0x7c1.bali.ui.app.layout.builder.CDIAppLayoutBuilder;
+import com.github.yuri0x7c1.bali.ui.app.layout.builder.factories.DefaultSpringNavigationElementInfoProducer;
 import com.github.yuri0x7c1.bali.ui.view.CommonView;
 import com.github.yuri0x7c1.bali.ui.view.ErrorView;
 import com.vaadin.annotations.StyleSheet;
