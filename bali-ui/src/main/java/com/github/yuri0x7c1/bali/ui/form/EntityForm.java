@@ -41,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
  * @param <T>
  */
 @Slf4j
-public class EntityForm<T> extends AbstractForm<T> {
+public abstract class EntityForm<T> extends AbstractForm<T> {
 
 	public static final int DEFAULT_RESPONSIVE_FORM_XS = 12;
 	public static final int DEFAULT_RESPONSIVE_FORM_SM = 6;
@@ -57,16 +57,19 @@ public class EntityForm<T> extends AbstractForm<T> {
 	@Setter
 	private FormActionType actionType;
 
+	@Getter
+	private final ResponsiveLayout layout;
+
 	public EntityForm(Class<T> entityType) {
 		super(entityType);
 		addStyleName(BaliStyle.FORM);
 		setSizeUndefined();
+
+		layout = createLayout();
 	}
 
 	@Override
 	protected Component createContent() {
-		ResponsiveLayout layout = new ResponsiveLayout();
-		EntityForm.setResponsiveLayoutDefaultRules(layout);
 		log.info(this.getClass().getName());
 
 		for (Field field : this.getClass().getDeclaredFields()) {
@@ -87,6 +90,11 @@ public class EntityForm<T> extends AbstractForm<T> {
 		return layout;
 	}
 
+	protected ResponsiveLayout createLayout() {
+		return new ResponsiveLayout().withDefaultRules(DEFAULT_RESPONSIVE_FORM_XS, DEFAULT_RESPONSIVE_FORM_SM,
+				DEFAULT_RESPONSIVE_FORM_MD, DEFAULT_RESPONSIVE_FORM_LG);
+	}
+
 	@Override
 	protected Button createSaveButton() {
 		Button b = super.createSaveButton();
@@ -101,11 +109,6 @@ public class EntityForm<T> extends AbstractForm<T> {
 		return b;
 	}
 
-	public static void setResponsiveLayoutDefaultRules(ResponsiveLayout layout) {
-		layout.setDefaultRules(DEFAULT_RESPONSIVE_FORM_XS, DEFAULT_RESPONSIVE_FORM_SM, DEFAULT_RESPONSIVE_FORM_MD,
-				DEFAULT_RESPONSIVE_FORM_LG);
-	}
-
 	@Override
     protected void adjustSaveButtonState() {
         if (isBound()) {
@@ -117,5 +120,4 @@ public class EntityForm<T> extends AbstractForm<T> {
     protected void adjustResetButtonState() {
     	getResetButton().setEnabled(true);
     }
-
 }
