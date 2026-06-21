@@ -304,8 +304,7 @@ public abstract class EntityDataGrid<T> extends MVerticalLayout {
 
 	public void refresh() {
 		items.clear();
-		Page<T> entityPage = searchProvider.search(PageRequest.of(page, pageSize, sort),
-				searchForm.getModel());
+		Page<T> entityPage = searchProvider.search(PageRequest.of(page, pageSize, sort), getSearchModel());
 		pagination.setTotalCount(entityPage.getTotalElements());
 		if (entityProcessor == null) {
 			items.addAll(entityPage.getContent());
