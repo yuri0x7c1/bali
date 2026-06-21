@@ -77,7 +77,7 @@ public class SearchUtil {
 
 	public static <T> Specification<T> buildSpecification(Class<T> entityType, SearchModel searchModel, SearchSpecProvider<T> specProvider) {
 		if (CollectionUtils.isEmpty(searchModel.getFields()))
-			return null;
+			return Specification.where(null);
 
 		List<Predicate> predicates = new ArrayList<>();
 
