@@ -16,10 +16,13 @@
 
 package com.github.yuri0x7c1.bali.ui.util;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -35,10 +38,12 @@ import com.vaadin.data.provider.GridSortOrder;
 import com.vaadin.data.provider.GridSortOrderBuilder;
 import com.vaadin.data.provider.Query;
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.StreamResource;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.JavaScript;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
@@ -183,5 +188,21 @@ public class UiUtil {
 
 	public static void enableHorizontalSpacing(ResponsiveLayout layout) {
 		layout.iterator().forEachRemaining(c -> ((ResponsiveRow) c).setHorizontalSpacing(true));
+	}
+
+	public static Image createImage(byte[] imageBytes, Supplier<String> imageNameSupplier) {
+		if (ArrayUtils.isNotEmpty(imageBytes)) {
+			try {
+				Image img = new Image(null, new StreamResource(
+						() -> new ByteArrayInputStream(imageBytes),
+						imageNameSupplier.get()
+				));
+				return img;
+			}
+			catch (Exception ex) {
+				throw new RuntimeException(ex);
+			}
+		}
+		return null;
 	}
 }
