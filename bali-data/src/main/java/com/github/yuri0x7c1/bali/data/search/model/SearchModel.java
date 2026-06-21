@@ -48,4 +48,22 @@ public class SearchModel {
 		}
 		fields = newFields;
 	}
+
+	public void addField(String name, SearchFieldOperator operator, Object value) {
+		fields.add(new SearchField(name, operator, value));
+	}
+
+	public void addField(String name, SearchFieldOperator operator, Object[] params, Object value) {
+		fields.add(new SearchField(name, operator, params, value));
+	}
+
+	public SearchModel withField(String name, SearchFieldOperator operator, Object value) {
+		fields.add(new SearchField(name, operator, value));
+		return this;
+	}
+
+	public SearchModel withField(String name, SearchFieldOperator operator, Object[] params, Object value) {
+		fields.add(new SearchField(name, operator, params, value));
+		return this;
+	}
 }
