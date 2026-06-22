@@ -48,11 +48,7 @@ public abstract class EntityListView<T> extends CommonView {
 
     private final Class<T> entityType;
 
-    @Getter
     private final I18N i18n;
-
-	@Getter
-	private XlsxEntityExporter<T> exporter;
 
 	@Getter
 	private final DownloadButton exportButton;
@@ -86,16 +82,14 @@ public abstract class EntityListView<T> extends CommonView {
 
 		addHeaderComponent(createButton);
 
-		exporter = new XlsxEntityExporter<T>(entityType);
-
+		// export button
 		exportButton = new DownloadButton()
-				.setFileNameProvider(() -> entityType.getSimpleName() + "_" + LocalDateTime.now() + "."
-						+ XlsxEntityExporter.XLSX_FILE_EXTENSION)
-				.setCacheTime(0).withCaption(i18n.get("Export")).withIcon(VaadinIcons.DOWNLOAD)
-				.withStyleName(ValoTheme.BUTTON_FRIENDLY).withVisible(false);
-
-		setExportPageProvider(
-				pageable -> getDataGrid().getSearchProvider().search(pageable, getDataGrid().getSearchModel()));
+			.setFileNameProvider(() -> entityType.getSimpleName() + "_" + LocalDateTime.now() + "." + XlsxEntityExporter.XLSX_FILE_EXTENSION)
+			.setCacheTime(0)
+			.withCaption(i18n.get("Export"))
+			.withIcon(VaadinIcons.DOWNLOAD)
+			.withStyleName(ValoTheme.BUTTON_FRIENDLY)
+			.withVisible(false);
 
 		addHeaderComponent(exportButton);
 
@@ -115,20 +109,22 @@ public abstract class EntityListView<T> extends CommonView {
 		exportButton.setVisible(true);
 		exportButton.setWriter(out -> {
         	exportButton.setEnabled(false);
+        	XlsxEntityExporter<T> exporter = new XlsxEntityExporter<T>(
+    			entityType,
+    			getDataGrid().getProperties(),
+    			null,
+    			exportPageProvider,
+    			dataGrid.getSort(),
+    			XlsxEntityExporter.DEFAULT_PAGE_SIZE,
+    			null
+        	);
 
-        	exporter.setProperties(getDataGrid().getProperties());
-    		exporter.setPageProvider(exportPageProvider);
-    		exporter.setSort(dataGrid.getSort());
+            try {
+                out.write(exporter.getByteArray());
 
-			getUI().access(() -> {
-			   try {
-			       out.write(exporter.getByteArray());
-
-			   } catch (Exception ex) {
-			      log.error(ex.getMessage(), ex);
-			   }
-			});
-
+            } catch (Exception ex) {
+               log.error(ex.getMessage(), ex);
+            }
             exportButton.setEnabled(true);
 		});
 	}

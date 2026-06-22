@@ -35,8 +35,8 @@ import org.springframework.data.domain.Sort.Direction;
 
 import com.github.yuri0x7c1.bali.data.entity.EntityProperty;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -46,6 +46,7 @@ import lombok.extern.slf4j.Slf4j;
  * @param <T>
  */
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class XlsxEntityExporter<T> {
 	public static final String XLSX_FILE_EXTENSION = "xlsx";
 	public static final int DEFAULT_EXPORT_PROGRESS_ITERATION_SIZE = 1000;
@@ -64,31 +65,13 @@ public class XlsxEntityExporter<T> {
 		public void onProgress(Float progressInPercents);
 	}
 
-	private final Class<T> entityClass;
-
-	@Getter
-	@Setter
-	private List<EntityProperty<T>> properties;
-
-	@Getter
-	@Setter
-	private List<T> entities;
-
-	@Getter
-	@Setter
-	private PageProvider<T> pageProvider;
-
-	@Getter
-	@Setter
-	private Sort sort;
-
-	@Getter
-	@Setter
-	private Integer pageSize = XlsxEntityExporter.DEFAULT_PAGE_SIZE;
-
-	@Getter
-	@Setter
-	private ProgressListener progressListener;
+	Class<T> entityClass;
+	List<EntityProperty<T>> properties;
+	List<T> entities;
+	PageProvider<T> pageProvider;
+	Sort sort;
+	Integer pageSize;
+	ProgressListener progressListener;
 
 	public XlsxEntityExporter(Class<T> entityType, List<EntityProperty<T>> properties, List<T> entities,
 			PageProvider<T> pageProvider, Direction sortDirection, String sortProperty, Integer pageSize,
@@ -96,14 +79,13 @@ public class XlsxEntityExporter<T> {
 		this(entityType, properties, entities, pageProvider, Sort.by(sortDirection, sortProperty), pageSize, progressListener);
 	}
 
-	public XlsxEntityExporter(Class<T> entityType) {
-		this(entityType, null, null, null, null, XlsxEntityExporter.DEFAULT_PAGE_SIZE, null);
-	}
-
 	public XlsxEntityExporter(Class<T> entityType, List<EntityProperty<T>> properties, List<T> entities,
 			PageProvider<T> pageProvider, Sort sort, Integer pageSize,
 			ProgressListener progressListener) {
 
+		if (entities == null && pageProvider == null) {
+			throw new RuntimeException("List of entities or page provider must be set!");
+		}
 		this.entityClass = entityType;
 		this.properties = properties;
 		this.entities = entities;
